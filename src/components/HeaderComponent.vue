@@ -1,0 +1,232 @@
+<script setup>
+import IconAccaount from './icons/IconAccaount.vue';
+import useRegister from '../store/register.pinia';
+import IconLogOut from './icons/IconLogOut.vue';
+import IconBasket from './icons/IconBasket.vue';
+import IconSetting from './icons/IconSetting.vue';
+import { useRouter } from 'vue-router';
+import IconUser from './icons/IconUser.vue';
+import IconComent from './icons/IconComent.vue';
+import IconRobot from './icons/IconRobot.vue';
+import IconEnter from './icons/IconEnter.vue';
+import { message } from 'ant-design-vue';
+
+const registerstore = useRegister()
+const router = useRouter()
+const handleLogout = () => {
+    message.success("Hisobdan muvaffaqiyatli chiqildi !")
+    setTimeout(() => {
+        localStorage.removeItem("access_token")
+        window.location.reload()
+    }, 700)
+}
+
+function routerProfile() {
+    router.push("/dashboard")
+}
+
+function basketProduct() {
+    router.push("/basketProductView")
+}
+</script>
+
+<template>
+    <header class="shadow-md">
+        <div class="container mx-auto px-6">
+            <nav class="flex justify-between items-center !py-4">
+                <h1 class="logoName text-4xl font-bold">SavdoX</h1>
+
+                <ul class="flex justify-center items-center gap-6">
+                    <li><router-link to=""
+                            class="nav-link text-[16px] !text-white font-medium transition duration-500 hover:!text-[#FFD700]">Samsung</router-link>
+                    </li>
+                    <li><router-link to=""
+                            class="nav-link text-[16px] !text-white font- transition duration-500 hover:!text-[#FFD700]">Iphone</router-link>
+                    </li>
+                    <li><router-link to=""
+                            class="nav-link text-[16px] !text-white font-medium transition duration-500 hover:!text-[#FFD700]">Xiaomi</router-link>
+                    </li>
+                    <li><router-link to=""
+                            class="nav-link text-[16px] !text-white font-medium hover:!text-[#FFD700]">Boshqalar</router-link>
+                    </li>
+                </ul>
+                <a-space size="large" class="flex items-center">
+                    <div @click="basketProduct"
+                        class="basket flex items-center gap-2 !p-[10px] cursor-pointer rounded-2xl hover:bg-[#2A2A2A] transition duration-500">
+                        <icon-basket />
+                        <p class="font-medium text-[18px] text-[white]">Savatcha</p>
+                    </div>
+
+                    <a-dropdown :getPopupContainer="trigger => trigger.parentNode" placement="bottomRight"
+                        :trigger="['click']">
+                        <a class="ant-dropdown-link">
+                            <a-space>
+                                <a-avatar size="large" class="border shadow-sm">
+                                    <template #icon><icon-accaount /></template>
+                                </a-avatar>
+
+                                <p class="text-[16px] font-medium text-white">{{ registerstore.user.surname }} {{
+                                    registerstore.user.name }}</p>
+                            </a-space>
+                        </a>
+
+                        <template #overlay>
+                            <a-menu class="custom-dropdown w-48">
+                                <template v-if="registerstore.user && Object.keys(registerstore.user).length > 0">
+                                    <a-menu-item @click="routerProfile" class="logout-item" key="profil">
+                                        <template #default>
+                                            <div class="flex justify-between items-center w-full">
+                                                Profil
+                                                <icon-user />
+                                            </div>
+                                        </template>
+                                    </a-menu-item>
+                                    <a-menu-item class="logout-item" key="settings">
+                                        <template #default>
+                                            <div class="flex justify-between items-center">
+                                                Sozlamalar
+                                                <icon-setting />
+                                            </div>
+                                        </template>
+                                    </a-menu-item>
+                                    <a-menu-item key="comments">
+                                        <template #default>
+                                            <div class="flex justify-between items-center w-full">
+                                                Kommentariyalar
+                                                <icon-coment class="absolute right-2.5" />
+                                            </div>
+                                        </template>
+                                    </a-menu-item>
+                                    <a-menu-item key="telegramBot">
+                                        <template #default>
+                                            <div class="flex justify-between items-center w-full">
+                                                Bot ulash
+                                                <icon-robot />
+                                            </div>
+                                        </template>
+                                    </a-menu-item>
+                                    <a-menu-divider />
+                                    <a-menu-item key="logout" class="logout-item">
+                                        <a-popconfirm title="Akkauntdan chiqmoqchimisiz?" ok-text="Chiqish"
+                                            cancel-text="Bekor qilish" :overlay-style="{ zIndex: 2000 }"
+                                            @confirm="handleLogout" @click.stop>
+                                            <template #default>
+                                                <div class="flex justify-between items-center w-full">
+                                                    <span>Chiqish</span>
+                                                    <icon-log-out />
+                                                </div>
+                                            </template>
+                                        </a-popconfirm>
+                                    </a-menu-item>
+                                </template>
+                                <template v-else>
+                                    <a-menu-item @click="registerstore.openDrawer" class="logout-item" key="profil">
+                                        <template #default>
+                                            <div class="flex justify-between items-center w-full">
+                                                Ro'yxatdan o'tish
+                                                <icon-enter />
+                                            </div>
+                                        </template>
+                                    </a-menu-item>
+                                </template>
+                            </a-menu>
+                        </template>
+                    </a-dropdown>
+                </a-space>
+            </nav>
+        </div>
+    </header>
+</template>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+header {
+    font-family: 'Poppins', sans-serif;
+    background: #1C1C1C;
+}
+
+.logoName {
+    color: white;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.header-input {
+    max-width: 280px;
+    border-radius: 8px;
+
+    &:focus {
+        border: 1px solid #000435;
+    }
+
+    &:hover {
+        border: 1px solid #000435;
+    }
+}
+
+.logout-item {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logout-item svg {
+    font-size: 18px;
+}
+
+.basket {
+    svg {
+        stroke: white !important;
+    }
+}
+
+.basket:hover {
+    p {
+        color: #FFD700;
+    }
+
+    svg {
+        stroke: #FFD700 !important;
+    }
+}
+
+.ant-popover {
+    z-index: 2000 !important;
+}
+
+::v-deep(.nav-link) {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 4px;
+}
+
+::v-deep(.nav-link::after) {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 1.5px;
+    background: #FFD700;
+    transition: width 0.4s ease;
+    border-radius: 1000px;
+}
+
+::v-deep(.nav-link:hover::after) {
+    width: 100%;
+}
+
+:deep(.custom-dropdown .ant-menu-item) {
+    background-color: #2a2a2a !important;
+    color: #fff !important;
+}
+
+:deep(.custom-dropdown .ant-menu-item:hover) {
+    background-color: #333333 !important;
+}
+
+:deep(.custom-dropdown .ant-menu-item-selected) {
+    background-color: #2f2f2f !important;
+}
+</style>

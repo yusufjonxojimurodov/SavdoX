@@ -1,0 +1,63 @@
+p,
+ul {
+  margin: 0 !important;
+}
+
+.ant-avatar {
+  background-color: #2f2f2f !important;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.ant-avatar:hover {
+  background-color: #e5e7eb;
+}
+
+.ant-menu {
+  border-radius: 8px;
+}
+
+.ant-avatar {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.ant-input,
+.ant-select-selector {
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.ant-btn {
+  color: #e0e0e0;
+  box-shadow: none;
+}
+
+.ant-input::placeholder {
+  color: #b0afaf !important;
+}
+
+.ant-select-selection-placeholder {
+  color: #b0afaf !important;
+}
+
+.ant-select-item-option-active,
+.ant-select-item-option-selected {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  color: #000435 !important;
+}
+
+.ant-btn-primary {
+  background-color: #353434 !important;
+  border-radius: 12px;
+  color: white !important;
+}
+
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  background-color: #3e3e3e !important;
+  color: white !important;
+}
