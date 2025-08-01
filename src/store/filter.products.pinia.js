@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ApiGetSamsung } from "../api/filter.products.api";
 import { message } from "ant-design-vue";
-
+import { ApiGetIphone } from "../api/filter.products.api";
 const useFilterProducts = defineStore("filterProducts", {
   state: () => ({
     samsungProducts: [],
@@ -24,6 +24,20 @@ const useFilterProducts = defineStore("filterProducts", {
         .finally(() => {
             this.loader = true
         })
+    },
+    ApiGetIphone() {
+      this.loader = true
+      ApiGetIphone()
+      .then(({data}) => {
+        this.iphoneProducts = data
+        
+      })
+      .catch((getError) => {
+        const errorMessage = getError.data?.message || "Iphone mahsulotlarini olishda xatolik"
+      })
+      .finally(() => {
+        this.loader = true
+      })
     }
   }
 });

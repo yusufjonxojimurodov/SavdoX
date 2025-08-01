@@ -15,6 +15,11 @@ const routes = [
     path: "/basketProductView",
     name: "BasketProduct",
     component: () => import("../pages/BasketProduct/BasketProductView.vue"),
+  }, 
+  {
+    path: "/basketProductView",
+    name: "BasketProduct",
+    component: () => import("../pages/Iphone/IphonePageView.vue"),
   },
 ];
 
