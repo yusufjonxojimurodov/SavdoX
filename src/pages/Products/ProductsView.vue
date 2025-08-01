@@ -9,6 +9,7 @@ import { watch } from 'vue';
 import { useRoute } from 'vue-router';
 import useProducts from '../../store/products.pinia';
 import useQueryParams from '../../composables/useQueryParams';
+import SamsungProductsComponent from './components/FilterProductsComponents/SamsungProductsComponent.vue';
 
 const { getQueries } = useQueryParams()
 const productStore = useProducts()
@@ -23,12 +24,14 @@ watch(() => route.query, () => {
 </script>
 
 <template>
-    <a-spin :spinning="productStore.loader" class="flex justify-center items-center min-h-screen" size="large" tip="Yuklanmoqda...">
+    <a-spin :spinning="productStore.loader" class="flex justify-center items-center min-h-screen" size="large"
+        tip="Yuklanmoqda...">
         <header-component />
         <product-filter-component />
         <product-component />
         <warning-modal-component />
         <auth-drawer-view />
+        <samsung-products-component />
         <footer-component />
     </a-spin>
 </template>

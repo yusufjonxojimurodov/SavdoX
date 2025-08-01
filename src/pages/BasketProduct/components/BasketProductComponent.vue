@@ -14,7 +14,7 @@ const { basketProducts } = storeToRefs(productStore)
 const quantities = ref({})
 const selectedCards = ref([])
 const isFooterVisible = ref(false);
-let observer = null; // <-- tashqarida e’lon qilamiz
+let observer = null;
 
 const totalPrice = computed(() => {
     return basketProducts.value
@@ -87,7 +87,6 @@ onUnmounted(() => {
 
 <template>
     <div class="container flex flex-col lg:flex-row gap-[30px] !mt-[100px]">
-        <!-- PRODUCT LIST -->
         <div class="flex-1 flex flex-col gap-[40px]">
             <template v-if="basketProducts.length > 0">
                 <div v-for="basketProduct in basketProducts" :key="basketProduct._id"
@@ -120,7 +119,7 @@ onUnmounted(() => {
                             </p>
                         </div>
                         <QuantitiyComponent @click.stop v-model="quantities[basketProduct._id]"
-                            :model-value="basketProduct.quantity" />
+                            :model-value="basketProduct.quantity" :max="basketProduct.product.left" />
                     </div>
                 </div>
             </template>
@@ -129,7 +128,6 @@ onUnmounted(() => {
             </template>
         </div>
 
-        <!-- SIDEBAR -->
         <div v-show="!isFooterVisible" class="bg-[#1E1E1E] !p-[15px] rounded-t-[20px] lg:rounded-[20px] shadow-lg flex flex-col gap-3 
              fixed bottom-0 left-0 w-full z-50 
              lg:w-[300px] lg:gap-4 lg:p-[20px] lg:h-fit lg:sticky lg:top-10 transition-all duration-300">
