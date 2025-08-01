@@ -1,4 +1,5 @@
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import useRegister from '../../store/register.pinia'
 import RegisterFormComponent from './components/RegisterFormComponent.vue'
@@ -6,11 +7,26 @@ import LoginComponent from './components/LoginComponent.vue'
 
 const registerStore = useRegister()
 const { drawerOpen, drawerMode } = storeToRefs(registerStore)
+
+const drawerWidth = ref(800) // default desktop
+
+function updateDrawerWidth() {
+    drawerWidth.value = window.innerWidth < 768 ? '100%' : 800
+}
+
+onMounted(() => {
+    updateDrawerWidth()
+    window.addEventListener('resize', updateDrawerWidth)
+})
+
+onUnmounted(() => {
+    window.removeEventListener('resize', updateDrawerWidth)
+})
 </script>
 
 <template>
     <a-drawer v-model:open="drawerOpen" :title="drawerMode === 'register' ? `Ro'yxatdan o'tish` : `Tizimga kirish`"
-        placement="right" width="800" :body-style="{ backgroundColor: '#1C1C1C', color: '#fff' }"
+        placement="right" :width="drawerWidth" :body-style="{ backgroundColor: '#1C1C1C', color: '#fff' }"
         :header-style="{ backgroundColor: '#1C1C1C', color: '#fff', borderBottom: 'none' }">
         <component :is="drawerMode === 'register' ? RegisterFormComponent : LoginComponent" />
     </a-drawer>
