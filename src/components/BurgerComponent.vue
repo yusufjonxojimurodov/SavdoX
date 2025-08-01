@@ -21,9 +21,11 @@ function basketProduct() {
         body-style="background-color:#1E1E1E; padding:20px;">
         <h2 class="logoName text-3xl mb-6">SavdoX</h2>
         <ul class="flex flex-col gap-4">
-            <li><router-link to="" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
+            <li><router-link to="/samsungPageView"
+                    class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
                     @click="closeDrawer">Samsung</router-link></li>
-            <li><router-link to="" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
+            <li><router-link to="/iphonePageView"
+                    class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
                     @click="closeDrawer">Iphone</router-link></li>
             <li><router-link to="" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
                     @click="closeDrawer">Xiaomi</router-link></li>

@@ -7,13 +7,12 @@ import useRegister from '../../../../store/register.pinia.js';
 import useProducts from '../../../../store/products.pinia.js';
 import IconStar from '../../../../components/icons/IconStar.vue';
 
-// Swiper importlari
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/mousewheel';
 import { Mousewheel } from 'swiper/modules';
 
-const samsungProductsStore = useFilterProducts()
+const XiaomiFilterproductsStore = useFilterProducts()
 const registerStore = useRegister()
 const productsStore = useProducts()
 const { products } = storeToRefs(productsStore)
@@ -37,17 +36,16 @@ async function basket(id) {
 }
 
 onMounted(() => {
-    productsStore.getProducts()
-    samsungProductsStore.getSamsungProducts()
+    XiaomiFilterproductsStore.getXiaomiProducts()
 })
 </script>
 
 <template>
     <div class="container">
-        <template v-if="samsungProductsStore.samsungProducts.length > 0">
+        <template v-if="XiaomiFilterproductsStore.xiaomiProducts.length > 0">
             <swiper :modules="[Mousewheel]" slides-per-view="auto" :space-between="20"
                 :mousewheel="{ forceToAxis: true }" :grab-cursor="true" class="!mt-6">
-                <swiper-slide v-for="product in samsungProductsStore.samsungProducts" :key="product._id"
+                <swiper-slide v-for="product in XiaomiFilterproductsStore.xiaomiProducts" :key="product._id"
                     class="!w-[300px]">
                     <div class="product transition duration-500 bg-[#1E1E1E]
                         w-full

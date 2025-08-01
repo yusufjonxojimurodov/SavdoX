@@ -34,14 +34,12 @@ function changeFilter(value) {
 <template>
     <div class="container flex justify-between items-center !mt-[25px] flex-wrap">
         <h2 class="text-[32px] font-semibold text-[#EAEAEA]">Barcha Mahsulotlar</h2>
-
         <a-space class="flex-wrap">
             <a-input v-model:value="searchProductValue" @input="searchProduct" size="large" class="responsive-input"
                 placeholder="Mahsulot Nomini yozing" />
             <a-select v-model:value="selectValue" @change="changeFilter" class="responsive-select" allow-clear
                 size="large" :options="options" placeholder="Mahsulot narxlarini filterlash" />
         </a-space>
-
     </div>
 </template>
 

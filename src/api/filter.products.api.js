@@ -9,7 +9,7 @@ export function ApiGetSamsung() {
 
 export function ApiGetIphone() {
     return api({
-        url: "/get/all/products?model=Iphone",
+        url: "/get/all/products?model=iPhone",
         method: "GET"
     })
 }

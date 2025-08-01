@@ -43,10 +43,10 @@ function basketProduct() {
                 <h1 class="logoName text-4xl font-bold">SavdoX</h1>
 
                 <ul class="hidden md:flex justify-center items-center gap-6">
-                    <li><router-link to=""
+                    <li><router-link to="/samsungPageView"
                             class="nav-link text-[16px] !text-white font-medium transition duration-500 hover:!text-[#FFD700]">Samsung</router-link>
                     </li>
-                    <li><router-link to=""
+                    <li><router-link to="/iphonePageView"
                             class="nav-link text-[16px] !text-white font-medium transition duration-500 hover:!text-[#FFD700]">Iphone</router-link>
                     </li>
                     <li><router-link to=""

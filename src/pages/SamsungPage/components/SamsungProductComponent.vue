@@ -1,17 +1,15 @@
 <script setup>
 import { onMounted, reactive } from 'vue';
 import { storeToRefs } from 'pinia';
-import { axiosInstance } from '../../../../utils/api/api.js';
-import useFilterProducts from '../../../../store/filter.products.pinia.js';
-import useRegister from '../../../../store/register.pinia.js';
-import useProducts from '../../../../store/products.pinia.js';
-import IconStar from '../../../../components/icons/IconStar.vue';
-
-// Swiper importlari
+import { axiosInstance } from '../../../utils/api/api.js';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/mousewheel';
 import { Mousewheel } from 'swiper/modules';
+import useProducts from '../../../store/products.pinia.js';
+import IconStar from '../../../components/icons/IconStar.vue';
+import useRegister from '../../../store/register.pinia.js';
+import useFilterProducts from '../../../store/filter.products.pinia.js';
 
 const samsungProductsStore = useFilterProducts()
 const registerStore = useRegister()

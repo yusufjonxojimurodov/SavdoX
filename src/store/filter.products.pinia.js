@@ -1,45 +1,69 @@
 import { defineStore } from "pinia";
-import { ApiGetSamsung } from "../api/filter.products.api";
+import {
+  ApiGetIphone,
+  ApiGetSamsung,
+  ApiGetXiaomi,
+} from "../api/filter.products.api";
 import { message } from "ant-design-vue";
-import { ApiGetIphone } from "../api/filter.products.api";
 const useFilterProducts = defineStore("filterProducts", {
   state: () => ({
     samsungProducts: [],
     xiaomiProducts: [],
     iphoneProducts: [],
-    loader: false
+    loader: false,
   }),
 
   actions: {
     getSamsungProducts() {
-        this.loader = true
-        ApiGetSamsung()
-        .then(({data}) => {
-            this.samsungProducts = data
+      this.loader = true;
+      ApiGetSamsung()
+        .then(({ data }) => {
+          this.samsungProducts = data;
         })
         .catch((getError) => {
-            const errorMessage = getError.data?.response?.message || "Samsung mahsulotlarini olishda xatolik"
-            message.error(errorMessage)
+          const errorMessage =
+            getError.data?.response?.message ||
+            "Samsung mahsulotlarini olishda xatolik";
+          message.error(errorMessage);
         })
         .finally(() => {
-            this.loader = true
-        })
+          this.loader = true;
+        });
     },
-    ApiGetIphone() {
-      this.loader = true
+
+    getIphoneProducts() {
+      this.loader = true;
       ApiGetIphone()
-      .then(({data}) => {
-        this.iphoneProducts = data
-        
-      })
-      .catch((getError) => {
-        const errorMessage = getError.data?.message || "Iphone mahsulotlarini olishda xatolik"
-      })
-      .finally(() => {
-        this.loader = true
-      })
-    }
-  }
+        .then(({ data }) => {
+          this.iphoneProducts = data;
+        })
+        .catch((getError) => {
+          const errorMessage =
+            getError.data?.response?.message ||
+            "Iphone mahsulotlarini olishda xatolik";
+          message.error(errorMessage);
+        })
+        .finally(() => {
+          this.loader = true;
+        });
+    },
+
+    getXiaomiProducts() {
+      this.loader = true;
+      ApiGetXiaomi()
+        .then(({ data }) => {
+          this.xiaomiProducts = data;
+        })
+        .catch((getError) => {
+          const errorMessage =
+            getError.data?.response?.message || "Mahsulot olishda xatolik";
+          message.error(errorMessage);
+        })
+        .finally(() => {
+          this.loader = false;
+        });
+    },
+  },
 });
 
-export default useFilterProducts
+export default useFilterProducts;

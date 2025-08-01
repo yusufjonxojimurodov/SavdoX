@@ -15,11 +15,21 @@ const routes = [
     path: "/basketProductView",
     name: "BasketProduct",
     component: () => import("../pages/BasketProduct/BasketProductView.vue"),
-  }, 
+  },
   {
     path: "/basketProductView",
     name: "BasketProduct",
     component: () => import("../pages/Iphone/IphonePageView.vue"),
+  },
+  {
+    path: "/iphonePageView",
+    name: "IphonePage",
+    component: () => import("../pages/Iphone/IphonePageView.vue"),
+  },
+  {
+    path: "/samsungPageView",
+    name: "SamsungPage",
+    component: () => import("../pages/SamsungPage/SamsungPageView.vue"),
   },
 ];
 
