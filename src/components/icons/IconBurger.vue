@@ -5,17 +5,13 @@
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
         <g id="SVGRepo_iconCarrier">
-            <path d="M4 18H10" stroke="#000000" stroke-width="2" stroke-linecap="round"></path>
-            <path d="M4 12L16 12" stroke="#000000" stroke-width="2" stroke-linecap="round"></path>
-            <path d="M4 6L20 6" stroke="#000000" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M4 18H10" stroke="#ffff" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M4 12L16 12" stroke="#ffff" stroke-width="2" stroke-linecap="round"></path>
+            <path d="M4 6L20 6" stroke="#ffff" stroke-width="2" stroke-linecap="round"></path>
         </g>
     </svg>
 </template>
 
 <style scoped>
-svg {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
+
 </style>

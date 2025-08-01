@@ -36,11 +36,31 @@ function changeFilter(value) {
         <h2 class="text-[32px] font-semibold text-[#EAEAEA]">Barcha Mahsulotlar</h2>
 
         <a-space class="flex-wrap">
-            <a-input v-model:value="searchProductValue" @input="searchProduct" size="large"
+            <a-input v-model:value="searchProductValue" @input="searchProduct" size="large" class="responsive-input"
                 placeholder="Mahsulot Nomini yozing" />
-
-            <a-select v-model:value="selectValue" @change="changeFilter" style="width: 250px;" allow-clear size="large"
-                :options="options" placeholder="Mahsulot narxlarini filterlash" />
+            <a-select v-model:value="selectValue" @change="changeFilter" class="responsive-select" allow-clear
+                size="large" :options="options" placeholder="Mahsulot narxlarini filterlash" />
         </a-space>
+
     </div>
 </template>
+
+<style>
+.responsive-input {
+    width: 300px;
+}
+
+.responsive-select {
+    width: 250px;
+}
+
+@media (max-width: 480px) {
+    .responsive-input {
+        width: 180px !important;
+    }
+
+    .responsive-select {
+        width: 180px !important;
+    }
+}
+</style>

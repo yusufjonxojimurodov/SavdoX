@@ -2,7 +2,10 @@
 export default {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        xs: "450px",
+      },
+    },
   },
-  plugins: [require('daisyui')],
 };

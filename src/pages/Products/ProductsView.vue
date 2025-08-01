@@ -23,10 +23,12 @@ watch(() => route.query, () => {
 </script>
 
 <template>
-    <header-component />
-    <product-filter-component />
-    <product-component />
-    <warning-modal-component />
-    <auth-drawer-view />
-    <footer-component />
+    <a-spin :spinning="productStore.loader" class="flex justify-center items-center min-h-screen" size="large" tip="Yuklanmoqda...">
+        <header-component />
+        <product-filter-component />
+        <product-component />
+        <warning-modal-component />
+        <auth-drawer-view />
+        <footer-component />
+    </a-spin>
 </template>

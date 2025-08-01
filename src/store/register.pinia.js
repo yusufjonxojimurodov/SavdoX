@@ -57,7 +57,7 @@ const useRegister = defineStore("register", {
       this.loaderButton = true;
       try {
         const { data } = await ApiLoginUser(form);
-        localStorage.setItem("access_token", data.token)
+        localStorage.setItem("access_token", data.token);
         message.success("Tizimga Kirish muvaffaqiyatli bajarildi");
         return true;
       } catch (error) {

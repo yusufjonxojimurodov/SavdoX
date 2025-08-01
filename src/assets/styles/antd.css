@@ -68,3 +68,24 @@ ul {
   background-color: #3e3e3e !important;
   color: white !important;
 }
+
+.ant-spin-dot {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.ant-spin-dot-item {
+  background-color: #ffd700 !important; 
+  box-shadow: 0 0 8px #ffd700, 0 0 15px #ffd700 !important;
+}
+
+.ant-spin-text {
+  color: #eaeaea !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  text-shadow: none !important; 
+}
+
+.ant-spin-blur::after {
+  background: rgba(0, 0, 0, 0.6) !important;
+}

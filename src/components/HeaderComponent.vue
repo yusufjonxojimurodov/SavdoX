@@ -12,16 +12,18 @@ import IconEnter from './icons/IconEnter.vue';
 import IconBurger from './icons/IconBurger.vue';
 import BurgerComponent from './BurgerComponent.vue';
 import { message } from 'ant-design-vue';
+import { ref } from 'vue';
 
 const registerstore = useRegister()
 const router = useRouter()
+const open = ref(false) // burger drawer holati
+
 const handleLogout = () => {
     message.success("Hisobdan muvaffaqiyatli chiqildi !")
     setTimeout(() => {
         localStorage.removeItem("access_token")
         window.location.reload()
     }, 700)
-
     router.push("/")
 }
 
@@ -40,12 +42,12 @@ function basketProduct() {
             <nav class="flex justify-between items-center !py-4">
                 <h1 class="logoName text-4xl font-bold">SavdoX</h1>
 
-                <ul class="flex justify-center items-center gap-6">
+                <ul class="hidden md:flex justify-center items-center gap-6">
                     <li><router-link to=""
                             class="nav-link text-[16px] !text-white font-medium transition duration-500 hover:!text-[#FFD700]">Samsung</router-link>
                     </li>
                     <li><router-link to=""
-                            class="nav-link text-[16px] !text-white font- transition duration-500 hover:!text-[#FFD700]">Iphone</router-link>
+                            class="nav-link text-[16px] !text-white font-medium transition duration-500 hover:!text-[#FFD700]">Iphone</router-link>
                     </li>
                     <li><router-link to=""
                             class="nav-link text-[16px] !text-white font-medium transition duration-500 hover:!text-[#FFD700]">Xiaomi</router-link>
@@ -55,13 +57,14 @@ function basketProduct() {
                     </li>
                 </ul>
 
-                <icon-burger />
-                <a-space size="large" class="flex items-center">
+                <icon-burger class="md:hidden text-white w-8 h-8 cursor-pointer" @click="open = true" />
+                <a-space size="large" class="hidden md:flex items-center">
                     <div @click="basketProduct"
-                        class="basket flex items-center gap-2 !p-[10px] cursor-pointer rounded-2xl hover:bg-[#2A2A2A] transition duration-500">
+                        class="basket hidden sm:flex items-center gap-2 !p-[10px] cursor-pointer rounded-2xl hover:bg-[#2A2A2A] transition duration-500">
                         <icon-basket />
                         <p class="font-medium text-[18px] text-[white]">Savatcha</p>
                     </div>
+
 
                     <a-dropdown :getPopupContainer="trigger => trigger.parentNode" placement="bottomRight"
                         :trigger="['click']">
@@ -80,59 +83,47 @@ function basketProduct() {
                             <a-menu class="custom-dropdown w-48">
                                 <template v-if="registerstore.user && Object.keys(registerstore.user).length > 0">
                                     <a-menu-item @click="routerProfile" class="logout-item" key="profil">
-                                        <template #default>
-                                            <div class="flex justify-between items-center w-full">
-                                                Profil
-                                                <icon-user />
-                                            </div>
-                                        </template>
+                                        <div class="flex justify-between items-center w-full">
+                                            Profil
+                                            <icon-user />
+                                        </div>
                                     </a-menu-item>
                                     <a-menu-item class="logout-item" key="settings">
-                                        <template #default>
-                                            <div class="flex justify-between items-center">
-                                                Sozlamalar
-                                                <icon-setting />
-                                            </div>
-                                        </template>
+                                        <div class="flex justify-between items-center">
+                                            Sozlamalar
+                                            <icon-setting />
+                                        </div>
                                     </a-menu-item>
                                     <a-menu-item key="comments">
-                                        <template #default>
-                                            <div class="flex justify-between items-center w-full">
-                                                Kommentariyalar
-                                                <icon-coment class="absolute right-2.5" />
-                                            </div>
-                                        </template>
+                                        <div class="flex justify-between items-center w-full">
+                                            Kommentariyalar
+                                            <icon-coment class="absolute right-2.5" />
+                                        </div>
                                     </a-menu-item>
                                     <a-menu-item key="telegramBot">
-                                        <template #default>
-                                            <div class="flex justify-between items-center w-full">
-                                                Bot ulash
-                                                <icon-robot />
-                                            </div>
-                                        </template>
+                                        <div class="flex justify-between items-center w-full">
+                                            Bot ulash
+                                            <icon-robot />
+                                        </div>
                                     </a-menu-item>
                                     <a-menu-divider />
                                     <a-menu-item key="logout" class="logout-item">
                                         <a-popconfirm title="Akkauntdan chiqmoqchimisiz?" ok-text="Chiqish"
                                             cancel-text="Bekor qilish" :overlay-style="{ zIndex: 2000 }"
                                             @confirm="handleLogout" @click.stop>
-                                            <template #default>
-                                                <div class="flex justify-between items-center w-full">
-                                                    <span>Chiqish</span>
-                                                    <icon-log-out />
-                                                </div>
-                                            </template>
+                                            <div class="flex justify-between items-center w-full">
+                                                <span>Chiqish</span>
+                                                <icon-log-out />
+                                            </div>
                                         </a-popconfirm>
                                     </a-menu-item>
                                 </template>
                                 <template v-else>
                                     <a-menu-item @click="registerstore.openDrawer" class="logout-item" key="profil">
-                                        <template #default>
-                                            <div class="flex justify-between items-center w-full">
-                                                Ro'yxatdan o'tish
-                                                <icon-enter />
-                                            </div>
-                                        </template>
+                                        <div class="flex justify-between items-center w-full">
+                                            Ro'yxatdan o'tish
+                                            <icon-enter />
+                                        </div>
                                     </a-menu-item>
                                 </template>
                             </a-menu>
@@ -140,7 +131,8 @@ function basketProduct() {
                     </a-dropdown>
                 </a-space>
 
-                <burger-component v-model:open="open"/>
+
+                <burger-component v-model:open="open" />
             </nav>
         </div>
     </header>
@@ -236,5 +228,25 @@ header {
 
 :deep(.custom-dropdown .ant-menu-item-selected) {
     background-color: #2f2f2f !important;
+}
+
+@media (max-width: 800px) {
+    .logoName {
+        display: none !important;
+    }
+}
+
+@media (max-width: 450px) {
+    .xs\:block {
+        display: none !important;
+    }
+
+    .xs\:flex {
+        display: none !important;
+    }
+
+    .logoName {
+        display: none !important;
+    }
 }
 </style>
