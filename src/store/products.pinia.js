@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 import {
   ApiBasketProduct,
   ApiCreateProduct,
+  ApiDeleteProduct,
+  ApiGetBasketProduct,
   ApiGetProducts,
 } from "../api/products.api";
 import { message } from "ant-design-vue";
@@ -39,8 +41,7 @@ const useProducts = defineStore("products", {
         this.products = data;
       } catch (error) {
         const errorMessage =
-          error.response?.data?.message ||
-          "Server bilan bog'liq xatolik";
+          error.response?.data?.message || "Server bilan bog'liq xatolik";
         message.warning(errorMessage);
       } finally {
         this.loader = false;
@@ -61,6 +62,42 @@ const useProducts = defineStore("products", {
       } finally {
         this.loader = false;
       }
+    },
+
+    async basketProductGet() {
+      this.loader = true;
+
+      try {
+        const { data } = await ApiGetBasketProduct();
+        this.basketProducts = data;
+      } catch (errorGet) {
+        const errorMessage =
+          errorGet.data?.response?.message || "Mahsulot topilmadi";
+        message.error(errorMessage);
+      } finally {
+        this.loader = false;
+      }
+    },
+
+    deleteBasketProduct(productIds) {
+      this.loader = true;
+
+      ApiDeleteProduct(productIds)
+        .then(() => {
+          this.basketProducts = this.basketProducts.filter(
+            (item) => !productIds.includes(item._id)
+          );
+          message.success("Mahsulotlar Savatchadan ochirildi");
+        })
+        .catch((errorDelete) => {
+          const errorDeleteMessage =
+            errorDelete.data?.response?.message ||
+            "Mahsulotni savatchadan o'chirib bo'lmadi";
+          message.error(errorDeleteMessage);
+        })
+        .finally(() => {
+          this.loader = false;
+        });
     },
   },
 });

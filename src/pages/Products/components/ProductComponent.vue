@@ -58,7 +58,7 @@ onMounted(() => {
                         </div>
 
                         <a-button :loading="buttonLoaders[product._id]" @click="basket(product._id)" class="w-full"
-                            size="large" type="primary">Savatga</a-button>
+                            size="large" type="primary">Savatga ({{ product.left || "topilmadi" }} ta qoldi)</a-button>
                     </div>
                 </div>
             </div>

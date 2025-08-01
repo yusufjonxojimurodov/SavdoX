@@ -12,6 +12,7 @@ const createProduct = reactive({
     description: "",
     price: "",
     image: "",
+    left: "",
     model: null,
 });
 const fileList = ref([])
@@ -40,7 +41,6 @@ async function createProductDashboard() {
             model: createProduct.model || null,
             image: fileList.value.length ? fileList.value[0].originFileObj : null
         });
-        message.success("Mahsulot yaratildi!");
         emit('update:open', false);
         resetForm();
     } catch (err) {
@@ -60,7 +60,8 @@ function resetForm() {
     createProduct.name = "";
     createProduct.description = "";
     createProduct.price = "";
-    createProduct.model = null;
+    createProduct.left = "",
+        createProduct.model = null;
 }
 </script>
 
@@ -92,8 +93,14 @@ function resetForm() {
                     </a-form-item>
                 </a-col>
                 <a-col :span="12">
-                    <a-form-item name="price" label="Narxi" :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
+                    <a-form-item name="price" label="Mahsulot qoldig'i va narxi"
+                        :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
                         <a-input size="large" v-model:value="createProduct.price" type="number" placeholder="Narxi" />
+                    </a-form-item>
+
+                    <a-form-item name="left" :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
+                        <a-input type="number" v-model:value="createProduct.left" size="large"
+                            placeholder="Nechta qolganini yozing" />
                     </a-form-item>
                 </a-col>
             </a-row>

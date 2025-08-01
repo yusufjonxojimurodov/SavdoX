@@ -9,6 +9,8 @@ import IconUser from './icons/IconUser.vue';
 import IconComent from './icons/IconComent.vue';
 import IconRobot from './icons/IconRobot.vue';
 import IconEnter from './icons/IconEnter.vue';
+import IconBurger from './icons/IconBurger.vue';
+import BurgerComponent from './BurgerComponent.vue';
 import { message } from 'ant-design-vue';
 
 const registerstore = useRegister()
@@ -19,6 +21,8 @@ const handleLogout = () => {
         localStorage.removeItem("access_token")
         window.location.reload()
     }, 700)
+
+    router.push("/")
 }
 
 function routerProfile() {
@@ -50,6 +54,8 @@ function basketProduct() {
                             class="nav-link text-[16px] !text-white font-medium hover:!text-[#FFD700]">Boshqalar</router-link>
                     </li>
                 </ul>
+
+                <icon-burger />
                 <a-space size="large" class="flex items-center">
                     <div @click="basketProduct"
                         class="basket flex items-center gap-2 !p-[10px] cursor-pointer rounded-2xl hover:bg-[#2A2A2A] transition duration-500">
@@ -133,6 +139,8 @@ function basketProduct() {
                         </template>
                     </a-dropdown>
                 </a-space>
+
+                <burger-component v-model:open="open"/>
             </nav>
         </div>
     </header>

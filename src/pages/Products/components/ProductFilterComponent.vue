@@ -32,10 +32,10 @@ function changeFilter(value) {
 </script>
 
 <template>
-    <div class="container flex justify-between items-center !mt-[25px]">
+    <div class="container flex justify-between items-center !mt-[25px] flex-wrap">
         <h2 class="text-[32px] font-semibold text-[#EAEAEA]">Barcha Mahsulotlar</h2>
 
-        <a-space>
+        <a-space class="flex-wrap">
             <a-input v-model:value="searchProductValue" @input="searchProduct" size="large"
                 placeholder="Mahsulot Nomini yozing" />
 

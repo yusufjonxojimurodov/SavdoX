@@ -2,11 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
-    path: "/register",
-    name: "RegisterView",
-    component: () => import("../pages/auth/register/RegisterView.vue"),
-  },
-  {
     path: "/",
     name: "AppView",
     component: () => import("../pages/AppView.vue"),

@@ -6,6 +6,7 @@ export function ApiCreateProduct(form) {
   formData.append("description", form.description);
   formData.append("price", form.price);
   formData.append("model", form.model);
+  formData.append("left", form.left);
   if (form.image) formData.append("image", form.image);
 
   return api({
@@ -35,5 +36,19 @@ export function ApiBasketProduct(productId) {
     url: "/basket/add",
     method: "POST",
     data: productId,
+  });
+}
+
+export function ApiGetBasketProduct() {
+  return api({
+    url: "/basket",
+    method: "GET",
+  });
+}
+
+export function ApiDeleteProduct(productIds) {
+  return api({
+    url: `basket/delete?ids=${productIds.join(",")}`,
+    method: "DELETE",
   });
 }

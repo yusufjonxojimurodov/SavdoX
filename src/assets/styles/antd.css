@@ -32,8 +32,15 @@ ul {
 }
 
 .ant-btn {
-  color: #e0e0e0;
+  color: #e0e0e0 !important;
   box-shadow: none;
+  background-color: #6b0202 !important;
+  border: none;
+}
+
+.ant-btn:hover {
+  color: #e0e0e0 !important;
+  background-color: #470000 !important;
 }
 
 .ant-input::placeholder {
