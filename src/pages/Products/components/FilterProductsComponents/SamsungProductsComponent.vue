@@ -6,8 +6,6 @@ import useFilterProducts from '../../../../store/filter.products.pinia.js';
 import useRegister from '../../../../store/register.pinia.js';
 import useProducts from '../../../../store/products.pinia.js';
 import IconStar from '../../../../components/icons/IconStar.vue';
-
-// Swiper importlari
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/mousewheel';
@@ -16,8 +14,6 @@ import { Mousewheel } from 'swiper/modules';
 const samsungProductsStore = useFilterProducts()
 const registerStore = useRegister()
 const productsStore = useProducts()
-const { products } = storeToRefs(productsStore)
-
 const buttonLoaders = reactive({})
 
 async function basket(id) {
@@ -37,7 +33,6 @@ async function basket(id) {
 }
 
 onMounted(() => {
-    productsStore.getProducts()
     samsungProductsStore.getSamsungProducts()
 })
 </script>

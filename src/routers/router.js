@@ -19,7 +19,7 @@ const routes = [
   {
     path: "/basketProductView",
     name: "BasketProduct",
-    component: () => import("../pages/Iphone/IphonePageView.vue"),
+    component: () => import("../pages/BasketProduct/BasketProductView.vue"),
   },
   {
     path: "/iphonePageView",
@@ -30,6 +30,11 @@ const routes = [
     path: "/samsungPageView",
     name: "SamsungPage",
     component: () => import("../pages/SamsungPage/SamsungPageView.vue"),
+  },
+  {
+    path: "/xiaomiPageView",
+    name: "XiaomiPage",
+    component: () => import("../pages/XiaomiPage/XiaomiPageView.vue"),
   },
 ];
 

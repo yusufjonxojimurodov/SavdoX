@@ -1,13 +1,35 @@
 <script setup>
 import HeaderComponent from '../../components/HeaderComponent.vue';
-import SectionNameComponent from '../../components/SectionNameComponent.vue';
 import SamsungProductComponent from './components/SamsungProductComponent.vue';
+import SamsungFilterComponent from './components/SamsungFilterComponent.vue';
+import useQueryParams from '../../composables/useQueryParams';
+import { watch } from 'vue';
+import { useRoute } from 'vue-router';
+import useFilterProducts from '../../store/filter.products.pinia';
+import FooterComponent from '../../components/FooterComponent.vue';
+import useRegister from '../../store/register.pinia';
+
+const registerStore = useRegister()
+const route = useRoute()
+const { getQueries } = useQueryParams()
+const filterProductStore = useFilterProducts()
+
+watch(() => route.query, () => {
+    registerStore.userInfo()
+    filterProductStore.getSamsungProducts({
+        search: getQueries().search || null,
+        price: getQueries().price || null
+    });
+}, { immediate: true });
+
 </script>
 <template>
-    <header-component />
-    <main>
-        <section-name-component title="Samsung Telefonlari">
+    <a-spin class="flex justify-center items-center min-h-screen" size="large" :spinning="filterProductStore.loader">
+        <header-component />
+        <main>
+            <samsung-filter-component />
             <samsung-product-component />
-        </section-name-component>
-    </main>
+        </main>
+        <footer-component />
+    </a-spin>
 </template>

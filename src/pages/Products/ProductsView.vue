@@ -25,31 +25,28 @@ const sections = [
 
 watch(() => route.query, () => {
     productStore.getProducts({
-        search: getQueries().search || undefined,
-        price: getQueries().price || undefined
+        search: getQueries().search || null,
+        price: getQueries().price || null
     })
 }, { immediate: true })
 </script>
 
 <template>
-    <a-spin :spinning="productStore.loader" class="flex justify-center items-center min-h-screen" size="large"
-        tip="Yuklanmoqda...">
-        <header-component />
-        <main>
-            <div class="container">
-                <product-filter-component />
-                <product-component />
-                <section-name-component title="Samsung Mahsulotlari">
-                    <samsung-products-component />
-                </section-name-component>
-                <section-name-component title="Iphone Mahsulotlari">
-                    <iphone-product-component />
-                </section-name-component>
-                <section-name-component title="Xiaomi Mahsulotlari">
-                    <xiaomi-product-component />
-                </section-name-component>
-            </div>
-        </main>
-        <footer-component />
-    </a-spin>
+    <header-component />
+    <main>
+        <div class="container">
+            <product-filter-component />
+            <product-component />
+            <section-name-component title="Samsung Mahsulotlari">
+                <samsung-products-component />
+            </section-name-component>
+            <section-name-component title="Iphone Mahsulotlari">
+                <iphone-product-component />
+            </section-name-component>
+            <section-name-component title="Xiaomi Mahsulotlari">
+                <xiaomi-product-component />
+            </section-name-component>
+        </div>
+    </main>
+    <footer-component />
 </template>

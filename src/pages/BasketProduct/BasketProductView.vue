@@ -8,11 +8,10 @@ const productStore = useProducts()
 </script>
 
 <template>
-    <a-spin class="flex justify-center items-center min-h-screen" size="large" tip="Yuklanmoqda..."
-        :spinning="productStore.loader">
+    <a-spin class="flex justify-center items-center min-h-screen" size="large" :spinning="productStore.loader">
         <header-component />
         <main>
-            <BasketProductComponent />
+            <basket-product-component />
         </main>
         <footer-component />
     </a-spin>

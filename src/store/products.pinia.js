@@ -33,7 +33,8 @@ const useProducts = defineStore("products", {
       }
     },
 
-    async getProducts({ search = null, price = null }) {
+    async getProducts(params = {}) {
+      const {search = null, price = null} = params
       this.loader = true;
 
       try {

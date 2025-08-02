@@ -8,7 +8,7 @@ const { modalOpen } = storeToRefs(registerStore)
 </script>
 
 <template>
-    <a-modal :open="modalOpen" centered>
+    <a-modal v-model:open="modalOpen" centered>
         <template #title>
             <div class="flex items-center gap-2">
                 <IconWarning class="w-6 h-6 text-yellow-500" />

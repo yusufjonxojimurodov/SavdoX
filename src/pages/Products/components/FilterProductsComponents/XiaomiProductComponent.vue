@@ -6,7 +6,6 @@ import useFilterProducts from '../../../../store/filter.products.pinia.js';
 import useRegister from '../../../../store/register.pinia.js';
 import useProducts from '../../../../store/products.pinia.js';
 import IconStar from '../../../../components/icons/IconStar.vue';
-
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/mousewheel';
@@ -15,7 +14,6 @@ import { Mousewheel } from 'swiper/modules';
 const XiaomiFilterproductsStore = useFilterProducts()
 const registerStore = useRegister()
 const productsStore = useProducts()
-const { products } = storeToRefs(productsStore)
 
 const buttonLoaders = reactive({})
 

@@ -6,9 +6,8 @@ const useRegister = defineStore("register", {
   state: () => ({
     user: "",
     loader: false,
-    modalOpen: false,
-    closeModal: false,
     drawerOpen: false,
+    modalOpen: false,
     loaderButton: false,
     drawerMode: "register",
   }),
@@ -25,7 +24,6 @@ const useRegister = defineStore("register", {
       this.drawerMode = "login";
       this.drawerOpen = true;
     },
-
     openModal() {
       this.modalOpen = true;
     },

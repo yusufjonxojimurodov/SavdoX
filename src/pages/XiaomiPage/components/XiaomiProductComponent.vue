@@ -2,20 +2,14 @@
 import { onMounted, reactive } from 'vue';
 import { storeToRefs } from 'pinia';
 import { axiosInstance } from '../../../utils/api/api.js';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/css';
-import 'swiper/css/mousewheel';
-import { Mousewheel } from 'swiper/modules';
 import useProducts from '../../../store/products.pinia.js';
 import IconStar from '../../../components/icons/IconStar.vue';
 import useRegister from '../../../store/register.pinia.js';
 import useFilterProducts from '../../../store/filter.products.pinia.js';
 
-const samsungProductsStore = useFilterProducts()
+const xiaomiProductsStore = useFilterProducts()
 const registerStore = useRegister()
 const productsStore = useProducts()
-const { products } = storeToRefs(productsStore)
-
 const buttonLoaders = reactive({})
 
 async function basket(id) {
@@ -35,17 +29,15 @@ async function basket(id) {
 }
 
 onMounted(() => {
-    productsStore.getProducts();
-    samsungProductsStore.getSamsungProducts({ search: null, price: null });
+    xiaomiProductsStore.getXiaomiProducts({ search: null, price: null });
 });
-
 </script>
 
 <template>
     <div class="container">
-        <template v-if="samsungProductsStore.samsungProducts.length > 0">
+        <template v-if="xiaomiProductsStore.xiaomiProducts.length > 0">
             <div class="grid gap-4 sm:gap-6 !mt-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                <div v-for="product in samsungProductsStore.samsungProducts" :key="product._id" class="product transition duration-500 bg-[#1E1E1E]
+                <div v-for="product in xiaomiProductsStore.xiaomiProducts" :key="product._id" class="product transition duration-500 bg-[#1E1E1E]
             w-full
             h-auto md:h-[430px]
             cursor-pointer flex flex-col

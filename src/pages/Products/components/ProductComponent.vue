@@ -5,8 +5,6 @@ import { storeToRefs } from 'pinia';
 import { axiosInstance } from '../../../utils/api/api.js';
 import IconStar from '../../../components/icons/IconStar.vue';
 import useRegister from '../../../store/register.pinia';
-
-// Swiper importlari
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/mousewheel';
@@ -35,7 +33,7 @@ async function basket(id) {
 }
 
 onMounted(() => {
-    productsStore.getProducts()
+    productsStore.getProducts({ search: null, price: null })
 })
 </script>
 

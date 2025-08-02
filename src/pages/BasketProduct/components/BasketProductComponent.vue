@@ -7,10 +7,11 @@ import IconStar from '../../../components/icons/IconStar.vue';
 import QuantitiyComponent from '../../../components/QuantitiyComponent.vue';
 import { message } from 'ant-design-vue';
 import IconTrash from '../../../components/icons/IconTrash.vue';
+import useRegister from '../../../store/register.pinia.js';
 
 const productStore = useProducts()
 const { basketProducts } = storeToRefs(productStore)
-
+const registerStore = useRegister()
 const quantities = ref({})
 const selectedCards = ref([])
 const isFooterVisible = ref(false);
@@ -60,6 +61,7 @@ function deleteSelectedProducts() {
 }
 
 onMounted(async () => {
+    registerStore.userInfo()
     await productStore.basketProductGet()
     basketProducts.value.forEach(item => {
         quantities.value[item._id] = item.quantity

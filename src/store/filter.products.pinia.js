@@ -14,26 +14,29 @@ const useFilterProducts = defineStore("filterProducts", {
   }),
 
   actions: {
-    getSamsungProducts() {
+    getSamsungProducts(params = {}) {
+      const { search = null, price = null } = params;
       this.loader = true;
-      ApiGetSamsung()
+
+      ApiGetSamsung(search, price)
         .then(({ data }) => {
           this.samsungProducts = data;
         })
         .catch((getError) => {
           const errorMessage =
-            getError.data?.response?.message ||
+            getError.response?.data?.message ||
             "Samsung mahsulotlarini olishda xatolik";
           message.error(errorMessage);
         })
         .finally(() => {
-          this.loader = true;
+          this.loader = false;
         });
     },
 
-    getIphoneProducts() {
+    getIphoneProducts(params = {}) {
+      const { search = null, price = null } = params;
       this.loader = true;
-      ApiGetIphone()
+      ApiGetIphone(search, price)
         .then(({ data }) => {
           this.iphoneProducts = data;
         })
@@ -44,13 +47,14 @@ const useFilterProducts = defineStore("filterProducts", {
           message.error(errorMessage);
         })
         .finally(() => {
-          this.loader = true;
+          this.loader = false;
         });
     },
 
-    getXiaomiProducts() {
+    getXiaomiProducts(params = {}) {
+      const { search = null, price = null } = params;
       this.loader = true;
-      ApiGetXiaomi()
+      ApiGetXiaomi(search, price)
         .then(({ data }) => {
           this.xiaomiProducts = data;
         })

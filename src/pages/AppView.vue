@@ -10,7 +10,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <a-spin size="large" tip="Yuklanmoqda..." :spinning="registerStore.loader"
+    <a-spin size="large" :spinning="registerStore.loader"
         class="flex justify-center items-center min-h-screen">
         <products-view />
     </a-spin>

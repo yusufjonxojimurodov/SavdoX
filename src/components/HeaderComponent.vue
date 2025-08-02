@@ -49,7 +49,7 @@ function basketProduct() {
                     <li><router-link to="/iphonePageView"
                             class="nav-link text-[16px] !text-white font-medium transition duration-500 hover:!text-[#FFD700]">Iphone</router-link>
                     </li>
-                    <li><router-link to=""
+                    <li><router-link to="/xiaomiPageView"
                             class="nav-link text-[16px] !text-white font-medium transition duration-500 hover:!text-[#FFD700]">Xiaomi</router-link>
                     </li>
                     <li><router-link to=""

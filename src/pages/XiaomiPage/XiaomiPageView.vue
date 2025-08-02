@@ -1,33 +1,34 @@
 <script setup>
-import { watch } from 'vue';
-import IphoneProductComponent from './components/IphoneProductComponent.vue';
 import HeaderComponent from '../../components/HeaderComponent.vue';
-import IphoneFilterComponent from './components/IphoneFilterComponent.vue';
-import FooterComponent from '../../components/FooterComponent.vue';
-import { useRoute } from 'vue-router';
+import XiaomiProductComponent from './components/XiaomiProductComponent.vue';
+import XiaomiFilterComponent from './components/XiaomiFilterComponent.vue';
 import useQueryParams from '../../composables/useQueryParams';
+import { watch } from 'vue';
+import { useRoute } from 'vue-router';
 import useFilterProducts from '../../store/filter.products.pinia';
+import FooterComponent from '../../components/FooterComponent.vue';
 import useRegister from '../../store/register.pinia';
 
-const registerStore = useRegister()
 const route = useRoute()
 const { getQueries } = useQueryParams()
 const filterProductStore = useFilterProducts()
+const registerStore = useRegister()
 
 watch(() => route.query, () => {
     registerStore.userInfo()
-    filterProductStore.getIphoneProducts({
+    filterProductStore.getXiaomiProducts({
         search: getQueries().search || null,
         price: getQueries().price || null
     });
 }, { immediate: true });
+
 </script>
 <template>
     <a-spin class="flex justify-center items-center min-h-screen" size="large" :spinning="filterProductStore.loader">
         <header-component />
         <main>
-            <iphone-filter-component />
-            <IphoneProductComponent />
+            <xiaomi-filter-component />
+            <xiaomi-product-component />
         </main>
         <footer-component />
     </a-spin>
