@@ -1,6 +1,5 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue'
-import IconBasket from './icons/IconBasket.vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -33,12 +32,6 @@ function basketProduct() {
             <li><router-link to="" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
                     @click="closeDrawer">Boshqalar</router-link></li>
         </ul>
-
-        <div @click="basketProduct"
-            class="basket flex items-center gap-2 !p-[10px] cursor-pointer rounded-2xl hover:bg-[#2A2A2A] transition duration-500">
-            <icon-basket />
-            <p class="font-medium text-[18px] text-[white]">Savatcha</p>
-        </div>
     </a-drawer>
 </template>
 
