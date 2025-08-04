@@ -16,7 +16,7 @@ import { ref } from 'vue';
 
 const registerstore = useRegister()
 const router = useRouter()
-const open = ref(false) // burger drawer holati
+const open = ref(false)
 
 const handleLogout = () => {
     message.success("Hisobdan muvaffaqiyatli chiqildi !")
@@ -59,11 +59,14 @@ function basketProduct() {
 
                 <icon-burger class="md:hidden text-white w-8 h-8 cursor-pointer" @click="open = true" />
                 <a-space size="large" class="hidden md:flex items-center">
-                    <div @click="basketProduct"
-                        class="basket hidden sm:flex items-center gap-2 !p-[10px] cursor-pointer rounded-2xl hover:bg-[#2A2A2A] transition duration-500">
-                        <icon-basket />
-                        <p class="font-medium text-[18px] text-[white]">Savatcha</p>
-                    </div>
+                    <a-button type="primary" size="large" :disabled="registerstore.user.length === 0"
+                        @click="basketProduct"
+                        class="basket !font-medium !text-[18px] text-white hidden w-[150px] sm:flex rounded-2xl hover:bg-[#2A2A2A] hover:!text-[#FFD700] transition duration-500">
+                        <div class="flex items-center gap-2 justify-center w-full">
+                            <icon-basket />
+                            Savatcha
+                        </div>
+                    </a-button>
 
 
                     <a-dropdown :getPopupContainer="trigger => trigger.parentNode" placement="bottomRight"
@@ -228,6 +231,11 @@ header {
 
 :deep(.custom-dropdown .ant-menu-item-selected) {
     background-color: #2f2f2f !important;
+}
+
+:deep(.basket[disabled]) {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
 }
 
 @media (max-width: 800px) {

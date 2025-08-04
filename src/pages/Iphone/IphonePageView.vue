@@ -8,6 +8,8 @@ import { useRoute } from 'vue-router';
 import useQueryParams from '../../composables/useQueryParams';
 import useFilterProducts from '../../store/filter.products.pinia';
 import useRegister from '../../store/register.pinia';
+import WarningModalComponent from '../../components/WarningModalComponent.vue';
+import AuthDrawerView from '../auth/AuthDrawerView.vue';
 
 const registerStore = useRegister()
 const route = useRoute()
@@ -29,6 +31,9 @@ watch(() => route.query, () => {
             <iphone-filter-component />
             <IphoneProductComponent />
         </main>
+
         <footer-component />
+        <auth-drawer-view />
+        <warning-modal-component />
     </a-spin>
 </template>

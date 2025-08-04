@@ -2,8 +2,6 @@
 import HeaderComponent from '../../components/HeaderComponent.vue';
 import ProductFilterComponent from './components/ProductFilterComponent.vue';
 import ProductComponent from './components/ProductComponent.vue';
-import WarningModalComponent from '../../components/WarningModalComponent.vue';
-import AuthDrawerView from '../auth/AuthDrawerView.vue';
 import FooterComponent from '../../components/FooterComponent.vue';
 import { watch } from 'vue';
 import { useRoute } from 'vue-router';

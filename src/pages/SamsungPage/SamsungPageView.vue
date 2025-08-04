@@ -8,6 +8,8 @@ import { useRoute } from 'vue-router';
 import useFilterProducts from '../../store/filter.products.pinia';
 import FooterComponent from '../../components/FooterComponent.vue';
 import useRegister from '../../store/register.pinia';
+import WarningModalComponent from '../../components/WarningModalComponent.vue';
+import AuthDrawerView from '../auth/AuthDrawerView.vue';
 
 const registerStore = useRegister()
 const route = useRoute()
@@ -31,5 +33,8 @@ watch(() => route.query, () => {
             <samsung-product-component />
         </main>
         <footer-component />
+
+        <auth-drawer-view />
+        <warning-modal-component />
     </a-spin>
 </template>

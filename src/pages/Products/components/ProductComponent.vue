@@ -19,6 +19,7 @@ const buttonLoaders = reactive({})
 async function basket(id) {
     if (registerStore.user === "") {
         registerStore.openModal()
+        return
     } else {
         buttonLoaders[id] = true
         try {

@@ -2,6 +2,8 @@
 import { onMounted } from 'vue';
 import useRegister from '../store/register.pinia';
 import ProductsView from './Products/ProductsView.vue';
+import WarningModalComponent from '../components/WarningModalComponent.vue';
+import AuthDrawerView from "../pages/auth/AuthDrawerView.vue"
 
 const registerStore = useRegister()
 onMounted(() => {
@@ -10,8 +12,9 @@ onMounted(() => {
 </script>
 
 <template>
-    <a-spin size="large" :spinning="registerStore.loader"
-        class="flex justify-center items-center min-h-screen">
+    <a-spin size="large" :spinning="registerStore.loader" class="flex justify-center items-center min-h-screen">
         <products-view />
+        <auth-drawer-view />
+        <warning-modal-component />
     </a-spin>
 </template>

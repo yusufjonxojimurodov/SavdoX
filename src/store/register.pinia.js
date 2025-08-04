@@ -17,6 +17,7 @@ const useRegister = defineStore("register", {
       this.modalOpen = false;
     },
     openRegister() {
+        console.log('openRegister ishladi');
       this.drawerMode = "register";
       this.drawerOpen = true;
     },

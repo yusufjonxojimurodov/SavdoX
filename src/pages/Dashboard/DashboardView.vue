@@ -6,4 +6,6 @@ import DashboardFilters from './components/DashboardFilters.vue';
 <template>
     <header-component />
     <dashboard-filters />
+
+    <a-empty description="Sahifa tayyorlanmoqda" style="color: white; margin-top: 150px" />
 </template>

@@ -8,7 +8,7 @@ import LoginComponent from './components/LoginComponent.vue'
 const registerStore = useRegister()
 const { drawerOpen, drawerMode } = storeToRefs(registerStore)
 
-const drawerWidth = ref(800) // default desktop
+const drawerWidth = ref(800)
 
 function updateDrawerWidth() {
     drawerWidth.value = window.innerWidth < 768 ? '100%' : 800
