@@ -40,7 +40,7 @@ function handleClose() {
         <div class="!mt-[26px] flex justify-between items-center !p-[16px] border-b border-gray-600">
             <p class=" text-gray-400 text-[24px] max-[450px]:text-[20px] font-semibold">Telefon Raqamingiz</p>
             <p class="text-white text-[24px] max-[450px]:text-[20px] font-semibold">{{ registerStore.user.number || '—'
-                }}</p>
+            }}</p>
         </div>
         <div class="!mt-[26px] flex justify-between items-center !p-[16px] border-b border-gray-600">
             <p class=" text-gray-400 text-[24px] max-[450px]:text-[20px] font-semibold">Yoshingiz</p>
@@ -50,8 +50,12 @@ function handleClose() {
         <div class="!mt-[26px] flex justify-between items-center !p-[16px] border-b border-gray-600">
             <p class=" text-gray-400 text-[24px] max-[450px]:text-[20px] font-semibold">Emailingiz</p>
             <p class="text-white text-[24px] max-[450px]:text-[20px] font-semibold">{{ registerStore.user.email || '—'
-                }}</p>
+            }}</p>
         </div>
-
+        <div class="!mt-[26px] flex justify-between items-center !p-[16px] border-b border-gray-600">
+            <p class=" text-gray-400 text-[24px] max-[450px]:text-[20px] font-semibold">Bozorimizdagi darajangiz</p>
+            <p class="text-white text-[24px] max-[450px]:text-[20px] font-semibold">{{ registerStore.user.role || '—'
+            }}</p>
+        </div>
     </a-modal>
 </template>
