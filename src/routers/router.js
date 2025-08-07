@@ -40,7 +40,7 @@ const routes = [
     path: "/googlePageView",
     name: "GooglePage",
     component: () => import("../pages/Google-Page/GoogleView.vue"),
-  },
+  }
 ];
 
 const router = createRouter({

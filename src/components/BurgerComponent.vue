@@ -13,10 +13,6 @@ const emit = defineEmits(['update:open'])
 function closeDrawer() {
     emit('update:open', false)
 }
-
-function basketProduct() {
-    router.push("/basketProductView")
-}
 </script>
 
 <template>
@@ -39,7 +35,7 @@ function basketProduct() {
                     <icon-xiaomi />
                     Xiaomi
                 </router-link></li>
-            <li><router-link to="" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
+            <li><router-link to="/googlePageView" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
                     @click="closeDrawer">
                     <icon-google />
                     Google
