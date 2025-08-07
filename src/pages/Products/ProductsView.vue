@@ -11,15 +11,11 @@ import SamsungProductsComponent from './components/FilterProductsComponents/Sams
 import SectionNameComponent from '../../components/SectionNameComponent.vue';
 import IphoneProductComponent from './components/FilterProductsComponents/IphoneProductComponent.vue';
 import XiaomiProductComponent from './components/FilterProductsComponents/XiaomiProductComponent.vue';
+import GoogleProductsComponent from './components/FilterProductsComponents/GoogleProductsComponent.vue';
 
 const { getQueries } = useQueryParams()
 const productStore = useProducts()
 const route = useRoute()
-const sections = [
-    { title: "Barcha Mahsulotlar", filter: {} },
-    { title: "Samsung Mahsulotlari", filter: { model: "Samsung" } },
-    { title: "Apple Mahsulotlari", filter: { model: "Apple" } }
-];
 
 watch(() => route.query, () => {
     productStore.getProducts({
@@ -38,11 +34,14 @@ watch(() => route.query, () => {
             <section-name-component title="Samsung Mahsulotlari">
                 <samsung-products-component />
             </section-name-component>
-            <section-name-component title="Iphone Mahsulotlari">
+            <section-name-component title="Apple Mahsulotlari">
                 <iphone-product-component />
             </section-name-component>
             <section-name-component title="Xiaomi Mahsulotlari">
                 <xiaomi-product-component />
+            </section-name-component>
+            <section-name-component title="Google Mahsulotlari">
+                <google-products-component />
             </section-name-component>
         </div>
     </main>

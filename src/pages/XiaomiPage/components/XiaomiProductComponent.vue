@@ -1,7 +1,5 @@
 <script setup>
 import { onMounted, reactive } from 'vue';
-import { storeToRefs } from 'pinia';
-import { axiosInstance } from '../../../utils/api/api.js';
 import useProducts from '../../../store/products.pinia.js';
 import IconStar from '../../../components/icons/IconStar.vue';
 import useRegister from '../../../store/register.pinia.js';
@@ -38,15 +36,15 @@ onMounted(() => {
         <template v-if="xiaomiProductsStore.xiaomiProducts.length > 0">
             <div class="grid gap-4 sm:gap-6 !mt-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 <div v-for="product in xiaomiProductsStore.xiaomiProducts" :key="product._id" class="product transition duration-500 bg-[#1E1E1E]
-            w-full
-            h-auto md:h-[430px]
-            cursor-pointer flex flex-col
-            gap-4 sm:gap-6
-            !p-3 sm:!p-5 md:p-[20px]
-            rounded-[20px] md:rounded-[30px]
-            shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
-                    <img :src="axiosInstance.defaults.baseURL + product.image" alt="Mahsulot rasmi"
-                        class="w-full h-[200px] sm:h-[150px] md:h-[180px] rounded-2xl transition duration-500 object-cover" />
+                w-full
+                h-[430px] sm:h-[500px] md:!w-[300px]
+                cursor-pointer flex flex-col
+                gap-4 sm:gap-6
+                !p-3 sm:!p-5 md:p-[20px]
+                rounded-[20px] md:rounded-[30px]
+                shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
+                    <img :src="product.image" alt="Mahsulot rasmi"
+                        class="w-full h-[240px] rounded-2xl transition duration-500 object-contain" />
                     <div class="flex flex-col w-full gap-2 sm:gap-3">
                         <p class="text-[16px] sm:text-[20px] md:text-[24px] text-[#EAEAEA] font-semibold">
                             {{ product.name }}

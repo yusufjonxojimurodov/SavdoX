@@ -10,7 +10,7 @@ import 'swiper/css';
 import 'swiper/css/mousewheel';
 import { Mousewheel } from 'swiper/modules';
 
-const iphoneFilterproductsStore = useFilterProducts()
+const googleFilterproductsStore = useFilterProducts()
 const registerStore = useRegister()
 const productsStore = useProducts()
 const { products } = storeToRefs(productsStore)
@@ -34,16 +34,16 @@ async function basket(id) {
 }
 
 onMounted(() => {
-    iphoneFilterproductsStore.getIphoneProducts()
+    googleFilterproductsStore.getGoogleProducts()
 })
 </script>
 
 <template>
     <div class="container">
-        <template v-if="iphoneFilterproductsStore.iphoneProducts.length > 0">
+        <template v-if="googleFilterproductsStore.googleProducts.length > 0">
             <swiper :modules="[Mousewheel]" slides-per-view="auto" :space-between="20"
                 :mousewheel="{ forceToAxis: true }" :grab-cursor="true" class="!mt-6">
-                <swiper-slide v-for="product in iphoneFilterproductsStore.iphoneProducts" :key="product._id"
+                <swiper-slide v-for="product in googleFilterproductsStore.googleProducts" :key="product._id"
                     class="!w-[300px]">
                     <div class="product transition duration-500 bg-[#1E1E1E]
                 w-full

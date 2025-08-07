@@ -36,6 +36,11 @@ const routes = [
     name: "XiaomiPage",
     component: () => import("../pages/XiaomiPage/XiaomiPageView.vue"),
   },
+  {
+    path: "/googlePageView",
+    name: "GooglePage",
+    component: () => import("../pages/Google-Page/GoogleView.vue"),
+  },
 ];
 
 const router = createRouter({

@@ -3,6 +3,7 @@ import { defineProps, defineEmits } from 'vue'
 import IconSamsung from './icons/companies/IconSamsung.vue';
 import IconApple from './icons/companies/IconApple.vue';
 import IconXiaomi from './icons/companies/IconXiaomi.vue';
+import IconGoogle from './icons/companies/IconGoogle.vue';
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -39,7 +40,10 @@ function basketProduct() {
                     Xiaomi
                 </router-link></li>
             <li><router-link to="" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
-                    @click="closeDrawer">Boshqalar</router-link></li>
+                    @click="closeDrawer">
+                    <icon-google />
+                    Google
+                </router-link></li>
         </ul>
     </a-drawer>
 </template>

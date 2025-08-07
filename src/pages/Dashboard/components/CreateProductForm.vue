@@ -28,8 +28,8 @@ const validateImage = () => {
 const models = [
     { label: 'Samsung', value: 'Samsung' },
     { label: 'Xiaomi', value: 'Xiaomi' },
-    { label: 'iPhone', value: 'iPhone' },
-    { label: 'Huawei', value: 'Huawei' },
+    { label: 'Apple', value: 'Apple' },
+    { label: 'Google', value: 'Google' },
     { label: 'Boshqa', value: 'Other' },
 ]
 
@@ -61,7 +61,7 @@ function resetForm() {
     createProduct.description = "";
     createProduct.price = "";
     createProduct.left = "",
-        createProduct.model = null;
+    createProduct.model = null;
 }
 </script>
 
@@ -106,7 +106,7 @@ function resetForm() {
             </a-row>
 
             <a-form-item name="image" label="Rasm" :rules="[{ validator: validateImage }]">
-                <a-upload v-model:fileList="fileList" :before-upload="() => false" list-type="picture-card"
+                <a-upload accept=".jpg,.png,.webp,.jfif" v-model:fileList="fileList" :before-upload="() => false" list-type="picture-card"
                     :max-count="1">
                     <template v-if="fileList.length === 0">
                         <p>Rasm yuklash</p>

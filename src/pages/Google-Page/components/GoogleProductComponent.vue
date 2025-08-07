@@ -1,15 +1,13 @@
 <script setup>
-import { onMounted, reactive } from 'vue';
-import { storeToRefs } from 'pinia';
-import useProducts from '../../../store/products.pinia.js';
+import { reactive } from 'vue';
 import IconStar from '../../../components/icons/IconStar.vue';
-import useRegister from '../../../store/register.pinia.js';
-import useFilterProducts from '../../../store/filter.products.pinia.js';
+import useFilterProducts from '../../../store/filter.products.pinia';
+import useProducts from '../../../store/products.pinia';
+import useRegister from '../../../store/register.pinia';
 
-const samsungProductsStore = useFilterProducts()
+const GoogleProductsStore = useFilterProducts()
 const registerStore = useRegister()
 const productsStore = useProducts()
-const { products } = storeToRefs(productsStore)
 
 const buttonLoaders = reactive({})
 
@@ -28,19 +26,13 @@ async function basket(id) {
         }
     }
 }
-
-onMounted(() => {
-    productsStore.getProducts();
-    samsungProductsStore.getSamsungProducts({ search: null, price: null });
-});
-
 </script>
 
 <template>
     <div class="container">
-        <template v-if="samsungProductsStore.samsungProducts.length > 0">
+        <template v-if="GoogleProductsStore.googleProducts.length > 0">
             <div class="grid gap-4 sm:gap-6 !mt-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                <div v-for="product in samsungProductsStore.samsungProducts" :key="product._id" class="product transition duration-500 bg-[#1E1E1E]
+                <div v-for="product in GoogleProductsStore.googleProducts" :key="product._id" class="product transition duration-500 bg-[#1E1E1E]
                 w-full
                 h-[430px] sm:h-[500px] md:!w-[300px]
                 cursor-pointer flex flex-col

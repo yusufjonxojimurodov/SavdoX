@@ -1,6 +1,5 @@
 <script setup>
 import { storeToRefs } from 'pinia';
-import { axiosInstance } from '../../../utils/api/api.js';
 import useProducts from '../../../store/products.pinia';
 import { onMounted, ref, computed, onUnmounted } from 'vue';
 import IconStar from '../../../components/icons/IconStar.vue';
@@ -98,8 +97,8 @@ onUnmounted(() => {
                             ? 'bg-[#2E2E2E] border-2 border-[#FFD700]'
                             : 'bg-[#1E1E1E] border-2 border-transparent'
                     ]">
-                    <img :src="axiosInstance.defaults.baseURL + basketProduct.product.image" alt="Mahsulot rasmi"
-                        class="w-full sm:w-[400px] h-[200px] sm:h-[320px] object-cover rounded-2xl transition duration-500" />
+                    <img :src="basketProduct.product.image" alt="Mahsulot rasmi"
+                        class="w-full h-[240px] rounded-2xl transition duration-500 object-contain" />
 
                     <div class="flex justify-center items-start flex-col gap-[20px] w-full sm:w-auto">
                         <p class="text-[20px] sm:text-[24px] text-[#EAEAEA] font-semibold">

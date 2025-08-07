@@ -12,6 +12,7 @@
     import IconSamsung from './icons/companies/IconSamsung.vue';
     import IconApple from './icons/companies/IconApple.vue';
     import IconXiaomi from './icons/companies/IconXiaomi.vue';
+    import IconGoogle from './icons/companies/IconGoogle.vue';
     import BurgerComponent from './BurgerComponent.vue';
     import { useRouter } from 'vue-router';
     import { message } from 'ant-design-vue';
@@ -71,8 +72,11 @@
                                 Xiaomi
                             </router-link>
                         </li>
-                        <li><router-link to=""
-                                class="nav-link text-[16px] !text-white font-medium hover:!text-[#FFD700]">Boshqalar</router-link>
+                        <li><router-link to="/googlePageView"
+                                class="nav-link text-[16px] !text-white font-medium hover:!text-[#FFD700]">
+                                <icon-google />
+                                Google
+                            </router-link>
                         </li>
                     </ul>
 
@@ -101,7 +105,7 @@
                             <template #overlay>
                                 <a-menu class="custom-dropdown w-48">
                                     <template v-if="registerstore.user && Object.keys(registerstore.user).length > 0">
-                                        <a-menu-item @click="openProfileModal" class="logout-item" key="profil">
+                                        <a-menu-item @click="routerProfile" class="logout-item" key="profil">
                                             <div class="flex justify-between items-center w-full">
                                                 Profil
                                                 <icon-user />

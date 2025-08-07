@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import {
+  APiGetGoogle,
   ApiGetIphone,
   ApiGetSamsung,
   ApiGetXiaomi,
@@ -10,6 +11,7 @@ const useFilterProducts = defineStore("filterProducts", {
     samsungProducts: [],
     xiaomiProducts: [],
     iphoneProducts: [],
+    googleProducts: [],
     loader: false,
   }),
 
@@ -61,6 +63,25 @@ const useFilterProducts = defineStore("filterProducts", {
         .catch((getError) => {
           const errorMessage =
             getError.data?.response?.message || "Mahsulot olishda xatolik";
+          message.error(errorMessage);
+        })
+        .finally(() => {
+          this.loader = false;
+        });
+    },
+
+    getGoogleProducts(params = {}) {
+      const { search = null, price = null } = params;
+      this.loader = true;
+
+      APiGetGoogle(search, price)
+        .then(({ data }) => {
+          this.googleProducts = data;
+        })
+        .catch((getError) => {
+          const errorMessage =
+            getError.data?.response?.message ||
+            "Internetingizni tekshirib ko'ring";
           message.error(errorMessage);
         })
         .finally(() => {

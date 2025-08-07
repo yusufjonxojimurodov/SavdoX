@@ -13,7 +13,7 @@ export function ApiGetSamsung(search = null, price) {
 
 export function ApiGetIphone(search = null, price) {
   return api({
-    url: "/get/all/products?model=iPhone",
+    url: "/get/all/products?model=Apple",
     method: "GET",
     params: {
       search,
@@ -33,9 +33,13 @@ export function ApiGetXiaomi(search = null, price) {
   });
 }
 
-export function ApiGetSamsungWatch() {
+export function APiGetGoogle(search = null, price) {
   return api({
-    url: "/get/all/products?type=Watch",
+    url: "/get/all/products?model=Google",
     method: "GET",
+    params: {
+      search,
+      price,
+    },
   });
 }
