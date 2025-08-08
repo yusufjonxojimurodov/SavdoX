@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import useProducts from '../../../store/products.pinia';
 import { storeToRefs } from 'pinia';
 import useRegister from '../../../store/register.pinia';
@@ -38,10 +38,6 @@ async function basket(id) {
         }
     }
 }
-
-onMounted(() => {
-    productsStore.getProducts({ search: null, price: null })
-})
 
 function getProduct(id) {
     productsInfoStore.getProductInfo(id)

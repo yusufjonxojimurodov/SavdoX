@@ -121,8 +121,8 @@ function getProduct(id) {
             </div>
         </a-spin>
 
-        <product-modal-component :open="modalOpen" @update:open="val => modalOpen = val" />
     </section>
+    <product-modal-component :open="modalOpen" @update:open="val => modalOpen = val" />
 </template>
 
 <style>

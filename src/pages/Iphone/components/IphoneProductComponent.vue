@@ -1,14 +1,20 @@
 <script setup>
-import { onMounted, reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import useFilterProducts from '../../../store/filter.products.pinia.js';
-import IconStar from '../../../components/icons/IconStar.vue';
+import IconHappyComponent from '../../../components/icons/reactions/IconHappyComponent.vue';
+import IconSadComponent from '../../../components/icons/reactions/IconSadComponent.vue';
 import useProducts from '../../../store/products.pinia.js';
 import useRegister from '../../../store/register.pinia.js';
+import useComments from '../../../store/comments.pinia.js';
+import useProductInfo from '../../../store/products.info.pinia.js';
 
+const commentsStore = useComments()
+const productsInfoStore = useProductInfo()
 const iphoneFilterproductsStore = useFilterProducts()
 const registerStore = useRegister()
 const productsStore = useProducts()
 
+const openModal = ref(false)
 const buttonLoaders = reactive({})
 
 async function basket(id) {
@@ -27,9 +33,11 @@ async function basket(id) {
   }
 }
 
-onMounted(() => {
-  iphoneFilterproductsStore.getIphoneProducts({ search: null, price: null })
-})
+function getProduct(id) {
+  productsInfoStore.getProductInfo(id)
+  commentsStore.getComments(id)
+  modalOpen.value = true
+}
 </script>
 
 <template>
@@ -37,7 +45,8 @@ onMounted(() => {
     <div class="container">
       <template v-if="iphoneFilterproductsStore.iphoneProducts.length > 0">
         <div class="grid gap-4 sm:gap-6 !mt-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          <div v-for="product in iphoneFilterproductsStore.iphoneProducts" :key="product._id" class="product transition duration-500 bg-[#1E1E1E]
+          <div @click="getProduct(product._id)" v-for="product in iphoneFilterproductsStore.iphoneProducts"
+            :key="product._id" class="product transition duration-500 bg-[#1E1E1E]
                 w-full
                 h-[430px] sm:h-[500px] md:!w-[300px]
                 cursor-pointer flex flex-col
@@ -61,17 +70,22 @@ onMounted(() => {
               </p>
               <div class="flex justify-between items-center w-full">
                 <div class="flex items-center gap-1 sm:gap-2 w-full">
-                  <p class="text-[12px] sm:text-[14px] text-[#FFD700] font-medium">
-                    4.6
+                  <p
+                    class="flex justify-center items-center gap-2  text-[12px] sm:text-[14px] text-[#FFD700] font-medium">
+                    <icon-happy-component class="fill-[#FFD700]" /> {{ product.rating.happy
+                    }}%
                   </p>
-                  <icon-star class="w-3 h-3 sm:w-4 sm:h-4" />
+                  <p class="flex justify-center items-center gap-2 text-[12px] sm:text-[14px] text-red-500 font-medium">
+                    <icon-sad-component class="fill-red-500" />
+                    {{ product.rating.unhappy }}%
+                  </p>
                 </div>
                 <p class="text-[12px] sm:text-[14px] text-[#888] font-medium">
                   {{ product.model }}
                 </p>
               </div>
 
-              <a-button :loading="buttonLoaders[product._id]" @click="basket(product._id)"
+              <a-button :loading="buttonLoaders[product._id]" @click.stop="basket(product._id)"
                 class="w-full !text-[12px] sm:!text-[14px] md:!text-[16px]" size="large" type="primary">
                 Savatga ({{ product.left || "topilmadi" }} ta qoldi)
               </a-button>
@@ -85,6 +99,8 @@ onMounted(() => {
       </template>
     </div>
   </section>
+
+  <product-modal-component :open="modalOpen" @update:open="val => modalOpen = val" />
 </template>
 
 <style>

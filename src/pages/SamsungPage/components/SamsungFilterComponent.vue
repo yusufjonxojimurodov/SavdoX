@@ -33,20 +33,22 @@ function changeFilter(value) {
 </script>
 
 <template>
-    <div class="container flex justify-between items-center !mt-[25px] flex-wrap">
-        <div class="flex justify-center items-center gap-[8px]">
-            <router-link to="/" class="bg-none border-none cursor-pointer">
-                <icon-back />
-            </router-link>
-            <h2 class="!text-[32px] !font-semibold text-[#EAEAEA] !mb-2">Samsung Mahsulotlari</h2>
+    <section>
+        <div class="container flex justify-between items-center !mt-[25px] flex-wrap">
+            <div class="flex justify-center items-center gap-[8px]">
+                <router-link to="/" class="bg-none border-none cursor-pointer">
+                    <icon-back />
+                </router-link>
+                <h2 class="!text-[32px] !font-semibold text-[#EAEAEA] !mb-2">Samsung Mahsulotlari</h2>
+            </div>
+            <a-space class="flex-wrap">
+                <a-input v-model:value="searchProductValue" @input="searchProduct" size="large" class="responsive-input"
+                    placeholder="Mahsulot Nomini yozing" />
+                <a-select v-model:value="selectValue" @change="changeFilter" class="responsive-select" allow-clear
+                    size="large" :options="options" placeholder="Mahsulot narxlarini filterlash" />
+            </a-space>
         </div>
-        <a-space class="flex-wrap">
-            <a-input v-model:value="searchProductValue" @input="searchProduct" size="large" class="responsive-input"
-                placeholder="Mahsulot Nomini yozing" />
-            <a-select v-model:value="selectValue" @change="changeFilter" class="responsive-select" allow-clear
-                size="large" :options="options" placeholder="Mahsulot narxlarini filterlash" />
-        </a-space>
-    </div>
+    </section>
 </template>
 
 <style>
