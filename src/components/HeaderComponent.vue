@@ -105,7 +105,7 @@
                             <template #overlay>
                                 <a-menu class="custom-dropdown w-48">
                                     <template v-if="registerstore.user && Object.keys(registerstore.user).length > 0">
-                                        <a-menu-item @click="routerProfile" class="logout-item" key="profil">
+                                        <a-menu-item @click="openProfileModal" class="logout-item" key="profil">
                                             <div class="flex justify-between items-center w-full">
                                                 Profil
                                                 <icon-user />
