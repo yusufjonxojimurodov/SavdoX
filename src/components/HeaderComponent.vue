@@ -17,11 +17,16 @@
     import { useRouter } from 'vue-router';
     import { message } from 'ant-design-vue';
     import ProfileModalComponent from './ProfileModalComponent.vue';
-    import { ref } from 'vue';
+    import { onMounted, ref } from 'vue';
+    import useSetting from '../store/settings.pinia';
+    import SettingModalComponent from './SettingModalComponent.vue';
+    import IconProduct from './icons/IconProduct.vue';
 
+    const settingStore = useSetting()
     const registerstore = useRegister()
     const router = useRouter()
     const openProfile = ref(false)
+    const openSetting = ref(false)
     const open = ref(false)
 
     const handleLogout = () => {
@@ -41,9 +46,17 @@
         router.push("/basketProductView")
     }
 
+    function openSettings() {
+        openSetting.value = true
+    }
+
     function openProfileModal() {
         openProfile.value = true
     }
+
+    onMounted(() => {
+        settingStore.getUserAvatar()
+    })
 </script>
 
     <template>
@@ -91,13 +104,15 @@
                             </div>
                         </a-button>
 
-
                         <a-dropdown :getPopupContainer="trigger => trigger.parentNode" placement="bottomRight"
                             :trigger="['click']">
-                            <a class="ant-dropdown-link">
+                            <a class="">
                                 <a-space>
-                                    <a-avatar size="large" class="border shadow-sm">
-                                        <template #icon><icon-profile /></template>
+                                    <a-avatar :size="64" style="background-color: none;">
+                                        <template #icon> <img v-if="settingStore.avatar.length > 1"
+                                                :src="settingStore.avatar" alt="avatar">
+                                            <icon-profile v-else />
+                                        </template>
                                     </a-avatar>
                                 </a-space>
                             </a>
@@ -111,22 +126,22 @@
                                                 <icon-user />
                                             </div>
                                         </a-menu-item>
-                                        <a-menu-item class="logout-item" key="settings">
+                                        <a-menu-item @click="openSettings" class="logout-item" key="settings">
                                             <div class="flex justify-between items-center">
                                                 Sozlamalar
                                                 <icon-setting />
                                             </div>
                                         </a-menu-item>
-                                        <a-menu-item key="comments">
+                                        <!-- <a-menu-item key="comments">
                                             <div class="flex justify-between items-center w-full">
                                                 Kommentariyalar
                                                 <icon-coment class="absolute right-2.5" />
                                             </div>
-                                        </a-menu-item>
+                                        </a-menu-item> -->
                                         <a-menu-item key="telegramBot">
                                             <div class="flex justify-between items-center w-full">
-                                                Bot ulash
-                                                <icon-robot />
+                                                Mahsulot Sotish
+                                                <icon-product />
                                             </div>
                                         </a-menu-item>
                                         <a-menu-divider />
@@ -155,6 +170,7 @@
                     </a-space>
 
                     <profile-modal-component v-model:open="openProfile" />
+                    <setting-modal-component v-model:open="openSetting" />
                     <burger-component v-model:open="open" />
                 </nav>
             </div>

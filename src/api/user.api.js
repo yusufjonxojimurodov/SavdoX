@@ -22,3 +22,11 @@ export function ApiGetUserInfo() {
     method: "GET",
   });
 }
+
+export function ApiPutUserInfo(form) {
+  return api({
+    url: "/api/update-profile",
+    method: "PUT",
+    data: form
+  })
+}

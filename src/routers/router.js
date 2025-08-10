@@ -40,7 +40,12 @@ const routes = [
     path: "/googlePageView",
     name: "GooglePage",
     component: () => import("../pages/Google-Page/GoogleView.vue"),
-  }
+  },
+  {
+    path: "/setting",
+    name: "SettingPage",
+    component: () => import("../pages/settings/SettingsView.vue"),
+  },
 ];
 
 const router = createRouter({
