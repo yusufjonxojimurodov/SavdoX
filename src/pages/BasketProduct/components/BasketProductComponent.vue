@@ -7,6 +7,7 @@ import QuantitiyComponent from '../../../components/QuantitiyComponent.vue';
 import { message } from 'ant-design-vue';
 import IconTrash from '../../../components/icons/IconTrash.vue';
 import useRegister from '../../../store/register.pinia.js';
+import IconBack from '../../../components/icons/IconBack.vue';
 
 const productStore = useProducts()
 const { basketProducts } = storeToRefs(productStore)
@@ -66,20 +67,25 @@ onMounted(async () => {
         quantities.value[item._id] = item.quantity
     })
 
-    const footer = document.querySelector("footer");
-    if (!footer) return;
+    if (window.innerWidth <= 460) {
+        const footer = document.querySelector("footer");
+        if (!footer) return;
 
-    observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                isFooterVisible.value = entry.isIntersecting;
-            });
-        },
-        { threshold: 0.1 }
-    );
+        observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    isFooterVisible.value = entry.isIntersecting;
+                });
+            },
+            { threshold: 0.1 }
+        );
 
-    observer.observe(footer);
+        observer.observe(footer);
+    } else {
+        isFooterVisible.value = false;
+    }
 })
+
 
 onUnmounted(() => {
     if (observer) observer.disconnect();
@@ -88,7 +94,8 @@ onUnmounted(() => {
 
 <template>
     <section>
-        <div class="container flex flex-col lg:flex-row gap-[30px] !mt-[100px]">
+        <router-link to="/" class="!text-white text-[24px] !p-[10px] font-semibold flex justify-start items-center gap-2"><icon-back />Bosh Sahifaga</router-link>
+        <div class="container flex flex-col lg:flex-row gap-[30px] !mt-[40px]">
             <div class="flex-1 flex flex-col gap-[40px]">
                 <template v-if="basketProducts.length > 0">
                     <div v-for="basketProduct in basketProducts" :key="basketProduct._id"
