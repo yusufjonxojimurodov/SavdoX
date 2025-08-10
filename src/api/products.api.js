@@ -52,3 +52,4 @@ export function ApiDeleteProduct(productIds) {
     method: "DELETE",
   });
 }
+

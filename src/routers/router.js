@@ -42,9 +42,9 @@ const routes = [
     component: () => import("../pages/Google-Page/GoogleView.vue"),
   },
   {
-    path: "/setting",
-    name: "SettingPage",
-    component: () => import("../pages/settings/SettingsView.vue"),
+    path: "/seller",
+    name: "SellerPage",
+    component: () => import("../pages/seller-page/SellerView.vue"),
   },
 ];
 

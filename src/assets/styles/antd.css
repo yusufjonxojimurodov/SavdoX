@@ -92,14 +92,117 @@ ul {
 }
 
 .ant-picker-input > input {
-  color: #ffffff !important; 
+  color: #ffffff !important;
 }
 
 .ant-picker-input > input::placeholder {
-  color: #bfbfbf !important; 
+  color: #bfbfbf !important;
 }
 
 .ant-picker-suffix,
 .ant-picker-clear {
   color: #8c8c8c !important;
+}
+
+.custom-menu-item {
+  background-color: #2a2a2a !important;
+  color: #eee !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Icon va text rangini o‘zgartirish uchun */
+.custom-menu-item .anticon,
+.custom-menu-item span {
+  color: #eee !important;
+}
+
+/* Hover holati */
+.custom-menu-item:hover {
+  background-color: #121212 !important;
+  color: #fff !important;
+}
+
+.custom-menu-item:hover .anticon,
+.custom-menu-item:hover span {
+  color: #fff !important;
+}
+
+/* Active menu item */
+.ant-menu-item-selected.custom-menu-item {
+  background-color: #121212 !important;
+  color: #fff !important;
+}
+
+.ant-menu-item-selected.custom-menu-item .anticon,
+.ant-menu-item-selected.custom-menu-item span {
+  color: #fff !important;
+}
+
+.ant-pagination {
+  display: flex;
+  justify-content: end;
+  margin-top: 60px !important;
+  user-select: none;
+}
+
+.ant-pagination-item {
+  background-color: #2a2a2a !important;
+  border: none;
+  min-width: 36px;
+  height: 36px;
+  line-height: 36px;
+  font-weight: 600;
+  border-radius: 6px;
+  margin: 0 4px;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+}
+
+.ant-pagination-item:hover {
+  background-color: #121212;
+  color: #ffd700;
+}
+
+.ant-pagination-item-active {
+  background-color: white !important;
+  border: none !important;
+}
+
+.anticon svg {
+  fill: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ant-pagination-item a {
+  color: white !important;
+  font-weight: 700;
+}
+
+.ant-pagination-item-active a {
+  color: black !important;
+  font-weight: 700;
+}
+
+.ant-pagination-prev,
+.ant-pagination-next {
+  background-color: white;
+  border-radius: 6px;
+}
+
+.ant-pagination-prev:hover,
+.ant-pagination-next:hover {
+  background-color: #ffd700;
+}
+
+.ant-pagination-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: white !important;
+}
+
+.ant-pagination-options-quick-jumper,
+.ant-pagination-options-size-changer {
+  display: none !important;
 }

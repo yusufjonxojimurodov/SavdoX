@@ -57,7 +57,11 @@
     }
 
     function routerBot() {
-        window.location.href = "https://t.me/savdo_x_bot"
+        if (registerstore.user.role === "seller") {
+            router.push("/seller")
+        } else {
+            window.location.href = "https://t.me/savdo_x_bot"
+        }
     }
 
     onMounted(() => {
