@@ -9,10 +9,10 @@ const useSetting = defineStore("setting", {
   }),
 
   actions: {
-    postUserAvatar(image) {
+    async postUserAvatar(image) {
       this.avatarLoading = true;
 
-      ApiPostAvatar(image)
+      return ApiPostAvatar(image)
         .then(() => {
           message.success("Avatar Qoyildi");
         })
@@ -24,15 +24,15 @@ const useSetting = defineStore("setting", {
         });
     },
 
-    getUserAvatar() {
+    async getUserAvatar() {
       this.avatarLoading = true;
 
-      ApiGetUserAvatar()
+      return ApiGetUserAvatar()
         .then(({ data }) => {
           this.avatar = data.avatar;
         })
         .catch((error) => {
-          message.error("Profil olishda xato" + error);
+          console.log("Profil olishda xato" + error);
         })
         .finally(() => {
           this.avatarLoading = false;
@@ -41,4 +41,4 @@ const useSetting = defineStore("setting", {
   },
 });
 
-export default useSetting
+export default useSetting;

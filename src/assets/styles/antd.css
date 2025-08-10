@@ -70,7 +70,7 @@ ul {
 }
 
 .ant-spin-dot-item {
-  background-color: #ffd700 !important; 
+  background-color: #ffd700 !important;
   box-shadow: 0 0 8px #ffd700, 0 0 15px #ffd700 !important;
 }
 
@@ -78,9 +78,28 @@ ul {
   color: #eaeaea !important;
   font-size: 16px !important;
   font-weight: 500 !important;
-  text-shadow: none !important; 
+  text-shadow: none !important;
 }
 
 .ant-spin-blur::after {
   background: rgba(0, 0, 0, 0.6) !important;
+}
+
+.ant-picker {
+  background-color: #2a2a2a !important;
+  border-color: #303030 !important;
+  color: white !important;
+}
+
+.ant-picker-input > input {
+  color: #ffffff !important; 
+}
+
+.ant-picker-input > input::placeholder {
+  color: #bfbfbf !important; 
+}
+
+.ant-picker-suffix,
+.ant-picker-clear {
+  color: #8c8c8c !important;
 }

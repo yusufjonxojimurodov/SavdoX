@@ -21,8 +21,10 @@
     import useSetting from '../store/settings.pinia';
     import SettingModalComponent from './SettingModalComponent.vue';
     import IconProduct from './icons/IconProduct.vue';
+    import { storeToRefs } from 'pinia';
 
     const settingStore = useSetting()
+    const { avatar } = storeToRefs(settingStore)
     const registerstore = useRegister()
     const router = useRouter()
     const openProfile = ref(false)
@@ -52,6 +54,10 @@
 
     function openProfileModal() {
         openProfile.value = true
+    }
+
+    function routerBot() {
+        window.location.href = "https://t.me/savdo_x_bot"
     }
 
     onMounted(() => {
@@ -109,8 +115,8 @@
                             <a class="">
                                 <a-space>
                                     <a-avatar :size="64" style="background-color: none;">
-                                        <template #icon> <img v-if="settingStore.avatar.length > 1"
-                                                :src="settingStore.avatar" alt="avatar">
+                                        <template #icon> <img v-if="settingStore.avatar.length > 1" :src="avatar"
+                                                alt="avatar">
                                             <icon-profile v-else />
                                         </template>
                                     </a-avatar>
@@ -132,14 +138,8 @@
                                                 <icon-setting />
                                             </div>
                                         </a-menu-item>
-                                        <!-- <a-menu-item key="comments">
-                                            <div class="flex justify-between items-center w-full">
-                                                Kommentariyalar
-                                                <icon-coment class="absolute right-2.5" />
-                                            </div>
-                                        </a-menu-item> -->
                                         <a-menu-item key="telegramBot">
-                                            <div class="flex justify-between items-center w-full">
+                                            <div @click="routerBot" class="flex justify-between items-center w-full">
                                                 Mahsulot Sotish
                                                 <icon-product />
                                             </div>

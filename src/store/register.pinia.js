@@ -1,5 +1,10 @@
 import { defineStore } from "pinia";
-import { ApiGetUserInfo, ApiLoginUser, ApiPutUserInfo, ApiRegisterUser } from "../api/user.api";
+import {
+  ApiGetUserInfo,
+  ApiLoginUser,
+  ApiPutUserInfo,
+  ApiRegisterUser,
+} from "../api/user.api";
 import { message } from "ant-design-vue";
 
 const useRegister = defineStore("register", {
@@ -17,7 +22,7 @@ const useRegister = defineStore("register", {
       this.modalOpen = false;
     },
     openRegister() {
-        console.log('openRegister ishladi');
+      console.log("openRegister ishladi");
       this.drawerMode = "register";
       this.drawerOpen = true;
     },
@@ -83,20 +88,20 @@ const useRegister = defineStore("register", {
       }
     },
 
-    putUserInfo(form) {
-      this.loaderButton = true
+    async putUserInfo(form) {
+      this.loaderButton = true;
 
-      ApiPutUserInfo(form)
-      .then(() => {
-        message.success("Ma'lumotlar Yangilandi")
-      })
-      .catch((putError) => {
-        message.error(putError)
-      })
-      .finally(() => {
-        this.loaderButton = false
-      })
-    }
+      return ApiPutUserInfo(form)
+        .then(() => {
+          message.success("Ma'lumotlar Yangilandi");
+        })
+        .catch((putError) => {
+          message.error(putError);
+        })
+        .finally(() => {
+          this.loaderButton = false;
+        });
+    },
   },
 });
 

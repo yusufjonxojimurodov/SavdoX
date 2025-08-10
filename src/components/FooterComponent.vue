@@ -49,13 +49,13 @@ import IconYoutube from './icons/IconYoutube.vue';
                     <div class="flex flex-col gap-[10px] items-center md:items-start text-center md:text-left">
                         <h3 class="text-lg font-semibold text-yellow-400 !m-0">Yordam</h3>
                         <ul class="flex flex-col gap-[10px]">
-                            <li><a href="#"
+                            <li><a href="https://t.me/savdo_x_bot"
                                     class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors">Savol-javob</a>
                             </li>
                             <li><a href="#"
                                     class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors">Qaytarish
                                     siyosati</a></li>
-                            <li><a href="#"
+                            <li><a href="https://t.me/savdo_x_bot"
                                     class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors">Bog‘lanish</a>
                             </li>
                         </ul>
