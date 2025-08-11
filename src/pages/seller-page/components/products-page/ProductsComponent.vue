@@ -2,12 +2,16 @@
 import { ref, computed } from 'vue';
 import useMeProduct from '../../../../store/product.me';
 import IconDelete from '../../../../components/icons/IconDelete.vue';
+import useProductInfo from '../../../../store/products.info.pinia';
+import ProductModalComponent from '../../../../components/ProductModalComponent.vue';
 
+const productsInfoStore = useProductInfo()
 const productStore = useMeProduct();
 
 const currentPage = ref(1);
 const pageSize = ref(6);
 const buttonLoaders = ref({});
+const modalOpen = ref(false)
 
 const paginatedProducts = computed(() => {
     const start = (currentPage.value - 1) * pageSize.value;
@@ -20,9 +24,10 @@ function onPageChange(page) {
 }
 
 function getProduct(id) {
-    console.log('Product clicked:', id);
+    productsInfoStore.getProductInfo(id)
+    commentsStore.getComments(id)
+    modalOpen.value = true
 }
-
 async function delProduct(id) {
     await productStore.deleteMeProduct(id)
 
@@ -83,6 +88,8 @@ async function delProduct(id) {
                     <a-empty description="Mahsulotlar topilmadi" style="color: white; margin-top: 150px" />
                 </template>
             </a-spin>
+
+            <product-modal-component :open="modalOpen" @update:open="val => modalOpen = val" />
         </div>
     </section>
 </template>

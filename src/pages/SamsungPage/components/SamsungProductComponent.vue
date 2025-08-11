@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import useProducts from '../../../store/products.pinia.js';
 import IconHappyComponent from '../../../components/icons/reactions/IconHappyComponent.vue';

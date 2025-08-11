@@ -6,6 +6,7 @@ import IconStatistic from '../../../components/icons/IconStatistic.vue';
 import IconReport from '../../../components/icons/IconReport.vue';
 import ProductsView from './products-page/ProductsView.vue';
 import IconBack from '../../../components/icons/IconBack.vue';
+import ProfileComponent from '../../../components/ProfileComponent.vue';
 
 const collapsed = ref(false);
 const selectedKeys = ref(['1']);
@@ -61,10 +62,14 @@ const currentTitle = computed(() => pageTitles[selectedKeys.value[0]] || 'Sahifa
         </a-layout-sider>
 
         <a-layout style="background-color: #121212;">
-            <a-layout-header style="background-color: #121212; padding: 0 16px; display: flex; align-items: center">
-                <span class="!flex justify-center items-center gap-2 text-[32px] !p-[10px] font-bold text-white">
+            <a-layout-header
+                style="background-color: #121212; width: 100%; margin-top: 30px; display: flex; justify-content: space-between; align-items: center; align-items: center">
+
+                <span class="!flex justify-center items-center gap-2 text-[32px] font-bold text-white">
                     <router-link to="/"><icon-back /></router-link> {{ currentTitle }}
                 </span>
+
+                <profile-component />
             </a-layout-header>
 
             <a-layout-content style="margin: 24px 16px; padding: 24px; background: #121212; min-height: 280px">

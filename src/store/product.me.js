@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { message } from "ant-design-vue";
 import { ApiDeleteProductMe, ApiGetProductMe } from "../api/product.me.api";
 
-const useMeProduct = defineStore("product", {
+const useMeProduct = defineStore("meProduct", {
   state: () => ({
     meProduct: [],
     loader: false,
