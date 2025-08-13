@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, h, ref } from 'vue';
 import IconPhoneProduct from '../../../components/icons/IconPhoneProduct.vue';
 import IconRating from '../../../components/icons/IconRating.vue';
 import IconStatistic from '../../../components/icons/IconStatistic.vue';
@@ -7,6 +7,8 @@ import IconReport from '../../../components/icons/IconReport.vue';
 import ProductsView from './products-page/ProductsView.vue';
 import IconBack from '../../../components/icons/IconBack.vue';
 import ProfileComponent from '../../../components/ProfileComponent.vue';
+import IconArrowLeft from '../../../components/icons/IconArrowLeft.vue';
+import IconArrowRight from '../../../components/icons/IconArrowRight.vue';
 
 const collapsed = ref(false);
 const selectedKeys = ref(['1']);
@@ -23,11 +25,17 @@ const currentTitle = computed(() => pageTitles[selectedKeys.value[0]] || 'Sahifa
 <template>
     <a-layout style="min-height: 100vh; background-color: #1e1d1d;">
         <a-layout-sider :style="{ backgroundColor: '#1e1d1d' }" collapsible :collapsed="collapsed"
-            @collapse="val => collapsed = val" width="250">
+            @collapse="val => collapsed = val" width="250" :trigger="collapsed ? h(IconArrowRight) : h(IconArrowLeft)">
             <div class="logo">
-                <span class="text-white text-[24px] font-bold">Savdo X</span>
-                <img width="32" height="32" src="/Savdo X.png" alt="logo" />
+                <template v-if="!collapsed">
+                    <span class="text-white text-[24px] font-bold">Savdo X</span>
+                    <img width="32" height="32" src="/Savdo X.png" alt="logo" />
+                </template>
+                <template v-else>
+                    <img width="32" height="32" src="/Savdo X.png" alt="logo" />
+                </template>
             </div>
+
 
             <a-menu class="!bg-[#1e1d1d]" mode="inline" v-model:selectedKeys="selectedKeys"
                 style="height: 100%; border-right: 0;" :inlineCollapsed="collapsed">
@@ -63,7 +71,7 @@ const currentTitle = computed(() => pageTitles[selectedKeys.value[0]] || 'Sahifa
 
         <a-layout style="background-color: #121212;">
             <a-layout-header
-                style="background-color: #121212; width: 100%; margin-top: 30px; display: flex; justify-content: space-between; align-items: center; align-items: center">
+                style="background-color: #121212; width: 100% !important; margin-top: 30px; display: flex; justify-content: space-between; align-items: center; align-items: center">
 
                 <span class="!flex justify-center items-center gap-2 text-[32px] font-bold text-white">
                     <router-link to="/"><icon-back /></router-link> {{ currentTitle }}
@@ -91,7 +99,6 @@ const currentTitle = computed(() => pageTitles[selectedKeys.value[0]] || 'Sahifa
     gap: 10px;
 }
 
-/* scoped olib tashlandi */
 .ant-layout-sider-children {
     background-color: #1e1d1d !important;
 }
@@ -102,5 +109,28 @@ const currentTitle = computed(() => pageTitles[selectedKeys.value[0]] || 'Sahifa
 
 .ant-layout-sider-trigger {
     background-color: rgb(20, 20, 20) !important;
+}
+
+.ant-menu-inline-collapsed .ant-menu-item svg {
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.ant-menu-inline-collapsed .ant-menu-item {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0 !important;
+}
+
+.ant-layout-sider-trigger {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 40px !important; /* default trigger height */
+  border-top-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
+  padding: 0 !important;
+  background-color: #FFD700 !important;
 }
 </style>

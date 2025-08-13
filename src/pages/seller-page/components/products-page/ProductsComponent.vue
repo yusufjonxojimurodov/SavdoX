@@ -4,7 +4,13 @@ import useMeProduct from '../../../../store/product.me';
 import IconDelete from '../../../../components/icons/IconDelete.vue';
 import useProductInfo from '../../../../store/products.info.pinia';
 import ProductModalComponent from '../../../../components/ProductModalComponent.vue';
+import IconEdit from '../../../../components/icons/IconEdit.vue';
+import ProductEditComponent from './ProductEditComponent.vue';
+import useQueryParams from '../../../../composables/useQueryParams';
+import useComments from '../../../../store/comments.pinia';
 
+const commentsStore = useComments()
+const { setQueries, getQueries } = useQueryParams()
 const productsInfoStore = useProductInfo()
 const productStore = useMeProduct();
 
@@ -12,6 +18,7 @@ const currentPage = ref(1);
 const pageSize = ref(6);
 const buttonLoaders = ref({});
 const modalOpen = ref(false)
+const modalOpenEdit = ref(false)
 
 const paginatedProducts = computed(() => {
     const start = (currentPage.value - 1) * pageSize.value;
@@ -33,6 +40,19 @@ async function delProduct(id) {
 
     productStore.GetMeProduct()
 }
+
+async function openEditForm(id) {
+    try {
+        await productStore.getOneProductInfo(id);
+        setQueries({ productId: id });
+        modalOpenEdit.value = true;
+        console.log(productStore.oneProduct)
+    } catch (err) {
+        console.error("Mahsulot ma'lumotini olishda xatolik:", err);
+    } finally {
+    }
+}
+
 </script>
 
 <template>
@@ -65,14 +85,18 @@ async function delProduct(id) {
                                     <p class="text-[12px] sm:text-[14px] text-[#888] font-medium">
                                         {{ product.model }}
                                     </p>
+
+                                    <p @click.stop="openEditForm(product._id)"
+                                        class="text-[14px] text-white font-semibold flex justify-center items-center gap-2">
+                                        Mahsulotni yangilash <icon-edit /></p>
                                 </div>
 
-                                <a-popconfirm title="Mahsulotni o'chirishni xohlaysizmi?" ok-text="Ha"
-                                    cancel-text="Yo'q" @confirm="() => delProduct(product._id)">
+                                <a-popconfirm :title="`Mahsulot ${product.left} ta qolgan. O'chirishni hohlaysizmi?`"
+                                    ok-text="Ha" cancel-text="Yo'q" @confirm="() => delProduct(product._id)">
                                     <a-button :loading="buttonLoaders[product._id]" @click.stop.prevent
-                                        class="w-full !flex justify-center items-center gap-2 !text-[12px] sm:!text-[14px] md:!text-[16px]"
+                                        class="w-full !font-semibold !text-gray-800 !bg-[#FFD700] !flex justify-center items-center gap-2 !text-[12px] sm:!text-[14px] md:!text-[16px]"
                                         size="large">
-                                        Mahsulotni o'chirish <icon-delete />
+                                        Mahsulotni o'chirish <icon-delete fill="black" />
                                     </a-button>
                                 </a-popconfirm>
 
@@ -90,6 +114,7 @@ async function delProduct(id) {
             </a-spin>
 
             <product-modal-component :open="modalOpen" @update:open="val => modalOpen = val" />
+            <product-edit-component v-model:open="modalOpenEdit" />
         </div>
     </section>
 </template>

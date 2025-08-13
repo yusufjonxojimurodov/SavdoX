@@ -1,27 +1,47 @@
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed, onMounted, watch } from 'vue';
 import { message } from 'ant-design-vue';
 import useProducts from '../../../../store/products.pinia';
 import useMeProduct from '../../../../store/product.me';
-import IconPlus from '../../../../components/icons/IconPlus.vue';
+import useQueryParams from '../../../../composables/useQueryParams';
+import IconUpdate from '../../../../components/icons/IconUpdate.vue';
 
+const { getQueries } = useQueryParams()
 const productMeStore = useMeProduct()
 const productsStore = useProducts()
 const props = defineProps({ open: Boolean });
 const emit = defineEmits(['update:open']);
 
-const createProduct = reactive({
-    name: "",
-    description: "",
-    price: "",
-    image: "",
-    left: "",
-    model: null,
-});
-
 const fileList = ref([])
 const formRef = ref(null)
 const submitLoading = ref(false)
+
+const productId = computed(() => getQueries().productId)
+
+const createProduct = computed({
+    get: () => productMeStore.oneProduct,
+    set: (val) => {
+        Object.assign(productMeStore.oneProduct, val);
+    }
+});
+
+
+watch(
+    () => productMeStore.oneProduct,
+    (val) => {
+        if (val && val.image) {
+            fileList.value = [
+                {
+                    uid: '-1',
+                    name: 'image.png',
+                    status: 'done',
+                    url: val.image,
+                },
+            ];
+        }
+    },
+    { immediate: true }
+);
 
 const validateImage = () => {
     return fileList.value && fileList.value.length > 0
@@ -37,14 +57,18 @@ const models = [
     { label: 'Boshqa', value: 'Other' },
 ]
 
-async function createProductDashboard() {
+async function editProductDashboard() {
     try {
         submitLoading.value = true;
-        await productsStore.createProduct({
-            ...createProduct,
-            model: createProduct.model || null,
+        await productMeStore.editProductMe(productId.value, {
+            name: createProduct.value.name,
+            description: createProduct.value.description,
+            price: createProduct.value.price,
+            left: createProduct.value.left,
+            model: createProduct.value.model,
             image: fileList.value.length ? fileList.value[0].originFileObj : null
         });
+
         emit('update:open', false);
         productMeStore.GetMeProduct()
         resetForm();
@@ -73,7 +97,7 @@ function resetForm() {
 <template>
     <a-modal :get-container="false" @close="cancel" @update:open="emit('update:open', $event)" :open="props.open"
         title="Mahsulot yaratish" footer="">
-        <a-form ref="formRef" @finish="createProductDashboard" :model="createProduct" layout="vertical" class="!mt-10">
+        <a-form ref="formRef" @finish="editProductDashboard" :model="createProduct" layout="vertical" class="!mt-10">
             <a-row :gutter="[16, 16]">
                 <a-col :span="12">
                     <a-form-item name="name" label="Mahsulot Nomi"
@@ -94,7 +118,7 @@ function resetForm() {
                     <a-form-item name="description" label="Mahsulot Haqida"
                         :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
                         <a-textarea class="textArea" v-model:value="createProduct.description" :rows="4" show-count
-                            :maxlength="120" :minlength="80" placeholder="Mahsulot haqida batafsil yozing" />
+                            :minlength="70" :maxlength="130" placeholder="Mahsulot haqida batafsil yozing" />
                     </a-form-item>
                 </a-col>
                 <a-col :span="12">
@@ -122,11 +146,10 @@ function resetForm() {
             <div class="flex justify-end gap-4 mt-6">
                 <a-button size="large" @click="cancel">Bekor qilish</a-button>
                 <a-button type="primary" html-type="submit" size="large" :loading="submitLoading"
-                    class="!bg-gray-700 !flex justify-center items-center gap-2 hover:!bg-gray-900 !border-none">
+                    class="!bg-gray-800 !flex justify-center items-center gap-2 hover:!bg-gray-900 !border-none">
                     <template #icon>
-                        <icon-plus />
-                    </template>
-                    Yaratish
+                        <icon-update />
+                    </template> Yangilash
                 </a-button>
             </div>
         </a-form>

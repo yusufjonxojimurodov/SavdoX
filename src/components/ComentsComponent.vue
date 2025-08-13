@@ -8,7 +8,7 @@ const commentsStore = useComments()
 <template>
     <div v-for="comment in commentsStore.comments" :key="comment._id">
         <div
-            class="flex flex-col gap-2 dark:text-white w-[300px]  md:w-[400px] bg-[#1E1E1E] !p-5 rounded-md !mt-8 shadow-[0_4px_12px_rgba(0,0,0,0.6) ">
+            class="flex flex-col gap-2 !mb-[30px] dark:text-white w-[300px] md:w-[400px] bg-[#1E1E1E] !p-5 rounded-md  shadow-[0_4px_12px_rgba(0,0,0,0.6) ">
             <div class="flex flex-row justify-between w-full">
                 <div class="flex flex-row justify-between w-full">
                     <p class="text-xs">

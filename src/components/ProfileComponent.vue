@@ -1,5 +1,5 @@
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import useSetting from '../store/settings.pinia';
 import ProfileModalComponent from './ProfileModalComponent.vue';
 import SettingModalComponent from './SettingModalComponent.vue';
@@ -11,10 +11,12 @@ import IconProduct from './icons/IconProduct.vue';
 import IconSetting from './icons/IconSetting.vue';
 import IconUser from './icons/IconUser.vue';
 import IconEnter from './icons/IconEnter.vue';
+import IconAdmin from './icons/IconAdmin.vue';
 import { message } from 'ant-design-vue';
 import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
 
+const route = useRoute()
 const settingStore = useSetting()
 const { avatar } = storeToRefs(settingStore)
 const registerstore = useRegister()
@@ -22,6 +24,7 @@ const router = useRouter()
 const openProfile = ref(false)
 const openSetting = ref(false)
 const open = ref(false)
+const getPopupContainer = () => document.body;
 
 const handleLogout = () => {
     message.success("Hisobdan muvaffaqiyatli chiqildi !")
@@ -52,21 +55,25 @@ function routerBot() {
     }
 }
 
+function supportAdmin() {
+    window.location.href = "https://t.me/savdo_x_bot"
+}
+
 onMounted(() => {
     settingStore.getUserAvatar()
 })
 </script>
 
 <template>
-    <a-dropdown :getPopupContainer="trigger => trigger.parentNode" placement="bottomRight" :trigger="['click']">
+    <a-dropdown :getPopupContainer="getPopupContainer" placement="bottomRight" :trigger="['click']"">
         <a class="">
             <a-space>
                 <a-avatar :size="64" style="background-color: none;">
-                    <template #icon> <img v-if="settingStore.avatar.length > 1" :src="avatar" alt="avatar">
-                        <icon-profile v-else />
-                    </template>
-                </a-avatar>
-            </a-space>
+        <template #icon> <img v-if="settingStore.avatar.length > 1" :src="avatar" alt="avatar">
+            <icon-profile v-else />
+        </template>
+        </a-avatar>
+        </a-space>
         </a>
 
         <template #overlay>
@@ -84,10 +91,16 @@ onMounted(() => {
                             <icon-setting />
                         </div>
                     </a-menu-item>
-                    <a-menu-item key="telegramBot">
+                    <a-menu-item v-if="!route.path.includes('/seller')" key="telegramBot">
                         <div @click="routerBot" class="flex justify-between items-center w-full">
-                            Mahsulot Sotish
+                            Mahsulot qo'shish
                             <icon-product />
+                        </div>
+                    </a-menu-item>
+                    <a-menu-item v-if="route.path.includes('/seller')" key="telegramBot">
+                        <div @click="supportAdmin" class="flex justify-between items-center w-full">
+                            Adminga Bog'lanish
+                            <icon-admin />
                         </div>
                     </a-menu-item>
                     <a-menu-divider />

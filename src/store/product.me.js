@@ -1,11 +1,18 @@
 import { defineStore } from "pinia";
 import { message } from "ant-design-vue";
-import { ApiDeleteProductMe, ApiGetProductMe } from "../api/product.me.api";
+import {
+  ApiDeleteProductMe,
+  ApiEditProductMe,
+  ApiGetProductMe,
+  getOneProduct,
+} from "../api/product.me.api";
 
 const useMeProduct = defineStore("meProduct", {
   state: () => ({
     meProduct: [],
+    oneProduct: {},
     loader: false,
+    getLoader: false,
   }),
 
   actions: {
@@ -34,6 +41,32 @@ const useMeProduct = defineStore("meProduct", {
           message.error(deleteError);
         })
         .finally(() => {});
+    },
+    async editProductMe(id, form) {
+      this.loader = true;
+      try {
+        await ApiEditProductMe(id, form);
+        message.success("Mahsulotingiz yangilandi");
+        await this.GetMeProduct();
+      } catch {
+        message.error("Mahsulotingizni yangilashda xatolik");
+      } finally {
+        this.loader = false;
+      }
+    },
+
+    async getOneProductInfo(id) {
+      this.loader = true;
+
+      try {
+        const { data } = await getOneProduct(id);
+        this.oneProduct = data;
+        return data;
+      } catch (error) {
+        message.error(error);
+      } finally {
+        this.loader = false;
+      }
     },
   },
 });
