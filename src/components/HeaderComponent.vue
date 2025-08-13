@@ -8,11 +8,8 @@
     import IconGoogle from './icons/companies/IconGoogle.vue';
     import BurgerComponent from './BurgerComponent.vue';
     import { useRouter } from 'vue-router';
-    import ProfileModalComponent from './ProfileModalComponent.vue';
     import { onMounted, ref } from 'vue';
     import useSetting from '../store/settings.pinia';
-    import SettingModalComponent from './SettingModalComponent.vue';
-    import IconProduct from './icons/IconProduct.vue';
     import { storeToRefs } from 'pinia';
     import ProfileComponent from './ProfileComponent.vue';
 
@@ -20,8 +17,6 @@
     const { avatar } = storeToRefs(settingStore)
     const registerstore = useRegister()
     const router = useRouter()
-    const openProfile = ref(false)
-    const openSetting = ref(false)
     const open = ref(false)
 
     onMounted(() => {
@@ -83,6 +78,8 @@
                 </nav>
             </div>
         </header>
+
+        <burger-component v-model:open="open" />
     </template>
 
 <style scoped>

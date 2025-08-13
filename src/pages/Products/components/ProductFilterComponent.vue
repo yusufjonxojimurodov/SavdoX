@@ -63,4 +63,14 @@ function changeFilter(value) {
         width: 180px !important;
     }
 }
+
+@media (max-width: 400px) {
+    .responsive-input {
+        width: 170px !important;
+    }
+
+    .responsive-select {
+        width: 170px !important;
+    }
+}
 </style>
