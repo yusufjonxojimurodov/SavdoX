@@ -21,6 +21,7 @@ const accaountInfo = reactive({
     surname: userMe.user.surname,
     phone: userMe.user.phone,
     email: userMe.user.email,
+    userName: userMe.user.userName,
     birthDate: userMe.user.birthDate,
 });
 
@@ -58,10 +59,9 @@ function disabledFutureDates(current) {
 }
 
 const beforeUpload = (file) => {
-  fileList.value = [file]; // fileList ni yangilang
-  return false;            // avtomatik yuklashni oldini oladi
+    fileList.value = [file];
+    return false;
 };
-
 
 watch(
     () => userMe.user,
@@ -103,6 +103,12 @@ watch(
             <a-form-item name="email" label="Emailingiz" :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
                 <a-input type="email" v-model:value="accaountInfo.email" size="large"
                     placeholder="Emailingizni kiriting" />
+            </a-form-item>
+
+            <a-form-item name="userName" label="Foydalanuvchi nomingiz"
+                :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
+                <a-input v-model:value="accaountInfo.userName" size="large"
+                    placeholder="Foydalanuvchi nomini kiriting" />
             </a-form-item>
 
             <a-form-item name="birthDate" label="Tug'ilgan sanangiz"
