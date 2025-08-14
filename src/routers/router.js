@@ -41,6 +41,12 @@ const routes = [
     name: "SellerPage",
     component: () => import("../pages/seller-page/SellerView.vue"),
   },
+  {
+    path: "/pending/product",
+    name: "PendingPage",
+    component: () =>
+      import("../pages/pending-products-buyer/PendingProductsView.vue"),
+  },
 ];
 
 const router = createRouter({

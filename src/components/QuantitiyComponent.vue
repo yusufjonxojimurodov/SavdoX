@@ -1,19 +1,24 @@
 <script setup>
 import { ref, watch } from 'vue';
+import useQueryParams from '../composables/useQueryParams';
 
 const props = defineProps({
     modelValue: { type: Number, default: 1 },
-    min: { type: Number, default: 1 }, 
+    min: { type: Number, default: 1 },
     max: { type: Number, default: 99 }
 });
 
+const { setQueries } = useQueryParams()
+
 const emit = defineEmits(['update:modelValue']);
+
 const count = ref(props.modelValue);
 
 function increment() {
     if (count.value < props.max) {
         count.value++;
         emit('update:modelValue', count.value);
+        setQueries({ quantitiy: count.value })
     }
 }
 
@@ -21,6 +26,7 @@ function decrement() {
     if (count.value > props.min) {
         count.value--;
         emit('update:modelValue', count.value);
+        setQueries({ quantitiy: count.value })
     }
 }
 

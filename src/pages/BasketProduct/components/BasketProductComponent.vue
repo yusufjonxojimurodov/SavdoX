@@ -1,6 +1,7 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import useProducts from '../../../store/products.pinia';
+import usePendingProduct from '../../../store/product.pending.pinia';
 import { onMounted, ref, computed, onUnmounted } from 'vue';
 import IconStar from '../../../components/icons/IconStar.vue';
 import QuantitiyComponent from '../../../components/QuantitiyComponent.vue';
@@ -10,11 +11,16 @@ import useRegister from '../../../store/register.pinia.js';
 import IconBack from '../../../components/icons/IconBack.vue';
 
 const productStore = useProducts()
+const pendingProductStore = usePendingProduct()
 const { basketProducts } = storeToRefs(productStore)
 const registerStore = useRegister()
+
 const quantities = ref({})
 const selectedCards = ref([])
 const isFooterVisible = ref(false);
+const open = ref(false)
+const phoneNumber = ref({ number: "" })
+
 let observer = null;
 
 const totalPrice = computed(() => {
@@ -39,19 +45,37 @@ function toggleSelect(id) {
     }
 }
 
+function handleClose() {
+    open.value = false
+}
+
 async function buySelected() {
     if (selectedCards.value.length === 0) {
         return message.warning("Hech qanday mahsulot tanlanmagan!");
     }
 
+    if (!phoneNumber.value.number) {
+        return message.warning("Iltimos, telefon raqamingizni kiriting!");
+    }
+
+    const orders = selectedCards.value.map(id => ({
+        productId: id,
+        quantity: quantities.value[id]
+    }));
+
+    const information = {
+        orders,
+        phone: phoneNumber.value.number
+    };
+
     try {
-        await axiosInstance.post("/basket/checkout", {
-            products: selectedCards.value
-        });
-        message.success("Tanlangan mahsulotlar sotib olindi!");
-        selectedCards.value = [];
+        await pendingProductStore.ApiPostPendingProduct(information)
+        handleClose()
+        selectedCards.value = []
+        phoneNumber.value.number = ""
+        handleClose()
     } catch (err) {
-        message.error("Xatolik yuz berdi!");
+        message.error("Xatolik yuz berdi!")
     }
 }
 
@@ -86,7 +110,6 @@ onMounted(async () => {
     }
 })
 
-
 onUnmounted(() => {
     if (observer) observer.disconnect();
 });
@@ -94,7 +117,11 @@ onUnmounted(() => {
 
 <template>
     <section>
-        <router-link to="/" class="!text-white text-[24px] !p-[10px] font-semibold flex justify-start items-center gap-2"><icon-back />Bosh Sahifaga</router-link>
+        <router-link to="/"
+            class="!text-white text-[24px] !p-[10px] font-semibold flex justify-start items-center gap-2">
+            <icon-back />Bosh Sahifaga
+        </router-link>
+
         <div class="container flex flex-col lg:flex-row gap-[30px] !mt-[40px]">
             <div class="flex-1 flex flex-col gap-[40px]">
                 <template v-if="basketProducts.length > 0">
@@ -157,14 +184,31 @@ onUnmounted(() => {
                     {{ selectedCards.length === basketProducts.length ? "Hammasini bekor qilish" : "Hammasini tanlash"
                     }}
                 </a-button>
-                <a-button @click="buySelected" type="primary" block size="middle" :disabled="selectedCards.length === 0"
+                <a-button @click="open = true" type="primary" block size="middle" :disabled="selectedCards.length === 0"
                     class="lg:size-large">
                     Sotib olish
                 </a-button>
             </div>
         </div>
+
+        <a-modal :open="open" :mask-closable="true">
+            <a-form layout="vertical" :model="phoneNumber">
+                <a-form-item name="number" label="Telefon Raqamingizni kirgizing">
+                    <a-input :rules="[{ required: true, message: 'Majburiy Maydon !' }]"
+                        placeholder="Telefon Raqamingizni to'g'ri kirg'izing" size="large"
+                        v-model:value="phoneNumber.number" />
+                </a-form-item>
+            </a-form>
+
+            <template #footer>
+                <a-button size="large" @click="handleClose">Bekor qilish</a-button>
+                <a-button :loading="pendingProductStore.loader" size="large" @click="buySelected"
+                    type="primary">Tasdiqlash</a-button>
+            </template>
+        </a-modal>
     </section>
 </template>
+
 
 <style scoped>
 .trash-icon-wrapper {

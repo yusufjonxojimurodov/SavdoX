@@ -7,12 +7,15 @@
     import IconXiaomi from './icons/companies/IconXiaomi.vue';
     import IconGoogle from './icons/companies/IconGoogle.vue';
     import BurgerComponent from './BurgerComponent.vue';
-    import { useRouter } from 'vue-router';
+    import { useRoute, useRouter } from 'vue-router';
     import { onMounted, ref } from 'vue';
     import useSetting from '../store/settings.pinia';
     import { storeToRefs } from 'pinia';
     import ProfileComponent from './ProfileComponent.vue';
+    import IconTime from './icons/IconTime.vue';
+    import IconPurchase from './icons/IconPurchase.vue';
 
+    const route = useRoute()
     const settingStore = useSetting()
     const { avatar } = storeToRefs(settingStore)
     const registerstore = useRegister()
@@ -25,6 +28,10 @@
 
     function basketProduct() {
         router.push("/basketProductView")
+    }
+
+    function pendingPage() {
+        router.push("/pending/product")
     }
 </script>
 
@@ -64,13 +71,28 @@
 
                     <icon-burger class="md:hidden text-white w-8 h-8 cursor-pointer" @click="open = true" />
                     <a-space size="large" class="hidden md:flex items-center">
-                        <a-button type="primary" size="large" :disabled="registerstore.user.length === 0"
+                        <a-button
+                            v-if="!route.path.includes('/basketProductView') && !route.path.includes('/pending/product')"
+                            type="primary" size="large" :disabled="registerstore.user.length === 0"
                             @click="basketProduct"
                             class="basket !font-medium !text-[18px] text-white hidden w-[150px] sm:flex rounded-2xl hover:bg-[#2A2A2A] hover:!text-[#FFD700] transition duration-500">
                             <div class="flex items-center gap-2 justify-center w-full">
                                 <icon-basket />
                                 Savatcha
                             </div>
+                        </a-button>
+
+                        <a-button @click="pendingPage" v-else-if="route.path.includes('/basketProductView')"
+                            class="!flex justify-center items-center" size="large" type="primary">
+                            <template #icon>
+                                <icon-time />
+                            </template>
+                        </a-button>
+
+                        <a-button v-else-if="route.path.includes('/pending/product')" size="large" type="primary"
+                            class="!flex justify-center items-center !gap-[10px] !font-semibold !text-[18px]">
+                                Sotib olinganlar
+                                <icon-purchase />
                         </a-button>
 
                         <profile-component />

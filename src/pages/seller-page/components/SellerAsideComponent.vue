@@ -5,6 +5,7 @@ import IconRating from '../../../components/icons/IconRating.vue';
 import IconStatistic from '../../../components/icons/IconStatistic.vue';
 import IconReport from '../../../components/icons/IconReport.vue';
 import ProductsView from './products-page/ProductsView.vue';
+import PendingProductSellerView from './pending-products-seller-page/PendingProductSellerView.vue';
 import IconBack from '../../../components/icons/IconBack.vue';
 import ProfileComponent from '../../../components/ProfileComponent.vue';
 import IconArrowLeft from '../../../components/icons/IconArrowLeft.vue';
@@ -14,7 +15,7 @@ const collapsed = ref(false);
 const selectedKeys = ref(['1']);
 const pageTitles = {
     '1': 'Mahsulotlarim',
-    '2': 'Reytingim',
+    '2': 'Tasdiqlang',
     '3': 'Statistika',
     '4': 'Shikoyatlar'
 };
@@ -49,7 +50,7 @@ const currentTitle = computed(() => pageTitles[selectedKeys.value[0]] || 'Sahifa
                 <a-menu-item key="2" class="custom-menu-item">
                     <div class="flex items-center gap-4">
                         <icon-rating />
-                        <span v-if="!collapsed" class="font-semibold text-[16px]">Reytingim</span>
+                        <span v-if="!collapsed" class="font-semibold text-[16px]">Tasdiqlang</span>
                     </div>
                 </a-menu-item>
 
@@ -82,6 +83,7 @@ const currentTitle = computed(() => pageTitles[selectedKeys.value[0]] || 'Sahifa
 
             <a-layout-content style="margin: 24px 16px; padding: 24px; background: #121212; min-height: 280px">
                 <products-view v-if="selectedKeys[0] === '1'" />
+                <pending-product-seller-view v-if="selectedKeys[0] === '2'" />
             </a-layout-content>
         </a-layout>
     </a-layout>
@@ -124,13 +126,14 @@ const currentTitle = computed(() => pageTitles[selectedKeys.value[0]] || 'Sahifa
 }
 
 .ant-layout-sider-trigger {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  height: 40px !important; /* default trigger height */
-  border-top-left-radius: 20px !important;
-  border-top-right-radius: 20px !important;
-  padding: 0 !important;
-  background-color: #FFD700 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 40px !important;
+    /* default trigger height */
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
+    padding: 0 !important;
+    background-color: #FFD700 !important;
 }
 </style>
