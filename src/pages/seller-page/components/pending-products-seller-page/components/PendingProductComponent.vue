@@ -2,7 +2,9 @@
 import { ref, computed, onMounted } from 'vue';
 import usePendingProduct from '../../../../../store/product.pending.pinia';
 import ProductModalComponent from '../../../../../components/ProductModalComponent.vue';
+import useDeliveryProduct from '../../../../../store/delivery.product.pinia';
 
+const deliveryProductStore = useDeliveryProduct()
 const productStore = usePendingProduct();
 
 const currentPage = ref(1);
@@ -16,6 +18,8 @@ const paginatedProducts = computed(() => {
     return productStore.pendingProductSeller.slice(start, end);
 });
 
+const address = "Tashkent"
+
 function onPageChange(page) {
     currentPage.value = page;
 }
@@ -23,6 +27,10 @@ function onPageChange(page) {
 onMounted(() => {
     productStore.getPendingProductSeller()
 })
+
+function confirmProduct(productId) {
+    deliveryProductStore.ApiPostDeliveryProduct(productId, address)
+}
 </script>
 
 <template>
@@ -31,8 +39,7 @@ onMounted(() => {
             <a-spin size="large" :spinning="productStore.loader">
                 <template v-if="productStore.pendingProductSeller.length > 0">
                     <div class="flex flex-wrap gap-4 sm:gap-6 !mt-6 justify-center">
-                        <div v-for="product in paginatedProducts" :key="product._id"
-                            class="product transition duration-500 bg-[#1E1E1E]
+                        <div v-for="product in paginatedProducts" :key="product._id" class="product transition duration-500 bg-[#1E1E1E]
     cursor-pointer  !p-3 sm:!p-5 md:p-[20px] flex flex-col gap-4 sm:gap-6
     rounded-[20px] md:rounded-[30px]
     shadow-[0_4px_12px_rgba(0,0,0,0.6)]
@@ -58,7 +65,7 @@ onMounted(() => {
                                 </div>
 
                                 <a-popconfirm title="Mahsulot Tasdiqlansinmi ?" ok-text="Ha" cancel-text="Yo'q"
-                                    @confirm="() => delProduct(product._id)">
+                                    @confirm="() => confirmProduct(product._id)">
                                     <a-button :loading="buttonLoaders[product._id]" @click.stop.prevent
                                         class="w-full !font-semibold !text-gray-800 !bg-[#FFD700] !flex justify-center items-center gap-2 !text-[12px] sm:!text-[14px] md:!text-[16px]"
                                         size="large">

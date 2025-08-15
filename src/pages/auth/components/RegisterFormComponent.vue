@@ -3,6 +3,7 @@ import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import useRegister from '../../../store/register.pinia';
+import WarnModalComponent from './WarnModalComponent.vue';
 
 const router = useRouter()
 const userRegisterStore = useRegister()
@@ -11,7 +12,7 @@ const { drawerOpen } = storeToRefs(userRegisterStore)
 const registerForm = reactive({
     name: "",
     surname: "",
-    userName: "",
+    phone: "",
     password: ""
 })
 
@@ -56,11 +57,11 @@ async function registerAccaount() {
 
                 <a-row :gutter="[16, 16]" class="mt-6 flex flex-col md:flex-row">
                     <a-col :span="24" class="md:w-1/2">
-                        <a-form-item name="userName" label="Foydalanuvchi nomi"
+                        <a-form-item name="phone" label="Telefon Raqamingiz"
                             :rules="[{ required: true, message: 'Majburiy maydon!' }]">
                             <a-input :name="`field-${Math.random().toString(36).substr(2, 9)}`" autocomplete="off"
-                                v-model:value="registerForm.userName" allow-clear
-                                placeholder="Foydalanuvchi nomini kiriting"
+                                v-model:value="registerForm.phone" allow-clear
+                                placeholder="Telefon raqamingiz"
                                 class="w-full h-12 text-base rounded-lg !bg-[#2a2a2a] !border-none text-white placeholder-gray-400" />
                         </a-form-item>
                     </a-col>
@@ -90,6 +91,8 @@ async function registerAccaount() {
             </a-form>
         </div>
     </div>
+
+    <warn-modal-component v-model:open="userRegisterStore.botModalOpen" />
 </template>
 
 

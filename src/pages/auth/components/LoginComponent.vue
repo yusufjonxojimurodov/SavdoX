@@ -9,7 +9,7 @@ const userRegisterStore = useRegister()
 const { drawerOpen } = storeToRefs(userRegisterStore)
 
 const LoginForm = reactive({
-    userName: "",
+    phone: "",
     password: ""
 })
 
@@ -34,11 +34,11 @@ async function registerAccaount() {
             <a-form @finish="registerAccaount" :model="LoginForm" layout="vertical" class="w-full">
                 <a-row :gutter="[16, 16]" class="!mt-6 flex flex-col md:flex-row">
                     <a-col :span="24" class="md:w-1/2">
-                        <a-form-item name="userName" label="Foydalanuvchi nomi"
+                        <a-form-item name="phone" label="Telefon Raqamingiz"
                             :rules="[{ required: true, message: 'Majburiy maydon!' }]">
                             <a-input :name="`login-${Math.random().toString(36).substr(2, 9)}`" autocomplete="off"
-                                v-model:value="LoginForm.userName" allow-clear
-                                placeholder="Foydalanuvchi nomini kiriting"
+                                v-model:value="LoginForm.phone" allow-clear
+                                placeholder="Telefon raqamingizni kiriting (botimiz orqali royxatdan otganingiz bilan bir xil bo'lishi kerak)"
                                 class="w-full h-12 text-base rounded-lg !bg-[#2a2a2a] !border-none text-white placeholder-gray-400 focus:border-gray-400" />
                         </a-form-item>
                     </a-col>

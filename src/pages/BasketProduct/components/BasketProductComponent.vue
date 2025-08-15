@@ -18,8 +18,6 @@ const registerStore = useRegister()
 const quantities = ref({})
 const selectedCards = ref([])
 const isFooterVisible = ref(false);
-const open = ref(false)
-const phoneNumber = ref({ number: "" })
 
 let observer = null;
 
@@ -45,17 +43,9 @@ function toggleSelect(id) {
     }
 }
 
-function handleClose() {
-    open.value = false
-}
-
 async function buySelected() {
     if (selectedCards.value.length === 0) {
         return message.warning("Hech qanday mahsulot tanlanmagan!");
-    }
-
-    if (!phoneNumber.value.number) {
-        return message.warning("Iltimos, telefon raqamingizni kiriting!");
     }
 
     const orders = selectedCards.value.map(id => ({
@@ -65,7 +55,8 @@ async function buySelected() {
 
     const information = {
         orders,
-        phone: phoneNumber.value.number
+        phone: registerStore.user.phone,
+        userName: registerStore.user.userName
     };
 
     try {
@@ -75,7 +66,7 @@ async function buySelected() {
         phoneNumber.value.number = ""
         handleClose()
     } catch (err) {
-        message.error("Xatolik yuz berdi!")
+
     }
 }
 
@@ -184,28 +175,12 @@ onUnmounted(() => {
                     {{ selectedCards.length === basketProducts.length ? "Hammasini bekor qilish" : "Hammasini tanlash"
                     }}
                 </a-button>
-                <a-button @click="open = true" type="primary" block size="middle" :disabled="selectedCards.length === 0"
-                    class="lg:size-large">
+                <a-button :loading="pendingProductStore.loader" @click="buySelected" type="primary" block size="middle"
+                    :disabled="selectedCards.length === 0" class="lg:size-large">
                     Sotib olish
                 </a-button>
             </div>
         </div>
-
-        <a-modal :open="open" :mask-closable="true">
-            <a-form layout="vertical" :model="phoneNumber">
-                <a-form-item name="number" label="Telefon Raqamingizni kirgizing">
-                    <a-input :rules="[{ required: true, message: 'Majburiy Maydon !' }]"
-                        placeholder="Telefon Raqamingizni to'g'ri kirg'izing" size="large"
-                        v-model:value="phoneNumber.number" />
-                </a-form-item>
-            </a-form>
-
-            <template #footer>
-                <a-button size="large" @click="handleClose">Bekor qilish</a-button>
-                <a-button :loading="pendingProductStore.loader" size="large" @click="buySelected"
-                    type="primary">Tasdiqlash</a-button>
-            </template>
-        </a-modal>
     </section>
 </template>
 

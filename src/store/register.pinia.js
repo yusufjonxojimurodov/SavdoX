@@ -13,6 +13,7 @@ const useRegister = defineStore("register", {
     loader: false,
     drawerOpen: false,
     modalOpen: false,
+    botModalOpen: false,
     loaderButton: false,
     drawerMode: "register",
   }),
@@ -47,10 +48,20 @@ const useRegister = defineStore("register", {
         message.success("Ro'yxatdan muvaffaqiyatli o'tildi", 5);
         return true;
       } catch (error) {
+        const status = error.response?.status;
         const errorMessage =
           error.response?.data?.message ||
           "Ro'yxatdan o'tishda xatolik yuz berdi !";
         message.error(errorMessage);
+
+        if (status === 400) {
+          this.botModalOpen = true;
+
+          // 3 soniyadan keyin modalni yopish
+          setTimeout(() => {
+            this.botModalOpen = false;
+          }, 3000);
+        }
         return false;
       } finally {
         this.loaderButton = false;
