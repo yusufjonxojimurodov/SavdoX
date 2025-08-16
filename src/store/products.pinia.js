@@ -34,7 +34,7 @@ const useProducts = defineStore("products", {
     },
 
     async getProducts(params = {}) {
-      const {search = null, price = null} = params
+      const { search = null, price = null } = params;
       this.loader = true;
 
       try {
@@ -80,21 +80,21 @@ const useProducts = defineStore("products", {
       }
     },
 
-    deleteBasketProduct(productIds) {
+    async deleteBasketProduct(productIds) {
       this.loader = true;
 
-      ApiDeleteProduct(productIds)
+      return ApiDeleteProduct(productIds)
         .then(() => {
           this.basketProducts = this.basketProducts.filter(
             (item) => !productIds.includes(item._id)
           );
-          message.success("Mahsulotlar Savatchadan ochirildi");
         })
         .catch((errorDelete) => {
           const errorDeleteMessage =
             errorDelete.data?.response?.message ||
             "Mahsulotni savatchadan o'chirib bo'lmadi";
           message.error(errorDeleteMessage);
+          throw errorDelete
         })
         .finally(() => {
           this.loader = false;

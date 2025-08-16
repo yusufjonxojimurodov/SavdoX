@@ -1,5 +1,9 @@
 import { defineStore } from "pinia";
-import { ApiDeliveryProductPost } from "../api/delivery.product.api";
+import {
+  ApiDeliveryProductPost,
+  APiGetDeliveryProduct,
+  ApiPutStatus,
+} from "../api/delivery.product.api";
 import { message } from "ant-design-vue";
 
 const useDeliveryProduct = defineStore("deliveryProduct", {
@@ -9,10 +13,10 @@ const useDeliveryProduct = defineStore("deliveryProduct", {
   }),
 
   actions: {
-    ApiPostDeliveryProduct(productId, address) {
+    async ApiPostDeliveryProduct(productId, address) {
       this.loader = true;
 
-      ApiDeliveryProductPost(productId, address)
+      return ApiDeliveryProductPost(productId, address)
         .then(() => {
           message.success("Mahsulot tasdiqlandi");
         })
@@ -22,6 +26,32 @@ const useDeliveryProduct = defineStore("deliveryProduct", {
         .finally(() => {
           this.loader = false;
         });
+    },
+
+    getDeliveryProducts() {
+      this.loader = true;
+
+      APiGetDeliveryProduct()
+        .then(({ data }) => {
+          this.deliveryProduct = data.deliveries;
+        })
+        .catch((errorGet) => {
+          message.error(errorGet);
+        })
+        .finally(() => {
+          this.loader = false;
+        });
+    },
+
+    async putDeliveryProductStatus(id, status) {
+
+      return ApiPutStatus(id, status)
+        .then(() => {
+          message.success("Mahsulotning holati yangilandi");
+        })
+        .catch((error) => {
+          message.error(error);
+        })
     },
   },
 });

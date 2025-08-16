@@ -102,10 +102,11 @@ function getProduct(id) {
                                         </p>
                                     </div>
 
-                                    <a-button :loading="buttonLoaders[product._id]" @click="basket(product._id)"
+                                    <a-button :disabled="product.left === 0" :loading="buttonLoaders[product._id]"
+                                        @click.stop="basket(product._id)"
                                         class="w-full !text-[12px] sm:!text-[14px] md:!text-[16px]" size="large"
                                         type="primary">
-                                        Savatga ({{ product.left || "topilmadi" }} ta qoldi)
+                                        Savatga ({{ product.left || "0" }} ta qoldi)
                                     </a-button>
                                 </div>
                             </div>

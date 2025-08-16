@@ -33,6 +33,10 @@
     function pendingPage() {
         router.push("/pending/product")
     }
+
+    function buyyedPage() {
+        router.push("/buyyed/product")
+    }
 </script>
 
     <template>
@@ -89,10 +93,11 @@
                             </template>
                         </a-button>
 
-                        <a-button v-else-if="route.path.includes('/pending/product')" size="large" type="primary"
+                        <a-button @click="buyyedPage" v-else-if="route.path.includes('/pending/product')" size="large"
+                            type="primary"
                             class="!flex justify-center items-center !gap-[10px] !font-semibold !text-[18px]">
-                                Sotib olinganlar
-                                <icon-purchase />
+                            Sotib olinganlar
+                            <icon-purchase />
                         </a-button>
 
                         <profile-component />

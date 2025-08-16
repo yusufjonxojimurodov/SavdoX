@@ -43,6 +43,15 @@ function toggleSelect(id) {
     }
 }
 
+async function deleteSelectedProducts() {
+    try {
+        await productStore.deleteBasketProduct(selectedCards.value);
+        message.success("Savatchadan mahsulot o'chirildi")
+    } catch (error) {
+        message.error(error)
+    }
+}
+
 async function buySelected() {
     if (selectedCards.value.length === 0) {
         return message.warning("Hech qanday mahsulot tanlanmagan!");
@@ -56,23 +65,16 @@ async function buySelected() {
     const information = {
         orders,
         phone: registerStore.user.phone,
-        userName: registerStore.user.userName
+        userName: registerStore.user.userName,
+        buyerChatId: registerStore.user.chatId,
     };
 
     try {
         await pendingProductStore.ApiPostPendingProduct(information)
-        handleClose()
-        selectedCards.value = []
-        phoneNumber.value.number = ""
-        handleClose()
+        productStore.deleteBasketProduct(selectedCards.value);
     } catch (err) {
 
     }
-}
-
-function deleteSelectedProducts() {
-    productStore.deleteBasketProduct(selectedCards.value);
-    selectedCards.value = [];
 }
 
 onMounted(async () => {
@@ -137,15 +139,11 @@ onUnmounted(() => {
                                 {{ basketProduct.product.description }}
                             </p>
                             <div class="flex justify-start gap-[10px] items-center">
-                                <div class="flex justify-start items-center gap-2">
-                                    <p class="text-[14px] text-[#FFD700] font-medium">4.6</p>
-                                    <icon-star />
-                                </div>
                                 <p class="text-[14px] text-[#888] font-medium">
                                     {{ basketProduct.product.model }}
                                 </p>
                             </div>
-                            <QuantitiyComponent @click.stop v-model="quantities[basketProduct._id]"
+                            <quantitiy-component @click.stop v-model="quantities[basketProduct._id]"
                                 :model-value="basketProduct.quantity" :max="basketProduct.product.left" />
                         </div>
                     </div>

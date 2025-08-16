@@ -22,7 +22,7 @@ const usePendingProduct = defineStore("pendingProduct", {
       return ApiPostConfirmationProduct(information)
         .then(() => {
           message.success(
-            "Mahsulotingiz tasdiqlanish jarayonida. 24 soatgacha vaqt olishi mumkin"
+            "Sizga aloqaga chiqib mahsulotni tasdiqlaymiz. 24 soatgacha vaqt olishi mumkin"
           );
         })
         .catch((errPost) => {

@@ -10,6 +10,8 @@ import IconBack from '../../../components/icons/IconBack.vue';
 import ProfileComponent from '../../../components/ProfileComponent.vue';
 import IconArrowLeft from '../../../components/icons/IconArrowLeft.vue';
 import IconArrowRight from '../../../components/icons/IconArrowRight.vue';
+import IconDelivery from '../../../components/icons/IconDelivery.vue';
+import BuyyedProductsView from './buyyed-products/BuyyedProductsView.vue';
 
 const collapsed = ref(false);
 const selectedKeys = ref(['1']);
@@ -67,6 +69,13 @@ const currentTitle = computed(() => pageTitles[selectedKeys.value[0]] || 'Sahifa
                         <span v-if="!collapsed" class="font-semibold text-[16px]">Shikoyatlar</span>
                     </div>
                 </a-menu-item>
+
+                <a-menu-item key="5" class="custom-menu-item">
+                    <div class="flex items-center gap-4">
+                        <icon-delivery />
+                        <span v-if="!collapsed" class="font-semibold text-[16px]">Sotilgan Mahsulotlar</span>
+                    </div>
+                </a-menu-item>
             </a-menu>
         </a-layout-sider>
 
@@ -84,6 +93,7 @@ const currentTitle = computed(() => pageTitles[selectedKeys.value[0]] || 'Sahifa
             <a-layout-content style="margin: 24px 16px; padding: 24px; background: #121212; min-height: 280px">
                 <products-view v-if="selectedKeys[0] === '1'" />
                 <pending-product-seller-view v-if="selectedKeys[0] === '2'" />
+                <buyyed-products-view v-if="selectedKeys[0] === '5'" />
             </a-layout-content>
         </a-layout>
     </a-layout>

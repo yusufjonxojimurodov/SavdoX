@@ -28,8 +28,14 @@ onMounted(() => {
     productStore.getPendingProductSeller()
 })
 
-function confirmProduct(productId) {
-    deliveryProductStore.ApiPostDeliveryProduct(productId, address)
+async function confirmProduct(productId) {
+    await deliveryProductStore.ApiPostDeliveryProduct(productId, address)
+    productStore.getPendingProductSeller()
+}
+
+async function deleteProduct(id) {
+    await productStore.deletePendingProduct(id)
+    productStore.getPendingProductSeller()
 }
 </script>
 
@@ -62,16 +68,30 @@ function confirmProduct(productId) {
                                     <p class="text-[12px] sm:text-[14px] text-[#888] font-medium">
                                         {{ product.model }}
                                     </p>
+                                    <a :href="'tel:' + product.phone"
+                                        class="text-[12px] sm:text-[14px] border-b border-[#888] !text-[#888] font-medium">
+                                        {{ product.phone }}
+                                    </a>
                                 </div>
 
-                                <a-popconfirm title="Mahsulot Tasdiqlansinmi ?" ok-text="Ha" cancel-text="Yo'q"
-                                    @confirm="() => confirmProduct(product._id)">
-                                    <a-button :loading="buttonLoaders[product._id]" @click.stop.prevent
-                                        class="w-full !font-semibold !text-gray-800 !bg-[#FFD700] !flex justify-center items-center gap-2 !text-[12px] sm:!text-[14px] md:!text-[16px]"
-                                        size="large">
-                                        Tasdiqlash
-                                    </a-button>
-                                </a-popconfirm>
+                                <div class="flex justify-between items-center">
+                                    <a-popconfirm title="Mahsulot Bekor qilinsinmi ?" ok-text="Ha" cancel-text="Yo'q"
+                                        @confirm="() => deleteProduct(product._id)">
+                                        <a-button :loading="buttonLoaders[product._id]" @click.stop.prevent
+                                            class="!font-semibold !text-white !flex justify-center items-center gap-2 !text-[12px] sm:!text-[14px] md:!text-[16px]"
+                                            size="large">
+                                            Bekor qilish
+                                        </a-button>
+                                    </a-popconfirm>
+                                    <a-popconfirm title="Mahsulot Tasdiqlansinmi ?" ok-text="Ha" cancel-text="Yo'q"
+                                        @confirm="() => confirmProduct(product._id)">
+                                        <a-button :loading="buttonLoaders[product._id]" @click.stop.prevent
+                                            class="!font-semibold !text-gray-800 !bg-[#FFD700] !flex justify-center items-center gap-2 !text-[12px] sm:!text-[14px] md:!text-[16px]"
+                                            size="large">
+                                            Tasdiqlash
+                                        </a-button>
+                                    </a-popconfirm>
+                                </div>
 
                             </div>
                         </div>
