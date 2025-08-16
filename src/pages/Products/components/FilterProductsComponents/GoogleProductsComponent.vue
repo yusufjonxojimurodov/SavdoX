@@ -77,10 +77,16 @@ function getProduct(id) {
                                     <p class="text-[16px] sm:text-[20px] md:text-[24px] text-[#EAEAEA] font-semibold">
                                         {{ product.name }}
                                     </p>
-                                    <p
-                                        class="text-[14px] sm:text-[16px] md:text-[18px] text-[#FFD700] w-[70px] rounded-[10px] font-semibold">
-                                        {{ product.price }}$
-                                    </p>
+                                    <div class="flex justify-between items-center">
+                                        <p
+                                            class="text-[14px] sm:text-[16px] md:text-[18px] text-[#FFD700] w-[70px] rounded-[10px] font-semibold">
+                                            {{ product.price }}$
+                                        </p>
+
+                                        <p
+                                            class="text-[16px] !flex justify-center items-center gap-2 text-gray-400 font-semibold">
+                                            {{ product.createdBy.userName }}</p>
+                                    </div>
                                     <p class="text-[12px] sm:text-[13px] md:text-[14px] text-[#B0B0B0]">
                                         {{ product.description.slice(0, 80) }}
                                         <router-link to="/dashboard"

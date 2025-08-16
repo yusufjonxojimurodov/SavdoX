@@ -51,7 +51,7 @@ function routerBot() {
     if (registerstore.user.role === "seller" || registerstore.user.role === "admin") {
         router.push("/seller")
     } else {
-        window.location.href = "https://t.me/savdo_x_bot"
+        window.open("https://t.me/savdo_x_bot", "_blank")
     }
 }
 

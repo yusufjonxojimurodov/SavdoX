@@ -76,7 +76,7 @@
                     <icon-burger class="md:hidden text-white w-8 h-8 cursor-pointer" @click="open = true" />
                     <a-space size="large" class="hidden md:flex items-center">
                         <a-button
-                            v-if="!route.path.includes('/basketProductView') && !route.path.includes('/pending/product')"
+                            v-if="!route.path.includes('/basketProductView') && !route.path.includes('/pending/product') && !route.path.includes('/buyyed/product')"
                             type="primary" size="large" :disabled="registerstore.user.length === 0"
                             @click="basketProduct"
                             class="basket !font-medium !text-[18px] text-white hidden w-[150px] sm:flex rounded-2xl hover:bg-[#2A2A2A] hover:!text-[#FFD700] transition duration-500">
