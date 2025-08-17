@@ -17,6 +17,8 @@ const createProduct = reactive({
     image: "",
     left: "",
     model: null,
+    type: null,
+    discount: null
 });
 
 const fileList = ref([])
@@ -37,12 +39,26 @@ const models = [
     { label: 'Boshqa', value: 'Other' },
 ]
 
+const types = [
+    { label: 'Aqlli Soat', value: 'smartwatch' },
+    { label: 'Smartfon', value: 'smartfon' },
+    { label: 'Televizor', value: 'TV' },
+    { label: 'Noutbook', value: 'laptop' },
+    { label: 'Monitor', value: 'display' },
+    { label: 'Klaviatura', value: 'keyboard' },
+    { label: 'Sichqoncha', value: 'mouse' },
+    { label: 'Kompyuter', value: 'computer' },
+    { label: 'Quloqchin', value: 'headphones' },
+    { label: 'Zaryadlovchi qurilmalar', value: 'chargers' },
+]
+
 async function createProductDashboard() {
     try {
         submitLoading.value = true;
         await productsStore.createProduct({
             ...createProduct,
             model: createProduct.model || null,
+            type: createProduct.type || null,
             image: fileList.value.length ? fileList.value[0].originFileObj : null
         });
         emit('update:open', false);
@@ -66,8 +82,11 @@ function resetForm() {
     createProduct.description = "";
     createProduct.price = "";
     createProduct.left = "",
-        createProduct.model = null;
+        createProduct.type = null;
+    createProduct.discount = null;
+    createProduct.model = null;
 }
+
 </script>
 
 <template>
@@ -80,11 +99,24 @@ function resetForm() {
                         :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
                         <a-input size="large" v-model:value="createProduct.name" placeholder="Mahsulot nomi" />
                     </a-form-item>
+                    <a-form-item name="discount" label="Chegirma" :rules="[
+                        { pattern: /^\d+(?:[.,]\d+)?%?$/, message: 'Faqat raqam kiriting' }
+                    ]">
+                        <a-input size="large" v-model:value="createProduct.discount"
+                            placeholder="Mahsulot chegirmasi" />
+                    </a-form-item>
                 </a-col>
                 <a-col :span="12">
                     <a-form-item name="model" label="Model" :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
                         <a-select size="large" v-model:value="createProduct.model" placeholder="Modelini tanlang"
                             :options="models" allowClear />
+                    </a-form-item>
+
+
+                    <a-form-item name="type" label="Mahsulot turi"
+                        :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
+                        <a-select size="large" v-model:value="createProduct.type" placeholder="Turini tanlang"
+                            :options="types" allowClear />
                     </a-form-item>
                 </a-col>
             </a-row>

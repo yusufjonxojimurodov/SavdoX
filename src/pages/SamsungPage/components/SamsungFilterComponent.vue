@@ -13,6 +13,7 @@ const searchProduct = debounce((e) => {
 }, 500)
 const searchProductValue = ref(getQueries().search)
 const selectValue = ref(getQueries().price)
+const selectType = ref(getQueries().type)
 const options = ref([
     {
         value: "expensive",
@@ -25,9 +26,26 @@ const options = ref([
     }
 ])
 
+const types = [
+    { label: 'Aqlli Soat', value: 'smartwatch' },
+    { label: 'Smartfon', value: 'smartfon' },
+    { label: 'Televizor', value: 'TV' },
+    { label: 'Noutbook', value: 'laptop' },
+    { label: 'Monitor', value: 'display' },
+    { label: 'Kompyuter', value: 'computer' },
+    { label: 'Quloqchin', value: 'headphones' },
+    { label: 'Zaryadlovchi qurilmalar', value: 'chargers' },
+]
+
 function changeFilter(value) {
     setQueries({
         price: value
+    })
+}
+
+function changeTypeFilter(value) {
+    setQueries({
+        type: value
     })
 }
 </script>
@@ -41,11 +59,14 @@ function changeFilter(value) {
                 </router-link>
                 <h2 class="!text-[32px] !font-semibold text-[#EAEAEA] !mb-2">Samsung Mahsulotlari</h2>
             </div>
-            <a-space class="flex-wrap">
+            <a-space class="flex-wrap !mt-5 sm:!mt-0">
                 <a-input v-model:value="searchProductValue" @input="searchProduct" size="large" class="responsive-input"
                     placeholder="Mahsulot Nomini yozing" />
                 <a-select v-model:value="selectValue" @change="changeFilter" class="responsive-select" allow-clear
                     size="large" :options="options" placeholder="Mahsulot narxlarini filterlash" />
+
+                <a-select v-model:value="selectType" size="large" @change="changeTypeFilter" class="!w-[180px]"
+                    placeholder="Turini tanlang" :options="types" allowClear />
             </a-space>
         </div>
     </section>

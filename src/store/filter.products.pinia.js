@@ -17,10 +17,10 @@ const useFilterProducts = defineStore("filterProducts", {
 
   actions: {
     getSamsungProducts(params = {}) {
-      const { search = null, price = null } = params;
+      const { search = null, price = null, type = null } = params;
       this.loader = true;
 
-      ApiGetSamsung(search, price)
+      ApiGetSamsung(search, price, type)
         .then(({ data }) => {
           this.samsungProducts = data;
         })
@@ -36,9 +36,9 @@ const useFilterProducts = defineStore("filterProducts", {
     },
 
     getIphoneProducts(params = {}) {
-      const { search = null, price = null } = params;
+      const { search = null, price = null, type = null } = params;
       this.loader = true;
-      ApiGetIphone(search, price)
+      ApiGetIphone(search, price, type)
         .then(({ data }) => {
           this.iphoneProducts = data;
         })
@@ -54,9 +54,9 @@ const useFilterProducts = defineStore("filterProducts", {
     },
 
     getXiaomiProducts(params = {}) {
-      const { search = null, price = null } = params;
+      const { search = null, price = null, type = null } = params;
       this.loader = true;
-      ApiGetXiaomi(search, price)
+      ApiGetXiaomi(search, price, type)
         .then(({ data }) => {
           this.xiaomiProducts = data;
         })
@@ -71,10 +71,10 @@ const useFilterProducts = defineStore("filterProducts", {
     },
 
     getGoogleProducts(params = {}) {
-      const { search = null, price = null } = params;
+      const { search = null, price = null, type = null } = params;
       this.loader = true;
 
-      APiGetGoogle(search, price)
+      APiGetGoogle(search, price, type)
         .then(({ data }) => {
           this.googleProducts = data;
         })

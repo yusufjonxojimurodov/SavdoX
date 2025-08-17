@@ -29,7 +29,7 @@ onMounted(() => {
                 rounded-[20px] md:rounded-[30px]
                 shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
                             <img :src="product.productId.image" alt="Mahsulot rasmi"
-                                class="w-full h-[240px] rounded-2xl transition duration-500 object-contain" />
+                                class="w-full h-[220px] rounded-2xl transition duration-500 object-contain" />
                             <div class="flex flex-col w-full gap-2 sm:gap-3">
                                 <p class="text-[16px] sm:text-[20px] md:text-[24px] text-[#EAEAEA] font-semibold">
                                     {{ product.productId.name }}

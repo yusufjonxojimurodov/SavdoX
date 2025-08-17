@@ -23,16 +23,30 @@ const { product } = storeToRefs(productStore)
                 class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6 !p-4 sm:!p-6">
                 <div v-if="product && Object.keys(product).length > 1" class="w-full sm:w-[300px]">
                     <div
-                        class="product transition duration-300 bg-[#1E1E1E] w-full sm:h-[430px] md:w-[300px] md:h-[460px] cursor-pointer flex flex-col gap-3 sm:gap-4 !p-3 sm:!p-4 md:!p-4 rounded-2xl shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
+                        class="product relative transition duration-300 bg-[#1E1E1E] w-full sm:h-[430px] md:w-[300px] md:h-[460px] cursor-pointer flex flex-col gap-3 sm:gap-4 !p-3 sm:!p-4 md:!p-4 rounded-[30px] shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
                         <img :src="product.image" alt="Mahsulot rasmi"
                             class="w-full h-[180px] sm:h-[240px] rounded-xl object-contain transition duration-300" />
+
+                        <div v-if="product.discount"
+                            class="w-[60px] flex justify-center items-center !p-4 bg-red-700 absolute top-0 right-0 rounded-tr-[30px] rounded-bl-[30px]">
+                            <p class="text-white !font-semibold text-[16px]">-{{ product.discount }}%</p>
+                        </div>
                         <div class="flex flex-col w-full gap-2">
                             <p class="text-base sm:text-lg md:text-xl text-[#EAEAEA] font-semibold line-clamp-2">
                                 {{ product.name }}
                             </p>
-                            <p class="text-sm sm:text-base text-[#FFD700] font-semibold">
-                                {{ product.price }}$
-                            </p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center gap-2">
+                                    <p
+                                        :class="['text-[14px] sm:text-[16px] md:text-[18px] font-semibold', product.discountPrice ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]']">
+                                        {{ product.price }}$</p>
+                                    <p v-if="product.discountPrice"
+                                        class="text-[#FFD700] text-[14px] sm:text-[16px] md:text-[18px] font-semibold">
+                                        {{ product.discountPrice }}$</p>
+                                </div>
+
+                                <p class="text-[18px] text-gray-600 !font-semibold">{{ product.createdBy.userName }}</p>
+                            </div>
                             <p class="text-xs sm:text-sm text-[#B0B0B0] line-clamp-3">
                                 {{ product.description }}
                             </p>

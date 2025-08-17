@@ -1,0 +1,10 @@
+{
+  "appId": "savdoX.app",
+  "appName": "Savdo X",
+  "bundledWebRuntime": false,
+  "webDir": "dist",
+  "android": {
+    "backgroundColor": "#212121",
+    "icon": "./public/appIcon.png"
+  }
+}

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, h, ref } from 'vue';
+import { computed, h, onBeforeUnmount, onMounted, ref } from 'vue';
 import IconPhoneProduct from '../../../components/icons/IconPhoneProduct.vue';
 import IconRating from '../../../components/icons/IconRating.vue';
 import IconStatistic from '../../../components/icons/IconStatistic.vue';
@@ -19,15 +19,33 @@ const pageTitles = {
     '1': 'Mahsulotlarim',
     '2': 'Tasdiqlang',
     '3': 'Statistika',
-    '4': 'Shikoyatlar'
+    '4': 'Shikoyatlar',
+    '5': 'Yetkazmalar'
 };
 
 const currentTitle = computed(() => pageTitles[selectedKeys.value[0]] || 'Sahifa');
+
+const isMobile = ref(false);
+
+const checkScreen = () => {
+    isMobile.value = window.innerWidth <= 768; // telefon uchun shart
+};
+
+onMounted(() => {
+    checkScreen();
+    window.addEventListener('resize', checkScreen);
+});
+
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', checkScreen);
+});
 </script>
 
 <template>
     <a-layout style="min-height: 100vh; background-color: #1e1d1d;">
-        <a-layout-sider :style="{ backgroundColor: '#1e1d1d' }" collapsible :collapsed="collapsed"
+
+        <!-- DESKTOP SIDEBAR -->
+        <a-layout-sider v-if="!isMobile" :style="{ backgroundColor: '#1e1d1d' }" collapsible :collapsed="collapsed"
             @collapse="val => collapsed = val" width="250" :trigger="collapsed ? h(IconArrowRight) : h(IconArrowLeft)">
             <div class="logo">
                 <template v-if="!collapsed">
@@ -39,55 +57,83 @@ const currentTitle = computed(() => pageTitles[selectedKeys.value[0]] || 'Sahifa
                 </template>
             </div>
 
-
             <a-menu class="!bg-[#1e1d1d]" mode="inline" v-model:selectedKeys="selectedKeys"
                 style="height: 100%; border-right: 0;" :inlineCollapsed="collapsed">
                 <a-menu-item key="1" class="custom-menu-item">
-                    <div class="flex items-center gap-4">
-                        <icon-phone-product />
-                        <span v-if="!collapsed" class="font-semibold text-[16px]">Mahsulotlarim</span>
+                    <div class="flex items-center gap-2">
+                        <icon-phone-product class="text-[18px]" />
+                        <span v-if="!collapsed" class="font-semibold text-[16px]">
+                            Mahsulotlarim
+                        </span>
                     </div>
                 </a-menu-item>
 
                 <a-menu-item key="2" class="custom-menu-item">
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2">
                         <icon-rating />
-                        <span v-if="!collapsed" class="font-semibold text-[16px]">Tasdiqlang</span>
+                        <span v-if="!collapsed" class="font-semibold text-[16px]">
+                            Tasdiqlang
+                        </span>
                     </div>
                 </a-menu-item>
-
                 <a-menu-item key="3" class="custom-menu-item">
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2">
                         <icon-statistic />
-                        <span v-if="!collapsed" class="font-semibold text-[16px]">Statistika</span>
+                        <span v-if="!collapsed" class="font-semibold text-[16px]">
+                            Statistika
+                        </span>
                     </div>
                 </a-menu-item>
-
                 <a-menu-item key="4" class="custom-menu-item">
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2">
                         <icon-report />
-                        <span v-if="!collapsed" class="font-semibold text-[16px]">Shikoyatlar</span>
+                        <span v-if="!collapsed" class="font-semibold text-[16px]">
+                            Shikoyatlar
+                        </span>
                     </div>
                 </a-menu-item>
-
                 <a-menu-item key="5" class="custom-menu-item">
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2">
                         <icon-delivery />
-                        <span v-if="!collapsed" class="font-semibold text-[16px]">Sotilgan Mahsulotlar</span>
+                        <span v-if="!collapsed" class="font-semibold text-[16px]">
+                            Yetkazmalar
+                        </span>
                     </div>
                 </a-menu-item>
             </a-menu>
         </a-layout-sider>
 
+        <!-- MOBILE BOTTOM NAV -->
+        <div v-else class="bottom-nav">
+            <div class="nav-item" :class="{ active: selectedKeys[0] === '1' }" @click="selectedKeys = ['1']">
+                <icon-phone-product />
+            </div>
+            <div class="nav-item" :class="{ active: selectedKeys[0] === '2' }" @click="selectedKeys = ['2']">
+                <icon-rating />
+            </div>
+            <div class="nav-item" :class="{ active: selectedKeys[0] === '3' }" @click="selectedKeys = ['3']">
+                <icon-statistic />
+            </div>
+            <div class="nav-item" :class="{ active: selectedKeys[0] === '4' }" @click="selectedKeys = ['4']">
+                <icon-report />
+            </div>
+            <div class="nav-item" :class="{ active: selectedKeys[0] === '5' }" @click="selectedKeys = ['5']">
+                <icon-delivery />
+            </div>
+        </div>
+
+        <!-- ASOSIY CONTENT -->
         <a-layout style="background-color: #121212;">
-            <a-layout-header
-                style="background-color: #121212; width: 100% !important; margin-top: 30px; display: flex; justify-content: space-between; align-items: center; align-items: center">
-
-                <span class="!flex justify-center items-center gap-2 text-[32px] font-bold text-white">
-                    <router-link to="/"><icon-back /></router-link> {{ currentTitle }}
-                </span>
-
-                <profile-component />
+            <a-layout-header style="background-color: #121212; margin-top: 50px;">
+                <div class="!flex justify-between items-start !w-full">
+                    <span
+                        class="!flex justify-center items-center gap-2 text-[24px] sm:text-[32px] font-bold text-white">
+                        <router-link to="/"><icon-back
+                                class="!w-[24px] !h-[24px] sm:!w-[32px] sm:!h-[32px]" /></router-link> {{
+                        currentTitle }}
+                    </span>
+                    <profile-component />
+                </div>
             </a-layout-header>
 
             <a-layout-content style="margin: 24px 16px; padding: 24px; background: #121212; min-height: 280px">
@@ -145,5 +191,31 @@ const currentTitle = computed(() => pageTitles[selectedKeys.value[0]] || 'Sahifa
     border-top-right-radius: 20px !important;
     padding: 0 !important;
     background-color: #FFD700 !important;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #121212 !important;
+    padding: 10px 0 !important;
+    z-index: 9999;
+}
+
+.nav-item {
+    color: #aaa;
+    font-size: 24px;
+    transition: 0.2s;
+    padding: 6px;
+    border-radius: 25px;
+}
+
+.nav-item.active {
+    background-color: #222222;
+    transform: scale(1.2);
 }
 </style>

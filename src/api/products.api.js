@@ -7,6 +7,8 @@ export function ApiCreateProduct(form) {
   formData.append("price", form.price);
   formData.append("model", form.model);
   formData.append("left", form.left);
+  formData.append("type", form.type);
+  formData.append("discount", form.discount);
   if (form.image) formData.append("image", form.image);
 
   return api({
@@ -52,4 +54,3 @@ export function ApiDeleteProduct(productIds) {
     method: "DELETE",
   });
 }
-

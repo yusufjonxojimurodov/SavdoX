@@ -1,10 +1,11 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+import { defineProps, defineEmits, ref } from 'vue'
 import IconSamsung from './icons/companies/IconSamsung.vue';
 import IconApple from './icons/companies/IconApple.vue';
 import IconXiaomi from './icons/companies/IconXiaomi.vue';
 import IconGoogle from './icons/companies/IconGoogle.vue';
 import { useRouter } from 'vue-router'
+import { version } from "../version.js"
 
 const router = useRouter()
 const props = defineProps({ open: Boolean })
@@ -18,7 +19,7 @@ function closeDrawer() {
 <template>
     <a-drawer placement="left" :visible="props.open" :closable="false" @close="closeDrawer" width="250"
         :body-style="{ backgroundColor: '#1E1E1E', padding: '20px' }">
-        <h2 class="logoName border-b border-gray-500 text-center !p-[10px] text-3xl !mb-8">SavdoX</h2>
+        <h2 class="logoName border-b border-gray-500 text-center !mt-6 !p-[10px] text-3xl !mb-8">SavdoX</h2>
         <ul class="flex justify-center items-center flex-col gap-4">
             <li><router-link to="/samsungPageView"
                     class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]" @click="closeDrawer">
@@ -35,12 +36,14 @@ function closeDrawer() {
                     <icon-xiaomi />
                     Xiaomi
                 </router-link></li>
-            <li><router-link to="/googlePageView" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
-                    @click="closeDrawer">
+            <li><router-link to="/googlePageView"
+                    class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]" @click="closeDrawer">
                     <icon-google />
                     Google
                 </router-link></li>
         </ul>
+
+        <p class="fixed bottom-3 left-23 text-white !font-medium">version {{ version }}</p>
     </a-drawer>
 </template>
 

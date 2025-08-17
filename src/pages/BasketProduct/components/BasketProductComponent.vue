@@ -24,8 +24,12 @@ let observer = null;
 const totalPrice = computed(() => {
     return basketProducts.value
         .filter(item => selectedCards.value.includes(item._id))
-        .reduce((sum, item) => sum + (item.product.price * quantities.value[item._id]), 0)
+        .reduce((sum, item) => {
+            const priceToUse = item.product.discountPrice ?? item.product.price
+            return sum + (priceToUse * quantities.value[item._id])
+        }, 0)
 })
+
 
 function selectAll() {
     if (selectedCards.value.length === basketProducts.value.length) {
@@ -120,7 +124,7 @@ onUnmounted(() => {
                 <template v-if="basketProducts.length > 0">
                     <div v-for="basketProduct in basketProducts" :key="basketProduct._id"
                         @click="toggleSelect(basketProduct._id)" :class="[
-                            'flex flex-col sm:flex-row justify-start items-center transition duration-500 w-full lg:w-[900px] h-auto sm:h-[350px] cursor-pointer gap-[20px] sm:gap-[40px] !p-[20px] rounded-[30px] shadow-[0_4px_12px_rgba(0,0,0,0.6)]',
+                            'flex flex-col sm:flex-row justify-start relative items-center transition duration-500 w-full lg:w-[900px] h-auto sm:h-[350px] cursor-pointer gap-[20px] sm:gap-[40px] !p-[20px] rounded-[30px] shadow-[0_4px_12px_rgba(0,0,0,0.6)]',
                             selectedCards.includes(basketProduct._id)
                                 ? 'bg-[#2E2E2E] border-2 border-[#FFD700]'
                                 : 'bg-[#1E1E1E] border-2 border-transparent'
@@ -128,13 +132,26 @@ onUnmounted(() => {
                         <img :src="basketProduct.product.image" alt="Mahsulot rasmi"
                             class="w-full h-[240px] rounded-2xl transition duration-500 object-contain" />
 
+                        <div v-if="basketProduct.product.discount"
+                            class="w-[60px] flex justify-center items-center !p-4 bg-red-700 absolute top-0 right-0 rounded-tr-[30px] rounded-bl-[30px]">
+                            <p class="text-white !font-semibold text-[16px]">-{{ basketProduct.product.discount }}%</p>
+                        </div>
                         <div class="flex justify-center items-start flex-col gap-[20px] w-full sm:w-auto">
                             <p class="text-[20px] sm:text-[24px] text-[#EAEAEA] font-semibold">
                                 {{ basketProduct.product.name }}
                             </p>
-                            <p class="text-[16px] sm:text-[18px] text-[#FFD700] w-[70px] rounded-[10px] font-semibold">
-                                {{ basketProduct.product.price }}$
-                            </p>
+                            <div class="!flex justify-start items-center gap-2">
+                                <p :class="[
+                                    'text-[14px] sm:text-[16px] md:text-[18px] rounded-[10px] font-semibold',
+                                    basketProduct.product.discountPrice ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]'
+                                ]">
+                                    {{ basketProduct.product.price }}$
+                                </p>
+                                <p v-if="basketProduct.product.discountPrice"
+                                    class="text-[14px] sm:text-[16px] md:text-[18px] text-[#FFD700] font-semibold">
+                                    {{ basketProduct.product.discountPrice }}$
+                                </p>
+                            </div>
                             <p class="text-[14px] sm:text-[14px] w-full sm:w-[300px] text-[#B0B0B0]">
                                 {{ basketProduct.product.description }}
                             </p>

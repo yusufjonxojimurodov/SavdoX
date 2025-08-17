@@ -1,7 +1,7 @@
 {
-  "name": "mntn",
+  "name": "savdox",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/android": "^7.4.2",
+    "@capacitor/cli": "^7.4.2",
+    "@capacitor/core": "^7.4.2",
     "@tailwindcss/vite": "^4.1.11",
     "ant-design-vue": "^4.2.6",
     "axios": "^1.11.0",

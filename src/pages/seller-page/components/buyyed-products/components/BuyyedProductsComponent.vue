@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, reactive } from 'vue';
+import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
 import useRegister from '../../../../../store/register.pinia.js';
 import useDeliveryProduct from '../../../../../store/delivery.product.pinia.js';
 import IconCompelted from '../../../../../components/icons/IconCompelted.vue';
@@ -7,6 +7,25 @@ import IconCompelted from '../../../../../components/icons/IconCompelted.vue';
 const buyyedProductStore = useDeliveryProduct()
 const registerStore = useRegister()
 const buttonLoaders = reactive({})
+const currentPage = ref(1);
+const windowWidth = ref(window.innerWidth);
+
+const responsivePageSize = computed(() => {
+    return windowWidth.value <= 500 ? 3 : 6;
+});
+
+const paginatedProducts = computed(() => {
+    const size = responsivePageSize.value;
+    const start = (currentPage.value - 1) * size;
+    const end = start + size;
+    return buyyedProductStore.deliveryProduct.slice(start, end);
+});
+
+function handleResize() {
+    windowWidth.value = window.innerWidth;
+    currentPage.value = 1;
+}
+
 const declined = {
     status: "incompleted"
 }
@@ -17,7 +36,13 @@ const completed = {
 onMounted(() => {
     buyyedProductStore.getDeliveryProducts()
     registerStore.userInfo()
+    window.addEventListener('resize', handleResize)
 })
+onBeforeUnmount(() => window.removeEventListener('resize', handleResize));
+
+function onPageChange(page) {
+    currentPage.value = page;
+}
 
 async function declinedDelivery(id) {
     buttonLoaders[id] = "declined"
@@ -39,26 +64,40 @@ async function completedDelivery(id) {
         <a-spin :spinning="buyyedProductStore.loader" size="large" class="!flex justify-center items-center">
             <div class="container">
                 <template v-if="buyyedProductStore.deliveryProduct.length > 0">
-                    <div class="gap-4 sm:gap-6 !mt-6 flex justify-between items-center flex-wrap">
-                        <div v-for="product in buyyedProductStore.deliveryProduct" :key="product._id" class="product transition duration-500 bg-[#1E1E1E]
-                w-full
+                    <div class="gap-4 sm:gap-6 !mt-6 flex justify-start items-center flex-wrap">
+                        <div v-for="product in paginatedProducts" :key="product._id" class="product transition duration-500 bg-[#1E1E1E]
+                w-full relative
                 h-[430px] sm:h-[500px] md:!w-[300px]
                 cursor-pointer flex flex-col
-                gap-4 sm:gap-6
+                gap-4 sm:gap-6 justify-between
                 !p-3 sm:!p-5 md:p-[20px]
                 rounded-[20px] md:rounded-[30px]
                 shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
                             <img :src="product.productId.image" alt="Mahsulot rasmi"
-                                class="w-full h-[240px] rounded-2xl transition duration-500 object-contain" />
+                                class="w-full h-[220px] rounded-2xl transition duration-500 object-contain" />
+
+                            <div v-if="product.productId.discount"
+                                class="w-[60px] flex justify-center rounded-tr-[30px] rounded-bl-[30px] items-center !p-[20px] bg-red-700 absolute top-0 right-0">
+                                <p class="text-white !font-semibold text-[18px]">{{ product.productId.discount }}%</p>
+                            </div>
+
                             <div class="flex flex-col w-full gap-2 sm:gap-3">
                                 <p class="text-[16px] sm:text-[20px] md:text-[24px] text-[#EAEAEA] font-semibold">
                                     {{ product.productId.name }}
                                 </p>
                                 <div class="flex justify-between items-center">
-                                    <p
-                                        class="text-[14px] sm:text-[16px] md:text-[18px] text-[#FFD700] w-[70px] rounded-[10px] font-semibold">
-                                        {{ product.productId.price }}$
-                                    </p>
+                                    <div class="!flex justify-start items-center gap-2">
+                                        <p :class="[
+                                            'text-[14px] sm:text-[16px] md:text-[18px] rounded-[10px] font-semibold',
+                                            product.productId.discountPrice ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]'
+                                        ]">
+                                            {{ product.productId.price }}$
+                                        </p>
+                                        <p v-if="product.productId.discountPrice"
+                                            class="text-[14px] sm:text-[16px] md:text-[18px] text-[#FFD700] font-semibold">
+                                            {{ product.productId.discountPrice }}$
+                                        </p>
+                                    </div>
                                     <p class="text-[12px] sm:text-[14px] md:text-[16px] text-[#FFD700] font-semibold">{{
                                         product.sellerId.userName }}</p>
                                 </div>
@@ -104,6 +143,10 @@ async function completedDelivery(id) {
                 <template v-else>
                     <a-empty description="Mahsulotlar topilmadi" style="color: white; margin-top: 150px" />
                 </template>
+
+                <a-pagination :current="currentPage" :page-size="responsivePageSize"
+                    :total="buyyedProductStore.deliveryProduct.length" @change="onPageChange" :show-size-changer="false"
+                    class="!mt-8 relative z-[99999]" />
             </div>
         </a-spin>
     </section>

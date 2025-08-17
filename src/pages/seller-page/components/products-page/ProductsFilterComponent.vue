@@ -19,10 +19,10 @@ const searchProduct = debounce((e) => {
 </script>
 
 <template>
-    <div class="flex justify-end items-center gap-2">
-        <a-input @input="searchProduct" size="large" style="width: 220px;"
+    <div class="flex justify-end items-center gap-2 flex-wrap w-full">
+        <a-input class="!w-full sm:!w-[220px]" @input="searchProduct" size="large" style="width: 220px;"
             placeholder="Mahsulotingizni qidiring"></a-input>
-        <a-button size="large" class="!flex justify-center items-center gap-2" v-if="userStore.user.role !== 'customer'"
+        <a-button size="large" class="!flex justify-center items-center gap-2 w-full sm:!w-[180px]" v-if="userStore.user.role !== 'customer'"
             type="primary" @click="open = true"><icon-plus /> Mahsulot Yaratish</a-button>
     </div>
     <products-create-form-component v-model:open="open" />

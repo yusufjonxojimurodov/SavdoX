@@ -34,13 +34,13 @@ async function deletePendingProducts(id) {
             <div class="container">
                 <template v-if="pendingProductsStore.pendingProductBuyer.length > 0">
                     <div class="grid gap-4 sm:gap-6 !mt-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                        <div @click="getProduct(product._id)"
+                        <div
                             v-for="product in pendingProductsStore.pendingProductBuyer" :key="product._id" class="product transition duration-500 bg-[#1E1E1E]
                 w-full
                 h-[430px] sm:h-[500px] md:!w-[300px]
                 cursor-pointer flex flex-col
-                gap-4 sm:gap-6
-                !p-3 sm:!p-5 md:p-[20px]
+                gap-4 sm:gap-6 justify-center
+                !p-3 sm:!py-5 md:py-[20px]
                 rounded-[20px] md:rounded-[30px]
                 shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
                             <img :src="product.image" alt="Mahsulot rasmi"
@@ -61,26 +61,28 @@ async function deletePendingProducts(id) {
                                         {{ product.model }}
                                     </p>
 
-                                    <p class="text-[12px] sm:text-[14px] text-[#888] font-medium">Sotib olinmoqda: {{
+                                    <p class="text-[12px] sm:text-[14px] text-[#888] font-medium">Olinmoqda: {{
                                         product.quantity }} ta</p>
                                 </div>
 
-                                <div class="flex justify-between items-center">
+                                <div class="flex flex-col !gap-[10px] sm:flex-row w-full">
                                     <a-popconfirm title="Mahsulotni sotib olishni bekor qilmoqchimisiz ?"
                                         ok-text="Tasdiqlash" :okButtonProps="{ loading: buttonLoaders[product._id] }"
                                         cancel-text="Bekor qilish" @confirm="deletePendingProducts(product._id)">
-                                        <a-button class="!flex justify-center items-center" size="large" danger>
+                                        <a-button 
+                                            class="!flex !w-full !rounded-[5px] sm:!w-[120px] sm:!p-[18px] !text-[12px] sm:!text-[14px] md:!text-[16px] justify-center items-center"
+                                            danger>
                                             Bekor Qilish
-                                            <icon-cansel />
                                         </a-button>
                                     </a-popconfirm>
-                                    <a-button
-                                        class="!text-[12px] sm:!text-[14px] md:!text-[16px] !flex justify-center items-center !font-semibold !text-gray-900 !bg-[#FFD700] hover:!bg-[#806c00]"
-                                        size="large" type="primary">
+                                    <a-button 
+                                        class="!text-[12px] !rounded-[5px] sm:!text-[14px] sm:!p-[18px] md:!text-[16px] !flex !w-full sm:w-[120px] justify-center items-center !font-semibold !text-gray-900 !bg-[#FFD700] hover:!bg-[#806c00]"
+                                        type="primary">
                                         Kutilyapti
                                         <icon-time-product />
                                     </a-button>
                                 </div>
+
                             </div>
                         </div>
                     </div>

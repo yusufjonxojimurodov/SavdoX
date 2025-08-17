@@ -50,8 +50,6 @@ const useProducts = defineStore("products", {
     },
 
     async basketProduct(productId) {
-      this.loader = true;
-
       try {
         await ApiBasketProduct(productId);
         message.success("Mahsulot savatchaga qoshildi");
@@ -60,8 +58,6 @@ const useProducts = defineStore("products", {
           errorBasket.data?.response?.message ||
           "Mahsulotni savatchaga qo'shib bo'lmadi";
         message.error(errorMessage);
-      } finally {
-        this.loader = false;
       }
     },
 
@@ -94,7 +90,7 @@ const useProducts = defineStore("products", {
             errorDelete.data?.response?.message ||
             "Mahsulotni savatchadan o'chirib bo'lmadi";
           message.error(errorDeleteMessage);
-          throw errorDelete
+          throw errorDelete;
         })
         .finally(() => {
           this.loader = false;

@@ -49,7 +49,7 @@ async function handleSubmit() {
 
 <template>
     <div
-        class="bg-[#1E1E1E] fixed bottom-[28%] !mt-6 shadow-[0_4px_12px_rgba(0,0,0,0.6)] grid grid-cols-6 gap-2 rounded-xl w-[300px] md:w-[400px] sm:w-[325px] text-sm">
+        class="bg-[#1E1E1E] md:absolute md:bottom-[5%] !mt-6 shadow-[0_4px_12px_rgba(0,0,0,0.6)] grid grid-cols-6 gap-2 rounded-xl w-[300px] md:w-[400px] sm:w-[325px] text-sm">
         <textarea v-model="text" @focus="isFocused = true" @blur="blurHandler"
             placeholder="Mahsulot haqida fikringiz..." :class="['!text-white',
                 'bg-[#303030] text-white placeholder:text-gray-500 placeholder:opacity-50 col-span-6 !resize-none outline-none rounded-lg !p-2 duration-300 focus:border-slate-600',

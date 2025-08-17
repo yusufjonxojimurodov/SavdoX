@@ -20,7 +20,8 @@ watch(() => route.query, () => {
     registerStore.userInfo()
     filterProductStore.getIphoneProducts({
         search: getQueries().search || null,
-        price: getQueries().price || null
+        price: getQueries().price || null,
+        type: getQueries().type || null
     });
 }, { immediate: true });
 </script>

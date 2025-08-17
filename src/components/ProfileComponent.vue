@@ -68,7 +68,7 @@ onMounted(() => {
     <a-dropdown :getPopupContainer="getPopupContainer" placement="bottomRight" :trigger="['click']"">
         <a class="">
             <a-space>
-                <a-avatar :size="64" style="background-color: none;">
+                <a-avatar class="avatar" style="background-color: none;">
         <template #icon> <img v-if="settingStore.avatar.length > 1" :src="avatar" alt="avatar">
             <icon-profile v-else />
         </template>
@@ -130,3 +130,17 @@ onMounted(() => {
     <setting-modal-component v-model:open="openSetting" />
     <burger-component v-model:open="open" />
 </template>
+
+<style>
+.avatar{
+    width: 64px;
+    height: 64px;
+}
+
+@media (max-width: 768px) {
+    .avatar{
+        width: 52px;
+        height: 52px;
+    }
+}
+</style>
