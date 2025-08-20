@@ -117,7 +117,7 @@ onMounted(() => {
                 <template v-else>
                     <a-menu-item @click="registerstore.openDrawer" class="logout-item" key="profil">
                         <div class="flex justify-between items-center w-full">
-                            Ro'yxatdan o'tish
+                            Tizimga kirish
                             <icon-enter />
                         </div>
                     </a-menu-item>

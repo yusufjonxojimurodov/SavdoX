@@ -21,3 +21,11 @@ export function ApiGetUserAvatar() {
     method: "GET",
   });
 }
+
+export function ApiPostBanner(form) {
+  return api({
+    url: "/banner/post",
+    method: "POST",
+    data: form,
+  });
+}

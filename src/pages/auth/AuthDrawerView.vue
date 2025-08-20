@@ -25,10 +25,10 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <a-drawer v-model:open="drawerOpen" :title="drawerMode === 'register' ? `Ro'yxatdan o'tish` : `Tizimga kirish`"
-        placement="right" :width="drawerWidth" :body-style="{ backgroundColor: '#1C1C1C', color: '#fff' }"
+    <a-drawer v-model:open="drawerOpen" title="Tizimga kirish" placement="right" :width="drawerWidth"
+        :body-style="{ backgroundColor: '#1C1C1C', color: '#fff' }"
         :header-style="{ backgroundColor: '#1C1C1C', color: '#fff', borderBottom: 'none' }">
-        <component :is="drawerMode === 'register' ? RegisterFormComponent : LoginComponent" />
+        <login-component />
     </a-drawer>
 </template>
 

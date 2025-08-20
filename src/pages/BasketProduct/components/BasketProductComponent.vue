@@ -30,7 +30,6 @@ const totalPrice = computed(() => {
         }, 0)
 })
 
-
 function selectAll() {
     if (selectedCards.value.length === basketProducts.value.length) {
         selectedCards.value = []

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">mntn</string>
-    <string name="title_activity_main">mntn</string>
+    <string name="app_name">Savdo X</string>
+    <string name="title_activity_main">Savdo X</string>
     <string name="package_name">savdoX.app</string>
     <string name="custom_url_scheme">savdoX.app</string>
 </resources>

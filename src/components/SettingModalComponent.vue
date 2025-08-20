@@ -48,7 +48,7 @@ async function send() {
         await settingStore.getUserAvatar();
         emits('update:open', false);
     } catch (error) {
-        // kerak bo'lsa xatolik uchun yozish mumkin
+      
     } finally {
         putBtnLoader.value = false;
     }

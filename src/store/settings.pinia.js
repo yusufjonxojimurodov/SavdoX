@@ -1,5 +1,9 @@
 import { defineStore } from "pinia";
-import { ApiGetUserAvatar, ApiPostAvatar } from "../api/settings.api";
+import {
+  ApiGetUserAvatar,
+  ApiPostAvatar,
+  ApiPostBanner,
+} from "../api/settings.api";
 import { message } from "ant-design-vue";
 
 const useSetting = defineStore("setting", {
@@ -36,6 +40,16 @@ const useSetting = defineStore("setting", {
         })
         .finally(() => {
           this.avatarLoading = false;
+        });
+    },
+
+    createBanner(form) {
+      ApiPostBanner(form)
+        .then(() => {
+          message.success("Banner qoyld");
+        })
+        .catch((err) => {
+          message.error("Banner Qoyilmadi", err);
         });
     },
   },

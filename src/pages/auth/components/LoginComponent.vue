@@ -22,6 +22,10 @@ async function registerAccaount() {
         }, 1000)
     }
 }
+
+function openBot() {
+    window.open("https://t.me/savdo_x_bot", "_blank")
+}
 </script>
 
 <template>
@@ -55,7 +59,7 @@ async function registerAccaount() {
 
                 <div class="flex flex-col sm:flex-row justify-between items-center mt-10 w-full gap-4">
                     <p class="text-white">
-                        <span @click="userRegisterStore.openRegister()" class="text-[#FFD700] cursor-pointer">
+                        <span @click="openBot" class="text-[#FFD700] cursor-pointer">
                             Hisobingiz yo'qmi ?
                         </span>
                     </p>

@@ -4,7 +4,11 @@ import { message } from 'ant-design-vue';
 import useProducts from '../../../../store/products.pinia';
 import useMeProduct from '../../../../store/product.me';
 import IconPlus from '../../../../components/icons/IconPlus.vue';
+import useSetting from '../../../../store/settings.pinia';
+import useRegister from '../../../../store/register.pinia';
 
+const userStore = useRegister()
+const settingStore = useSetting()
 const productMeStore = useMeProduct()
 const productsStore = useProducts()
 const props = defineProps({ open: Boolean });
@@ -18,7 +22,7 @@ const createProduct = reactive({
     left: "",
     model: null,
     type: null,
-    discount: null
+    discount: ""
 });
 
 const fileList = ref([])
@@ -36,7 +40,10 @@ const models = [
     { label: 'Xiaomi', value: 'Xiaomi' },
     { label: 'Apple', value: 'Apple' },
     { label: 'Google', value: 'Google' },
-    { label: 'Boshqa', value: 'Other' },
+    { label: "Huawei", value: "Huawei" },
+    { label: "Oppo", value: "Oppo" },
+    { label: "Vivo", value: "Vivo" },
+    { label: "Honor", value: "Honor" },
 ]
 
 const types = [
@@ -87,6 +94,19 @@ function resetForm() {
     createProduct.model = null;
 }
 
+const bannerList = ref([]);
+
+const handleUpload = async ({ file, onSuccess, onError }) => {
+    try {
+        const formData = new FormData();
+        formData.append("image", file);
+
+        settingStore.createBanner(formData)
+        onSuccess(data);
+    } catch (err) {
+        onError(err);
+    }
+};
 </script>
 
 <template>
@@ -149,6 +169,13 @@ function resetForm() {
                         <p>Rasm yuklash</p>
                     </template>
                 </a-upload>
+
+                <a-upload v-if="userStore.user.role === 'admin'" :customRequest="handleUpload"
+                    v-model:file-list="bannerList" list-type="picture-card">
+                    <div>
+                        <span>+ Upload</span>
+                    </div>
+                </a-upload>
             </a-form-item>
 
             <div class="flex justify-end gap-4 mt-6">
@@ -190,3 +217,36 @@ function resetForm() {
     color: #fff !important;
 }
 </style>
+
+<!-- <script setup>
+import { ref } from "vue";
+import { message } from "ant-design-vue";
+import axios from "axios";
+
+const fileList = ref([]);
+const token = localStorage.getItem("access_token");
+
+const handleUpload = async ({ file, onSuccess, onError }) => {
+    try {
+        const formData = new FormData();
+        formData.append("image", file);
+
+        const { data } = await axios.post("https://savdo-x-1.onrender.com/banner/post", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`
+            },
+        });
+
+        message.success("✅ Banner yuklandi!");
+        onSuccess(data);
+    } catch (err) {
+        message.error("❌ Yuklashda xatolik!");
+        onError(err);
+    }
+};
+</script>
+
+<template>
+   
+</template> -->
