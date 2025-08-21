@@ -19,9 +19,7 @@ const putBtnLoader = ref(false);
 const accaountInfo = reactive({
     name: userMe.user.name,
     surname: userMe.user.surname,
-    phone: userMe.user.phone,
     email: userMe.user.email,
-    userName: userMe.user.userName,
     birthDate: userMe.user.birthDate,
 });
 
@@ -95,20 +93,9 @@ watch(
                 <a-input v-model:value="accaountInfo.surname" size="large" placeholder="Familyangizni kiriting" />
             </a-form-item>
 
-            <a-form-item name="phone" label="Telefon Raqamingiz"
-                :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
-                <a-input v-model:value="accaountInfo.phone" size="large" placeholder="Telefon Raqamingizni kiriting" />
-            </a-form-item>
-
             <a-form-item name="email" label="Emailingiz" :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
                 <a-input type="email" v-model:value="accaountInfo.email" size="large"
                     placeholder="Emailingizni kiriting" />
-            </a-form-item>
-
-            <a-form-item name="userName" label="Foydalanuvchi nomingiz"
-                :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
-                <a-input v-model:value="accaountInfo.userName" size="large"
-                    placeholder="Foydalanuvchi nomini kiriting" />
             </a-form-item>
 
             <a-form-item name="birthDate" label="Tug'ilgan sanangiz"
