@@ -57,7 +57,6 @@ const useRegister = defineStore("register", {
         if (status === 400) {
           this.botModalOpen = true;
 
-          // 3 soniyadan keyin modalni yopish
           setTimeout(() => {
             this.botModalOpen = false;
           }, 3000);

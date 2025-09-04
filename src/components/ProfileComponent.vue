@@ -132,13 +132,13 @@ onMounted(() => {
 </template>
 
 <style>
-.avatar{
+.avatar {
     width: 64px;
     height: 64px;
 }
 
 @media (max-width: 768px) {
-    .avatar{
+    .avatar {
         width: 52px;
         height: 52px;
     }

@@ -7,7 +7,9 @@ import ProductModalComponent from '../../../../components/ProductModalComponent.
 import ProductEditComponent from './ProductEditComponent.vue';
 import IconEdit from '../../../../components/icons/IconEdit.vue';
 import IconDelete from '../../../../components/icons/IconDelete.vue';
+import useQueryParams from '../../../../composables/useQueryParams';
 
+const { setQueries } = useQueryParams()
 const productStore = useMeProduct();
 const productsInfoStore = useProductInfo();
 const commentsStore = useComments();
@@ -53,6 +55,9 @@ async function delProduct(id) {
 
 async function openEditForm(id) {
     await productStore.getOneProductInfo(id);
+    setQueries({
+        productId: id || undefined
+    })
     modalOpenEdit.value = true;
 }
 </script>
@@ -99,7 +104,7 @@ async function openEditForm(id) {
 
                                     <div class="flex justify-between items-center w-full mt-2">
                                         <p class="text-[12px] sm:text-[14px] text-[#888] font-medium">{{ product.model
-                                            }}</p>
+                                        }}</p>
                                         <p @click.stop="openEditForm(product._id)"
                                             class="text-[14px] text-white font-semibold flex justify-center items-center gap-2">
                                             Mahsulotni yangilash <icon-edit />

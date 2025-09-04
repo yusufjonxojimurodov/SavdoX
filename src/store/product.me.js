@@ -47,7 +47,7 @@ const useMeProduct = defineStore("meProduct", {
       try {
         await ApiEditProductMe(id, form);
         message.success("Mahsulotingiz yangilandi");
-        await this.GetMeProduct();
+        this.GetMeProduct();
       } catch {
         message.error("Mahsulotingizni yangilashda xatolik");
       } finally {

@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue';
 import useRegister from '../../store/register.pinia';
-import SellerAsideComponent from './components/SellerAsideComponent.vue';
+import SellerAsideComponent from './pages/SellerAsideComponent.vue';
 
 const meStore = useRegister()
 

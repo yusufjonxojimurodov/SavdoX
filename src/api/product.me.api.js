@@ -24,6 +24,7 @@ export function ApiEditProductMe(id, form) {
   formData.append("price", form.price);
   formData.append("model", form.model);
   formData.append("left", form.left);
+  formData.append("discount", form.discount);
   if (form.image) formData.append("image", form.image);
 
   return api({
@@ -37,10 +38,9 @@ export function ApiEditProductMe(id, form) {
   });
 }
 
-
 export function getOneProduct(id) {
   return api({
     url: `/get/all/products/${id}`,
-    method: "GET"
-  })
+    method: "GET",
+  });
 }

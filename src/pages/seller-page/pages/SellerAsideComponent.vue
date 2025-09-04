@@ -12,6 +12,7 @@ import IconArrowLeft from '../../../components/icons/IconArrowLeft.vue';
 import IconArrowRight from '../../../components/icons/IconArrowRight.vue';
 import IconDelivery from '../../../components/icons/IconDelivery.vue';
 import BuyyedProductsView from './buyyed-products/BuyyedProductsView.vue';
+import StatisticView from './statistic-page/StatisticView.vue';
 
 const collapsed = ref(false);
 const selectedKeys = ref(['1']);
@@ -28,7 +29,7 @@ const currentTitle = computed(() => pageTitles[selectedKeys.value[0]] || 'Sahifa
 const isMobile = ref(false);
 
 const checkScreen = () => {
-    isMobile.value = window.innerWidth <= 768; // telefon uchun shart
+    isMobile.value = window.innerWidth <= 768;
 };
 
 onMounted(() => {
@@ -43,8 +44,6 @@ onBeforeUnmount(() => {
 
 <template>
     <a-layout style="min-height: 100vh; background-color: #1e1d1d;">
-
-        <!-- DESKTOP SIDEBAR -->
         <a-layout-sider v-if="!isMobile" :style="{ backgroundColor: '#1e1d1d' }" collapsible :collapsed="collapsed"
             @collapse="val => collapsed = val" width="250" :trigger="collapsed ? h(IconArrowRight) : h(IconArrowLeft)">
             <div class="logo">
@@ -102,8 +101,6 @@ onBeforeUnmount(() => {
                 </a-menu-item>
             </a-menu>
         </a-layout-sider>
-
-        <!-- MOBILE BOTTOM NAV -->
         <div v-else class="bottom-nav">
             <div class="nav-item" :class="{ active: selectedKeys[0] === '1' }" @click="selectedKeys = ['1']">
                 <icon-phone-product />
@@ -122,7 +119,6 @@ onBeforeUnmount(() => {
             </div>
         </div>
 
-        <!-- ASOSIY CONTENT -->
         <a-layout style="background-color: #121212;">
             <a-layout-header style="background-color: #121212; margin-top: 50px;">
                 <div class="!flex justify-between items-start !w-full">
@@ -130,7 +126,7 @@ onBeforeUnmount(() => {
                         class="!flex justify-center items-center gap-2 text-[24px] sm:text-[32px] font-bold text-white">
                         <router-link to="/"><icon-back
                                 class="!w-[24px] !h-[24px] sm:!w-[32px] sm:!h-[32px]" /></router-link> {{
-                        currentTitle }}
+                                    currentTitle }}
                     </span>
                     <profile-component />
                 </div>
@@ -139,6 +135,7 @@ onBeforeUnmount(() => {
             <a-layout-content style="margin: 24px 16px; padding: 24px; background: #121212; min-height: 280px">
                 <products-view v-if="selectedKeys[0] === '1'" />
                 <pending-product-seller-view v-if="selectedKeys[0] === '2'" />
+                <statistic-view v-if="selectedKeys[0] === '3'" />
                 <buyyed-products-view v-if="selectedKeys[0] === '5'" />
             </a-layout-content>
         </a-layout>

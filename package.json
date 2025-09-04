@@ -18,6 +18,7 @@
     "@tailwindcss/vite": "^4.1.11",
     "ant-design-vue": "^4.2.6",
     "axios": "^1.11.0",
+    "chart.js": "^4.5.0",
     "dayjs": "^1.11.13",
     "pinia": "^3.0.3",
     "swiper": "^11.2.10",

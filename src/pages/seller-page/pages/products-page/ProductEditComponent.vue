@@ -1,14 +1,12 @@
 <script setup>
-import { ref, reactive, computed, onMounted, watch } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { message } from 'ant-design-vue';
-import useProducts from '../../../../store/products.pinia';
 import useMeProduct from '../../../../store/product.me';
 import useQueryParams from '../../../../composables/useQueryParams';
 import IconUpdate from '../../../../components/icons/IconUpdate.vue';
 
 const { getQueries } = useQueryParams()
 const productMeStore = useMeProduct()
-const productsStore = useProducts()
 const props = defineProps({ open: Boolean });
 const emit = defineEmits(['update:open']);
 
@@ -24,7 +22,6 @@ const createProduct = computed({
         Object.assign(productMeStore.oneProduct, val);
     }
 });
-
 
 watch(
     () => productMeStore.oneProduct,
@@ -66,6 +63,7 @@ async function editProductDashboard() {
             price: createProduct.value.price,
             left: createProduct.value.left,
             model: createProduct.value.model,
+            discount: createProduct.value.discount,
             image: fileList.value.length ? fileList.value[0].originFileObj : null
         });
 
@@ -103,6 +101,9 @@ function resetForm() {
                     <a-form-item name="name" label="Mahsulot Nomi"
                         :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
                         <a-input size="large" v-model:value="createProduct.name" placeholder="Mahsulot nomi" />
+                    </a-form-item>
+                    <a-form-item name="discount" label="Mahsulot chegirmasi">
+                        <a-input size="large" v-model:value="createProduct.discount" placeholder="Mahsulot Chegirmasi" />
                     </a-form-item>
                 </a-col>
                 <a-col :span="12">
