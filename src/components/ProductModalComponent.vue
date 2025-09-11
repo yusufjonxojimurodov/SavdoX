@@ -1,10 +1,10 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import useProductInfo from '../store/products.info.pinia';
-import IconHappyComponent from './icons/reactions/IconHappyComponent.vue';
-import IconSadComponent from './icons/reactions/IconSadComponent.vue';
+import SellerInfoModalComponent from './SellerInfoModalComponent.vue';
 import ComentsComponent from './ComentsComponent.vue';
 import ComentCreateComponent from './ComentCreateComponent.vue';
+import { ref } from 'vue';
 
 const props = defineProps({
     open: Boolean
@@ -12,7 +12,14 @@ const props = defineProps({
 const emits = defineEmits(['update:open'])
 
 const productStore = useProductInfo()
+const openInfoModal = ref(false)
 const { product } = storeToRefs(productStore)
+
+function openSellerInfoModal(id) {
+    productStore.getSellerInfo(id)
+    emits('update:open')
+    openInfoModal.value = true
+}
 </script>
 
 <template>
@@ -51,9 +58,13 @@ const { product } = storeToRefs(productStore)
                                 {{ product.description }}
                             </p>
                             <div class="flex justify-between items-center w-full">
-
                                 <p class="text-xs sm:text-sm text-[#888] font-medium">
                                     {{ product.model }}
+                                </p>
+
+                                <p @click="openSellerInfoModal(product.createdBy._id)" type="text"
+                                    class="!text-[12px] border-b border-white text-white" size="middle">
+                                    Sotuvchi ha'qida ma'lumot olish
                                 </p>
                             </div>
                         </div>
@@ -76,6 +87,8 @@ const { product } = storeToRefs(productStore)
             </a-button>
         </template>
     </a-modal>
+
+    <seller-info-modal-component v-model:open="openInfoModal" />
 </template>
 
 <style scoped>

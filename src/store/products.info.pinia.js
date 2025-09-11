@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
-import { ApiGetProductInformation } from "../api/product.info";
+import { ApiGetProductInformation, ApiGetSellerInfo } from "../api/product.info";
 import { message } from "ant-design-vue";
 
 const useProductInfo = defineStore('product', {
     state: () => ({
         product: [],
+        sellerInfo: {},
         loader: false
     }),
 
@@ -20,6 +21,21 @@ const useProductInfo = defineStore('product', {
             .catch((getErr) => {
                 const errorMessage = getErr.data?.response?.message || "Server Xatosi"
                 message.error(errorMessage)
+            })
+            .finally(() => {
+                this.loader = false
+            })
+        },
+
+        getSellerInfo(id) {
+            this.loader = true
+
+            ApiGetSellerInfo(id)
+            .then(({data}) => {
+                this.sellerInfo = data
+            })
+            .catch((getErr) => {
+                message.error(getErr)
             })
             .finally(() => {
                 this.loader = false
