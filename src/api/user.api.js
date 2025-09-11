@@ -1,16 +1,8 @@
 import { api } from "../utils/api/api";
 
-export function ApiRegisterUser(form) {
-  return api({
-    url: "/api/register",
-    method: "POST",
-    data: form,
-  });
-}
-
 export function ApiLoginUser(form) {
   return api({
-    url: "/api/login",
+    url: "/api/users/login",
     method: "POST",
     data: form,
   });
@@ -18,14 +10,14 @@ export function ApiLoginUser(form) {
 
 export function ApiGetUserInfo() {
   return api({
-    url: "/api/getUserMe",
+    url: "/api/users/getUserMe",
     method: "GET",
   });
 }
 
 export function ApiPutUserInfo(form) {
   return api({
-    url: "/api/update-profile",
+    url: "/api/users/update-profile",
     method: "PUT",
     data: form
   })

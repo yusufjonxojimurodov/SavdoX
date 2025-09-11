@@ -22,10 +22,6 @@
     const router = useRouter()
     const open = ref(false)
 
-    onMounted(() => {
-        settingStore.getUserAvatar()
-    })
-
     function basketProduct() {
         router.push("/basketProductView")
     }

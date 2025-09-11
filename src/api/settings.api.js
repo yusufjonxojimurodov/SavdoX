@@ -5,7 +5,7 @@ export function ApiPostAvatar(image) {
   if (image) formData.append("avatar", image);
 
   return api({
-    url: "/api/users/avatar",
+    url: "/api/avatar/users/avatar",
     method: "POST",
     data: formData,
     headers: {
@@ -17,14 +17,14 @@ export function ApiPostAvatar(image) {
 
 export function ApiGetUserAvatar() {
   return api({
-    url: "/api/users/get/avatar",
+    url: "/api/avatar/users/get/avatar",
     method: "GET",
   });
 }
 
 export function ApiPostBanner(form) {
   return api({
-    url: "/banner/post",
+    url: "/api/banner/post",
     method: "POST",
     data: form,
   });

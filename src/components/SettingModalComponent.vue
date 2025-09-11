@@ -56,11 +56,6 @@ function disabledFutureDates(current) {
     return current && current > dayjs().endOf('day');
 }
 
-const beforeUpload = (file) => {
-    fileList.value = [file];
-    return false;
-};
-
 watch(
     () => userMe.user,
     (val) => {

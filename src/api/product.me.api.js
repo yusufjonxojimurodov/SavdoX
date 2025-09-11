@@ -2,7 +2,7 @@ import { api } from "../utils/api/api";
 
 export function ApiGetProductMe(search = null) {
   return api({
-    url: "/get/all/products/my",
+    url: "/api/products/my",
     method: "GET",
     params: {
       search,
@@ -12,7 +12,7 @@ export function ApiGetProductMe(search = null) {
 
 export function ApiDeleteProductMe(id) {
   return api({
-    url: `/get/all/products/my/${id}`,
+    url: `/api/products/my/${id}`,
     method: "DELETE",
   });
 }
@@ -28,7 +28,7 @@ export function ApiEditProductMe(id, form) {
   if (form.image) formData.append("image", form.image);
 
   return api({
-    url: `/get/all/products/my/product/edit/${id}`,
+    url: `/api/products/my/product/edit/${id}`,
     method: "PUT",
     data: formData,
     headers: {
@@ -40,7 +40,7 @@ export function ApiEditProductMe(id, form) {
 
 export function getOneProduct(id) {
   return api({
-    url: `/get/all/products/${id}`,
+    url: `/api/products/get/${id}`,
     method: "GET",
   });
 }

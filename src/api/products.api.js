@@ -12,7 +12,7 @@ export function ApiCreateProduct(form) {
   if (form.image) formData.append("image", form.image);
 
   return api({
-    url: "/get/all/products/create-product",
+    url: "/api/products/create-product",
     method: "POST",
     data: formData,
     headers: {
@@ -24,7 +24,7 @@ export function ApiCreateProduct(form) {
 
 export function ApiGetProducts(search = null, price) {
   return api({
-    url: "/get/all/products",
+    url: "/api/products",
     method: "GET",
     params: {
       search,
@@ -35,7 +35,7 @@ export function ApiGetProducts(search = null, price) {
 
 export function ApiBasketProduct(productId) {
   return api({
-    url: "/basket/add",
+    url: "/api/basket/add",
     method: "POST",
     data: productId,
   });
@@ -43,14 +43,14 @@ export function ApiBasketProduct(productId) {
 
 export function ApiGetBasketProduct() {
   return api({
-    url: "/basket",
+    url: "/api/basket",
     method: "GET",
   });
 }
 
 export function ApiDeleteProduct(productIds) {
   return api({
-    url: `basket/delete?ids=${productIds.join(",")}`,
+    url: `/api/basket/delete?ids=${productIds.join(",")}`,
     method: "DELETE",
   });
 }

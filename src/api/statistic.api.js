@@ -2,14 +2,14 @@ import { api } from "../utils/api/api";
 
 export function ApiGetUserInformation(id) {
     return api({
-        url: `/users/${id}`,
+        url: `/api/users/${id}`,
         method: "GET",
     })
 }
 
 export function ApiGetStatisticProducts(year) {
     return api({
-        url: "/montlhy/sales",
+        url: "/api/montlhy/sales",
         method: "GET",
         params: {
             year

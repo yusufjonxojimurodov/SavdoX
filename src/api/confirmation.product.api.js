@@ -2,7 +2,7 @@ import { api } from "../utils/api/api";
 
 export function ApiPostConfirmationProduct(information) {
   return api({
-    url: "/pending/products/add",
+    url: "/api/pending/products/add",
     method: "POST",
     data: information,
   });
@@ -10,21 +10,21 @@ export function ApiPostConfirmationProduct(information) {
 
 export function ApiGetPendingProductsBuyer() {
   return api({
-    url: "/pending/products/my-pending/buyer",
+    url: "/api/pending/products/my-pending/buyer",
     method: "GET",
   });
 }
 
 export function ApiGetPendingProductsSeller() {
   return api({
-    url: "/pending/products/my-pending/seller",
+    url: "/api/pending/products/my-pending/seller",
     method: "GET"
   })
 }
 
 export function ApiDeletePendingProducts(id) {
   return api({
-    url: `/pending/products/delete/${id}`,
+    url: `/api/pending/products/delete/${id}`,
     method: "DELETE",
   });
 }

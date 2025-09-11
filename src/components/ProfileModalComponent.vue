@@ -16,10 +16,6 @@ const registerStore = useRegister()
 function handleClose() {
     emits('update:open', false)
 }
-
-onMounted(() => {
-    settingStore.getUserAvatar()
-})
 </script>
 
 <template>

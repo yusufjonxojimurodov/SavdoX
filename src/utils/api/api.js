@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://savdo-x-1.onrender.com",
+  baseURL: import.meta.env.VITE_SERVER_URL,
   timeout: 20000,
 });
 
