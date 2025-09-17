@@ -49,10 +49,10 @@ onBeforeUnmount(() => {
             <div class="logo">
                 <template v-if="!collapsed">
                     <span class="text-white text-[24px] font-bold">Savdo X</span>
-                    <img width="32" height="32" src="/Savdo X.png" alt="logo" />
+                    <img class="!rounded-[50%]" width="42" height="42" src="/icon.png" alt="logo" />
                 </template>
                 <template v-else>
-                    <img width="32" height="32" src="/Savdo X.png" alt="logo" />
+                    <img class="!rounded-[50%]" width="42" height="42" src="/icon.png" alt="logo" />
                 </template>
             </div>
 
