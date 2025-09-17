@@ -9,6 +9,8 @@ import { message } from 'ant-design-vue';
 import IconTrash from '../../../components/icons/IconTrash.vue';
 import useRegister from '../../../store/register.pinia.js';
 import IconBack from '../../../components/icons/IconBack.vue';
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
@@ -24,9 +26,8 @@ const isFooterVisible = ref(false);
 
 let observer = null;
 
-// 📍 Location tanlash uchun
 const showMap = ref(false)
-const tempLocation = ref({ lat: 41.2995, lng: 69.2401 }) // default Toshkent
+const tempLocation = ref({ lat: 41.2995, lng: 69.2401 })
 const mapEl = ref(null)
 let map = null
 let marker = null
@@ -65,7 +66,6 @@ async function deleteSelectedProducts() {
     }
 }
 
-// 📍 Sotib olish tugmasi bosilganda map ochiladi
 function openMap() {
     if (selectedCards.value.length === 0) {
         return message.warning("Hech qanday mahsulot tanlanmagan!");
@@ -74,7 +74,7 @@ function openMap() {
 }
 
 function addLocateButton() {
-    const locateControl = L.control({ position: 'topleft' }) // chap yuqorida chiqadi
+    const locateControl = L.control({ position: 'topleft' })
 
     locateControl.onAdd = function () {
         const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom')
@@ -99,35 +99,45 @@ function addLocateButton() {
 function initMap() {
     if (!mapEl.value) return;
 
-    // Agar eski map bo‘lsa o‘chirib tashlaymiz
     if (map) {
         map.remove();
         map = null;
     }
 
-    map = L.map(mapEl.value).setView([tempLocation.value.lat, tempLocation.value.lng], 12)
+    map = L.map(mapEl.value).setView([tempLocation.value.lat, tempLocation.value.lng], 12);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map)
+    }).addTo(map);
 
-    marker = L.marker([tempLocation.value.lat, tempLocation.value.lng], { draggable: true }).addTo(map)
+    const customIcon = L.icon({
+        iconUrl: markerIcon,
+        shadowUrl: markerShadow,
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+
+    marker = L.marker(
+        [tempLocation.value.lat, tempLocation.value.lng],
+        { draggable: true, icon: customIcon }
+    ).addTo(map);
 
     marker.on('dragend', () => {
-        const pos = marker.getLatLng()
-        tempLocation.value = { lat: pos.lat, lng: pos.lng }
-    })
+        const pos = marker.getLatLng();
+        tempLocation.value = { lat: pos.lat, lng: pos.lng };
+    });
 
-    // 📍 kartaga bosib marker qo‘yish
     map.on('click', (e) => {
-        tempLocation.value = { lat: e.latlng.lat, lng: e.latlng.lng }
-        marker.setLatLng([e.latlng.lat, e.latlng.lng])
-    })
+        tempLocation.value = { lat: e.latlng.lat, lng: e.latlng.lng };
+        marker.setLatLng([e.latlng.lat, e.latlng.lng]);
+    });
 
-    addLocateButton()
+    addLocateButton();
 }
 
-// 📍 User joylashuvini aniqlash
+
 function detectLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((pos) => {
@@ -140,7 +150,6 @@ function detectLocation() {
     }
 }
 
-// 📍 Tasdiqlash tugmasi
 async function confirmLocationAndBuy() {
     const orders = selectedCards.value.map(id => ({
         productId: id,
@@ -152,7 +161,7 @@ async function confirmLocationAndBuy() {
         phone: registerStore.user.phone,
         userName: registerStore.user.userName,
         buyerChatId: registerStore.user.chatId,
-        location: tempLocation.value   // 🔥 joylashuv qo‘shildi
+        location: tempLocation.value
     }
 
     try {
@@ -197,7 +206,6 @@ onUnmounted(() => {
     if (observer) observer.disconnect();
 });
 
-// 🔥 Modal ochilganda har safar map init qilish
 watch(showMap, (val) => {
     if (val) {
         setTimeout(initMap, 200);
