@@ -35,10 +35,6 @@ const handleLogout = () => {
     router.push("/")
 }
 
-function routerProfile() {
-    router.push("/dashboard")
-}
-
 function openSettings() {
     openSetting.value = true
 }

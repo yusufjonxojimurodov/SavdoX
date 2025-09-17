@@ -61,12 +61,12 @@ function getProduct(id) {
                shadow-[0_4px_12px_rgba(0,0,0,0.6)]
                !h-[500px] sm:!h-[520px] md:!h-[550px] cursor-pointer">
 
-                                    <img :src="product.image" alt="Mahsulot rasmi"
-                                        class="w-full h-60 sm:h-72 md:h-80 object-contain rounded-2xl transition duration-500" />
-                                    <div v-if="product.discount"
-                                        class="w-[60px] flex justify-center items-center !p-4 bg-red-700 absolute top-0 right-0 rounded-tr-[30px] rounded-bl-[30px]">
-                                        <p class="text-white font-semibold text-[16px]">{{ product.discount }}%</p>
-                                    </div>
+                                <img :src="product.image" alt="Mahsulot rasmi"
+                                    class="w-full h-60 sm:h-72 md:h-80 object-contain rounded-2xl transition duration-500" />
+                                <div v-if="product.discount"
+                                    class="w-[60px] flex justify-center items-center !p-4 bg-red-700 absolute top-0 right-0 rounded-tr-[30px] rounded-bl-[30px]">
+                                    <p class="text-white font-semibold text-[16px]">{{ product.discount }}%</p>
+                                </div>
 
                                 <div class="flex flex-col gap-2 sm:gap-3">
                                     <p class="text-[16px] sm:text-[20px] md:text-[24px] text-[#EAEAEA] font-semibold">{{
@@ -75,9 +75,9 @@ function getProduct(id) {
                                         <div class="flex items-center gap-2">
                                             <p :class="[
                                                 'text-[14px] sm:text-[16px] md:text-[18px] rounded-[10px] font-semibold',
-                                                product.discountPrice ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]'
+                                                product.discountPrice !== product.price ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]'
                                             ]">{{ product.price }}$</p>
-                                            <p v-if="product.discountPrice"
+                                            <p v-if="product.discountPrice !== product.price"
                                                 class="text-[14px] sm:text-[16px] md:text-[18px] text-[#FFD700] font-semibold">
                                                 {{ product.discountPrice }}$</p>
                                         </div>

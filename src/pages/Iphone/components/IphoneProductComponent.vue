@@ -63,9 +63,9 @@ function getProduct(id) {
               <div class="flex justify-between items-center">
                 <div class="flex items-center gap-2">
                   <p
-                    :class="['text-[14px] sm:text-[16px] md:text-[18px] font-semibold', product.discountPrice ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]']">
+                    :class="['text-[14px] sm:text-[16px] md:text-[18px] font-semibold', product.discountPrice !== product.price ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]']">
                     {{ product.price }}$</p>
-                  <p v-if="product.discountPrice"
+                  <p v-if="product.discountPrice !== product.price"
                     class="text-[#FFD700] text-[14px] sm:text-[16px] md:text-[18px] font-semibold">
                     {{ product.discountPrice }}$</p>
                 </div>

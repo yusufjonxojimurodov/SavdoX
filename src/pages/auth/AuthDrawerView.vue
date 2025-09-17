@@ -2,7 +2,6 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import useRegister from '../../store/register.pinia'
-import RegisterFormComponent from './components/RegisterFormComponent.vue'
 import LoginComponent from './components/LoginComponent.vue'
 
 const registerStore = useRegister()

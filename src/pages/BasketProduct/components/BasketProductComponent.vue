@@ -2,13 +2,16 @@
 import { storeToRefs } from 'pinia';
 import useProducts from '../../../store/products.pinia';
 import usePendingProduct from '../../../store/product.pending.pinia';
-import { onMounted, ref, computed, onUnmounted } from 'vue';
+import { onMounted, ref, computed, onUnmounted, watch } from 'vue';
 import IconStar from '../../../components/icons/IconStar.vue';
 import QuantitiyComponent from '../../../components/QuantitiyComponent.vue';
 import { message } from 'ant-design-vue';
 import IconTrash from '../../../components/icons/IconTrash.vue';
 import useRegister from '../../../store/register.pinia.js';
 import IconBack from '../../../components/icons/IconBack.vue';
+
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 
 const productStore = useProducts()
 const pendingProductStore = usePendingProduct()
@@ -20,6 +23,13 @@ const selectedCards = ref([])
 const isFooterVisible = ref(false);
 
 let observer = null;
+
+// 📍 Location tanlash uchun
+const showMap = ref(false)
+const tempLocation = ref({ lat: 41.2995, lng: 69.2401 }) // default Toshkent
+const mapEl = ref(null)
+let map = null
+let marker = null
 
 const totalPrice = computed(() => {
     return basketProducts.value
@@ -55,29 +65,106 @@ async function deleteSelectedProducts() {
     }
 }
 
-async function buySelected() {
+// 📍 Sotib olish tugmasi bosilganda map ochiladi
+function openMap() {
     if (selectedCards.value.length === 0) {
         return message.warning("Hech qanday mahsulot tanlanmagan!");
     }
+    showMap.value = true
+}
 
+function addLocateButton() {
+    const locateControl = L.control({ position: 'topleft' }) // chap yuqorida chiqadi
+
+    locateControl.onAdd = function () {
+        const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom')
+        div.innerHTML = '📍'
+        div.style.backgroundColor = 'white'
+        div.style.width = '34px'
+        div.style.height = '34px'
+        div.style.display = 'flex'
+        div.style.alignItems = 'center'
+        div.style.justifyContent = 'center'
+        div.style.cursor = 'pointer'
+        div.title = "Men qayerdaman"
+
+        div.onclick = () => detectLocation()
+
+        return div
+    }
+
+    locateControl.addTo(map)
+}
+
+function initMap() {
+    if (!mapEl.value) return;
+
+    // Agar eski map bo‘lsa o‘chirib tashlaymiz
+    if (map) {
+        map.remove();
+        map = null;
+    }
+
+    map = L.map(mapEl.value).setView([tempLocation.value.lat, tempLocation.value.lng], 12)
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map)
+
+    marker = L.marker([tempLocation.value.lat, tempLocation.value.lng], { draggable: true }).addTo(map)
+
+    marker.on('dragend', () => {
+        const pos = marker.getLatLng()
+        tempLocation.value = { lat: pos.lat, lng: pos.lng }
+    })
+
+    // 📍 kartaga bosib marker qo‘yish
+    map.on('click', (e) => {
+        tempLocation.value = { lat: e.latlng.lat, lng: e.latlng.lng }
+        marker.setLatLng([e.latlng.lat, e.latlng.lng])
+    })
+
+    addLocateButton()
+}
+
+// 📍 User joylashuvini aniqlash
+function detectLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+            tempLocation.value = { lat: pos.coords.latitude, lng: pos.coords.longitude }
+            map.setView([tempLocation.value.lat, tempLocation.value.lng], 14)
+            marker.setLatLng([tempLocation.value.lat, tempLocation.value.lng])
+        })
+    } else {
+        message.warning("Brauzer joylashuvni aniqlay olmaydi")
+    }
+}
+
+// 📍 Tasdiqlash tugmasi
+async function confirmLocationAndBuy() {
     const orders = selectedCards.value.map(id => ({
         productId: id,
         quantity: quantities.value[id]
-    }));
+    }))
 
     const information = {
         orders,
         phone: registerStore.user.phone,
         userName: registerStore.user.userName,
         buyerChatId: registerStore.user.chatId,
-    };
+        location: tempLocation.value   // 🔥 joylashuv qo‘shildi
+    }
 
     try {
         await pendingProductStore.ApiPostPendingProduct(information)
-        productStore.deleteBasketProduct(selectedCards.value);
+        productStore.deleteBasketProduct(selectedCards.value)
+        showMap.value = false
+        message.success("Buyurtma qabul qilindi!")
     } catch (err) {
-
+        message.error("Xatolik yuz berdi")
     }
+
+    window.location.reload()
 }
 
 onMounted(async () => {
@@ -109,6 +196,13 @@ onMounted(async () => {
 onUnmounted(() => {
     if (observer) observer.disconnect();
 });
+
+// 🔥 Modal ochilganda har safar map init qilish
+watch(showMap, (val) => {
+    if (val) {
+        setTimeout(initMap, 200);
+    }
+})
 </script>
 
 <template>
@@ -142,11 +236,11 @@ onUnmounted(() => {
                             <div class="!flex justify-start items-center gap-2">
                                 <p :class="[
                                     'text-[14px] sm:text-[16px] md:text-[18px] rounded-[10px] font-semibold',
-                                    basketProduct.product.discountPrice ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]'
+                                    basketProduct.product.discountPrice !== basketProduct.product.price ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]'
                                 ]">
                                     {{ basketProduct.product.price }}$
                                 </p>
-                                <p v-if="basketProduct.product.discountPrice"
+                                <p v-if="basketProduct.product.discountPrice !== basketProduct.product.price"
                                     class="text-[14px] sm:text-[16px] md:text-[18px] text-[#FFD700] font-semibold">
                                     {{ basketProduct.product.discountPrice }}$
                                 </p>
@@ -189,15 +283,24 @@ onUnmounted(() => {
                     {{ selectedCards.length === basketProducts.length ? "Hammasini bekor qilish" : "Hammasini tanlash"
                     }}
                 </a-button>
-                <a-button :loading="pendingProductStore.loader" @click="buySelected" type="primary" block size="middle"
-                    :disabled="selectedCards.length === 0" class="lg:size-large">
+                <a-button @click="openMap" type="primary" block size="middle" :disabled="selectedCards.length === 0"
+                    class="lg:size-large">
                     Sotib olish
                 </a-button>
             </div>
         </div>
+
+        <a-modal v-model:open="showMap" title="Joylashuvni tanlang" :width="800" :footer="null">
+            <div ref="mapEl" style="height:400px; border-radius:10px; margin-bottom: 10px;"></div>
+
+            <div class="flex justify-end items-center !mt-4 gap-4">
+                <a-button size="large" @click="showMap = false">Bekor qilish</a-button>
+                <a-button :loading="pendingProductStore.loader" size="large" type="primary"
+                    @click="confirmLocationAndBuy">Tasdiqlash</a-button>
+            </div>
+        </a-modal>
     </section>
 </template>
-
 
 <style scoped>
 .trash-icon-wrapper {

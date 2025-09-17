@@ -80,9 +80,9 @@ function getProduct(id) {
                                         <div class="flex items-center gap-2">
                                             <p :class="[
                                                 'text-[14px] sm:text-[16px] md:text-[18px] rounded-[10px] font-semibold',
-                                                product.discountPrice ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]'
+                                                product.discountPrice !== product.price? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]'
                                             ]">{{ product.price }}$</p>
-                                            <p v-if="product.discountPrice"
+                                            <p v-if="product.discountPrice !== product.price"
                                                 class="text-[14px] sm:text-[16px] md:text-[18px] text-[#FFD700] font-semibold">
                                                 {{ product.discountPrice }}$</p>
                                         </div>

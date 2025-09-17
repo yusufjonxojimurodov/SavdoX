@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue';
-import { storeToRefs } from 'pinia';
 import useFilterProducts from '../../../../store/filter.products.pinia.js';
 import useRegister from '../../../../store/register.pinia.js';
 import useProducts from '../../../../store/products.pinia.js';
@@ -19,7 +18,6 @@ const commentsStore = useComments()
 const iphoneFilterproductsStore = useFilterProducts()
 const registerStore = useRegister()
 const productsStore = useProducts()
-const { products } = storeToRefs(productsStore)
 
 const modalOpen = ref(false)
 const buttonLoaders = reactive({})
@@ -81,9 +79,9 @@ function getProduct(id) {
                                         <div class="flex items-center gap-2">
                                             <p :class="[
                                                 'text-[14px] sm:text-[16px] md:text-[18px] rounded-[10px] font-semibold',
-                                                product.discountPrice ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]'
+                                                product.discountPrice !== product.price ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]'
                                             ]">{{ product.price }}$</p>
-                                            <p v-if="product.discountPrice"
+                                            <p v-if="product.discountPrice !== product.price"
                                                 class="text-[14px] sm:text-[16px] md:text-[18px] text-[#FFD700] font-semibold">
                                                 {{ product.discountPrice }}$</p>
                                         </div>
