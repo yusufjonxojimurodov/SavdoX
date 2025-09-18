@@ -3,7 +3,6 @@ import { storeToRefs } from 'pinia';
 import useProducts from '../../../store/products.pinia';
 import usePendingProduct from '../../../store/product.pending.pinia';
 import { onMounted, ref, computed, onUnmounted, watch } from 'vue';
-import IconStar from '../../../components/icons/IconStar.vue';
 import QuantitiyComponent from '../../../components/QuantitiyComponent.vue';
 import { message } from 'ant-design-vue';
 import IconTrash from '../../../components/icons/IconTrash.vue';
