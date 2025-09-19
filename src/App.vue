@@ -1,3 +1,7 @@
+<script setup>
+import IconTechnicIssue from './components/icons/IconTechnicIssue.vue'
+</script>
+
 <template>
   <div class="down-wrapper">
     <div class="flex justify-center items-center gap-4">
@@ -7,10 +11,6 @@
     <p>Iltimos, keyinroq yana urinib ko‘ring.</p>
   </div>
 </template>
-
-<script setup>
-import IconTechnicIssue from './components/icons/IconTechnicIssue.vue'
-</script>
 
 <style scoped>
 .down-wrapper {
