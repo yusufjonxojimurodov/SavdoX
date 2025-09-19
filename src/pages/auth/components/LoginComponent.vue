@@ -1,12 +1,11 @@
 <script setup>
-import { reactive } from 'vue';
-import { useRouter } from 'vue-router';
-import { storeToRefs } from 'pinia';
-import useRegister from '../../../store/register.pinia';
+import { reactive, ref } from 'vue';
+import useRegister from '@/store/register.pinia';
+import WarningModalLogin from '@/components/WarningModalLogin.vue';
 
-const router = useRouter()
 const userRegisterStore = useRegister()
-const { drawerOpen } = storeToRefs(userRegisterStore)
+
+const openModal = ref(false)
 
 const LoginForm = reactive({
     phone: "+998",
@@ -48,8 +47,8 @@ async function loginAccaount() {
     }
 }
 
-function openBot() {
-    window.open("https://t.me/savdo_x_bot", "_blank")
+function openWarningModal() {
+    openModal.value = true
 }
 </script>
 
@@ -83,7 +82,7 @@ function openBot() {
 
                 <div class="flex flex-col sm:flex-row justify-between items-center mt-10 w-full gap-4">
                     <p class="text-white">
-                        <span @click="openBot" class="text-[#FFD700] cursor-pointer">
+                        <span @click="openWarningModal" class="text-[#FFD700] cursor-pointer">
                             Hisobingiz yo'qmi ?
                         </span>
                     </p>
@@ -93,6 +92,8 @@ function openBot() {
                     </a-button>
                 </div>
             </a-form>
+
+            <warning-modal-login v-model:open="openModal" />
         </div>
     </div>
 </template>

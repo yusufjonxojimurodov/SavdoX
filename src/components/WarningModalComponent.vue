@@ -12,12 +12,14 @@ const { modalOpen } = storeToRefs(registerStore)
         <template #title>
             <div class="flex items-center gap-2">
                 <IconWarning class="w-6 h-6 text-yellow-500" />
-                <p class="text-white text-[24px] font-semibold">SavdoX tomonidan ogohlantirish!</p>
+                <p class="text-white text-[24px] font-semibold">Ogohlantirish</p>
             </div>
         </template>
 
         <p class="text-gray-400 text-[18px] font-medium !mt-[20px]">
-            "SavdoX ga xush kelibsiz! Xarid qilish yoki mahsulotingizni sotish uchun ro‘yxatdan o‘ting."
+            SavdoX ga xush kelibsiz! Xarid qilish uchun tizimga kirishingizni so'raymiz bu sizning va boshqalarning
+            xavfsizligi
+            uchun.
         </p>
 
         <template #footer>
@@ -25,7 +27,7 @@ const { modalOpen } = storeToRefs(registerStore)
                 <a-button size="large" ghost danger @click="registerStore.closeModal">Keyinroq</a-button>
                 <a-button size="large" type="primary"
                     @click="() => { registerStore.closeModal(); registerStore.openDrawer(); }">
-                    Ro'yxatdan o'tish
+                    Tizimga kirish
                 </a-button>
             </div>
         </template>

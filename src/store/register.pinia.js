@@ -1,10 +1,7 @@
 import { defineStore } from "pinia";
-import {
-  ApiGetUserInfo,
-  ApiLoginUser,
-  ApiPutUserInfo,
-} from "../api/user.api";
-import { message } from "ant-design-vue";
+import { ApiGetUserInfo, ApiLoginUser, ApiPutUserInfo } from "../api/user.api";
+import { message, notification } from "ant-design-vue";
+import { useRouter } from "vue-router";
 
 const useRegister = defineStore("register", {
   state: () => ({
@@ -35,6 +32,14 @@ const useRegister = defineStore("register", {
       this.loaderButton = true;
       try {
         const { data } = await ApiLoginUser(form);
+        if (data.role === "blocked") {
+          notification.error({
+            message: "Ruxsat berilmadi",
+            description:
+              "Siz platformada bloklangansiz. Agarda tizim xatosi deb o'ylasangiz adminlarga murojaat qiling !",
+          });
+          return;
+        }
         localStorage.setItem("access_token", data.token);
         message.success("Tizimga Kirish muvaffaqiyatli bajarildi");
         return true;
@@ -54,6 +59,7 @@ const useRegister = defineStore("register", {
       try {
         const { data } = await ApiGetUserInfo();
         this.user = data;
+
         return true;
       } catch (errorGet) {
         return false;

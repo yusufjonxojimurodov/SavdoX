@@ -1,33 +1,30 @@
 <script setup></script>
 
 <template>
-    <svg width="32px" height="32px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-        viewBox="0 0 460 460" xml:space="preserve" fill="#000000">
+    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
         <g id="SVGRepo_iconCarrier">
-            <g>
-                <path style="fill:#FFD700;"
-                    d="M230,0C102.975,0,0,102.974,0,230c0,115.344,84.906,210.857,195.627,227.449l264.371-228.393 C459.489,102.464,356.71,0,230,0z">
-                </path>
-                <path style="fill:#FFD700;"
-                    d="M460,230c0-0.316-0.011-0.629-0.012-0.944l-59.373-59.373l-77.846,17.548L217.828,82.289H203.38 L83.101,203.976l20.551,161.49l91.976,91.976C206.842,459.122,218.318,460,230,460C357.026,460,460,357.025,460,230z">
-                </path>
-                <rect x="134.723" y="47.864" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 164.249 326.3948)"
-                    style="fill:#242424;" width="30" height="162.633"></rect>
-                <rect x="228.96" y="114.18" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 438.332 439.9225)"
-                    style="fill:#242424;" width="162.633" height="30"></rect>
-                <path style="fill:#242424;"
-                    d="M230,199.682l-160.615,10l22.038,134.873c2.661,16.284,18.338,29.607,34.838,29.607H230 l28.668-82.24L230,199.682z">
-                </path>
-                <path style="fill:#242424;"
-                    d="M230,199.682v174.48h103.739c16.5,0,32.177-13.323,34.838-29.607l22.038-134.873L230,199.682z">
-                </path>
-                <rect x="220" y="199.682" style="fill:#FFD700;" width="20" height="124.48"></rect>
-                <rect x="150" y="199.682" style="fill:#FFD700;" width="20" height="124.48"></rect>
-                <rect x="290" y="199.682" style="fill:#FFD700;" width="20" height="124.48"></rect>
-                <rect x="59.385" y="169.682" style="fill:#242424;" width="341.23" height="40"></rect>
-            </g>
+            <path opacity="0.4"
+                d="M15 2V12C15 13.1 14.1 14 13 14H2V7.62C2.73 8.49 3.85003 9.03 5.09003 9C6.10003 8.98 7.01 8.59 7.69 7.94C8 7.68 8.26002 7.34999 8.46002 6.98999C8.82002 6.37999 9.02 5.65997 9 4.90997C8.97 3.73997 8.45001 2.71 7.64001 2H15Z"
+                stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path
+                d="M22 14V17C22 18.66 20.66 20 19 20H18C18 18.9 17.1 18 16 18C14.9 18 14 18.9 14 20H10C10 18.9 9.1 18 8 18C6.9 18 6 18.9 6 20H5C3.34 20 2 18.66 2 17V14H13C14.1 14 15 13.1 15 12V5H16.84C17.56 5 18.22 5.39001 18.58 6.01001L20.29 9H19C18.45 9 18 9.45 18 10V13C18 13.55 18.45 14 19 14H22Z"
+                stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path
+                d="M8 22C9.10457 22 10 21.1046 10 20C10 18.8954 9.10457 18 8 18C6.89543 18 6 18.8954 6 20C6 21.1046 6.89543 22 8 22Z"
+                stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path
+                d="M16 22C17.1046 22 18 21.1046 18 20C18 18.8954 17.1046 18 16 18C14.8954 18 14 18.8954 14 20C14 21.1046 14.8954 22 16 22Z"
+                stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M22 12V14H19C18.45 14 18 13.55 18 13V10C18 9.45 18.45 9 19 9H20.29L22 12Z" stroke="#ffffff"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path
+                d="M9 5C9 6.2 8.47001 7.27 7.64001 8C6.93001 8.62 6.01 9 5 9C2.79 9 1 7.21 1 5C1 3.74 1.58 2.61 2.5 1.88C3.19 1.33 4.06 1 5 1C7.21 1 9 2.79 9 5Z"
+                stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            <path opacity="0.4" d="M5.25 3.75V5.25L4 6" stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10"
+                stroke-linecap="round" stroke-linejoin="round"></path>
         </g>
     </svg>
 </template>

@@ -8,7 +8,7 @@
     import IconGoogle from './icons/companies/IconGoogle.vue';
     import BurgerComponent from './BurgerComponent.vue';
     import { useRoute, useRouter } from 'vue-router';
-    import { onMounted, ref } from 'vue';
+    import { ref } from 'vue';
     import useSetting from '../store/settings.pinia';
     import { storeToRefs } from 'pinia';
     import ProfileComponent from './ProfileComponent.vue';
@@ -24,7 +24,7 @@
     const open = ref(false)
 
     function basketProduct() {
-        router.push("/basketProductView")
+        router.push("/basket")
     }
 
     function pendingPage() {
@@ -40,35 +40,35 @@
         <header class="shadow-md">
             <div class="container mx-auto px-6">
                 <nav class="flex justify-between items-center !py-4">
-                    <h1 class="logoName text-4xl font-bold">SavdoX</h1>
+                    <router-link to="/" class="logoName !text-4xl  font-bold !m-0 !p-0">SavdoX</router-link>
 
                     <ul class="hidden md:flex justify-center items-center gap-6">
                         <li>
-                            <router-link to="/samsungPageView"
+                            <router-link to="/samsung"
                                 class="nav-link text-[16px] !text-white font-medium transition duration-500 hover:!text-[#FFD700]">
                                 <icon-samsung />
                                 <span>Samsung</span>
                             </router-link>
                         </li>
-                        <li><router-link to="/iphonePageView"
+                        <li><router-link to="/apple"
                                 class="nav-link text-[16px] !text-white font-medium transition duration-500 hover:!text-[#FFD700]">
                                 <icon-apple />
-                                Iphone
+                                Apple
                             </router-link>
                         </li>
-                        <li><router-link to="/xiaomiPageView"
+                        <li><router-link to="/xiaomi"
                                 class="nav-link text-[16px] !text-white font-medium transition duration-500 hover:!text-[#FFD700]">
                                 <icon-xiaomi />
                                 Xiaomi
                             </router-link>
                         </li>
-                        <li><router-link to="/googlePageView"
+                        <li><router-link to="/google"
                                 class="nav-link text-[16px] !text-white font-medium hover:!text-[#FFD700]">
                                 <icon-google />
                                 Google
                             </router-link>
                         </li>
-                        <li><router-link to="/others/products"
+                        <li><router-link to="/others"
                                 class="nav-link text-[16px] !text-white font-medium hover:!text-[#FFD700]">
                                 <icon-other />
                                 Boshqalar
@@ -79,7 +79,7 @@
                     <icon-burger class="md:hidden text-white w-8 h-8 cursor-pointer" @click="open = true" />
                     <a-space size="large" class="hidden md:flex items-center">
                         <a-button
-                            v-if="!route.path.includes('/basketProductView') && !route.path.includes('/pending/product') && !route.path.includes('/buyyed/product')"
+                            v-if="!route.path.includes('/basket') && !route.path.includes('/pending/product') && !route.path.includes('/buyyed/product')"
                             type="primary" size="large" :disabled="registerstore.user.length === 0"
                             @click="basketProduct"
                             class="basket !font-medium !text-[18px] text-white hidden w-[150px] sm:flex rounded-2xl hover:bg-[#2A2A2A] hover:!text-[#FFD700] transition duration-500">
@@ -89,8 +89,9 @@
                             </div>
                         </a-button>
 
-                        <a-button @click="pendingPage" v-else-if="route.path.includes('/basketProductView')"
-                            class="!flex justify-center items-center" size="large" type="primary">
+                        <a-button @click="pendingPage" v-else-if="route.path.includes('/basket')"
+                            class="!flex justify-center items-center !gap-3 !font-semibold" size="large" type="primary">
+                            Haridlar Tarixi
                             <template #icon>
                                 <icon-time />
                             </template>

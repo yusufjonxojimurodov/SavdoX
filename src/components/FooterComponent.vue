@@ -16,17 +16,14 @@ import IconYoutube from './icons/IconYoutube.vue';
                     <div class="flex flex-col gap-[10px] items-center md:items-start text-center md:text-left">
                         <h3 class="text-lg font-semibold !text-[#FFD700] text-[18px] !m-0">Bo'limlar</h3>
                         <ul class="flex flex-col gap-[10px]">
-                            <li><a href="#"
+                            <li><router-link to="/"
                                     class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors">Asosiy
-                                    sahifa</a></li>
-                            <li><a href="#"
-                                    class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors">Mahsulotlar</a>
+                                    sahifa</router-link></li>
+                            <li><router-link to="/others"
+                                    class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors">Mahsulotlar</router-link>
                             </li>
-                            <li><a href="#"
-                                    class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors">Savat</a>
-                            </li>
-                            <li><a href="#"
-                                    class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors">Sevimlilar</a>
+                            <li><router-link to="/basket"
+                                    class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors">Savat</router-link>
                             </li>
                         </ul>
                     </div>
@@ -40,7 +37,7 @@ import IconYoutube from './icons/IconYoutube.vue';
                                     shahri, Chilonzor tumani, 12-uy</a>
                             </li>
                             <li><a class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors"
-                                    href="https://gmail.com">Email: info@savdox.com</a></li>
+                                    href="https://gmail.com">Email: xojimurodovyusufjon2@gmail.com</a></li>
                             <li><a class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors"
                                     href="tel:+998910118353">Telefon: +998 91 011 83 53</a></li>
                         </ul>
@@ -49,13 +46,13 @@ import IconYoutube from './icons/IconYoutube.vue';
                     <div class="flex flex-col gap-[10px] items-center md:items-start text-center md:text-left">
                         <h3 class="text-lg font-semibold text-yellow-400 !m-0">Yordam</h3>
                         <ul class="flex flex-col gap-[10px]">
-                            <li><a href="https://t.me/savdo_x_bot"
+                            <li><a href="https://t.me/savdo_x_bot" target="_blank"
                                     class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors">Savol-javob</a>
                             </li>
-                            <li><a href="#"
+                            <li><a href="https://t.me/savdo_x_bot" target="_blank"
                                     class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors">Qaytarish
                                     siyosati</a></li>
-                            <li><a href="https://t.me/savdo_x_bot"
+                            <li><a href="https://t.me/savdo_x_bot" target="_blank"
                                     class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors">Bog‘lanish</a>
                             </li>
                         </ul>

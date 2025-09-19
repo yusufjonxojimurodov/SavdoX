@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-    <svg viewBox="0 0 512 512" width="24px" height="24px" version="1.1" xmlns="http://www.w3.org/2000/svg"
+    <svg width="26px" height="26px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

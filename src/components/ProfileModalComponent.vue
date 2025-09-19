@@ -1,7 +1,6 @@
 <script setup>
-import { onMounted } from 'vue'
-import useRegister from '../store/register.pinia'
-import useSetting from '../store/settings.pinia'
+import useRegister from '@/store/register.pinia'
+import useSetting from '@/store/settings.pinia'
 import IconProfile from './icons/IconProfile.vue'
 import dayjs from 'dayjs'
 
@@ -19,7 +18,7 @@ function handleClose() {
 </script>
 
 <template>
-    <a-modal class="!w-[700px] max-w-full sm:!w-[90%]" :open="props.open"
+    <a-modal centered class="!w-[500px] max-w-full sm:!w-[50%]" :open="props.open"
         @update:open="val => emits('update:open', val)" :mask-closable="true"
         :cancel-button-props="{ style: { display: 'none' } }">
         <div
@@ -44,7 +43,7 @@ function handleClose() {
             'Ismingiz': registerStore.user.name,
             'Familyangiz': registerStore.user.surname,
             'Telefon Raqamingiz': registerStore.user.phone || '—',
-            'Yoshingiz': registerStore.user.birthDate ? dayjs(registerStore.user.birthDate).format('YYYY-MM-DD') : '—',
+            'Yoshingiz': registerStore.user.birthDate ? dayjs(registerStore.user.birthDate).format('DD-MM-YYYY') : '—',
             'Emailingiz': registerStore.user.email || '—',
             'Bozorimizdagi darajangiz': registerStore.user.role || '—'
         }" :key="label"

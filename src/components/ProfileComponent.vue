@@ -64,7 +64,7 @@ onMounted(() => {
     <a-dropdown :getPopupContainer="getPopupContainer" placement="bottomRight" :trigger="['click']"">
         <a class="">
             <a-space>
-                <a-avatar class="avatar" style="background-color: none;">
+                <a-avatar class=" avatar" style="background-color: none;">
         <template #icon> <img v-if="settingStore.avatar.length" :src="avatar" alt="avatar">
             <icon-profile v-else />
         </template>

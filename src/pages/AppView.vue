@@ -12,7 +12,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <products-view />
+    <router-view />
     <auth-drawer-view />
     <warning-modal-component />
 </template>

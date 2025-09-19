@@ -22,9 +22,7 @@ const registerStore = useRegister()
 const quantities = ref({})
 const selectedCards = ref([])
 const isFooterVisible = ref(false);
-
 let observer = null;
-
 const showMap = ref(false)
 const tempLocation = ref({ lat: 41.2995, lng: 69.2401 })
 const mapEl = ref(null)

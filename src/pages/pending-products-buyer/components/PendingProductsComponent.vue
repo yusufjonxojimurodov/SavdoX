@@ -1,11 +1,8 @@
 <script setup>
 import { onMounted, reactive } from 'vue';
-import IconHappyComponent from '../../../components/icons/reactions/IconHappyComponent.vue';
-import IconSadComponent from '../../../components/icons/reactions/IconSadComponent.vue';
-import useRegister from '../../../store/register.pinia.js';
-import usePendingProduct from '../../../store/product.pending.pinia.js';
-import IconTimeProduct from '../../../components/icons/IconTimeProduct.vue';
-import IconCansel from '../../../components/icons/IconCansel.vue';
+import useRegister from '@/store/register.pinia.js';
+import usePendingProduct from '@/store/product.pending.pinia.js';
+import IconTimeProduct from '@/components/icons/IconTimeProduct.vue';
 
 const pendingProductsStore = usePendingProduct()
 const registerStore = useRegister()

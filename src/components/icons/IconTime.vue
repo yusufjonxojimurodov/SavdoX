@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-    <svg width="24px" height="24px" fill="#ffffff" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
+    <svg width="18px" height="18px" fill="#ffffff" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
         stroke="#ffffff" stroke-width="0.00024000000000000003">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
