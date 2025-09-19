@@ -48,6 +48,11 @@ const routes = [
       import("../pages/pending-products-buyer/PendingProductsView.vue"),
   },
   {
+    path: "/others/products",
+    name: "OthersPage",
+    component: () => import("../pages/others/OthersProductView.vue"),
+  },
+  {
     path: "/buyyed/product",
     name: "BuyyedProductPage",
     component: () =>

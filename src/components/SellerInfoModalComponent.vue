@@ -15,7 +15,7 @@ function contactSeller() {
 </script>
 
 <template>
-    <a-modal :open="open" :footer="null" :width="500">
+    <a-modal centered :open="open" :footer="null" :width="500">
         <a-spin :spinning="productInfo.loader">
             <div class="flex flex-col gap-4">
 
@@ -46,8 +46,8 @@ function contactSeller() {
                 </div>
 
                 <div class="flex justify-end gap-2">
-                    <a-button @click="contactSeller" type="primary" size="middle">Bog'lanish</a-button>
-                    <a-button type="default" size="middle" @click="closeModal">Yopish</a-button>
+                    <a-button type="default" size="large" @click="closeModal">Yopish</a-button>
+                    <a-button @click="contactSeller" type="primary" size="large">Bog'lanish</a-button>
                 </div>
             </div>
         </a-spin>

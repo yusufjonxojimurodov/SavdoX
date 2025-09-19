@@ -12,9 +12,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <a-spin :spinning="registerStore.loader" size="large" class="flex justify-center items-center min-h-screen">
-        <products-view />
-        <auth-drawer-view />
-        <warning-modal-component />
-    </a-spin>
+    <products-view />
+    <auth-drawer-view />
+    <warning-modal-component />
 </template>

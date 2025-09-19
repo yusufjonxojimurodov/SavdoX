@@ -44,6 +44,7 @@ const models = [
     { label: "Oppo", value: "Oppo" },
     { label: "Vivo", value: "Vivo" },
     { label: "Honor", value: "Honor" },
+    { label: "Boshqalar", value: "Other" },
 ]
 
 const types = [

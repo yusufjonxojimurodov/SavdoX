@@ -65,7 +65,7 @@ onMounted(() => {
         <a class="">
             <a-space>
                 <a-avatar class="avatar" style="background-color: none;">
-        <template #icon> <img v-if="settingStore.avatar.length > 1" :src="avatar" alt="avatar">
+        <template #icon> <img v-if="settingStore.avatar.length" :src="avatar" alt="avatar">
             <icon-profile v-else />
         </template>
         </a-avatar>

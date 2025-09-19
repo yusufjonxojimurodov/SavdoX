@@ -33,7 +33,7 @@ const useSetting = defineStore("setting", {
 
       return ApiGetUserAvatar()
         .then(({ data }) => {
-          this.avatar = data.avatar;
+          this.avatar = data.avatarUrl;
         })
         .catch((error) => {
           console.log("Profil olishda xato" + error);

@@ -82,7 +82,7 @@ function getProduct(id) {
                                                 {{ product.discountPrice }}$</p>
                                         </div>
                                         <p class="text-gray-400 font-semibold text-[16px]">{{ product.createdBy.userName
-                                            }}</p>
+                                        }}</p>
                                     </div>
                                     <p class="text-[#B0B0B0] text-[12px] sm:text-[13px] md:text-[14px]">
                                         {{ product.description.slice(0, 80) }}
@@ -106,6 +106,7 @@ function getProduct(id) {
                                             </p>
                                         </div>
                                         <p class="text-[#888] font-medium text-[12px] sm:text-[14px]">{{ product.model
+                                            === "Other" ? "Boshqalar" : product.model
                                             }}</p>
                                     </div>
 

@@ -47,3 +47,15 @@ export function APiGetGoogle(search = null, price, type) {
     },
   });
 }
+
+export function ApiGetOthers(search = null, price, type) {
+  return api({
+    url: "/api/products?model=Other",
+    method: "GET",
+    params: {
+      search,
+      price,
+      type
+    },
+  });
+}

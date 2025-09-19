@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import {
   APiGetGoogle,
   ApiGetIphone,
+  ApiGetOthers,
   ApiGetSamsung,
   ApiGetXiaomi,
 } from "../api/filter.products.api";
@@ -12,6 +13,7 @@ const useFilterProducts = defineStore("filterProducts", {
     xiaomiProducts: [],
     iphoneProducts: [],
     googleProducts: [],
+    otherProducts: [],
     loader: false,
   }),
 
@@ -82,6 +84,25 @@ const useFilterProducts = defineStore("filterProducts", {
           const errorMessage =
             getError.data?.response?.message ||
             "Internetingizni tekshirib ko'ring";
+          message.error(errorMessage);
+        })
+        .finally(() => {
+          this.loader = false;
+        });
+    },
+
+    getOtherProducts(params = {}) {
+      const { search = null, price = null, type = null } = params;
+      this.loader = true;
+
+      ApiGetOthers(search, price, type)
+        .then(({ data }) => {
+          this.otherProducts = data;
+        })
+        .catch((getError) => {
+          const errorMessage =
+            getError.data?.response?.message ||
+            "Boshqa mahsulotlarni olishda xatolik";
           message.error(errorMessage);
         })
         .finally(() => {

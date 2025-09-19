@@ -14,6 +14,7 @@
     import ProfileComponent from './ProfileComponent.vue';
     import IconTime from './icons/IconTime.vue';
     import IconPurchase from './icons/IconPurchase.vue';
+    import IconOther from './icons/companies/IconOther.vue';
 
     const route = useRoute()
     const settingStore = useSetting()
@@ -65,6 +66,12 @@
                                 class="nav-link text-[16px] !text-white font-medium hover:!text-[#FFD700]">
                                 <icon-google />
                                 Google
+                            </router-link>
+                        </li>
+                        <li><router-link to="/others/products"
+                                class="nav-link text-[16px] !text-white font-medium hover:!text-[#FFD700]">
+                                <icon-other />
+                                Boshqalar
                             </router-link>
                         </li>
                     </ul>
