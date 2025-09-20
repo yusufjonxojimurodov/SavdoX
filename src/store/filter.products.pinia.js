@@ -6,7 +6,7 @@ import {
   ApiGetSamsung,
   ApiGetXiaomi,
 } from "../api/filter.products.api";
-import { message } from "ant-design-vue";
+
 const useFilterProducts = defineStore("filterProducts", {
   state: () => ({
     samsungProducts: [],
@@ -27,10 +27,7 @@ const useFilterProducts = defineStore("filterProducts", {
           this.samsungProducts = data;
         })
         .catch((getError) => {
-          const errorMessage =
-            getError.response?.data?.message ||
-            "Samsung mahsulotlarini olishda xatolik";
-          message.error(errorMessage);
+          console.error(getError);
         })
         .finally(() => {
           this.loader = false;
@@ -45,10 +42,7 @@ const useFilterProducts = defineStore("filterProducts", {
           this.iphoneProducts = data;
         })
         .catch((getError) => {
-          const errorMessage =
-            getError.data?.response?.message ||
-            "Iphone mahsulotlarini olishda xatolik";
-          message.error(errorMessage);
+          console.error(getError);
         })
         .finally(() => {
           this.loader = false;
@@ -63,9 +57,7 @@ const useFilterProducts = defineStore("filterProducts", {
           this.xiaomiProducts = data;
         })
         .catch((getError) => {
-          const errorMessage =
-            getError.data?.response?.message || "Mahsulot olishda xatolik";
-          message.error(errorMessage);
+          console.error(getError);
         })
         .finally(() => {
           this.loader = false;
@@ -81,10 +73,7 @@ const useFilterProducts = defineStore("filterProducts", {
           this.googleProducts = data;
         })
         .catch((getError) => {
-          const errorMessage =
-            getError.data?.response?.message ||
-            "Internetingizni tekshirib ko'ring";
-          message.error(errorMessage);
+          console.error(getError);
         })
         .finally(() => {
           this.loader = false;
@@ -100,10 +89,7 @@ const useFilterProducts = defineStore("filterProducts", {
           this.otherProducts = data;
         })
         .catch((getError) => {
-          const errorMessage =
-            getError.data?.response?.message ||
-            "Boshqa mahsulotlarni olishda xatolik";
-          message.error(errorMessage);
+          console.error(getError);
         })
         .finally(() => {
           this.loader = false;

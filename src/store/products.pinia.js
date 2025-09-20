@@ -41,9 +41,7 @@ const useProducts = defineStore("products", {
         const { data } = await ApiGetProducts(search, price);
         this.products = data;
       } catch (error) {
-        const errorMessage =
-          error.response?.data?.message || "Server bilan bog'liq xatolik";
-        message.warning(errorMessage);
+        console.error(error);
       } finally {
         this.loader = false;
       }

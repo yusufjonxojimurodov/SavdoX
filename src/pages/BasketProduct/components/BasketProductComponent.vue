@@ -1,13 +1,13 @@
 <script setup>
 import { storeToRefs } from 'pinia';
-import useProducts from '../../../store/products.pinia';
-import usePendingProduct from '../../../store/product.pending.pinia';
+import useProducts from '@/store/products.pinia';
+import usePendingProduct from '@/store/product.pending.pinia';
 import { onMounted, ref, computed, onUnmounted, watch } from 'vue';
-import QuantitiyComponent from '../../../components/QuantitiyComponent.vue';
+import QuantitiyComponent from '@/components/QuantitiyComponent.vue';
 import { message } from 'ant-design-vue';
-import IconTrash from '../../../components/icons/IconTrash.vue';
-import useRegister from '../../../store/register.pinia.js';
-import IconBack from '../../../components/icons/IconBack.vue';
+import IconTrash from '@/components/icons/IconTrash.vue';
+import useRegister from '@/store/register.pinia.js';
+import IconBack from '@/components/icons/IconBack.vue';
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
@@ -33,7 +33,7 @@ const totalPrice = computed(() => {
     return basketProducts.value
         .filter(item => selectedCards.value.includes(item._id))
         .reduce((sum, item) => {
-            const priceToUse = item.product.discountPrice ?? item.product.price
+            const priceToUse = item.discountPrice ?? item.price
             return sum + (priceToUse * quantities.value[item._id])
         }, 0)
 })
@@ -170,7 +170,7 @@ async function confirmLocationAndBuy() {
         message.error("Xatolik yuz berdi")
     }
 
-    window.location.reload()
+    selectedCards.value = []
 }
 
 onMounted(async () => {
@@ -227,39 +227,39 @@ watch(showMap, (val) => {
                                 ? 'bg-[#2E2E2E] border-2 border-[#FFD700]'
                                 : 'bg-[#1E1E1E] border-2 border-transparent'
                         ]">
-                        <img :src="basketProduct.product.image" alt="Mahsulot rasmi"
+                        <img :src="basketProduct.image" alt="Mahsulot rasmi"
                             class="w-full h-[240px] rounded-2xl transition duration-500 object-contain" />
 
-                        <div v-if="basketProduct.product.discount"
+                        <div v-if="basketProduct.discount"
                             class="w-[60px] flex justify-center items-center !p-4 bg-red-700 absolute top-0 right-0 rounded-tr-[30px] rounded-bl-[30px]">
-                            <p class="text-white !font-semibold text-[16px]">-{{ basketProduct.product.discount }}%</p>
+                            <p class="text-white !font-semibold text-[16px]">-{{ basketProduct.discount }}%</p>
                         </div>
                         <div class="flex justify-center items-start flex-col gap-[20px] w-full sm:w-auto">
                             <p class="text-[20px] sm:text-[24px] text-[#EAEAEA] font-semibold">
-                                {{ basketProduct.product.name }}
+                                {{ basketProduct.name }}
                             </p>
                             <div class="!flex justify-start items-center gap-2">
                                 <p :class="[
                                     'text-[14px] sm:text-[16px] md:text-[18px] rounded-[10px] font-semibold',
-                                    basketProduct.product.discountPrice !== basketProduct.product.price ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]'
+                                    basketProduct.discountPrice !== basketProduct.price ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]'
                                 ]">
-                                    {{ basketProduct.product.price }}$
+                                    {{ basketProduct.price }}$
                                 </p>
-                                <p v-if="basketProduct.product.discountPrice !== basketProduct.product.price"
+                                <p v-if="basketProduct.discountPrice !== basketProduct.price"
                                     class="text-[14px] sm:text-[16px] md:text-[18px] text-[#FFD700] font-semibold">
-                                    {{ basketProduct.product.discountPrice }}$
+                                    {{ basketProduct.discountPrice }}$
                                 </p>
                             </div>
                             <p class="text-[14px] sm:text-[14px] w-full sm:w-[300px] text-[#B0B0B0]">
-                                {{ basketProduct.product.description }}
+                                {{ basketProduct.description }}
                             </p>
                             <div class="flex justify-start gap-[10px] items-center">
                                 <p class="text-[14px] text-[#888] font-medium">
-                                    {{ basketProduct.product.model }}
+                                    {{ basketProduct.model }}
                                 </p>
                             </div>
                             <quantitiy-component @click.stop v-model="quantities[basketProduct._id]"
-                                :model-value="basketProduct.quantity" :max="basketProduct.product.left" />
+                                :model-value="basketProduct.quantity" :max="basketProduct.left" />
                         </div>
                     </div>
                 </template>
@@ -284,7 +284,8 @@ watch(showMap, (val) => {
                     Jami:
                     <span class="text-yellow-400 text-lg font-bold">{{ totalPrice }}$</span>
                 </p>
-                <a-button @click="selectAll" type="primary" block size="middle" class="lg:size-large">
+                <a-button :disabled="basketProducts.length === 0" @click="selectAll" type="primary" block size="middle"
+                    class="lg:size-large">
                     {{ selectedCards.length === basketProducts.length ? "Hammasini bekor qilish" : "Hammasini tanlash"
                     }}
                 </a-button>

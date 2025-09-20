@@ -72,6 +72,28 @@ const routes = [
       import("@/pages/buyyed-product-buyer/BuyyedProductView.vue"),
     meta: { title: "Sotib Olingan Mahsulotlar" },
   },
+  {
+    path: "/500",
+    name: "500",
+    component: () => import("@/pages/error/ServerNotWorking.vue"),
+    meta: { title: "Server bilan muammo" },
+  },
+  {
+    path: "/403",
+    name: "403",
+    component: () => import("@/pages/error/ForbiddenPage.vue"),
+    meta: { title: "Ruxsat berilmadi" },
+  },
+  {
+    path: "/404",
+    name: "404",
+    component: () => import("@/pages/error/PageNotFound.vue"),
+    meta: { title: "Sahifa Topilmadi" },
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/404",
+  },
 ];
 
 const router = createRouter({
@@ -86,7 +108,7 @@ router.beforeEach((to, from, next) => {
     to.meta.requiresRole &&
     registerStore.user.role !== to.meta.requiresRole
   ) {
-    return next("/"); 
+    return next("/403");
   }
 
   if (to.meta.title) {

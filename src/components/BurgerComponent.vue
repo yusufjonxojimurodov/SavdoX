@@ -42,7 +42,7 @@ function closeDrawer() {
                     <icon-google />
                     Google
                 </router-link></li>
-            <li><router-link to="/other" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
+            <li><router-link to="/others" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
                     @click="closeDrawer">
                     <icon-other />
                     Boshqalar
