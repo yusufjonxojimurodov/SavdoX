@@ -5,13 +5,13 @@ const routes = [
   {
     path: "/",
     name: "AppView",
-    component: () => import("../pages/AppView.vue"),
+    component: () => import("@/pages/AppView.vue"),
     meta: { title: "Home" },
     children: [
       {
         path: "",
         name: "Mahsulotlar",
-        component: () => import("@/pages/products/ProductsView.vue"),
+        component: () => import("@/pages/Products/ProductsView.vue"),
         meta: { title: "Mahsulotlar" },
       },
       {
