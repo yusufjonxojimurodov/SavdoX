@@ -56,7 +56,7 @@ const routes = [
     path: "/seller",
     name: "Sotuvchi",
     component: () => import("@/pages/seller-page/SellerView.vue"),
-    meta: { title: "Sotuvchi", requiresRole: "seller" },
+    meta: { title: "Sotuvchi", requiresRole: ['seller', 'admin'] },
   },
   {
     path: "/pending/product",
