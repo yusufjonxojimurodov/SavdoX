@@ -11,31 +11,31 @@ const routes = [
       {
         path: "",
         name: "Mahsulotlar",
-        component: () => import("@/pages/Products/ProductsView.vue"),
+        component: () => import("@/pages/products/ProductsView.vue"),
         meta: { title: "Mahsulotlar" },
       },
       {
         path: "apple",
         name: "Apple Mahsulotlari",
-        component: () => import("@/pages/Iphone/IphonePageView.vue"),
+        component: () => import("@/pages/apple/IphonePageView.vue"),
         meta: { title: "Apple Mahsulotlari" },
       },
       {
         path: "samsung",
         name: "Samsung Mahsulotlari",
-        component: () => import("@/pages/SamsungPage/SamsungPageView.vue"),
+        component: () => import("@/pages/samsung/SamsungPageView.vue"),
         meta: { title: "Samsung Mahsulotlari" },
       },
       {
         path: "xiaomi",
         name: "Xiaomi Mahsulotlari",
-        component: () => import("@/pages/XiaomiPage/XiaomiPageView.vue"),
+        component: () => import("@/pages/xiaomi/XiaomiPageView.vue"),
         meta: { title: "Xiaomi Mahsulotlari" },
       },
       {
         path: "google",
         name: "Google Mahsulotlari",
-        component: () => import("@/pages/Google-Page/GoogleView.vue"),
+        component: () => import("@/pages/google/GoogleView.vue"),
         meta: { title: "Google Mahsulotlari" },
       },
       {
@@ -49,7 +49,7 @@ const routes = [
   {
     path: "/basket",
     name: "Savatcha",
-    component: () => import("@/pages/BasketProduct/BasketProductView.vue"),
+    component: () => import("@/pages/basket-product/BasketProductView.vue"),
     meta: { title: "Savatcha" },
   },
   {
@@ -62,14 +62,14 @@ const routes = [
     path: "/pending/product",
     name: "Kutilayotgan Mahsulotlar",
     component: () =>
-      import("@/pages/pending-products-buyer/PendingProductsView.vue"),
+      import("@/pages/pending-product/PendingProductsView.vue"),
     meta: { title: "Kutilayotgan Mahsulotlar" },
   },
   {
     path: "/buyyed/product",
     name: "Sotib Olingan Mahsulotlar",
     component: () =>
-      import("@/pages/buyyed-product-buyer/BuyyedProductView.vue"),
+      import("@/pages/history/BuyyedProductView.vue"),
     meta: { title: "Sotib Olingan Mahsulotlar" },
   },
   {
