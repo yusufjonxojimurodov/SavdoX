@@ -56,20 +56,18 @@ const routes = [
     path: "/seller",
     name: "Sotuvchi",
     component: () => import("@/pages/seller-page/SellerView.vue"),
-    meta: { title: "Sotuvchi", requiresRole: ['seller', 'admin'] },
+    meta: { title: "Sotuvchi", requiresRole: ["seller", "admin"] },
   },
   {
     path: "/pending/product",
     name: "Kutilayotgan Mahsulotlar",
-    component: () =>
-      import("@/pages/pending-product/PendingProductsView.vue"),
+    component: () => import("@/pages/pending-product/PendingProductsView.vue"),
     meta: { title: "Kutilayotgan Mahsulotlar" },
   },
   {
     path: "/buyyed/product",
     name: "Sotib Olingan Mahsulotlar",
-    component: () =>
-      import("@/pages/history/BuyyedProductView.vue"),
+    component: () => import("@/pages/history/BuyyedProductView.vue"),
     meta: { title: "Sotib Olingan Mahsulotlar" },
   },
   {
@@ -104,11 +102,13 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const registerStore = useRegister();
 
-  if (
-    to.meta.requiresRole &&
-    registerStore.user.role !== to.meta.requiresRole
-  ) {
-    return next("/403");
+  if (to.meta.requiresRole) {
+    const allowedRoles = to.meta.requiresRole;
+    const userRole = registerStore.user?.role;
+
+    if (!allowedRoles.includes(userRole)) {
+      return next("/403");
+    }
   }
 
   if (to.meta.title) {
@@ -116,6 +116,6 @@ router.beforeEach((to, from, next) => {
   }
 
   next();
-});
+})
 
 export default router;
