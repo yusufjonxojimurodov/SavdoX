@@ -289,7 +289,7 @@ watch(showMap, (val) => {
                     {{ selectedCards.length === basketProducts.length ? "Hammasini bekor qilish" : "Hammasini tanlash"
                     }}
                 </a-button>
-                <a-button @click="openMap" type="primary" block size="middle" :disabled="selectedCards.length === []"
+                <a-button @click="openMap" type="primary" block size="middle" :disabled="selectedCards === []"
                     class="lg:size-large">
                     Sotib olish
                 </a-button>
