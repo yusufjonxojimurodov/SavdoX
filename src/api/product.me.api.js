@@ -25,6 +25,7 @@ export function ApiEditProductMe(id, form) {
   formData.append("model", form.model);
   formData.append("left", form.left);
   formData.append("discount", form.discount);
+  formData.append("type", form.type);
   if (form.image) formData.append("image", form.image);
 
   return api({

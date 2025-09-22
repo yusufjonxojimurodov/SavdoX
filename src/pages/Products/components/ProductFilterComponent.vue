@@ -34,7 +34,7 @@ function changeFilter(value) {
 <template>
     <section>
         <div class="container flex justify-between items-center !mt-[25px] flex-wrap">
-            <h2 class="text-[32px] font-semibold text-[#EAEAEA]">Barcha Mahsulotlar</h2>
+            <h2 class="text-[32px] !font-semibold text-[#212529]">Barcha Mahsulotlar</h2>
             <a-space class="flex-wrap">
                 <a-input v-model:value="searchProductValue" @input="searchProduct" size="large" class="responsive-input"
                     placeholder="Mahsulot Nomini yozing" />

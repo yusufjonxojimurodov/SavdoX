@@ -50,9 +50,9 @@ function getProduct(id) {
         <a-spin size="large" :spinning="productsStore.loader">
             <div class="container">
                 <template v-if="products.length > 0">
-                    <swiper :modules="[Mousewheel]" slides-per-view="auto" :space-between="20"
+                    <swiper :modules="[Mousewheel]" slides-per-view="auto" :space-between="10"
                         :mousewheel="{ forceToAxis: true }" :grab-cursor="true" :allow-touch-move="true" class="!mt-6">
-                        <swiper-slide v-for="product in products" :key="product._id" class="!w-[300px]">
+                        <swiper-slide v-for="product in products" :key="product._id" class="sm:!w-[300px] !w-[230px]">
                             <product-component :product="product" :button-loading="buttonLoaders[product._id]"
                                 @select="getProduct" @add-to-basket="basket" />
                         </swiper-slide>
@@ -60,7 +60,7 @@ function getProduct(id) {
                 </template>
 
                 <template v-else>
-                    <a-empty description="Mahsulotlar topilmadi" style="color: white; margin-top: 150px" />
+                    <a-empty description="Mahsulotlar topilmadi" style="color: #212529; margin-top: 150px" />
                 </template>
             </div>
         </a-spin>
@@ -68,13 +68,3 @@ function getProduct(id) {
         <product-modal-component :open="modalOpen" @update:open="val => modalOpen = val" />
     </section>
 </template>
-
-<style>
-.product:hover {
-    background-color: #252525;
-
-    img {
-        transform: scale(1.05);
-    }
-}
-</style>

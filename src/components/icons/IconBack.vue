@@ -2,8 +2,8 @@
 
 <template>
     <div class="icon-back">
-        <svg width="32px" height="32px" viewBox="0 0 1024 1024" fill="#ffffff" class="icon" version="1.1"
-            xmlns="http://www.w3.org/2000/svg" stroke="#ffffff" stroke-width="30.72">
+        <svg width="32px" height="32px" viewBox="0 0 1024 1024" fill="#212529" class="icon" version="1.1"
+            xmlns="http://www.w3.org/2000/svg" stroke="#212529" stroke-width="30.72">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
             <g id="SVGRepo_iconCarrier">

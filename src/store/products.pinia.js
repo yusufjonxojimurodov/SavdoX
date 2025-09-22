@@ -3,6 +3,7 @@ import {
   ApiBasketProduct,
   ApiCreateProduct,
   ApiDeleteProduct,
+  ApiDeportProduct,
   ApiGetBasketProduct,
   ApiGetProducts,
 } from "../api/products.api";
@@ -14,6 +15,7 @@ const useProducts = defineStore("products", {
     basketProducts: [],
     loader: false,
     createLoader: false,
+    buttonLoader: false,
   }),
 
   actions: {
@@ -92,6 +94,24 @@ const useProducts = defineStore("products", {
         })
         .finally(() => {
           this.loader = false;
+        });
+    },
+
+    async deportProduct(id, form) {
+      this.buttonLoader = true;
+
+      return ApiDeportProduct(id, form)
+        .then(() => {
+          message.success(
+            "Shikoyatingiz jo'natildi. Tez orada sizga bog'lanamiz"
+          );
+        })
+        .catch((postError) => {
+          console.log(postError);
+          message.error("Shikoyatingizni jo'natishda tizim xatosi");
+        })
+        .finally(() => {
+          this.buttonLoader = false;
         });
     },
   },

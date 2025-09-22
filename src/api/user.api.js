@@ -19,6 +19,13 @@ export function ApiPutUserInfo(form) {
   return api({
     url: "/api/users/update-profile",
     method: "PUT",
-    data: form
-  })
+    data: form,
+  });
+}
+
+export function ApiGetComplaint() {
+  return api({
+    url: "/api/users/my/complaints",
+    method: "GET",
+  });
 }

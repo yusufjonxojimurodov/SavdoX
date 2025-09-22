@@ -33,7 +33,7 @@ const useDeliveryProduct = defineStore("deliveryProduct", {
 
       APiGetDeliveryProduct()
         .then(({ data }) => {
-          this.deliveryProduct = data.deliveries;
+          this.deliveryProduct = data.formattedOrders;
         })
         .catch((errorGet) => {
           message.error(errorGet);

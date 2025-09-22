@@ -7,7 +7,6 @@ import BurgerComponent from './BurgerComponent.vue';
 import IconProfile from './icons/IconProfile.vue';
 import useRegister from '../store/register.pinia';
 import IconLogOut from './icons/IconLogOut.vue';
-import IconProduct from './icons/IconProduct.vue';
 import IconSetting from './icons/IconSetting.vue';
 import IconUser from './icons/IconUser.vue';
 import IconEnter from './icons/IconEnter.vue';
@@ -15,6 +14,7 @@ import IconAdmin from './icons/IconAdmin.vue';
 import { message } from 'ant-design-vue';
 import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
+import IconAdd from './icons/IconAdd.vue';
 
 const route = useRoute()
 const settingStore = useSetting()
@@ -90,7 +90,7 @@ onMounted(() => {
                     <a-menu-item v-if="!route.path.includes('/seller')" key="telegramBot">
                         <div @click="routerBot" class="flex justify-between items-center w-full">
                             Mahsulot qo'shish
-                            <icon-product />
+                            <icon-add />
                         </div>
                     </a-menu-item>
                     <a-menu-item v-if="route.path.includes('/seller')" key="telegramBot">

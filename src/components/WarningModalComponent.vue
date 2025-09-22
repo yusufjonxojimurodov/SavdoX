@@ -12,14 +12,14 @@ const { modalOpen } = storeToRefs(registerStore)
         <template #title>
             <div class="flex items-center gap-2">
                 <IconWarning class="w-6 h-6 text-yellow-500" />
-                <p class="text-white text-[24px] font-semibold">Ogohlantirish</p>
+                <p class="text-[#212529] text-[24px] !font-semibold">Ogohlantirish</p>
             </div>
         </template>
 
         <p class="text-gray-400 text-[18px] font-medium !mt-[20px]">
-            SavdoX ga xush kelibsiz! Xarid qilish uchun tizimga kirishingizni so'raymiz bu sizning va boshqalarning
-            xavfsizligi
-            uchun.
+            SavdoX ga xush kelibsiz! Platformadan to'liq foydalanish uchun tizimga kirishingizni so'raymiz. Bu sizning
+            va
+            boshqalarning xavfsizligingiz uchun.
         </p>
 
         <template #footer>

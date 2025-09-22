@@ -14,7 +14,7 @@ const useBuyyedProduct = defineStore("buyyedProduct", {
 
       ApiGetBuyyedProduct()
         .then(({ data }) => {
-          this.buyyedProduct = data.deliveries;
+          this.buyyedProduct = data.formattedOrders;
         })
         .catch((getErr) => {
           message.error(getErr);

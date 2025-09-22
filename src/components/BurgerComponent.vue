@@ -19,7 +19,7 @@ function closeDrawer() {
 
 <template>
     <a-drawer placement="left" :visible="props.open" :closable="false" @close="closeDrawer" width="250"
-        :body-style="{ backgroundColor: '#1E1E1E', padding: '20px' }">
+        :body-style="{ backgroundColor: '#FF8C00', padding: '20px' }">
         <h2 class="logoName border-b border-gray-500 text-center !mt-6 !p-[10px] text-3xl !mb-8">SavdoX</h2>
         <ul class="flex justify-center items-center flex-col gap-4">
             <li><router-link to="/samsung" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"

@@ -54,3 +54,11 @@ export function ApiDeleteProduct(productIds) {
     method: "DELETE",
   });
 }
+
+export function ApiDeportProduct(id, form) {
+  return api({
+    url: `/api/products/complaint/${id}`,
+    method: "POST",
+    data: form,
+  });
+}

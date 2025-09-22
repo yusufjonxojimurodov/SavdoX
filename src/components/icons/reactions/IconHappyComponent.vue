@@ -1,9 +1,19 @@
 <script setup></script>
 
 <template>
-    <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 512 512">
-        <path
-            d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm177.6 62.1C192.8 334.5 218.8 352 256 352s63.2-17.5 78.4-33.9c9-9.7 24.2-10.4 33.9-1.4s10.4 24.2 1.4 33.9c-22 23.8-60 49.4-113.6 49.4s-91.7-25.5-113.6-49.4c-9-9.7-8.4-24.9 1.4-33.9s24.9-8.4 33.9 1.4zM144.4 208a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z">
-        </path>
+    <svg height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 473.931 473.931" xml:space="preserve" fill="#000000">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <circle style="fill:#FFC10E;" cx="236.966" cy="236.966" r="236.966"></circle>
+            <g>
+                <path style="fill:#333333;"
+                    d="M383.164,237.123c-1.332,80.699-65.514,144.873-146.213,146.206 c-80.702,1.332-144.907-67.52-146.206-146.206c-0.198-12.052-18.907-12.071-18.709,0c1.5,90.921,73.993,163.414,164.914,164.914 c90.929,1.5,163.455-76.25,164.922-164.914C402.071,225.052,383.362,225.071,383.164,237.123L383.164,237.123z">
+                </path>
+                <circle style="fill:#333333;" cx="164.937" cy="155.227" r="37.216"></circle>
+                <circle style="fill:#333333;" cx="305.664" cy="155.227" r="37.216"></circle>
+            </g>
+        </g>
     </svg>
 </template>

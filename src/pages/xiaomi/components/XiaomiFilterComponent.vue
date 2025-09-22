@@ -58,7 +58,7 @@ function changeTypeFilter(value) {
                 <router-link to="/" class="bg-none border-none cursor-pointer">
                     <icon-back />
                 </router-link>
-                <h2 class="!text-[32px] !font-semibold text-[#EAEAEA] !mb-2">Xiaomi Mahsulotlari</h2>
+                <h2 class="!text-[32px] !font-semibold text-[#212529] !mb-2">Xiaomi Mahsulotlari</h2>
             </div>
             <a-space class="flex-wrap">
                 <a-input v-model:value="searchProductValue" @input="searchProduct" size="large" class="responsive-input"

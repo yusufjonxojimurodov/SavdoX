@@ -56,6 +56,7 @@ const useComments = defineStore("comment", {
       ApiDeleteComment(id)
         .then(() => {
           message.success("Fikringiz o'chirildi");
+          this.comments = this.comments.filter((com) => com._id !== id);
         })
         .catch((delErr) => {
           const errorMessage =

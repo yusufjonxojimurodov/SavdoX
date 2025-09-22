@@ -15,7 +15,7 @@
     import IconTime from './icons/IconTime.vue';
     import IconPurchase from './icons/IconPurchase.vue';
     import IconOther from './icons/companies/IconOther.vue';
-
+    
     const route = useRoute()
     const settingStore = useSetting()
     const { avatar } = storeToRefs(settingStore)
@@ -45,31 +45,31 @@
                     <ul class="hidden md:flex justify-center items-center gap-6">
                         <li>
                             <router-link to="/samsung"
-                                class="nav-link text-[16px] !text-white font-medium transition duration-500 hover:!text-[#FFD700]">
+                                class="nav-link text-[16px] !text-[#F8EDEB] font-medium transition duration-500">
                                 <icon-samsung />
                                 <span>Samsung</span>
                             </router-link>
                         </li>
                         <li><router-link to="/apple"
-                                class="nav-link text-[16px] !text-white font-medium transition duration-500 hover:!text-[#FFD700]">
+                                class="nav-link text-[16px] !text-[#F8EDEB] font-medium transition duration-500">
                                 <icon-apple />
                                 Apple
                             </router-link>
                         </li>
                         <li><router-link to="/xiaomi"
-                                class="nav-link text-[16px] !text-white font-medium transition duration-500 hover:!text-[#FFD700]">
+                                class="nav-link text-[16px] !text-[#F8EDEB] font-medium transition duration-500">
                                 <icon-xiaomi />
                                 Xiaomi
                             </router-link>
                         </li>
                         <li><router-link to="/google"
-                                class="nav-link text-[16px] !text-white font-medium hover:!text-[#FFD700]">
+                                class="nav-link text-[16px] !text-[#F8EDEB] font-medium">
                                 <icon-google />
                                 Google
                             </router-link>
                         </li>
                         <li><router-link to="/others"
-                                class="nav-link text-[16px] !text-white font-medium hover:!text-[#FFD700]">
+                                class="nav-link text-[16px] !text-[#F8EDEB] font-medium">
                                 <icon-other />
                                 Boshqalar
                             </router-link>
@@ -82,7 +82,7 @@
                             v-if="!route.path.includes('/basket') && !route.path.includes('/pending/product') && !route.path.includes('/buyyed/product')"
                             type="primary" size="large" :disabled="registerstore.user.length === 0"
                             @click="basketProduct"
-                            class="basket !font-medium !text-[18px] text-white hidden w-[150px] sm:flex rounded-2xl hover:bg-[#2A2A2A] hover:!text-[#FFD700] transition duration-500">
+                            class="basket !bg-[#F8EDEB] !font-medium !text-[18px] !text-[#343A40] hidden w-[150px] sm:flex rounded-2xl transition duration-500">
                             <div class="flex items-center gap-2 justify-center w-full">
                                 <icon-basket />
                                 Savatcha
@@ -132,7 +132,7 @@
     bottom: 0;
     width: 0%;
     height: 1.5px;
-    background: #FFD700;
+    background: #212529;
     transition: width 0.4s ease;
     border-radius: 1000px;
 }
@@ -155,19 +155,19 @@
 }
 
 :deep(.basket[disabled]) {
-    opacity: 0.5 !important;
+    opacity: 0.7 !important;
     cursor: not-allowed !important;
 }
 
 header {
     font-family: 'Poppins', sans-serif;
-    background: #1C1C1C;
+    background: #FF8C00;
 }
 
 .logoName {
-    color: white;
+    color: #F8EDEB;
     letter-spacing: 1px;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .header-input {
@@ -195,17 +195,7 @@ header {
 
 .basket {
     svg {
-        stroke: white !important;
-    }
-}
-
-.basket:hover {
-    p {
-        color: #FFD700;
-    }
-
-    svg {
-        stroke: #FFD700 !important;
+        stroke: #343A40 !important;
     }
 }
 

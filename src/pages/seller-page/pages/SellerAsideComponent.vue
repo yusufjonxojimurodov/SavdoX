@@ -1,18 +1,20 @@
 <script setup>
 import { computed, h, onBeforeUnmount, onMounted, ref } from 'vue';
-import IconPhoneProduct from '../../../components/icons/IconPhoneProduct.vue';
-import IconRating from '../../../components/icons/IconRating.vue';
-import IconStatistic from '../../../components/icons/IconStatistic.vue';
-import IconReport from '../../../components/icons/IconReport.vue';
+import IconPhoneProduct from '@/components/icons/IconPhoneProduct.vue';
+import IconRating from '@/components/icons/IconRating.vue';
+import IconStatistic from '@/components/icons/IconStatistic.vue';
+import IconReport from '@/components/icons/IconReport.vue';
 import ProductsView from './products-page/ProductsView.vue';
 import PendingProductSellerView from './pending-products-seller-page/PendingProductSellerView.vue';
-import IconBack from '../../../components/icons/IconBack.vue';
-import ProfileComponent from '../../../components/ProfileComponent.vue';
-import IconArrowLeft from '../../../components/icons/IconArrowLeft.vue';
-import IconArrowRight from '../../../components/icons/IconArrowRight.vue';
-import IconDelivery from '../../../components/icons/IconDelivery.vue';
+import IconBack from '@/components/icons/IconBack.vue';
+import ProfileComponent from '@/components/ProfileComponent.vue';
+import IconArrowLeft from '@/components/icons/IconArrowLeft.vue';
+import IconArrowRight from '@/components/icons/IconArrowRight.vue';
+import IconDelivery from '@/components/icons/IconDelivery.vue';
 import BuyyedProductsView from './buyyed-products/BuyyedProductsView.vue';
 import StatisticView from './statistic-page/StatisticView.vue';
+import IconConfirm from '@/components/icons/IconConfirm.vue';
+import ComplaintView from './complaint-seller/ComplaintView.vue';
 
 const collapsed = ref(false);
 const selectedKeys = ref(['1']);
@@ -43,8 +45,8 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <a-layout style="min-height: 100vh; background-color: #1e1d1d;">
-        <a-layout-sider v-if="!isMobile" :style="{ backgroundColor: '#1e1d1d' }" collapsible :collapsed="collapsed"
+    <a-layout style="min-height: 100vh; background-color: #f8edeb !important;">
+        <a-layout-sider v-if="!isMobile" :style="{ backgroundColor: '#f8edeb' }" collapsible :collapsed="collapsed"
             @collapse="val => collapsed = val" width="250" :trigger="collapsed ? h(IconArrowRight) : h(IconArrowLeft)">
             <div class="logo">
                 <template v-if="!collapsed">
@@ -56,7 +58,7 @@ onBeforeUnmount(() => {
                 </template>
             </div>
 
-            <a-menu class="!bg-[#1e1d1d]" mode="inline" v-model:selectedKeys="selectedKeys"
+            <a-menu class="!bg-[#f8edeb]" mode="inline" v-model:selectedKeys="selectedKeys"
                 style="height: 100%; border-right: 0;" :inlineCollapsed="collapsed">
                 <a-menu-item key="1" class="custom-menu-item">
                     <div class="flex items-center gap-2">
@@ -69,7 +71,7 @@ onBeforeUnmount(() => {
 
                 <a-menu-item key="2" class="custom-menu-item">
                     <div class="flex items-center gap-2">
-                        <icon-rating />
+                        <icon-confirm />
                         <span v-if="!collapsed" class="font-semibold text-[16px]">
                             Tasdiqlang
                         </span>
@@ -119,23 +121,25 @@ onBeforeUnmount(() => {
             </div>
         </div>
 
-        <a-layout style="background-color: #121212;">
-            <a-layout-header style="background-color: #121212; margin-top: 50px;">
+        <a-layout style="background-color: #fcc98c;">
+            <a-layout-header style="background-color: #fcc98c; margin-top: 50px;">
                 <div class="!flex justify-between items-start !w-full">
                     <span
                         class="!flex justify-center items-center gap-2 text-[24px] sm:text-[32px] font-bold text-white">
-                        <router-link to="/"><icon-back
-                                class="!w-[24px] !h-[24px] sm:!w-[32px] sm:!h-[32px]" /></router-link> {{
-                                    currentTitle }}
+                        <div class="flex justify-center items-center gap-2">
+                            <router-link to="/" class="!text-[#212529]"><icon-back /></router-link>
+                            <h1 class="!m-0 !p-0 text-[#212529] !font-bold">{{ currentTitle }}</h1>
+                        </div>
                     </span>
                     <profile-component />
                 </div>
             </a-layout-header>
 
-            <a-layout-content style="margin: 24px 16px; padding: 24px; background: #121212; min-height: 280px">
+            <a-layout-content style="margin: 24px 16px; padding: 24px; background: #fcc98c; min-height: 280px">
                 <products-view v-if="selectedKeys[0] === '1'" />
                 <pending-product-seller-view v-if="selectedKeys[0] === '2'" />
                 <statistic-view v-if="selectedKeys[0] === '3'" />
+                <complaint-view v-if="selectedKeys[0] === '4'" />
                 <buyyed-products-view v-if="selectedKeys[0] === '5'" />
             </a-layout-content>
         </a-layout>
@@ -155,15 +159,15 @@ onBeforeUnmount(() => {
 }
 
 .ant-layout-sider-children {
-    background-color: #1e1d1d !important;
+    background-color: #FF8C00 !important;
 }
 
 .custom-sider {
-    background-color: black !important;
+    background-color: #f8edeb !important;
 }
 
 .ant-layout-sider-trigger {
-    background-color: rgb(20, 20, 20) !important;
+    background-color: #f8edeb !important;
 }
 
 .ant-menu-inline-collapsed .ant-menu-item svg {
@@ -183,11 +187,10 @@ onBeforeUnmount(() => {
     align-items: center !important;
     justify-content: center !important;
     height: 40px !important;
-    /* default trigger height */
     border-top-left-radius: 20px !important;
     border-top-right-radius: 20px !important;
     padding: 0 !important;
-    background-color: #FFD700 !important;
+    background-color: #FF8C00 !important;
 }
 
 .bottom-nav {
@@ -198,7 +201,7 @@ onBeforeUnmount(() => {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background: #121212 !important;
+    background: #4A4A4A !important;
     padding: 10px 0 !important;
     z-index: 9999;
 }
@@ -212,7 +215,7 @@ onBeforeUnmount(() => {
 }
 
 .nav-item.active {
-    background-color: #222222;
+    background-color: #4A4A4A;
     transform: scale(1.2);
 }
 </style>

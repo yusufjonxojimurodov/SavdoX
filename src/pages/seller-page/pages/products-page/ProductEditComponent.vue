@@ -51,7 +51,24 @@ const models = [
     { label: 'Xiaomi', value: 'Xiaomi' },
     { label: 'Apple', value: 'Apple' },
     { label: 'Google', value: 'Google' },
-    { label: 'Boshqa', value: 'Other' },
+    { label: "Huawei", value: "Huawei" },
+    { label: "Oppo", value: "Oppo" },
+    { label: "Vivo", value: "Vivo" },
+    { label: "Honor", value: "Honor" },
+    { label: "Boshqalar", value: "Other" },
+]
+
+const types = [
+    { label: 'Aqlli Soat', value: 'smartwatch' },
+    { label: 'Smartfon', value: 'smartfon' },
+    { label: 'Televizor', value: 'TV' },
+    { label: 'Noutbook', value: 'laptop' },
+    { label: 'Monitor', value: 'display' },
+    { label: 'Klaviatura', value: 'keyboard' },
+    { label: 'Sichqoncha', value: 'mouse' },
+    { label: 'Kompyuter', value: 'computer' },
+    { label: 'Quloqchin', value: 'headphones' },
+    { label: 'Zaryadlovchi qurilmalar', value: 'chargers' },
 ]
 
 async function editProductDashboard() {
@@ -63,7 +80,8 @@ async function editProductDashboard() {
             price: createProduct.value.price,
             left: createProduct.value.left,
             model: createProduct.value.model,
-            discount: createProduct.value.discount,
+            type: createProduct.value.type,
+            discount: createProduct.value.discount || 0,
             image: fileList.value.length ? fileList.value[0].originFileObj : null
         });
 
@@ -88,13 +106,14 @@ function resetForm() {
     createProduct.description = "";
     createProduct.price = "";
     createProduct.left = "",
+        createProduct.type = "",
         createProduct.model = null;
 }
 </script>
 
 <template>
     <a-modal :get-container="false" @close="cancel" @update:open="emit('update:open', $event)" :open="props.open"
-        title="Mahsulot yaratish" footer="">
+        title="Mahsulotni tahrirlash" footer="">
         <a-form ref="formRef" @finish="editProductDashboard" :model="createProduct" layout="vertical" class="!mt-10">
             <a-row :gutter="[16, 16]">
                 <a-col :span="12">
@@ -103,13 +122,19 @@ function resetForm() {
                         <a-input size="large" v-model:value="createProduct.name" placeholder="Mahsulot nomi" />
                     </a-form-item>
                     <a-form-item name="discount" label="Mahsulot chegirmasi">
-                        <a-input size="large" v-model:value="createProduct.discount" placeholder="Mahsulot Chegirmasi" />
+                        <a-input size="large" v-model:value="createProduct.discount"
+                            placeholder="Mahsulot Chegirmasi" />
                     </a-form-item>
                 </a-col>
                 <a-col :span="12">
                     <a-form-item name="model" label="Model" :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
                         <a-select size="large" v-model:value="createProduct.model" placeholder="Modelini tanlang"
                             :options="models" allowClear />
+                    </a-form-item>
+                    <a-form-item name="type" label="Mahsulot turi"
+                        :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
+                        <a-select size="large" v-model:value="createProduct.type" placeholder="Turini tanlang"
+                            :options="types" allowClear />
                     </a-form-item>
                 </a-col>
             </a-row>
@@ -163,22 +188,22 @@ function resetForm() {
 }
 
 :deep(.ant-form-item-label > label) {
-    color: #fff !important;
+    color: #212529 !important;
 }
 
 :deep(.ant-input-textarea-show-count::after) {
-    color: #fff !important;
+    color: #212529 !important;
 }
 
 :deep(.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select-picture-card) {
-    border-color: #494848 !important;
+    border-color: #212529 !important;
 }
 
 :deep(.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select-picture-card:hover) {
-    border-color: #fff !important;
+    border-color: #212529 !important;
 }
 
 :deep(.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select-picture-card .ant-upload p) {
-    color: #fff !important;
+    color: #212529 !important;
 }
 </style>

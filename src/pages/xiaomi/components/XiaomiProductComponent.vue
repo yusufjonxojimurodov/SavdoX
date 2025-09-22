@@ -1,13 +1,13 @@
 <script setup>
 import { reactive, ref } from 'vue';
-import useProducts from '../../../store/products.pinia.js';
-import useRegister from '../../../store/register.pinia.js';
-import useFilterProducts from '../../../store/filter.products.pinia.js';
-import IconHappyComponent from '../../../components/icons/reactions/IconHappyComponent.vue';
-import IconSadComponent from '../../../components/icons/reactions/IconSadComponent.vue';
-import ProductModalComponent from '../../../components/ProductModalComponent.vue';
-import useProductInfo from '../../../store/products.info.pinia.js';
-import useComments from '../../../store/comments.pinia.js';
+import useProducts from '@/store/products.pinia.js';
+import useRegister from '@/store/register.pinia.js';
+import useFilterProducts from '@/store/filter.products.pinia.js';
+import IconHappyComponent from '@/components/icons/reactions/IconHappyComponent.vue';
+import IconSadComponent from '@/components/icons/reactions/IconSadComponent.vue';
+import ProductModalComponent from '@/components/ProductModalComponent.vue';
+import useProductInfo from '@/store/products.info.pinia.js';
+import useComments from '@/store/comments.pinia.js';
 
 const commentsStore = useComments()
 const productsInfoStore = useProductInfo()
@@ -100,20 +100,10 @@ function getProduct(id) {
             </template>
 
             <template v-else>
-                <a-empty description="Mahsulotlar topilmadi" style="color: white; margin-top: 150px" />
+                <a-empty description="Mahsulotlar topilmadi" style="color: #212529; margin-top: 150px" />
             </template>
         </div>
     </section>
 
     <product-modal-component :open="modalOpen" @update:open="val => modalOpen = val" />
 </template>
-
-<style>
-.product:hover {
-    background-color: #252525;
-
-    img {
-        transform: scale(1.05);
-    }
-}
-</style>

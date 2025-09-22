@@ -54,8 +54,8 @@ function openWarningModal() {
 
 <template>
     <div class="w-full flex justify-center items-center">
-        <div class="bg-[#1C1C1C] !p-6 sm:!p-10 md:!p-[50px] rounded-3xl shadow-lg w-full max-w-full md:max-w-3xl">
-            <div class="text-center text-2xl sm:text-3xl font-semibold text-white !mb-8">
+        <div class="bg-[#F8EDEB] !p-6 sm:!p-10 md:!p-[50px] rounded-3xl shadow-lg w-full max-w-full md:max-w-3xl">
+            <div class="text-center text-2xl sm:text-3xl font-semibold text-[#212529] !mb-8">
                 Tizimga kirish
             </div>
 
@@ -66,7 +66,7 @@ function openWarningModal() {
                             :rules="[{ required: true, message: 'Majburiy maydon!' }]">
                             <a-input v-model:value="LoginForm.phone" :value="LoginForm.phone" @input="handlePhoneInput"
                                 autocomplete="off" allow-clear="false" placeholder="+998 XX-XXX-XX-XX"
-                                class="w-full h-12 text-base rounded-lg !bg-[#2a2a2a] !border-none text-white placeholder-gray-400 focus:border-gray-400" />
+                                class="w-full h-12 text-base rounded-lg  !border-none text-white placeholder-gray-400 focus:border-gray-400" />
                         </a-form-item>
                     </a-col>
 
@@ -75,19 +75,19 @@ function openWarningModal() {
                             :rules="[{ required: true, message: 'Majburiy maydon!' }]">
                             <a-input-password :name="`login-${Math.random().toString(36).substr(2, 9)}`"
                                 autocomplete="new-password" v-model:value="LoginForm.password" placeholder="Parolingiz"
-                                class="w-full h-12 text-base rounded-lg !bg-[#2a2a2a] !border-none text-white placeholder-gray-400 focus:border-gray-400" />
+                                class="w-full h-12 text-base rounded-lg !border-none text-white placeholder-gray-400 focus:border-gray-400" />
                         </a-form-item>
                     </a-col>
                 </a-row>
 
                 <div class="flex flex-col sm:flex-row justify-between items-center mt-10 w-full gap-4">
                     <p class="text-white">
-                        <span @click="openWarningModal" class="text-[#FFD700] cursor-pointer">
+                        <span @click="openWarningModal" class="text-[#212529] cursor-pointer">
                             Hisobingiz yo'qmi ?
                         </span>
                     </p>
                     <a-button :loading="userRegisterStore.loaderButton" type="primary" html-type="submit" size="large"
-                        class=" !bg-[#FFD700] hover:!bg-[#e6c200] !border-none !text-black !font-semibold">
+                        class="!border-none !text-black !font-semibold">
                         Tizimga kirish
                     </a-button>
                 </div>
@@ -104,6 +104,6 @@ function openWarningModal() {
 }
 
 :deep(.ant-form-item-label > label) {
-    color: #ccc !important;
+    color: #212529 !important;
 }
 </style>

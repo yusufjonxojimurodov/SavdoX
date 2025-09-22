@@ -54,7 +54,7 @@ async function basket(id) {
       </template>
 
       <template v-else>
-        <a-empty description="Mahsulotlar topilmadi" style="color: white; margin-top: 150px" />
+        <a-empty description="Mahsulotlar topilmadi" style="color: #212529; margin-top: 150px" />
       </template>
     </div>
 

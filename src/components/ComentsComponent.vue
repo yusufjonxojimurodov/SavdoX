@@ -1,14 +1,51 @@
 <script setup>
-import useComments from '../store/comments.pinia';
+import useComments from '@/store/comments.pinia';
+import relativeTime from 'dayjs/plugin/relativeTime'
 import dayjs from 'dayjs'
+import IconDelete from './icons/IconDelete.vue';
+import useRegister from '@/store/register.pinia';
+
+dayjs.extend(relativeTime)
+
+const userStore = useRegister()
+
+const uzLatin = {
+    name: 'uz-latin',
+    relativeTime: {
+        future: ' %s dan keyin',
+        past: '%s oldin',
+        s: 'bir necha soniya',
+        m: '1 daqiqa',
+        mm: '%d daqiqa',
+        h: '1 soat',
+        hh: '%d soat',
+        d: '1 kun',
+        dd: '%d kun',
+        M: '1 oy',
+        MM: '%d oy',
+        y: '1 yil',
+        yy: '%d yil',
+    },
+}
+
+dayjs.locale(uzLatin, null, true)
+dayjs.locale('uz-latin')
 
 const commentsStore = useComments()
+
+function formatTime(date) {
+    return dayjs(date).fromNow()
+}
+
+function deleteComment(id) {
+    commentsStore.deleteComment(id)
+}
 </script>
 
 <template>
     <div v-for="comment in commentsStore.comments" :key="comment._id">
         <div
-            class="flex flex-col gap-2 !mb-[30px] dark:text-white w-[300px] md:w-[400px] bg-[#1E1E1E] !p-5 rounded-md  shadow-[0_4px_12px_rgba(0,0,0,0.6) ">
+            class="flex flex-col gap-2 !mb-[30px] dark:text-white w-[300px] md:w-[400px] bg-[#343A40] !p-5 rounded-md  shadow-[0_4px_12px_rgba(0,0,0,0.6) ">
             <div class="flex flex-row justify-between w-full">
                 <div class="flex flex-row justify-between w-full">
                     <p class="text-xs">
@@ -19,14 +56,17 @@ const commentsStore = useComments()
                             Noma'lum foydalanuvchi
                         </span>
                     </p>
-                    <p class="text-xs">{{ dayjs(comment.createdAt).format('YYYY-MM-DD HH:mm') }}</p>
+                    <p class="text-xs"> {{ formatTime(comment.createdAt) }}</p>
                 </div>
             </div>
-            <div class="flex flex-row justify-between w-full">
-
-            </div>
-            <div class="text-sm">
-                {{ comment.text }}
+            <div class="flex justify-between items-center">
+                <p class="text-sm"> {{ comment.text }}</p>
+                <div v-if="userStore.user._id === comment.userId._id" class="!m-0 !p-0 cursor-pointer">
+                    <a-popconfirm title="Fikringizni o‘chirishni xohlaysizmi?" ok-text="Ha" class="!outline-none"
+                        cancel-text="Yo‘q" @confirm="deleteComment(comment._id)">
+                        <icon-delete />
+                    </a-popconfirm>
+                </div>
             </div>
         </div>
     </div>

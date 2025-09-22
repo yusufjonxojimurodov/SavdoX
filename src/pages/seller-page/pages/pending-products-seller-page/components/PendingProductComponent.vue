@@ -45,44 +45,44 @@ async function deleteProduct(id) {
             <a-spin size="large" :spinning="productStore.loader">
                 <template v-if="productStore.pendingProductSeller.length > 0">
                     <div class="flex flex-wrap gap-4 sm:gap-6 !mt-6 justify-center">
-                        <div v-for="product in paginatedProducts" :key="product._id" class="product transition duration-500 bg-[#1E1E1E]
+                        <div v-for="product in paginatedProducts" :key="product._id" class="product transition duration-500 bg-[#F8EDEB]
     cursor-pointer  !p-3 sm:!p-5 md:p-[20px] flex flex-col gap-4 sm:gap-6
     rounded-[20px] md:rounded-[30px]
     shadow-[0_4px_12px_rgba(0,0,0,0.6)]
     flex-shrink-0 relative
-    w-[300px] h-[430px] sm:h-[500px]">
-                            <img :src="product.image" alt="Mahsulot rasmi"
-                                class="w-full h-[220px] rounded-2xl transition duration-500 object-contain" />
+    w-[300px] h-[430px] sm:h-[480px]">
+                            <a-image :src="product.product.image" alt="Mahsulot rasmi"
+                                class="!w-full !h-[220px] rounded-2xl transition duration-500 object-contain" />
 
                             <div v-if="product.product.discount"
-                                class="w-[60px] flex justify-center rounded-tr-[30px] rounded-bl-[30px] items-center !p-[20px] bg-red-700 absolute top-0 right-0">
+                                class="w-[60px] flex justify-center rounded-tr-[30px] rounded-bl-[30px] items-center !p-[20px] bg-[#FF8C00] absolute top-0 right-0">
                                 <p class="text-white !font-semibold text-[18px]">{{ product.product.discount }}%</p>
                             </div>
                             <div class="flex flex-col w-full gap-2 sm:gap-3">
-                                <p class="text-[16px] sm:text-[20px] md:text-[24px] text-[#EAEAEA] font-semibold">
+                                <p class="text-[16px] sm:text-[20px] md:text-[24px] text-[#212529] !font-semibold">
                                     {{ product.name }}
                                 </p>
                                 <div class="!flex justify-start items-center gap-2">
                                     <p :class="[
-                                        'text-[14px] sm:text-[16px] md:text-[18px] rounded-[10px] font-semibold',
-                                        product.product.discountPrice ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]'
+                                        'text-[14px] sm:text-[16px] md:text-[18px] rounded-[10px] !font-semibold',
+                                        product.product.discountPrice !== product.price ? '!line-through !opacity-80 text-[#53718f]' : 'text-[#34495E]'
                                     ]">
                                         {{ product.price }}$
                                     </p>
-                                    <p v-if="product.product.discountPrice"
-                                        class="text-[14px] sm:text-[16px] md:text-[18px] text-[#FFD700] font-semibold">
+                                    <p v-if="product.product.discountPrice !== product.price"
+                                        class="text-[14px] sm:text-[16px] md:text-[18px] text-[#34495E] !font-semibold">
                                         {{ product.product.discountPrice }}$
                                     </p>
                                 </div>
-                                <p class="text-[12px] sm:text-[13px] md:text-[14px] text-[#B0B0B0]">
+                                <p class="text-[12px] sm:text-[13px] md:text-[14px] text-[#343A40]">
                                     {{ product.description }}
                                 </p>
                                 <div class="flex justify-between items-center w-full">
-                                    <p class="text-[12px] sm:text-[14px] text-[#888] font-medium">
+                                    <p class="text-[12px] sm:text-[14px] text-[#34495E] !font-medium">
                                         {{ product.model }}
                                     </p>
                                     <a :href="'tel:' + product.phone"
-                                        class="text-[12px] sm:text-[14px] border-b border-[#888] !text-[#888] font-medium">
+                                        class="text-[12px] sm:text-[14px] border-b border-[#34495E] !text-[#34495E] !font-medium">
                                         {{ product.phone }}
                                     </a>
                                 </div>
@@ -96,10 +96,11 @@ async function deleteProduct(id) {
                                             Bekor qilish
                                         </a-button>
                                     </a-popconfirm>
-                                    <a-popconfirm :title="`${product.quantity} ta sotib olinmoqda. Tasdiqlansinmi ?`" ok-text="Ha" cancel-text="Yo'q"
-                                        @confirm="() => confirmProduct(product._id)">
-                                        <a-button :loading="buttonLoaders[product._id]" @click.stop.prevent
-                                            class="!font-semibold !text-gray-800 !bg-[#FFD700] !flex justify-center items-center gap-2 !text-[12px] sm:!text-[14px] md:!text-[16px]"
+                                    <a-popconfirm :title="`${product.quantity} ta sotib olinmoqda. Tasdiqlansinmi ?`"
+                                        ok-text="Ha" cancel-text="Yo'q" @confirm="() => confirmProduct(product._id)">
+                                        <a-button type="primary" :loading="buttonLoaders[product._id]"
+                                            @click.stop.prevent
+                                            class="!font-semibold !flex justify-center items-center gap-2 !text-[12px] sm:!text-[14px] md:!text-[16px]"
                                             size="large">
                                             Tasdiqlash
                                         </a-button>

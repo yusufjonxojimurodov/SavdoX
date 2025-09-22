@@ -1,5 +1,8 @@
 <script setup>
-import useProductInfo from '../store/products.info.pinia';
+import useProductInfo from '@/store/products.info.pinia';
+import IconPhone from './icons/IconPhone.vue';
+import IconPoints from './icons/IconPoints.vue';
+import IconRating from './icons/IconRating.vue';
 
 const productInfo = useProductInfo()
 
@@ -22,24 +25,34 @@ function contactSeller() {
                 <div class="flex items-center gap-4">
                     <a-avatar :size="70" :src="productInfo.sellerInfo.avatar" class="!rounded-full" />
                     <div class="flex flex-col">
-                        <h2 class="text-white text-[16px] font-semibold">
+                        <h2 class="text-[#212529] !m-0 !p-0 !text-[18px] !font-semibold">
                             {{ productInfo.sellerInfo.name }} {{ productInfo.sellerInfo.surname }}
                         </h2>
-                        <p class="text-gray-300 text-[12px]">@{{ productInfo.sellerInfo.userName }}</p>
+                        <p class="text-[#212529] !m-0 !p-0 text-[12px]">@{{ productInfo.sellerInfo.userName }}</p>
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-2 !p-3 !rounded-md">
-                    <div class="flex justify-between text-white">
-                        <p class="!m-0 !p-0 !text-[24x] !font-semibold">Telefon:</p>
-                        <p>{{ productInfo.sellerInfo.phone || "–" }}</p>
+                    <div class="flex justify-between text-[#212529]">
+                        <div class="flex justify-center items-center gap-2">
+                            <icon-phone class="w-5 h-5" />
+                            <p class="!m-0 !p-0 !text-[24x] !font-semibold">Telefon:</p>
+                        </div>
+                        <a class="!text-[#212529] !border-b border-[#212529]"
+                            :href="`tel:${productInfo.sellerInfo.phone}`">{{ productInfo.sellerInfo.phone || "–" }}</a>
                     </div>
-                    <div class="flex justify-between text-white">
-                        <p class="!m-0 !p-0 !text-[24x] !font-semibold">Ball:</p>
+                    <div class="flex justify-between text-[#212529]">
+                        <div class="flex justify-center items-center gap-2">
+                            <icon-points class="w-5 h-5" />
+                            <p class="!m-0 !p-0 !text-[24x] !font-semibold">To'plangan ball</p>
+                        </div>
                         <p>{{ productInfo.sellerInfo.points || 0 }}</p>
                     </div>
-                    <div class="flex justify-between text-white items-center">
-                        <p class="!m-0 !p-0 !text-[24x] !font-semibold">Rating:</p>
+                    <div class="flex justify-between text-[#212529] items-center">
+                        <div class="flex justify-center items-center gap-2">
+                            <icon-rating class="w-5 h-5" />
+                            <p class="!m-0 !p-0 !text-[24x] !font-semibold">Rating:</p>
+                        </div>
                         <a-rate :value="productInfo.sellerInfo.rating || 0" disabled :count="5" :character="() => '★'"
                             style="--antd-rate-star-color: #FFD700; --antd-rate-star-bg: #ffffff; font-size: 24px;" />
                     </div>

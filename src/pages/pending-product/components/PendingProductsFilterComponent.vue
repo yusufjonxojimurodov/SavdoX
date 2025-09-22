@@ -11,6 +11,6 @@ const router = useRouter()
             class="!text-white cursor-pointer text-[24px] !p-[10px] font-semibold flex justify-start items-center gap-2">
             <icon-back />
         </div>
-        <h1 class="text-[18px] sm:text-[28px] !m-0 font-semibold text-white">Kutilayotgan mahsulotlar</h1>
+        <h1 class="text-[18px] sm:text-[28px] !m-0 !font-semibold text-[#212529]">Kutilayotgan mahsulotlar</h1>
     </div>
 </template>

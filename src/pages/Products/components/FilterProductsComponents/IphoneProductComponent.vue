@@ -64,7 +64,7 @@ function getProduct(id) {
                 </template>
 
                 <template v-else>
-                    <a-empty description="Mahsulotlar topilmadi" style="color: white; margin-top: 150px" />
+                    <a-empty description="Mahsulotlar topilmadi" style="color: #212529; margin-top: 150px" />
                 </template>
             </div>
         </a-spin>
@@ -72,13 +72,3 @@ function getProduct(id) {
     </section>
     <product-modal-component :open="modalOpen" @update:open="val => modalOpen = val" />
 </template>
-
-<style>
-.product:hover {
-    background-color: #252525;
-
-    img {
-        transform: scale(1.05);
-    }
-}
-</style>

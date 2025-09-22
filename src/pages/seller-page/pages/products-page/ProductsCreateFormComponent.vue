@@ -182,7 +182,7 @@ const handleUpload = async ({ file, onSuccess, onError }) => {
             <div class="flex justify-end gap-4 mt-6">
                 <a-button size="large" @click="cancel">Bekor qilish</a-button>
                 <a-button type="primary" html-type="submit" size="large" :loading="submitLoading"
-                    class="!bg-gray-700 !flex justify-center items-center gap-2 hover:!bg-gray-900 !border-none">
+                    class="!flex justify-center items-center gap-2 !border-none">
                     <template #icon>
                         <icon-plus />
                     </template>
@@ -199,55 +199,22 @@ const handleUpload = async ({ file, onSuccess, onError }) => {
 }
 
 :deep(.ant-form-item-label > label) {
-    color: #fff !important;
+    color: #212529 !important;
 }
 
 :deep(.ant-input-textarea-show-count::after) {
-    color: #fff !important;
+    color: #212529 !important;
 }
 
 :deep(.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select-picture-card) {
-    border-color: #494848 !important;
+    border-color: #212529 !important;
 }
 
 :deep(.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select-picture-card:hover) {
-    border-color: #fff !important;
+    border-color: #212529 !important;
 }
 
 :deep(.ant-upload-picture-card-wrapper .ant-upload.ant-upload-select-picture-card .ant-upload p) {
-    color: #fff !important;
+    color: #212529 !important;
 }
 </style>
-
-<!-- <script setup>
-import { ref } from "vue";
-import { message } from "ant-design-vue";
-import axios from "axios";
-
-const fileList = ref([]);
-const token = localStorage.getItem("access_token");
-
-const handleUpload = async ({ file, onSuccess, onError }) => {
-    try {
-        const formData = new FormData();
-        formData.append("image", file);
-
-        const { data } = await axios.post("https://savdo-x-1.onrender.com/banner/post", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${token}`
-            },
-        });
-
-        message.success("✅ Banner yuklandi!");
-        onSuccess(data);
-    } catch (err) {
-        message.error("❌ Yuklashda xatolik!");
-        onError(err);
-    }
-};
-</script>
-
-<template>
-   
-</template> -->

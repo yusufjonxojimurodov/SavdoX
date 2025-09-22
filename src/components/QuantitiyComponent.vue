@@ -38,10 +38,10 @@ watch(() => props.modelValue, (val) => {
 <template>
     <div class="flex items-center gap-3">
         <button @click="decrement"
-            class="bg-gray-700 cursor-pointer text-white w-8 h-8 rounded-full flex items-center justify-center">-</button>
-        <span class="text-white text-lg w-6 text-center">{{ count }}</span>
+            class="bg-[#212529] cursor-pointer !text-white w-8 h-8 rounded-full flex items-center justify-center">-</button>
+        <span class="text-[#212529] text-lg w-6 text-center">{{ count }}</span>
         <button @click="increment"
-            class="bg-gray-700 cursor-pointer text-white w-8 h-8 rounded-full flex items-center justify-center">+</button>
+            class="bg-[#212529] cursor-pointer !text-white w-8 h-8 rounded-full flex items-center justify-center">+</button>
     </div>
 </template>
 

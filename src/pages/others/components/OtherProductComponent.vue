@@ -62,12 +62,4 @@ function getProduct(id) {
 .product img {
     transition: 450ms ease;
 }
-
-.product:hover {
-    background-color: #252525;
-
-    img {
-        transform: scale(1.05);
-    }
-}
 </style>

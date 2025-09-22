@@ -213,7 +213,7 @@ watch(showMap, (val) => {
 <template>
     <section>
         <router-link to="/"
-            class="!text-white text-[24px] !p-[10px] font-semibold flex justify-start items-center gap-2">
+            class="!text-[#212529] !ml-4 !text-[24px] !p-[10px] !font-semibold flex justify-start items-center gap-2">
             <icon-back />Bosh Sahifaga
         </router-link>
 
@@ -224,8 +224,8 @@ watch(showMap, (val) => {
                         @click="toggleSelect(basketProduct._id)" :class="[
                             'flex flex-col sm:flex-row justify-start relative items-center transition duration-500 w-full lg:w-[900px] h-auto sm:h-[350px] cursor-pointer gap-[20px] sm:gap-[40px] !p-[20px] rounded-[30px] shadow-[0_4px_12px_rgba(0,0,0,0.6)]',
                             selectedCards.includes(basketProduct._id)
-                                ? 'bg-[#2E2E2E] border-2 border-[#FFD700]'
-                                : 'bg-[#1E1E1E] border-2 border-transparent'
+                                ? 'border-2 border-[#FFD700]'
+                                : 'bg-[#F8EDEB] border-2 border-transparent'
                         ]">
                         <img :src="basketProduct.image" alt="Mahsulot rasmi"
                             class="w-full h-[240px] rounded-2xl transition duration-500 object-contain" />
@@ -235,22 +235,22 @@ watch(showMap, (val) => {
                             <p class="text-white !font-semibold text-[16px]">-{{ basketProduct.discount }}%</p>
                         </div>
                         <div class="flex justify-center items-start flex-col gap-[20px] w-full sm:w-auto">
-                            <p class="text-[20px] sm:text-[24px] text-[#EAEAEA] font-semibold">
+                            <p class="text-[20px] sm:text-[24px] text-[#d] !font-semibold">
                                 {{ basketProduct.name }}
                             </p>
                             <div class="!flex justify-start items-center gap-2">
                                 <p :class="[
-                                    'text-[14px] sm:text-[16px] md:text-[18px] rounded-[10px] font-semibold',
-                                    basketProduct.discountPrice !== basketProduct.price ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]'
+                                    'text-[14px] sm:text-[16px] md:text-[18px] rounded-[10px] !font-semibold',
+                                    basketProduct.discountPrice !== basketProduct.price ? '!line-through !opacity-80 text-[#53718f]' : 'text-[#34495E]'
                                 ]">
                                     {{ basketProduct.price }}$
                                 </p>
                                 <p v-if="basketProduct.discountPrice !== basketProduct.price"
-                                    class="text-[14px] sm:text-[16px] md:text-[18px] text-[#FFD700] font-semibold">
+                                    class="text-[14px] sm:text-[16px] md:text-[18px] text-[#34495E] !font-semibold">
                                     {{ basketProduct.discountPrice }}$
                                 </p>
                             </div>
-                            <p class="text-[14px] sm:text-[14px] w-full sm:w-[300px] text-[#B0B0B0]">
+                            <p class="text-[14px] sm:text-[14px] w-full sm:w-[300px] text-[#212529]">
                                 {{ basketProduct.description }}
                             </p>
                             <div class="flex justify-start gap-[10px] items-center">
@@ -289,7 +289,7 @@ watch(showMap, (val) => {
                     {{ selectedCards.length === basketProducts.length ? "Hammasini bekor qilish" : "Hammasini tanlash"
                     }}
                 </a-button>
-                <a-button @click="openMap" type="primary" block size="middle" :disabled="selectedCards === []"
+                <a-button @click="openMap" type="primary" block size="middle" :disabled="selectedCards.length === 0"
                     class="lg:size-large">
                     Sotib olish
                 </a-button>

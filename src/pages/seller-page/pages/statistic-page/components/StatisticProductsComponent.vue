@@ -49,12 +49,12 @@ function renderChart() {
             datasets: [{
                 label: "Oylik sotuvlar",
                 data,
-                borderColor: "#60a5fa",
-                backgroundColor: "rgba(96,165,250,0.2)",
+                borderColor: "#ffffff",
+                backgroundColor: "#ffffff",
                 tension: 0.4,
                 fill: true,
                 pointBackgroundColor: "#ffffff",
-                pointBorderColor: "#60a5fa",
+                pointBorderColor: "#ff8c00",
                 pointRadius: 5
             }]
         },
@@ -62,10 +62,10 @@ function renderChart() {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                x: { grid: { color: "#111827" }, ticks: { color: "#ffffff" } },
-                y: { beginAtZero: true, grid: { color: "#111827" }, ticks: { color: "#ffffff", stepSize: 1 } }
+                x: { grid: { color: "#212529" }, ticks: { color: "#212529" } },
+                y: { beginAtZero: true, grid: { color: "#212529" }, ticks: { color: "#212529", stepSize: 1 } }
             },
-            plugins: { legend: { labels: { color: "#ffffff" } } }
+            plugins: { legend: { labels: { color: "#212529" } } }
         }
     });
 }

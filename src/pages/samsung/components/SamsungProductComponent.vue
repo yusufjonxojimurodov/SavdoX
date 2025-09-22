@@ -49,7 +49,7 @@ function getProduct(id) {
                     @add-to-basket="basket" />
             </template>
             <template v-else>
-                <a-empty description="Mahsulotlar topilmadi" style="color: white; margin-top: 150px" />
+                <a-empty description="Mahsulotlar topilmadi" style="color: #212529; margin-top: 150px" />
             </template>
         </div>
     </section>
@@ -60,13 +60,5 @@ function getProduct(id) {
 <style>
 .product img {
     transition: 450ms ease;
-}
-
-.product:hover {
-    background-color: #252525;
-
-    img {
-        transform: scale(1.05);
-    }
 }
 </style>

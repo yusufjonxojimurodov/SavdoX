@@ -4,7 +4,10 @@ import useProductInfo from '../store/products.info.pinia';
 import SellerInfoModalComponent from './SellerInfoModalComponent.vue';
 import ComentsComponent from './ComentsComponent.vue';
 import ComentCreateComponent from './ComentCreateComponent.vue';
+import ComplaintModalComponent from './ComplaintModalComponent.vue';
 import { ref } from 'vue';
+import useQueryParams from '@/composables/useQueryParams';
+import useRegister from '@/store/register.pinia';
 
 const props = defineProps({
     open: Boolean
@@ -12,13 +15,27 @@ const props = defineProps({
 const emits = defineEmits(['update:open'])
 
 const productStore = useProductInfo()
+const userStore = useRegister()
+const { setQueries } = useQueryParams()
 const openInfoModal = ref(false)
+const openComplaintModal = ref(false)
 const { product } = storeToRefs(productStore)
 
 function openSellerInfoModal(id) {
     productStore.getSellerInfo(id)
     emits('update:open')
     openInfoModal.value = true
+}
+
+function deport(id) {
+    if (userStore.user) {
+        setQueries({
+            productId: id
+        })
+        openComplaintModal.value = true
+    } else {
+        userStore.openModal()
+    }
 }
 </script>
 
@@ -30,7 +47,7 @@ function openSellerInfoModal(id) {
                 class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6 !p-4 sm:!p-6">
                 <div v-if="product && Object.keys(product).length > 1" class="w-full sm:w-[300px]">
                     <div
-                        class="product relative transition duration-300 bg-[#1E1E1E] w-full sm:h-[430px] md:w-[300px] md:h-[460px] cursor-pointer flex flex-col gap-3 sm:gap-4 !p-3 sm:!p-4 md:!p-4 rounded-[30px] shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
+                        class="product relative transition duration-300 bg-[#F8EDEB] w-full sm:h-[430px] md:w-[300px] md:h-[460px] cursor-pointer flex flex-col gap-3 sm:gap-4 !p-3 sm:!p-4 md:!p-4 rounded-[30px] shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
                         <img :src="product.image" alt="Mahsulot rasmi"
                             class="w-full h-[180px] sm:h-[240px] rounded-xl object-contain transition duration-300" />
 
@@ -39,31 +56,37 @@ function openSellerInfoModal(id) {
                             <p class="text-white !font-semibold text-[16px]">-{{ product.discount }}%</p>
                         </div>
                         <div class="flex flex-col w-full gap-2">
-                            <p class="text-base sm:text-lg md:text-xl text-[#EAEAEA] font-semibold line-clamp-2">
+                            <p class="text-base sm:text-lg md:text-xl text-[#343A40] !font-semibold line-clamp-2">
                                 {{ product.name }}
                             </p>
-                            <div class="flex justify-between items-center">
-                                <div class="flex items-center gap-2">
+                            <div class="flex justify-between items-center w-full">
+                                <div class="flex items-center gap-1 sm:gap-2 w-full">
                                     <p
-                                        :class="['text-[14px] sm:text-[16px] md:text-[18px] font-semibold', product.discountPrice ? '!line-through !opacity-80 text-gray-400' : 'text-[#FFD700]']">
-                                        {{ product.price }}$</p>
-                                    <p v-if="product.discountPrice"
-                                        class="text-[#FFD700] text-[14px] sm:text-[16px] md:text-[18px] font-semibold">
-                                        {{ product.discountPrice }}$</p>
+                                        class="flex justify-center items-center gap-2 text-[#FF8C00] text-[12px] sm:text-[16px] !font-semibold">
+                                        <img width="30px" height="30px" src="../assets/images/happy-icon.svg"
+                                            alt="happy-icon"> {{
+                                                product.rating.happy }}%
+                                    </p>
+                                    <p
+                                        class="flex justify-center items-center gap-2 text-red-500 text-[12px] sm:text-[16px] !font-semibold">
+                                        <img width="30px" height="30px" src="../assets/images/sad-icon.svg"
+                                            alt="sad-icon"> {{
+                                                product.rating.unhappy }}%
+                                    </p>
                                 </div>
-
-                                <p class="text-[18px] text-gray-600 !font-semibold">{{ product.createdBy.userName }}</p>
+                                <p class="text-[#888] text-[12px] sm:text-[14px] font-medium">{{ product.model ===
+                                    "Other" ? "Boshqalar" : product.model }}</p>
                             </div>
-                            <p class="text-xs sm:text-sm text-[#B0B0B0] line-clamp-3">
+                            <p class="text-xs sm:text-sm text-[#343A40] line-clamp-3">
                                 {{ product.description }}
                             </p>
                             <div class="flex justify-between items-center w-full">
-                                <p class="text-xs sm:text-sm text-[#888] font-medium">
-                                    {{ product.model }}
-                                </p>
+                                <a-button @click="deport(product._id)" size="middle" danger>
+                                    Shikoyat
+                                </a-button>
 
                                 <p @click="openSellerInfoModal(product.createdBy._id)" type="text"
-                                    class="!text-[12px] border-b border-white text-white" size="middle">
+                                    class="!text-[12px] border-b border-[#343A40] text-[#343A40]" size="middle">
                                     Sotuvchi ha'qida ma'lumot olish
                                 </p>
                             </div>
@@ -89,6 +112,7 @@ function openSellerInfoModal(id) {
     </a-modal>
 
     <seller-info-modal-component v-model:open="openInfoModal" />
+    <complaint-modal-component v-model:open="openComplaintModal" />
 </template>
 
 <style scoped>

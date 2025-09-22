@@ -18,7 +18,7 @@ const statisticStore = useStatistic()
             </a-avatar>
 
             <div class="flex justify-center items-start flex-col gap-1">
-                <h1 class="!text-2xl !m-0 !font-semibold !text-white">{{ statisticStore.userInfo.name }} {{
+                <h1 class="!text-2xl !m-0 !font-bold !text-[#212529]">{{ statisticStore.userInfo.name }} {{
                     statisticStore.userInfo.surname }}</h1>
                 <p class="text-gray-400 !font-medium text-[14px]">{{ statisticStore.userInfo.userName }}</p>
             </div>
@@ -26,18 +26,20 @@ const statisticStore = useStatistic()
 
         <div class="flex justify-center items-end flex-col gap-4">
             <div class="flex justify-center items-center gap-4">
-                <span class="!text-white text-[18px] !font-semibold">Bahoyingiz:</span>
+                <span class="!text-[#212529] text-[18px] !font-semibold">Bahoyingiz:</span>
                 <div class="flex justify-center items-center gap-2">
                     <icon-star class="w-5 h-5" />
-                    <p class="!text-white !font-semibold !text-[20px]">{{ statisticStore.userInfo.rating }} / 5</p>
+                    <p class="!text-[#212529] !font-semibold !text-[20px]">{{ statisticStore.userInfo.rating || 0 }} / 5
+                    </p>
                 </div>
             </div>
 
             <div class="flex justify-center items-center gap-4">
-                <span class="!text-white text-[18px] !font-semibold">To'plangan tanga:</span>
+                <span class="!text-[212529] text-[18px] !font-semibold">To'plangan tanga:</span>
                 <div class="flex justify-center items-center gap-2">
                     <icon-coin class="w-5 h-5" />
-                    <p class="!text-white !font-semibold !text-[20px]">{{ statisticStore.userInfo.points }} ta</p>
+                    <p class="!text-[#212529] !font-semibold !text-[20px]">{{ statisticStore.userInfo.points || 0 }} ta
+                    </p>
                 </div>
             </div>
         </div>

@@ -46,7 +46,7 @@ async function send() {
         await settingStore.getUserAvatar();
         emits('update:open', false);
     } catch (error) {
-      
+
     } finally {
         putBtnLoader.value = false;
     }
@@ -131,8 +131,9 @@ watch(
 }
 
 .upload-text {
-    color: #fff;
+    color: #212529;
     font-weight: 600;
+    font-size: 12px;
 }
 
 .custom-form {
@@ -140,15 +141,8 @@ watch(
 }
 
 .custom-form ::v-deep(.ant-form-item-label > label) {
-    color: #bbb !important;
+    color: #212529 !important;
     font-weight: 600;
-}
-
-.custom-form ::v-deep(.ant-input) {
-    background-color: #2a2a2a;
-    border: 1px solid #444;
-    color: #f0f0f0;
-    border-radius: 6px;
 }
 
 .custom-form ::v-deep(.ant-input:focus) {
@@ -179,7 +173,7 @@ watch(
 }
 
 .help-link {
-    color: #ffd700;
+    color: #212529;
     font-weight: 600;
     font-size: 18px;
     text-decoration: none;
@@ -196,7 +190,6 @@ watch(
     height: 20px;
 }
 
-/* Footer buttons */
 .footer-buttons {
     display: flex;
     justify-content: flex-end;
@@ -204,7 +197,6 @@ watch(
     margin-top: 25px;
 }
 
-/* Responsive */
 @media (max-width: 600px) {
     .custom-modal .ant-modal-content {
         padding: 15px 20px;

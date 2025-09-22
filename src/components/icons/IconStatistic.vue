@@ -1,28 +1,13 @@
 <script setup></script>
 
 <template>
-    <svg width="24px" height="24px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-        viewBox="0 0 333.69 333.69" xml:space="preserve" fill="#000000">
+    <svg width="24px" height="24px" viewBox="0 0 1024 1024" fill="#212529" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
         <g id="SVGRepo_iconCarrier">
-            <g>
-                <g>
-                    <rect x="29.787" y="181.064" style="fill:#FFC843;" width="67.408" height="152.625"></rect>
-                    <rect x="9.9" y="181.064" style="fill:#E0B03B;" width="19.888" height="152.625"></rect>
-                </g>
-                <g>
-                    <rect x="143.085" y="130.187" style="fill:#00AF41;" width="67.408" height="203.503"></rect>
-                    <rect x="123.196" y="130.187" style="fill:#009638;" width="19.889" height="203.503"></rect>
-                </g>
-                <g>
-                    <rect x="256.382" y="82.189" style="fill:#0071CE;" width="67.408" height="251.501"></rect>
-                    <rect x="236.493" y="82.189" style="fill:#005FAD;" width="19.889" height="251.501"></rect>
-                </g>
-                <polygon style="fill:#333E48;"
-                    points="233.003,0 251.053,18.05 214.7,54.403 187.868,27.57 104.016,111.421 79.564,86.969 11.934,154.598 21.834,164.497 79.564,106.768 104.016,131.22 187.868,47.369 214.7,74.202 260.954,27.95 279.003,46.001 279.003,0 ">
-                </polygon>
-            </g>
+            <path
+                d="M521.58 516.763v-472.816c250.725 22.642 450.175 222.092 472.817 472.817h-472.816zM918.229 593.091h-435.436c-21.963 0-39.769-17.805-39.769-39.769 0 0 0 0 0 0v-435.463c-222.914 20.121-397.682 207.273-397.682 435.436 0 241.605 195.898 437.452 437.451 437.451 228.163 0 415.339-174.715 435.436-397.657z">
+            </path>
         </g>
     </svg>
 </template>

@@ -27,16 +27,18 @@ ul {
 }
 
 .ant-modal-content {
-  background: #212121 !important;
+  background: #f8edeb !important;
 }
 
 .ant-modal-header {
-  background: #212121 !important;
+  background: #f8edeb !important;
   border-bottom: 1px solid #3a3a3a !important;
 }
 
 .ant-modal-title {
-  color: #fff !important;
+  font-size: 24px !important;
+  color: #212529 !important;
+  font-weight: 700 !important;
 }
 
 .ant-avatar {
@@ -47,23 +49,23 @@ ul {
 
 .ant-input,
 .ant-select-selector {
-  background-color: #2a2a2a !important;
-  color: #e0e0e0 !important;
+  background-color: #f8edeb !important;
+  color: #212529 !important;
   border: none !important;
-  box-shadow: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
 }
 
 .ant-btn {
   color: #e0e0e0 !important;
   box-shadow: none;
-  background-color: #6b0202 !important;
+  background-color: #b22222 !important;
   border: none;
   gap: 5px;
 }
 
 .ant-btn:hover {
   color: #e0e0e0 !important;
-  background-color: #470000 !important;
+  background-color: #a52a2a !important;
 }
 
 .ant-input::placeholder {
@@ -76,19 +78,20 @@ ul {
 
 .ant-select-item-option-active,
 .ant-select-item-option-selected {
-  background-color: rgba(0, 0, 0, 0.1) !important;
+  background-color: #ff8c00 !important;
   color: #000435 !important;
 }
 
 .ant-btn-primary {
-  background-color: #353434 !important;
+  background-color: #ff8c00 !important;
   border-radius: 12px;
+  font-weight: 600;
   color: white !important;
 }
 
 .ant-btn-primary:hover,
 .ant-btn-primary:focus {
-  background-color: #3e3e3e !important;
+  background-color: #ffa500 !important;
   color: white !important;
 }
 
@@ -98,8 +101,7 @@ ul {
 }
 
 .ant-spin-dot-item {
-  background-color: #ffd700 !important;
-  box-shadow: 0 0 8px #ffd700, 0 0 15px #ffd700 !important;
+  background-color: #343a40 !important;
 }
 
 .ant-spin-text {
@@ -114,13 +116,14 @@ ul {
 }
 
 .ant-picker {
-  background-color: #2a2a2a !important;
-  border-color: #303030 !important;
-  color: white !important;
+  background-color: #f8edeb !important;
+  border-color: #f8edeb !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  color: #212529 !important;
 }
 
 .ant-picker-input > input {
-  color: #ffffff !important;
+  color: #212529 !important;
 }
 
 .ant-picker-input > input::placeholder {
@@ -133,20 +136,19 @@ ul {
 }
 
 .custom-menu-item {
-  background-color: #2a2a2a !important;
-  color: #eee !important;
+  background-color: #f8edeb !important;
+  color: #212529 !important;
   transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Icon va text rangini o‘zgartirish uchun */
 .custom-menu-item .anticon,
 .custom-menu-item span {
-  color: #eee !important;
+  color: #212529 !important;
 }
 
-/* Hover holati */
 .custom-menu-item:hover {
-  background-color: #121212 !important;
+  background-color: #FF8C00 !important;
   color: #fff !important;
 }
 
@@ -157,7 +159,7 @@ ul {
 
 /* Active menu item */
 .ant-menu-item-selected.custom-menu-item {
-  background-color: #121212 !important;
+  background-color: #FF8C00 !important;
   color: #fff !important;
 }
 
@@ -264,7 +266,7 @@ ul {
 }
 
 .ant-form-item-label label {
-  color: white !important;
+  color: #212529 !important;
   font-size: 16px !important;
   font-weight: 500;
 }

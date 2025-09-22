@@ -48,35 +48,36 @@ async function handleSubmit() {
 </script>
 
 <template>
-    <div
-        class="bg-[#1E1E1E] md:absolute md:bottom-[5%] !mt-6 shadow-[0_4px_12px_rgba(0,0,0,0.6)] grid grid-cols-6 gap-2 rounded-xl w-[300px] md:w-[400px] sm:w-[325px] text-sm">
-        <textarea v-model="text" @focus="isFocused = true" @blur="blurHandler"
-            placeholder="Mahsulot haqida fikringiz..." :class="['!text-white',
-                'bg-[#303030] text-white placeholder:text-gray-500 placeholder:opacity-50 col-span-6 !resize-none outline-none rounded-lg !p-2 duration-300 focus:border-slate-600',
-                isFocused ? 'h-20' : 'h-10'
-            ]" />
-
-        <div v-if="isFocused" class="flex col-span-6 justify-between items-center !px-2 !pb-2">
-            <div class="flex gap-2">
-                <button @click="selectRating('happy')" class="
-                   fill-slate-600 cursor-pointer col-span-1 flex justify-center items-center rounded-lg !p-2 duration-300 bg-slate-100 hover:border-slate-600 focus:fill-black focus:bg-[#FFD700]
+    <div>
+        <div class="flex gap-2 !mb-2">
+            <button @click="selectRating('happy')" class="
+                   fill-slate-600 shadow-[0_4px_12px_rgba(0,0,0,0.6)] cursor-pointer col-span-1 flex justify-center items-center rounded-lg !p-2 duration-300 bg-slate-100 hover:border-slate-600 focus:fill-black focus:bg-[#FFD700]
                 ">
-                    <icon-happy-component />
-                </button>
+                <img width="30px" height="30px" src="../assets/images/happy-icon.svg" alt="happy-icon">
+            </button>
 
-                <button @click="selectRating('unhappy')" class="fill-slate-600 cursor-pointer col-span-1 flex justify-center items-center rounded-lg !p-2 duration-300 bg-slate-100 hover:border-slate-600 focus:fill-white focus:bg-red-500
+            <button @click="selectRating('unhappy')" class="fill-slate-600 shadow-[0_4px_12px_rgba(0,0,0,0.6)] cursor-pointer col-span-1 flex justify-center items-center rounded-lg !p-2 duration-300 bg-slate-100 hover:border-slate-600 focus:fill-white focus:bg-red-500
                 ">
-                    <icon-sad-component />
-                </button>
+                <img width="30px" height="30px" src="../assets/images/sad-icon.svg" alt="sad-icon">
+            </button>
+        </div>
+
+
+        <div class="relative">
+            <div class="flex col-span-6">
+                <textarea v-model="text" @focus="isFocused = true" @blur="blurHandler"
+                    placeholder="Mahsulot haqida fikringiz..." class="!text-white bg-[#343A40] placeholder:text-white 
+             placeholder:opacity-50 !resize-none outline-none rounded-lg  
+             !w-full !h-10 !pr-10 !p-2" />
+
+                <a-button @click="handleSubmit" class="!bg-[#FFD700] !shadow-[0_4px_12px_rgba(0,0,0,0.6)] 
+             !w-[28px] !h-[28px] flex justify-center items-center rounded-full 
+             !absolute right-2 top-1/2 -translate-y-1/2" :loading="commentStore.createLoader">
+                    <template #icon>
+                        <icon-send-component />
+                    </template>
+                </a-button>
             </div>
-
-            <a-button @click="handleSubmit"
-                class="!bg-[#FFD700] !shadow-[0_4px_12px_rgba(0,0,0,0.6)] w-[30px] !h-[30px] !col-span-2 !flex !justify-center !items-center !rounded-[50%] !p-5 !duration-300"
-                :loading="commentStore.createLoader">
-                <template #icon>
-                    <icon-send-component />
-                </template>
-            </a-button>
         </div>
     </div>
 </template>

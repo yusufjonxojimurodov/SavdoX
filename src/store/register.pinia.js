@@ -1,11 +1,17 @@
 import { defineStore } from "pinia";
-import { ApiGetUserInfo, ApiLoginUser, ApiPutUserInfo } from "../api/user.api";
+import {
+  ApiGetComplaint,
+  ApiGetUserInfo,
+  ApiLoginUser,
+  ApiPutUserInfo,
+} from "../api/user.api";
 import { message, notification } from "ant-design-vue";
 import { useRouter } from "vue-router";
 
 const useRegister = defineStore("register", {
   state: () => ({
     user: "",
+    complaint: [],
     loader: false,
     drawerOpen: false,
     modalOpen: false,
@@ -80,6 +86,22 @@ const useRegister = defineStore("register", {
         })
         .finally(() => {
           this.loaderButton = false;
+        });
+    },
+
+    async getComplaint() {
+      this.loader = true;
+
+      return ApiGetComplaint()
+        .then(({ data }) => {
+          this.complaint = data.complaints;
+        })
+        .catch((getErr) => {
+          message.warn("Server bilan xatolik yuzaga keldi");
+          console.log(getErr);
+        })
+        .finally(() => {
+          this.loader = false;
         });
     },
   },

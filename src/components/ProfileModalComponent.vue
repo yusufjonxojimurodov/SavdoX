@@ -30,11 +30,11 @@ function handleClose() {
                 </template>
             </a-avatar>
             <div class="flex justify-center items-start flex-col gap-[5px]">
-                <p class="text-white font-bold text-[20px] sm:text-[24px]">
+                <p class="text-[#212529] !font-bold !m-0 !p-0 text-[20px] sm:text-[24px]">
                     {{ registerStore.user.name }} {{ registerStore.user.surname }}
                 </p>
-                <p class="text-gray-500 font-medium text-[16px] sm:text-[18px]">
-                    Foydalanuvchi nomi: {{ registerStore.user.userName }}
+                <p class="text-gray-500 !m-0 !p-0 font-medium text-[16px] sm:text-[18px]">
+                    Foydalanuvchi nomi: @{{ registerStore.user.userName }}
                 </p>
             </div>
         </div>
@@ -48,8 +48,8 @@ function handleClose() {
             'Bozorimizdagi darajangiz': registerStore.user.role || '—'
         }" :key="label"
             class="!mt-[20px] flex sm:flex-row flex-col sm:justify-between justify-center sm:items-center items-start sm:gap-0 gap-[6px] !p-[16px] border-b border-gray-600">
-            <p class="text-gray-400 text-[18px] sm:text-[24px] font-semibold">{{ label }}</p>
-            <p class="text-white text-[18px] sm:text-[24px] font-semibold break-all">{{ value }}</p>
+            <p class="text-[#212529] text-[18px] sm:text-[24px] !font-semibold">{{ label }}</p>
+            <p class="text-[#393d41] text-[18px] sm:text-[24px] font-semibold break-all">{{ value }}</p>
         </div>
 
         <template #footer>
