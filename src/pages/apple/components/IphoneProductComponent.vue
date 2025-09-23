@@ -7,15 +7,16 @@ import useRegister from '@/store/register.pinia.js';
 import useComments from '@/store/comments.pinia.js';
 import useProductInfo from '@/store/products.info.pinia.js';
 import ProductModalComponent from '@/components/ProductModalComponent.vue';
+import useQueryParams from '@/composables/useQueryParams';
 
 const commentsStore = useComments()
 const productsInfoStore = useProductInfo()
 const iphoneFilterproductsStore = useFilterProducts()
 const registerStore = useRegister()
 const productsStore = useProducts()
+const { setQueries } = useQueryParams()
 const modalOpen = ref(false)
 
-const openModal = ref(false)
 const buttonLoaders = reactive({})
 
 async function basket(id) {
@@ -35,6 +36,9 @@ async function basket(id) {
 }
 
 function getProduct(id) {
+  setQueries({
+    productId: id
+  })
   productsInfoStore.getProductInfo(id)
   commentsStore.getComments(id)
   modalOpen.value = true
@@ -45,9 +49,11 @@ function getProduct(id) {
   <section>
     <div class="container">
       <template v-if="iphoneFilterproductsStore.iphoneProducts.length > 0">
-        <product-component v-for="product in iphoneFilterproductsStore.iphoneProducts" :key="product._id"
-          :product="product" :button-loading="buttonLoaders[product._id]" @select="getProduct"
-          @add-to-basket="basket" />
+        <div class="grid gap-4 sm:gap-6 !mt-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <product-component v-for="product in iphoneFilterproductsStore.iphoneProducts" :key="product._id"
+            :product="product" :button-loading="buttonLoaders[product._id]" @select="getProduct"
+            @add-to-basket="basket" />
+        </div>
       </template>
 
       <template v-else>

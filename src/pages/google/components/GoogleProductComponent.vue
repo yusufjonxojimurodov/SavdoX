@@ -1,26 +1,29 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import ProductComponent from '@/components/ProductComponent.vue'
-import ProductModalComponent from '@/components/ProductModalComponent.vue'
 import useFilterProducts from '@/store/filter.products.pinia'
 import useProducts from '@/store/products.pinia'
 import useRegister from '@/store/register.pinia'
 import useProductInfo from '@/store/products.info.pinia'
+import useQueryParams from '@/composables/useQueryParams';
 import useComments from '@/store/comments.pinia'
 
 const GoogleProductsStore = useFilterProducts()
 const productsStore = useProducts()
 const registerStore = useRegister()
+const { setQueries } = useQueryParams()
 const productsInfoStore = useProductInfo()
 const commentsStore = useComments()
 
-const modalOpen = ref(false)
 const buttonLoaders = reactive({})
 
 function getProduct(id) {
+  setQueries({
+    productId: id
+  })
   productsInfoStore.getProductInfo(id)
   commentsStore.getComments(id)
-  modalOpen.value = true
+  productsStore.openInfoModal()
 }
 
 async function basket(id) {
@@ -42,14 +45,8 @@ async function basket(id) {
     <div class="container">
       <template v-if="GoogleProductsStore.googleProducts.length">
         <div class="grid gap-4 sm:gap-6 !mt-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          <product-component
-            v-for="product in GoogleProductsStore.googleProducts"
-            :key="product._id"
-            :product="product"
-            :button-loading="buttonLoaders[product._id]"
-            @select="getProduct"
-            @add-to-basket="basket"
-          />
+          <product-component v-for="product in GoogleProductsStore.googleProducts" :key="product._id" :product="product"
+            :button-loading="buttonLoaders[product._id]" @select="getProduct" @add-to-basket="basket" />
         </div>
       </template>
 
@@ -57,7 +54,5 @@ async function basket(id) {
         <a-empty description="Mahsulotlar topilmadi" style="color: #212529; margin-top: 150px" />
       </template>
     </div>
-
-    <product-modal-component :open="modalOpen" @update:open="val => modalOpen = val" />
   </section>
 </template>

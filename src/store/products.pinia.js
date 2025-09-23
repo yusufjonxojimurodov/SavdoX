@@ -13,12 +13,21 @@ const useProducts = defineStore("products", {
   state: () => ({
     products: [],
     basketProducts: [],
+    modalOpen: false,
     loader: false,
     createLoader: false,
     buttonLoader: false,
   }),
 
   actions: {
+    openInfoModal() {
+      this.modalOpen = true;
+    },
+
+    closeInfoModal() {
+      this.modalOpen = false;
+    },
+
     async createProduct(form) {
       this.loader = true;
       try {

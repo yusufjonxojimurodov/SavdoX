@@ -8,17 +8,17 @@ import ProductComponent from '@/components/ProductComponent.vue';
 import 'swiper/css';
 import 'swiper/css/mousewheel';
 import { Mousewheel } from 'swiper/modules';
-import ProductModalComponent from '@/components/ProductModalComponent.vue';
 import useProductInfo from '@/store/products.info.pinia';
 import useComments from '@/store/comments.pinia';
+import useQueryParams from '@/composables/useQueryParams';
 
 const commentsStore = useComments()
 const productsInfoStore = useProductInfo()
 const registerStore = useRegister()
 const productsStore = useProducts()
+const { setQueries } = useQueryParams()
 const { products } = storeToRefs(productsStore)
 
-const modalOpen = ref(false)
 const buttonLoaders = reactive({})
 
 async function basket(id) {
@@ -39,9 +39,12 @@ async function basket(id) {
 }
 
 function getProduct(id) {
+    setQueries({
+        productId: id
+    })
     productsInfoStore.getProductInfo(id)
     commentsStore.getComments(id)
-    modalOpen.value = true
+    productsStore.openInfoModal()
 }
 </script>
 
@@ -64,7 +67,5 @@ function getProduct(id) {
                 </template>
             </div>
         </a-spin>
-
-        <product-modal-component :open="modalOpen" @update:open="val => modalOpen = val" />
     </section>
 </template>

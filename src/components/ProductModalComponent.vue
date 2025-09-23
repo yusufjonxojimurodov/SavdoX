@@ -5,25 +5,30 @@ import SellerInfoModalComponent from './SellerInfoModalComponent.vue';
 import ComentsComponent from './ComentsComponent.vue';
 import ComentCreateComponent from './ComentCreateComponent.vue';
 import ComplaintModalComponent from './ComplaintModalComponent.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import useQueryParams from '@/composables/useQueryParams';
 import useRegister from '@/store/register.pinia';
+import { useRoute } from 'vue-router';
+import useComments from '@/store/comments.pinia';
+import useProducts from '@/store/products.pinia';
 
 const props = defineProps({
     open: Boolean
 })
-const emits = defineEmits(['update:open'])
 
 const productStore = useProductInfo()
+const productsStore = useProducts()
 const userStore = useRegister()
 const { setQueries } = useQueryParams()
+const commentsStore = useComments()
+const route = useRoute()
 const openInfoModal = ref(false)
 const openComplaintModal = ref(false)
 const { product } = storeToRefs(productStore)
 
 function openSellerInfoModal(id) {
     productStore.getSellerInfo(id)
-    emits('update:open')
+    productsStore.closeInfoModal()
     openInfoModal.value = true
 }
 
@@ -37,12 +42,27 @@ function deport(id) {
         userStore.openModal()
     }
 }
+
+onMounted(() => {
+    const id = route.query.productId
+    if (id) {
+        productStore.getProductInfo(id)
+        commentsStore.getComments(id)
+        productsStore.openInfoModal()
+    }
+})
+
+function closeModal() {
+    setQueries({
+        productId: undefined
+    })
+    productsStore.closeInfoModal()
+}
 </script>
 
 <template>
-    <a-modal :open="props.open" @update:open="val => emits('update:open', val)" :closable="false" :maskClosable="false"
-        :keyboard="false" class="!w-[800px]  mx-auto">
-        <a-spin :spinning="productStore.loader">
+    <a-modal :open="props.open" :closable="false" :maskClosable="false" :keyboard="false" class="!w-[800px]  mx-auto">
+        <a-spin :spinning="productStore.modalLoader">
             <div
                 class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6 !p-4 sm:!p-6">
                 <div v-if="product && Object.keys(product).length > 1" class="w-full sm:w-[300px]">
@@ -105,7 +125,7 @@ function deport(id) {
         </a-spin>
 
         <template #footer>
-            <a-button size="large" type="primary" @click="() => emits('update:open', false)">
+            <a-button size="large" type="primary" @click="closeModal">
                 Yopish
             </a-button>
         </template>

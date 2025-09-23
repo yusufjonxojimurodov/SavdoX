@@ -8,16 +8,16 @@ import 'swiper/css';
 import 'swiper/css/mousewheel';
 import { Mousewheel } from 'swiper/modules';
 import useProductInfo from '@/store/products.info.pinia.js';
-import ProductModalComponent from '@/components/ProductModalComponent.vue';
 import useComments from '@/store/comments.pinia.js';
 import ProductComponent from '@/components/ProductComponent.vue';
+import useQueryParams from '@/composables/useQueryParams';
 
 const productInfo = useProductInfo()
 const googleFilterproductsStore = useFilterProducts()
 const commentsStore = useComments()
 const registerStore = useRegister()
+const { setQueries } = useQueryParams()
 const productsStore = useProducts()
-const modalOpen = ref(false)
 
 const buttonLoaders = reactive({})
 
@@ -42,9 +42,12 @@ onMounted(() => {
 })
 
 function getProduct(id) {
+    setQueries({
+        productId: id
+    })
     productInfo.getProductInfo(id)
     commentsStore.getComments(id)
-    modalOpen.value = true
+    productsStore.openInfoModal()
 }
 </script>
 
@@ -68,7 +71,5 @@ function getProduct(id) {
                 </template>
             </div>
         </a-spin>
-
-        <product-modal-component :open="modalOpen" @update:open="val => modalOpen = val" />
     </section>
 </template>

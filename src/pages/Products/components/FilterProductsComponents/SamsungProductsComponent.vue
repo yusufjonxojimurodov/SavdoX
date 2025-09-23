@@ -9,16 +9,17 @@ import 'swiper/css/mousewheel';
 import { Mousewheel } from 'swiper/modules';
 import useProductInfo from '@/store/products.info.pinia.js';
 import useComments from '@/store/comments.pinia.js';
-import ProductModalComponent from '@/components/ProductModalComponent.vue';
 import ProductComponent from '@/components/ProductComponent.vue';
+import useQueryParams from '@/composables/useQueryParams';
 
 const productStore = useProductInfo()
 const commentsStore = useComments()
 const samsungProductsStore = useFilterProducts()
 const registerStore = useRegister()
 const productsStore = useProducts()
+const { setQueries } = useQueryParams()
+
 const buttonLoaders = reactive({})
-const modalOpen = ref(false)
 
 async function basket(id) {
     if (registerStore.user === "") {
@@ -41,9 +42,12 @@ onMounted(() => {
 })
 
 function getProduct(id) {
+    setQueries({
+        productId: id
+    })
     productStore.getProductInfo(id)
     commentsStore.getComments(id)
-    modalOpen.value = true
+    productsStore.openInfoModal()
 }
 </script>
 
@@ -67,7 +71,5 @@ function getProduct(id) {
                 </template>
             </div>
         </a-spin>
-
-        <product-modal-component :open="modalOpen" @update:open="val => modalOpen = val" />
     </section>
 </template>
