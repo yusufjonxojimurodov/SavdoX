@@ -57,6 +57,7 @@ const types = [
     { label: 'Sichqoncha', value: 'mouse' },
     { label: 'Kompyuter', value: 'computer' },
     { label: 'Quloqchin', value: 'headphones' },
+    { label: 'Planshet', value: 'tablets' },
     { label: 'Zaryadlovchi qurilmalar', value: 'chargers' },
 ]
 
