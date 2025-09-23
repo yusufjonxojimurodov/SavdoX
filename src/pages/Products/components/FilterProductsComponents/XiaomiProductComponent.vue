@@ -12,7 +12,7 @@ import useComments from '@/store/comments.pinia.js';
 import ProductComponent from '@/components/ProductComponent.vue';
 import useQueryParams from '@/composables/useQueryParams';
 
-const productsInfoStore = useProductInfo
+const productsInfoStore = useProductInfo()
 const commentsStore = useComments()
 const XiaomiFilterproductsStore = useFilterProducts()
 const registerStore = useRegister()
