@@ -1,4 +1,4 @@
-<!-- <script setup>
+<script setup>
 import IconTechnicIssue from './components/icons/IconTechnicIssue.vue'
 </script>
 
@@ -35,10 +35,10 @@ p {
   font-size: 1.2rem;
   opacity: 0.8;
 }
-</style> -->
-
+</style>
+<!-- 
 <script setup></script>
 
 <template>
   <router-view />
-</template>
+</template> -->
