@@ -8,6 +8,15 @@ export function ApiLoginUser(form) {
   });
 }
 
+export function ApiLoginFace(form) {
+  return api({
+    url: "/api/users/login/face",
+    method: "POST",
+    data: form,
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+}
+
 export function ApiGetUserInfo() {
   return api({
     url: "/api/users/getUserMe",

@@ -2,10 +2,12 @@
 import { reactive, ref } from 'vue';
 import useRegister from '@/store/register.pinia';
 import WarningModalLogin from '@/components/WarningModalLogin.vue';
+import LoginFaceModalComponent from './LoginFaceModalComponent.vue';
 
 const userRegisterStore = useRegister()
 
 const openModal = ref(false)
+const openLoginFaceModal = ref(false)
 
 const LoginForm = reactive({
     phone: "+998",
@@ -86,14 +88,21 @@ function openWarningModal() {
                             Hisobingiz yo'qmi ?
                         </span>
                     </p>
-                    <a-button :loading="userRegisterStore.loaderButton" type="primary" html-type="submit" size="large"
-                        class="!border-none !text-black !font-semibold">
-                        Tizimga kirish
-                    </a-button>
+                    <div class="flex justify-center items-center gap-4">
+                        <a-button @click="openLoginFaceModal = true" html-type="submit"
+                            size="large" class="!border-none">
+                            Yuz bilan kirish
+                        </a-button>
+                        <a-button :loading="userRegisterStore.loaderButton" type="primary" html-type="submit"
+                            size="large" class="!border-none !text-black !font-semibold">
+                            Tizimga kirish
+                        </a-button>
+                    </div>
                 </div>
             </a-form>
 
             <warning-modal-login v-model:open="openModal" />
+            <login-face-modal-component v-model:open="openLoginFaceModal"/>
         </div>
     </div>
 </template>
