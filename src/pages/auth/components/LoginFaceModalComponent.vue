@@ -1,10 +1,10 @@
 <script setup>
 import { ref, watch, onBeforeUnmount } from "vue";
-import * as faceapi from "face-api.js";
 import useRegister from "@/store/register.pinia";
 import { message } from "ant-design-vue";
 
 const registerStore = useRegister();
+let faceapi = null;
 
 const open = defineModel("open", { type: Boolean, default: false });
 
@@ -20,8 +20,12 @@ const loadingCamera = ref(false);
 let stream = null;
 let detectInterval = null;
 
+
 async function loadModels() {
+  if (typeof window !== "undefined") {
+    faceapi = await import("face-api.js");
     await faceapi.nets.tinyFaceDetector.loadFromUri("/models");
+  }
 }
 
 async function startCamera() {
