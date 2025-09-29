@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue';
-import useQueryParams from '../../../composables/useQueryParams';
-import { debounce } from '../../../utils/helpers/debounce';
-import IconBack from '../../../components/icons/IconBack.vue';
+import useQueryParams from '@/composables/useQueryParams';
+import { debounce } from '@/utils/helpers/debounce';
+import IconBack from '@/components/icons/IconBack.vue';
 
 const { setQueries, getQueries } = useQueryParams()
 const searchProduct = debounce((e) => {
