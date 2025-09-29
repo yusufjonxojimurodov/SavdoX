@@ -57,9 +57,13 @@ function getProduct(id) {
             <div class="container">
                 <template v-if="samsungProductsStore.samsungProducts.length > 0">
                     <swiper :modules="[Mousewheel]" slides-per-view="auto" :space-between="20"
-                        :mousewheel="{ forceToAxis: true }" :grab-cursor="true" class="!mt-6">
+                        :mousewheel="{ forceToAxis: true }" :breakpoints="{
+                            385: { spaceBetween: 4 },
+                            768: { spaceBetween: 20 },
+                            1024: { spaceBetween: 25 }
+                        }" :grab-cursor="true" class="!mt-6">
                         <swiper-slide v-for="product in samsungProductsStore.samsungProducts" :key="product._id"
-                            class="!w-[300px]">
+                            class="sm:!w-[300px] !w-[180px]">
                             <product-component :button-loading="buttonLoaders[product._id]" :product="product"
                                 @select="getProduct" @add-to-basket="basket" />
                         </swiper-slide>

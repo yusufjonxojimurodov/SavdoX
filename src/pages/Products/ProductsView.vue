@@ -1,14 +1,14 @@
 <script setup>
-import HeaderComponent from '../../components/HeaderComponent.vue';
+import HeaderComponent from '@/components/HeaderComponent.vue';
 import ProductFilterComponent from './components/ProductFilterComponent.vue';
 import ProductComponent from './components/ProductComponent.vue';
-import FooterComponent from '../../components/FooterComponent.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
 import { watch } from 'vue';
 import { useRoute } from 'vue-router';
-import useProducts from '../../store/products.pinia';
-import useQueryParams from '../../composables/useQueryParams';
+import useProducts from '@/store/products.pinia';
+import useQueryParams from '@/composables/useQueryParams';
 import SamsungProductsComponent from './components/FilterProductsComponents/SamsungProductsComponent.vue';
-import SectionNameComponent from '../../components/SectionNameComponent.vue';
+import SectionNameComponent from '@/components/SectionNameComponent.vue';
 import IphoneProductComponent from './components/FilterProductsComponents/IphoneProductComponent.vue';
 import XiaomiProductComponent from './components/FilterProductsComponents/XiaomiProductComponent.vue';
 import GoogleProductsComponent from './components/FilterProductsComponents/GoogleProductsComponent.vue';
@@ -17,12 +17,18 @@ const { getQueries } = useQueryParams()
 const productStore = useProducts()
 const route = useRoute()
 
-watch(() => route.query, () => {
-    productStore.getProducts({
-        search: getQueries().search || null,
-        price: getQueries().price || null
-    })
-}, { immediate: true })
+watch(
+    () => route.query,
+    () => {
+        if (!route.query.productId) {
+            productStore.getProducts({
+                search: getQueries().search || null,
+                price: getQueries().price || null
+            })
+        }
+    },
+    { immediate: true, deep: true }
+)
 </script>
 
 <template>

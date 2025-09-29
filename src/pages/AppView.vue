@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onBeforeMount } from 'vue';
 import useRegister from '../store/register.pinia';
 import ProductModalComponent from '../components/ProductModalComponent.vue';
 import WarningModalComponent from '../components/WarningModalComponent.vue';
@@ -9,7 +9,7 @@ import useProducts from '@/store/products.pinia';
 const registerStore = useRegister()
 const productsStore = useProducts()
 
-onMounted(() => {
+onBeforeMount(() => {
     registerStore.userInfo()
 })
 </script>

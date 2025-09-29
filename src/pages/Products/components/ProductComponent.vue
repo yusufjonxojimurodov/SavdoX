@@ -53,9 +53,12 @@ function getProduct(id) {
         <a-spin size="large" :spinning="productsStore.loader">
             <div class="container">
                 <template v-if="products.length > 0">
-                    <swiper :modules="[Mousewheel]" slides-per-view="auto" :space-between="10"
-                        :mousewheel="{ forceToAxis: true }" :grab-cursor="true" :allow-touch-move="true" class="!mt-6">
-                        <swiper-slide v-for="product in products" :key="product._id" class="sm:!w-[300px] !w-[230px]">
+                    <swiper :modules="[Mousewheel]" slides-per-view="auto" :space-between="20" :breakpoints="{
+                        385: { spaceBetween: 4 },
+                        768: { spaceBetween: 20 },
+                        1024: { spaceBetween: 25 }
+                    }" :mousewheel="{ forceToAxis: true }" :grab-cursor="true" :allow-touch-move="true" class="!mt-6">
+                        <swiper-slide v-for="product in products" :key="product._id" class="sm:!w-[300px] !w-[180px]">
                             <product-component :product="product" :button-loading="buttonLoaders[product._id]"
                                 @select="getProduct" @add-to-basket="basket" />
                         </swiper-slide>

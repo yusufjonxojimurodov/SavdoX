@@ -61,11 +61,11 @@ function changeTypeFilter(value) {
             </div>
             <a-space class="flex-wrap !mt-5 sm:!mt-0">
                 <a-input v-model:value="searchProductValue" @input="searchProduct" size="large" class="responsive-input"
-                    placeholder="Mahsulot Nomini yozing" />
+                    placeholder="Qidiring..." />
                 <a-select v-model:value="selectValue" @change="changeFilter" class="responsive-select" allow-clear
-                    size="large" :options="options" placeholder="Mahsulot narxlarini filterlash" />
+                    size="large" :options="options" placeholder="Narxni tanlang" />
 
-                <a-select v-model:value="selectType" size="large" @change="changeTypeFilter" class="!w-[180px]"
+                <a-select v-model:value="selectType" size="large" @change="changeTypeFilter" class="sm:!w-[180px] !w-full"
                     placeholder="Turini tanlang" :options="types" allowClear />
             </a-space>
         </div>

@@ -49,7 +49,7 @@ function closeDrawer() {
                 </router-link></li>
         </ul>
 
-        <p class="fixed bottom-3 left-23 text-white !font-medium">version Beta: {{ version }}</p>
+        <p class="fixed bottom-3 left-23 text-white !font-medium">version: {{ version }}</p>
     </a-drawer>
 </template>
 
