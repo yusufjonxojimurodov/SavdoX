@@ -40,7 +40,7 @@
         <header class="shadow-md">
             <div class="container mx-auto px-6">
                 <nav class="flex justify-between items-center !py-4">
-                    <router-link to="/" class="logoName !text-4xl  font-bold !m-0 !p-0">SavdoX</router-link>
+                    <router-link to="/" class="logoName !text-4xl  font-bold !m-0 !p-0">TexnoBazaar</router-link>
 
                     <ul class="hidden md:flex justify-center items-center gap-6">
                         <li>
