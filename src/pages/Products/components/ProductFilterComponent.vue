@@ -37,7 +37,7 @@ function changeFilter(value) {
             <h2 class="text-[32px] !font-semibold text-[#212529]">Barcha Mahsulotlar</h2>
             <a-space class="flex-wrap">
                 <a-input v-model:value="searchProductValue" @input="searchProduct" size="large" class="responsive-input"
-                    placeholder="Mahsulot Nomini yozing" />
+                    placeholder="Qidiring..." />
                 <a-select v-model:value="selectValue" @change="changeFilter" class="responsive-select" allow-clear
                     size="large" :options="options" placeholder="Narxni tanlang" />
             </a-space>

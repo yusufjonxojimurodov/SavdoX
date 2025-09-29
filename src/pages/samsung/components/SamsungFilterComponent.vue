@@ -59,15 +59,15 @@ function changeTypeFilter(value) {
                 </router-link>
                 <h2 class="!text-[32px] !font-semibold text-[#212529] !mb-2">Samsung Mahsulotlari</h2>
             </div>
-            <a-space class="flex-wrap !mt-5 sm:!mt-0">
+            <div class="!flex justify-between sm:justify-end gap-2 flex-wrap sm:!mt-0 !mt-3">
                 <a-input v-model:value="searchProductValue" @input="searchProduct" size="large" class="responsive-input"
                     placeholder="Qidiring..." />
                 <a-select v-model:value="selectValue" @change="changeFilter" class="responsive-select" allow-clear
                     size="large" :options="options" placeholder="Narxni tanlang" />
 
-                <a-select v-model:value="selectType" size="large" @change="changeTypeFilter" class="sm:!w-[180px] !w-full"
-                    placeholder="Turini tanlang" :options="types" allowClear />
-            </a-space>
+                <a-select v-model:value="selectType" size="large" @change="changeTypeFilter"
+                    class="sm:!w-[180px] !w-full" placeholder="Turini tanlang" :options="types" allowClear />
+            </div>
         </div>
     </section>
 </template>
