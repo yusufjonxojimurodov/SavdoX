@@ -89,7 +89,7 @@ function openWarningModal() {
                         </span>
                     </p>
                     <div class="flex justify-center items-center gap-4">
-                        <a-button @click="openLoginFaceModal = true" html-type="submit"
+                        <a-button @click="openLoginFaceModal = true"
                             size="large" class="!border-none">
                             Yuz bilan kirish
                         </a-button>

@@ -3,14 +3,15 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import useMeProduct from '@/store/product.me';
 import useProductInfo from '@/store/products.info.pinia';
 import useComments from '@/store/comments.pinia';
-import ProductModalComponent from '@/components/ProductModalComponent.vue';
 import ProductEditComponent from './ProductEditComponent.vue';
 import IconEdit from '@/components/icons/IconEdit.vue';
 import IconDelete from '@/components/icons/IconDelete.vue';
 import useQueryParams from '@/composables/useQueryParams';
+import useProducts from '@/store/products.pinia';
 
 const { setQueries } = useQueryParams()
-const productStore = useMeProduct();
+const meProductStore = useMeProduct();
+const productsStore = useProducts()
 const productsInfoStore = useProductInfo();
 const commentsStore = useComments();
 
@@ -28,7 +29,7 @@ const paginatedProducts = computed(() => {
     const size = responsivePageSize.value;
     const start = (currentPage.value - 1) * size;
     const end = start + size;
-    return productStore.meProduct.slice(start, end);
+    return meProductStore.meProduct.slice(start, end);
 });
 
 function handleResize() {
@@ -43,18 +44,21 @@ function onPageChange(page) {
 }
 
 function getProduct(id) {
+    setQueries({
+        productId: id
+    })
     productsInfoStore.getProductInfo(id);
     commentsStore.getComments(id);
-    modalOpen.value = true;
+    productsStore.openInfoModal()
 }
 
 async function delProduct(id) {
-    await productStore.deleteMeProduct(id);
-    productStore.GetMeProduct();
+    await meProductStore.deleteMeProduct(id);
+    meProductStore.GetMeProduct();
 }
 
 async function openEditForm(id) {
-    await productStore.getOneProductInfo(id);
+    await meProductStore.getOneProductInfo(id);
     setQueries({
         productId: id || undefined
     })
@@ -65,8 +69,8 @@ async function openEditForm(id) {
 <template>
     <section>
         <div class="container">
-            <a-spin size="large" :spinning="productStore.loader">
-                <template v-if="productStore.meProduct.length > 0">
+            <a-spin size="large" :spinning="meProductStore.loader">
+                <template v-if="meProductStore.meProduct.length > 0">
                     <div class="flex flex-wrap gap-4 sm:gap-6 !mt-6 justify-center">
                         <div @click="getProduct(product._id)" v-for="product in paginatedProducts" :key="product._id"
                             class="product transition duration-500 bg-[#F8EDEB] cursor-pointer !p-3 sm:!p-5 md:p-[20px]
@@ -105,7 +109,7 @@ async function openEditForm(id) {
                                     <div class="flex justify-between items-center w-full mt-2">
                                         <p class="text-[12px] sm:text-[14px] text-[#34495E] font-medium">{{
                                             product.model
-                                            }}</p>
+                                        }}</p>
                                         <p @click.stop="openEditForm(product._id)"
                                             class="text-[14px] text-[#34495E] font-semibold flex justify-center items-center gap-2">
                                             Mahsulotni yangilash <icon-edit />
@@ -129,7 +133,7 @@ async function openEditForm(id) {
                     </div>
 
                     <a-pagination :current="currentPage" :page-size="responsivePageSize"
-                        :total="productStore.meProduct.length" @change="onPageChange" :show-size-changer="false"
+                        :total="meProductStore.meProduct.length" @change="onPageChange" :show-size-changer="false"
                         class="!mt-8 relative z-[99999]" />
                 </template>
 
@@ -138,7 +142,6 @@ async function openEditForm(id) {
                 </template>
             </a-spin>
 
-            <product-modal-component :open="modalOpen" @update:open="val => modalOpen = val" />
             <product-edit-component v-model:open="modalOpenEdit" />
         </div>
     </section>

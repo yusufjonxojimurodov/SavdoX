@@ -33,14 +33,14 @@ async function deletePendingProducts(id) {
                     <div class="grid gap-4 sm:gap-6 !mt-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         <div v-for="product in pendingProductsStore.pendingProductBuyer" :key="product._id" class="product transition duration-500 bg-[#F8EDEB]
                 w-full
-                h-[430px] sm:h-[500px] md:!w-[300px]
+                h-[450px] sm:h-[500px] md:!w-[300px]
                 cursor-pointer flex flex-col
                 gap-4 sm:gap-6 justify-center
                 !p-3 sm:!py-5 md:py-[20px]
                 rounded-[20px] md:rounded-[30px]
                 shadow-[0_4px_12px_rgba(0,0,0,0.6)] !relative">
                             <a-image @click.stop :src="product.product.image" alt="Product image"
-                                class="w-full !h-[240px] object-contain transition duration-300 rounded-2xl" />
+                                class="w-full !h-[200px] sm:!h-[240px] object-contain transition duration-300 rounded-2xl" />
                             <div class="flex flex-col w-full gap-2 sm:gap-3">
                                 <div v-if="product.product.discount"
                                     class="w-[60px] flex justify-center items-center !p-4 bg-[#FF8C00] absolute top-0 right-0 rounded-tr-[30px] rounded-bl-[30px]">
@@ -87,7 +87,7 @@ async function deletePendingProducts(id) {
                                         product.quantity }} ta</p>
                                 </div>
 
-                                <div class="flex flex-col !gap-[10px] sm:flex-row w-full">
+                                <div class="flex flex-col !mt-4 !gap-[10px] sm:flex-row w-full">
                                     <a-popconfirm title="Mahsulotni sotib olishni bekor qilmoqchimisiz ?"
                                         ok-text="Tasdiqlash" :okButtonProps="{ loading: buttonLoaders[product._id] }"
                                         cancel-text="Bekor qilish" @confirm="deletePendingProducts(product._id)">

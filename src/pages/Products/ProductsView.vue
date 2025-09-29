@@ -34,22 +34,20 @@ watch(
 <template>
     <header-component />
     <main>
-        <div class="container">
-            <product-filter-component />
-            <product-component />
-            <section-name-component title="Samsung Mahsulotlari">
-                <samsung-products-component />
-            </section-name-component>
-            <section-name-component title="Apple Mahsulotlari">
-                <iphone-product-component />
-            </section-name-component>
-            <section-name-component title="Xiaomi Mahsulotlari">
-                <xiaomi-product-component />
-            </section-name-component>
-            <section-name-component title="Google Mahsulotlari">
-                <google-products-component />
-            </section-name-component>
-        </div>
+        <product-filter-component />
+        <product-component />
+        <section-name-component title="Samsung Mahsulotlari">
+            <samsung-products-component />
+        </section-name-component>
+        <section-name-component title="Apple Mahsulotlari">
+            <iphone-product-component />
+        </section-name-component>
+        <section-name-component title="Xiaomi Mahsulotlari">
+            <xiaomi-product-component />
+        </section-name-component>
+        <section-name-component title="Google Mahsulotlari">
+            <google-products-component />
+        </section-name-component>
     </main>
     <footer-component />
 </template>

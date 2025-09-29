@@ -41,51 +41,56 @@ function timeFromNow(date) {
 </script>
 
 <template>
-    <div v-for="complaint in userStore.complaint" :key="complaint._id"
-        class="flex justify-start items-center gap-3 flex-wrap">
-        <div class="!p-5 rounded-xl !shadow-md border" style="background-color: #F8EDEB; border-color: #FF8C00;">
-            <div class="flex justify-start items-center gap-2">
-                <icon-phone-product class="w-5 h-5" />
-                <h2 class="text-lg font-semibold !p-0 !m-0" style="color: #34495E;">
-                    Mahsulot: <span class="!font-semibold">{{ complaint.productName }}</span>
+    <div class="!flex flex-wrap !gap-4 !w-full">
+        <div v-for="complaint in userStore.complaint" :key="complaint._id" class="!p-5 !w-[49%] !rounded-xl !shadow-md border"
+            style="background-color: #F8EDEB; border-color: #FF8C00; width: 300px;">
+            <div class="flex items-center gap-2">
+                <icon-phone-product class="!w-5 !h-5" />
+                <h2 class="text-lg font-semibold !p-0 !m-0 text-[#34495E]">
+                    Mahsulot: <span class="font-semibold">{{ complaint.productName }}</span>
                 </h2>
             </div>
 
-            <div style="width: 100% !important;" class="flex justify-center items-start gap-4 flex-col !w-full !mt-4">
+            <div class="flex flex-col gap-4 !mt-4 w-full">
                 <div class="flex justify-between items-center">
-                    <div class="flex justify-start items-center gap-2">
-                        <icon-report class="w-5 h-5" />
-                        <p class="text-[#34495E] text-[16px] !font-semibold">Shikoyati:</p>
+                    <div class="flex items-center gap-2">
+                        <icon-report class="!w-5 !h-5" />
+                        <p class="text-[#34495E] !font-semibold">Shikoyati:</p>
                     </div>
                     <p>{{ complaint.message }}</p>
                 </div>
 
-                <div class="flex !justify-between items-center">
-                    <div class="flex justify-start items-center gap-2">
-                        <icon-user class="w-5 h-5 stroke-[#212529]" />
-                        <p class="text-[#34495E]  text-[16px] !font-semibold">Ism familyasi:</p>
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <icon-user class="!w-5 !h-5 stroke-[#212529]" />
+                        <p class="text-[#34495E] !font-semibold">Ism familyasi:</p>
                     </div>
                     <p>{{ complaint.complainant.name }} {{ complaint.complainant.surname }}</p>
                 </div>
 
-                <div class="flex !justify-between items-center">
-                    <div class="flex justify-start items-center gap-2">
-                        <icon-phone class="w-5 h-5 stroke-[#212529]" />
-                        <p class="text-[#34495E]  text-[16px] !font-semibold">Telefon Raqami:</p>
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <icon-phone class="!w-5 !h-5 stroke-[#212529]" />
+                        <p class="text-[#34495E] !font-semibold">Telefon Raqami:</p>
                     </div>
-                    <a :href="`tel:${complaint.complainant.phone}`" target="_blank">{{ complaint.complainant.phone
-                    }}</a>
+                    <a :href="`tel:${complaint.complainant.phone}`" target="_blank">
+                        {{ complaint.complainant.phone }}
+                    </a>
                 </div>
-                <div class="flex !justify-between items-center">
-                    <div class="flex justify-start items-center gap-2">
-                        <icon-telegram class="w-5 h-5" />
-                        <p class="text-[#34495E]  text-[16px] !font-semibold">Telegram:</p>
+
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <icon-telegram class="!w-5 !h-5" />
+                        <p class="text-[#34495E] !font-semibold">Telegram:</p>
                     </div>
-                    <a :href="`https://t.me/${complaint.complainant.userName}`" target="_blank">@{{
-                        complaint.complainant.userName }}</a>
+                    <a :href="`https://t.me/${complaint.complainant.userName}`" target="_blank">
+                        @{{ complaint.complainant.userName }}
+                    </a>
                 </div>
-                <div class="text-xs flex justify-start items-center gap-2" style="color: #343A40;">
-                    <icon-time class="fill-[#212529]" /> {{ timeFromNow(complaint.createdAt) }}
+
+                <div class="!text-xs flex items-center gap-2 text-[#343A40]">
+                    <icon-time class="fill-[#212529]" />
+                    {{ timeFromNow(complaint.createdAt) }}
                 </div>
             </div>
         </div>

@@ -47,16 +47,68 @@ const routes = [
     ],
   },
   {
-    path: "/basket",
-    name: "Savatcha",
-    component: () => import("@/pages/basket-product/BasketProductView.vue"),
-    meta: { title: "Savatcha" },
-  },
-  {
     path: "/seller",
     name: "Sotuvchi",
     component: () => import("@/pages/seller-page/SellerView.vue"),
     meta: { title: "Sotuvchi", requiresRole: ["seller", "admin"] },
+    children: [
+      {
+        path: "products",
+        name: "Products",
+        component: () =>
+          import("@/pages/seller-page/pages/products-page/ProductsView.vue"),
+        meta: { title: "Mahsulotlaringiz", requiresRole: ["seller", "admin"] },
+      },
+      {
+        path: "pending",
+        name: "Pending Products",
+        component: () =>
+          import(
+            "@/pages/seller-page/pages/pending-products-seller-page/PendingProductSellerView.vue"
+          ),
+        meta: {
+          title: "Tasdiqlanishi kutilayotganlar",
+          requiresRole: ["seller", "admin"],
+        },
+      },
+
+      {
+        path: "statistic",
+        name: "Statistic",
+        component: () =>
+          import("@/pages/seller-page/pages/statistic-page/StatisticView.vue"),
+        meta: { title: "Statistikangiz", requiresRole: ["seller", "admin"] },
+      },
+
+      {
+        path: "complaints",
+        name: "Complaints",
+        component: () =>
+          import(
+            "../pages/seller-page/pages/complaint-seller/ComplaintView.vue"
+          ),
+        meta: { title: "Shikoyatlaringiz", requiresRole: ["seller", "admin"] },
+      },
+
+      {
+        path: "deliveries/history",
+        name: "Delivery History",
+        component: () =>
+          import(
+            "@/pages/seller-page/pages/buyyed-products/BuyyedProductsView.vue"
+          ),
+        meta: {
+          title: "Yetkazmalar tarixi",
+          requiresRole: ["seller", "admin"],
+        },
+      },
+    ],
+  },
+  {
+    path: "/basket",
+    name: "Savatcha",
+    component: () => import("@/pages/basket-product/BasketProductView.vue"),
+    meta: { title: "Savatcha" },
   },
   {
     path: "/pending/product",
@@ -99,8 +151,12 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const registerStore = useRegister();
+
+  if (!registerStore.user) {
+    await registerStore.userInfo();
+  }
 
   if (to.meta.requiresRole) {
     const allowedRoles = to.meta.requiresRole;
@@ -116,6 +172,6 @@ router.beforeEach((to, from, next) => {
   }
 
   next();
-})
+});
 
 export default router;

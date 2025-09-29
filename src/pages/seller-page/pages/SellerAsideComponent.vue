@@ -1,35 +1,32 @@
 <script setup>
 import { computed, h, onBeforeUnmount, onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import IconPhoneProduct from '@/components/icons/IconPhoneProduct.vue';
 import IconRating from '@/components/icons/IconRating.vue';
 import IconStatistic from '@/components/icons/IconStatistic.vue';
 import IconReport from '@/components/icons/IconReport.vue';
-import ProductsView from './products-page/ProductsView.vue';
-import PendingProductSellerView from './pending-products-seller-page/PendingProductSellerView.vue';
 import IconBack from '@/components/icons/IconBack.vue';
 import ProfileComponent from '@/components/ProfileComponent.vue';
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue';
 import IconArrowRight from '@/components/icons/IconArrowRight.vue';
 import IconDelivery from '@/components/icons/IconDelivery.vue';
-import BuyyedProductsView from './buyyed-products/BuyyedProductsView.vue';
-import StatisticView from './statistic-page/StatisticView.vue';
 import IconConfirm from '@/components/icons/IconConfirm.vue';
-import ComplaintView from './complaint-seller/ComplaintView.vue';
 
 const collapsed = ref(false);
-const selectedKeys = ref(['1']);
+const route = useRoute();
+const router = useRouter()
+
 const pageTitles = {
-    '1': 'Mahsulotlarim',
-    '2': 'Tasdiqlang',
-    '3': 'Statistika',
-    '4': 'Shikoyatlar',
-    '5': 'Yetkazmalar'
+    '/seller/products': 'Mahsulotlarim',
+    '/seller/pending': 'Tasdiqlang',
+    '/seller/statistic': 'Statistika',
+    '/seller/complaints': 'Shikoyatlar',
+    '/seller/deliveries/history': 'Yetkazmalar'
 };
 
-const currentTitle = computed(() => pageTitles[selectedKeys.value[0]] || 'Sahifa');
+const currentTitle = computed(() => pageTitles[route.path] || 'Sahifa');
 
 const isMobile = ref(false);
-
 const checkScreen = () => {
     isMobile.value = window.innerWidth <= 768;
 };
@@ -58,76 +55,71 @@ onBeforeUnmount(() => {
                 </template>
             </div>
 
-            <a-menu class="!bg-[#f8edeb]" mode="inline" v-model:selectedKeys="selectedKeys"
+            <a-menu class="!bg-[#f8edeb]" mode="inline" :selectedKeys="[route.path]"
                 style="height: 100%; border-right: 0;" :inlineCollapsed="collapsed">
-                <a-menu-item key="1" class="custom-menu-item">
-                    <div class="flex items-center gap-2">
+                <a-menu-item key="/seller/products" class="custom-menu-item">
+                    <router-link to="/seller/products" class="flex items-center gap-2">
                         <icon-phone-product class="text-[18px]" />
-                        <span v-if="!collapsed" class="font-semibold text-[16px]">
-                            Mahsulotlarim
-                        </span>
-                    </div>
+                        <span v-if="!collapsed" class="font-semibold text-[16px]">Mahsulotlarim</span>
+                    </router-link>
                 </a-menu-item>
 
-                <a-menu-item key="2" class="custom-menu-item">
-                    <div class="flex items-center gap-2">
+                <a-menu-item key="/seller/pending" class="custom-menu-item">
+                    <router-link to="/seller/pending" class="flex items-center gap-2">
                         <icon-confirm />
-                        <span v-if="!collapsed" class="font-semibold text-[16px]">
-                            Tasdiqlang
-                        </span>
-                    </div>
+                        <span v-if="!collapsed" class="font-semibold text-[16px]">Tasdiqlang</span>
+                    </router-link>
                 </a-menu-item>
-                <a-menu-item key="3" class="custom-menu-item">
-                    <div class="flex items-center gap-2">
+
+                <a-menu-item key="/seller/statistic" class="custom-menu-item">
+                    <router-link to="/seller/statistic" class="flex items-center gap-2">
                         <icon-statistic />
-                        <span v-if="!collapsed" class="font-semibold text-[16px]">
-                            Statistika
-                        </span>
-                    </div>
+                        <span v-if="!collapsed" class="font-semibold text-[16px]">Statistika</span>
+                    </router-link>
                 </a-menu-item>
-                <a-menu-item key="4" class="custom-menu-item">
-                    <div class="flex items-center gap-2">
+
+                <a-menu-item key="/seller/complaints" class="custom-menu-item">
+                    <router-link to="/seller/complaints" class="flex items-center gap-2">
                         <icon-report />
-                        <span v-if="!collapsed" class="font-semibold text-[16px]">
-                            Shikoyatlar
-                        </span>
-                    </div>
+                        <span v-if="!collapsed" class="font-semibold text-[16px]">Shikoyatlar</span>
+                    </router-link>
                 </a-menu-item>
-                <a-menu-item key="5" class="custom-menu-item">
-                    <div class="flex items-center gap-2">
+
+                <a-menu-item key="/seller/deliveries/history" class="custom-menu-item">
+                    <router-link to="/seller/deliveries/history" class="flex items-center gap-2">
                         <icon-delivery />
-                        <span v-if="!collapsed" class="font-semibold text-[16px]">
-                            Yetkazmalar
-                        </span>
-                    </div>
+                        <span v-if="!collapsed" class="font-semibold text-[16px]">Yetkazmalar</span>
+                    </router-link>
                 </a-menu-item>
             </a-menu>
         </a-layout-sider>
+
         <div v-else class="bottom-nav">
-            <div class="nav-item" :class="{ active: selectedKeys[0] === '1' }" @click="selectedKeys = ['1']">
+            <router-link to="/products" class="nav-item" :class="{ active: route.path === '/products' }">
                 <icon-phone-product />
-            </div>
-            <div class="nav-item" :class="{ active: selectedKeys[0] === '2' }" @click="selectedKeys = ['2']">
+            </router-link>
+            <router-link to="/pending-products" class="nav-item"
+                :class="{ active: route.path === '/pending-products' }">
                 <icon-rating />
-            </div>
-            <div class="nav-item" :class="{ active: selectedKeys[0] === '3' }" @click="selectedKeys = ['3']">
+            </router-link>
+            <router-link to="/statistic" class="nav-item" :class="{ active: route.path === '/statistic' }">
                 <icon-statistic />
-            </div>
-            <div class="nav-item" :class="{ active: selectedKeys[0] === '4' }" @click="selectedKeys = ['4']">
+            </router-link>
+            <router-link to="/complaints" class="nav-item" :class="{ active: route.path === '/complaints' }">
                 <icon-report />
-            </div>
-            <div class="nav-item" :class="{ active: selectedKeys[0] === '5' }" @click="selectedKeys = ['5']">
+            </router-link>
+            <router-link to="/deliveries" class="nav-item" :class="{ active: route.path === '/deliveries' }">
                 <icon-delivery />
-            </div>
+            </router-link>
         </div>
 
         <a-layout style="background-color: #fcc98c;">
-            <a-layout-header style="background-color: #fcc98c; margin-top: 50px;">
+            <a-layout-header style="background-color: #fcc98c; margin-top: 20px;">
                 <div class="!flex justify-between items-start !w-full">
                     <span
                         class="!flex justify-center items-center gap-2 text-[24px] sm:text-[32px] font-bold text-white">
                         <div class="flex justify-center items-center gap-2">
-                            <router-link to="/" class="!text-[#212529]"><icon-back /></router-link>
+                            <button @click="router.back()" class="cursor-pointer !text-[#212529]"><icon-back /></button>
                             <h1 class="!m-0 !p-0 text-[#212529] !font-bold">{{ currentTitle }}</h1>
                         </div>
                     </span>
@@ -135,12 +127,8 @@ onBeforeUnmount(() => {
                 </div>
             </a-layout-header>
 
-            <a-layout-content style="margin: 24px 16px; padding: 24px; background: #fcc98c; min-height: 280px">
-                <products-view v-if="selectedKeys[0] === '1'" />
-                <pending-product-seller-view v-if="selectedKeys[0] === '2'" />
-                <statistic-view v-if="selectedKeys[0] === '3'" />
-                <complaint-view v-if="selectedKeys[0] === '4'" />
-                <buyyed-products-view v-if="selectedKeys[0] === '5'" />
+            <a-layout-content style="margin-top: 30px; padding: 24px; background: #fcc98c; min-height: 280px">
+                <router-view />
             </a-layout-content>
         </a-layout>
     </a-layout>

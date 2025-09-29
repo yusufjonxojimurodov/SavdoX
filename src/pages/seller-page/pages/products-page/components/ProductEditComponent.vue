@@ -1,33 +1,44 @@
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { message } from 'ant-design-vue';
-import useProducts from '../../../../store/products.pinia';
-import useMeProduct from '../../../../store/product.me';
-import IconPlus from '../../../../components/icons/IconPlus.vue';
-import useSetting from '../../../../store/settings.pinia';
-import useRegister from '../../../../store/register.pinia';
+import useMeProduct from '@/store/product.me';
+import IconUpdate from '@/components/icons/IconUpdate.vue';
+import useQueryParams from '@/composables/useQueryParams';
 
-const userStore = useRegister()
-const settingStore = useSetting()
+const { getQueries } = useQueryParams()
 const productMeStore = useMeProduct()
-const productsStore = useProducts()
 const props = defineProps({ open: Boolean });
 const emit = defineEmits(['update:open']);
-
-const createProduct = reactive({
-    name: "",
-    description: "",
-    price: "",
-    image: "",
-    left: "",
-    model: null,
-    type: null,
-    discount: ""
-});
 
 const fileList = ref([])
 const formRef = ref(null)
 const submitLoading = ref(false)
+
+const productId = computed(() => getQueries().productId)
+
+const createProduct = computed({
+    get: () => productMeStore.oneProduct,
+    set: (val) => {
+        Object.assign(productMeStore.oneProduct, val);
+    }
+});
+
+watch(
+    () => productMeStore.oneProduct,
+    (val) => {
+        if (val && val.image) {
+            fileList.value = [
+                {
+                    uid: '-1',
+                    name: 'image.png',
+                    status: 'done',
+                    url: val.image,
+                },
+            ];
+        }
+    },
+    { immediate: true }
+);
 
 const validateImage = () => {
     return fileList.value && fileList.value.length > 0
@@ -57,19 +68,23 @@ const types = [
     { label: 'Sichqoncha', value: 'mouse' },
     { label: 'Kompyuter', value: 'computer' },
     { label: 'Quloqchin', value: 'headphones' },
-    { label: 'Planshet', value: 'tablets' },
     { label: 'Zaryadlovchi qurilmalar', value: 'chargers' },
 ]
 
-async function createProductDashboard() {
+async function editProductDashboard() {
     try {
         submitLoading.value = true;
-        await productsStore.createProduct({
-            ...createProduct,
-            model: createProduct.model || null,
-            type: createProduct.type || null,
+        await productMeStore.editProductMe(productId.value, {
+            name: createProduct.value.name,
+            description: createProduct.value.description,
+            price: createProduct.value.price,
+            left: createProduct.value.left,
+            model: createProduct.value.model,
+            type: createProduct.value.type,
+            discount: createProduct.value.discount || 0,
             image: fileList.value.length ? fileList.value[0].originFileObj : null
         });
+
         emit('update:open', false);
         productMeStore.GetMeProduct()
         resetForm();
@@ -91,41 +106,24 @@ function resetForm() {
     createProduct.description = "";
     createProduct.price = "";
     createProduct.left = "",
-        createProduct.type = null;
-    createProduct.discount = null;
-    createProduct.model = null;
+        createProduct.type = "",
+        createProduct.model = null;
 }
-
-const bannerList = ref([]);
-
-const handleUpload = async ({ file, onSuccess, onError }) => {
-    try {
-        const formData = new FormData();
-        formData.append("image", file);
-
-        settingStore.createBanner(formData)
-        onSuccess(data);
-    } catch (err) {
-        onError(err);
-    }
-};
 </script>
 
 <template>
     <a-modal :get-container="false" @close="cancel" @update:open="emit('update:open', $event)" :open="props.open"
-        title="Mahsulot yaratish" footer="">
-        <a-form ref="formRef" @finish="createProductDashboard" :model="createProduct" layout="vertical" class="!mt-10">
+        title="Mahsulotni tahrirlash" footer="">
+        <a-form ref="formRef" @finish="editProductDashboard" :model="createProduct" layout="vertical" class="!mt-10">
             <a-row :gutter="[16, 16]">
                 <a-col :span="12">
                     <a-form-item name="name" label="Mahsulot Nomi"
                         :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
                         <a-input size="large" v-model:value="createProduct.name" placeholder="Mahsulot nomi" />
                     </a-form-item>
-                    <a-form-item name="discount" label="Chegirma" :rules="[
-                        { pattern: /^\d+(?:[.,]\d+)?%?$/, message: 'Faqat raqam kiriting' }
-                    ]">
+                    <a-form-item name="discount" label="Mahsulot chegirmasi">
                         <a-input size="large" v-model:value="createProduct.discount"
-                            placeholder="Mahsulot chegirmasi" />
+                            placeholder="Mahsulot Chegirmasi" />
                     </a-form-item>
                 </a-col>
                 <a-col :span="12">
@@ -133,8 +131,6 @@ const handleUpload = async ({ file, onSuccess, onError }) => {
                         <a-select size="large" v-model:value="createProduct.model" placeholder="Modelini tanlang"
                             :options="models" allowClear />
                     </a-form-item>
-
-
                     <a-form-item name="type" label="Mahsulot turi"
                         :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
                         <a-select size="large" v-model:value="createProduct.type" placeholder="Turini tanlang"
@@ -148,7 +144,7 @@ const handleUpload = async ({ file, onSuccess, onError }) => {
                     <a-form-item name="description" label="Mahsulot Haqida"
                         :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
                         <a-textarea class="textArea" v-model:value="createProduct.description" :rows="4" show-count
-                            :maxlength="120" :minlength="80" placeholder="Mahsulot haqida batafsil yozing" />
+                            :minlength="70" :maxlength="130" placeholder="Mahsulot haqida batafsil yozing" />
                     </a-form-item>
                 </a-col>
                 <a-col :span="12">
@@ -171,23 +167,15 @@ const handleUpload = async ({ file, onSuccess, onError }) => {
                         <p>Rasm yuklash</p>
                     </template>
                 </a-upload>
-
-                <a-upload v-if="userStore.user.role === 'admin'" :customRequest="handleUpload"
-                    v-model:file-list="bannerList" list-type="picture-card">
-                    <div>
-                        <span>+ Upload</span>
-                    </div>
-                </a-upload>
             </a-form-item>
 
             <div class="flex justify-end gap-4 mt-6">
                 <a-button size="large" @click="cancel">Bekor qilish</a-button>
                 <a-button type="primary" html-type="submit" size="large" :loading="submitLoading"
-                    class="!flex justify-center items-center gap-2 !border-none">
+                    class="!bg-gray-800 !flex justify-center items-center gap-2 hover:!bg-gray-900 !border-none">
                     <template #icon>
-                        <icon-plus />
-                    </template>
-                    Yaratish
+                        <icon-update />
+                    </template> Yangilash
                 </a-button>
             </div>
         </a-form>

@@ -157,7 +157,6 @@ ul {
   color: #fff !important;
 }
 
-/* Active menu item */
 .ant-menu-item-selected.custom-menu-item {
   background-color: #FF8C00 !important;
   color: #fff !important;

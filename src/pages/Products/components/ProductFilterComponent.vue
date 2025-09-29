@@ -1,9 +1,10 @@
 <script setup>
 import { ref } from 'vue';
-import useQueryParams from '../../../composables/useQueryParams';
-import { debounce } from '../../../utils/helpers/debounce';
+import useQueryParams from '@/composables/useQueryParams';
+import { debounce } from '@/utils/helpers/debounce';
 
 const { setQueries, getQueries } = useQueryParams()
+
 const searchProduct = debounce((e) => {
     const value = e.target?.value
     setQueries({

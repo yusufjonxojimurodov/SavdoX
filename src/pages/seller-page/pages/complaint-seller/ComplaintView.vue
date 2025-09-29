@@ -12,6 +12,9 @@ onMounted(() => {
 
 <template>
     <a-spin size="large" :spinning="userStore.loader">
-        <complaint-card />
+        <complaint-card v-if="userStore.complaint.length > 0" />
+        <template v-else>
+            <a-empty description="Shikoyatlar topilmadi" style="color: white; margin-top: 150px" />
+        </template>
     </a-spin>
 </template>

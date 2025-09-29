@@ -45,7 +45,7 @@ function openProfileModal() {
 
 function routerBot() {
     if (registerstore.user.role === "seller" || registerstore.user.role === "admin") {
-        router.push("/seller")
+        router.push("/seller/products")
     } else {
         window.open("https://t.me/savdo_x_bot", "_blank")
     }
