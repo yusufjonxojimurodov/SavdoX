@@ -50,7 +50,7 @@ onBeforeUnmount(() => {
             @collapse="val => collapsed = val" width="250" :trigger="collapsed ? h(IconArrowRight) : h(IconArrowLeft)">
             <div class="logo">
                 <template v-if="!collapsed">
-                    <span class="text-white text-[24px] font-bold">Savdo X</span>
+                    <span class="text-white text-[24px] font-bold">TexnoBazaar</span>
                     <img class="!rounded-[50%]" width="42" height="42" src="/icon.png" alt="logo" />
                 </template>
                 <template v-else>

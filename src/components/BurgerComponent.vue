@@ -5,10 +5,8 @@ import IconApple from './icons/companies/IconApple.vue';
 import IconXiaomi from './icons/companies/IconXiaomi.vue';
 import IconGoogle from './icons/companies/IconGoogle.vue';
 import IconOther from './icons/companies/IconOther.vue';
-import { useRouter } from 'vue-router'
 import { version } from "../version.js"
 
-const router = useRouter()
 const props = defineProps({ open: Boolean })
 const emit = defineEmits(['update:open'])
 
