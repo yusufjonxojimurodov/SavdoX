@@ -44,6 +44,12 @@ const routes = [
         component: () => import("@/pages/others/OthersProductView.vue"),
         meta: { title: "Boshqa Mahsulotlar" },
       },
+      {
+        path: "product/info",
+        name: "ProductInfo",
+        component: () => import("@/pages/product-info/ProductInfoView.vue"),
+        meta: {title: "Mahsulot haqida"}
+      }
     ],
   },
   {
@@ -71,7 +77,6 @@ const routes = [
           requiresRole: ["seller", "admin"],
         },
       },
-
       {
         path: "statistic",
         name: "Statistic",

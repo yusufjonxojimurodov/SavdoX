@@ -1,4 +1,11 @@
 <script setup>
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/mousewheel';
+import 'swiper/css/pagination';
+import { Mousewheel, Pagination } from 'swiper/modules';
+import { formatPrice } from '@/utils/format.js'
+
 defineProps({
     product: Object,
     buttonLoading: Boolean
@@ -10,11 +17,17 @@ defineEmits(['select', 'add-to-basket'])
 <template>
     <div class="product !w-[100%] relative !transition duration-500  bg-[#F8EDEB] !flex flex-col !justify-between !p-3 sm:!p-5 md:!p-6 !rounded-[30px] md:!rounded-[30px] !mt-4 cursor-pointer !h-[375px] sm:!h-[500px]"
         @click="$emit('select', product._id)">
-        <a-image @click.stop :src="product.image" alt="Product image"
-            class="w-full !h-[170px] sm:!h-[240px] object-contain transition duration-300 rounded-2xl" />
+        <swiper :mousewheel="{ forceToAxis: true }" :grab-cursor="true" :modules="[Mousewheel, Pagination]"
+            :pagination="{ clickable: true }" class="w-full !h-[170px] sm:!h-[240px] rounded-2xl">
+            <swiper-slide v-for="(image, index) in product.images" :key="index"
+                class="flex justify-center items-center">
+                <a-image @click.stop :src="image" alt="Product image"
+                    class="object-contain w-full h-full transition duration-300 rounded-2xl" />
+            </swiper-slide>
+        </swiper>
 
         <div v-if="product.discount"
-            class="w-[60px] flex justify-center items-center !p-4 bg-[#FF8C00] absolute top-0 right-0 rounded-tr-[30px] rounded-bl-[30px]">
+            class="w-[60px] z-[999] flex justify-center items-center !p-4 bg-[#FF8C00] absolute top-0 right-0 rounded-tr-[30px] rounded-bl-[30px]">
             <p class="text-white !font-semibold text-[16px]">-{{ product.discount }}%</p>
         </div>
 
@@ -30,11 +43,11 @@ defineEmits(['select', 'add-to-basket'])
                             ? '!line-through !opacity-80 text-[#53718f]'
                             : 'text-[#34495E]'
                     ]">
-                        {{ product.price }}$
+                        {{ formatPrice(product.price) }}$
                     </p>
                     <p v-if="product.discountPrice !== product.price"
                         class="text-[#34495E] text-[14px] sm:text-[16px] md:text-[18px] !font-semibold">
-                        {{ product.discountPrice }}$
+                        {{ formatPrice(product.discountPrice) }}$
                     </p>
                 </div>
             </div>
@@ -74,10 +87,8 @@ defineEmits(['select', 'add-to-basket'])
 </template>
 
 <style scoped>
-.product:hover {
-    img {
-        transform: scale(1.05);
-    }
+.product:hover img {
+    transform: scale(1.05);
 }
 
 .ant-image-preview-operations span {
@@ -90,5 +101,18 @@ defineEmits(['select', 'add-to-basket'])
 :deep(.basketGo[disabled]) {
     opacity: 0.7 !important;
     cursor: not-allowed !important;
+}
+
+:deep(.swiper-pagination-bullet) {
+    background: #ccc !important;
+    opacity: 1 !important;
+    width: 10px;
+    height: 10px;
+}
+
+:deep(.swiper-pagination-bullet-active) {
+    background: #ff8c00 !important;
+    width: 12px;
+    height: 12px;
 }
 </style>

@@ -11,6 +11,7 @@ import useComments from '@/store/comments.pinia.js';
 import useProductInfo from '@/store/products.info.pinia.js';
 import ProductComponent from '@/components/ProductComponent.vue';
 import useQueryParams from '@/composables/useQueryParams';
+import { useRouter } from 'vue-router';
 
 const productInfoStore = useProductInfo()
 const commentsStore = useComments()
@@ -18,6 +19,7 @@ const iphoneFilterproductsStore = useFilterProducts()
 const registerStore = useRegister()
 const productsStore = useProducts()
 const { setQueries } = useQueryParams()
+const router = useRouter()
 
 const buttonLoaders = reactive({})
 
@@ -42,12 +44,12 @@ onMounted(() => {
 })
 
 function getProduct(id) {
-    setQueries({
-        productId: id
-    })
     productInfoStore.getProductInfo(id)
     commentsStore.getComments(id)
-    productsStore.openInfoModal()
+    router.push({
+        name: "ProductInfo",
+        query: { productId: id }
+    })
 }
 </script>
 

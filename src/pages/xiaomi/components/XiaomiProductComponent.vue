@@ -6,14 +6,14 @@ import useFilterProducts from '@/store/filter.products.pinia.js';
 import useProductInfo from '@/store/products.info.pinia.js';
 import useComments from '@/store/comments.pinia.js';
 import ProductComponent from '@/components/ProductComponent.vue';
-import useQueryParams from '@/composables/useQueryParams';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const commentsStore = useComments()
 const productsInfoStore = useProductInfo()
 const xiaomiProductsStore = useFilterProducts()
 const registerStore = useRegister()
 const productsStore = useProducts()
-const { setQueries } = useQueryParams()
 
 const buttonLoaders = reactive({})
 
@@ -34,12 +34,12 @@ async function basket(id) {
 }
 
 function getProduct(id) {
-    setQueries({
-        productId: id
-    })
     productsInfoStore.getProductInfo(id)
     commentsStore.getComments(id)
-    productsStore.openInfoModal()
+    router.push({
+        name: "ProductInfo",
+        query: { productId: id }
+    })
 }
 </script>
 

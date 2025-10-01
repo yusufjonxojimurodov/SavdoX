@@ -4,17 +4,19 @@ import useRegister from '@/store/register.pinia.js';
 import useBuyyedProduct from '@/store/buyyed.pinia.js';
 import useProductInfo from '@/store/products.info.pinia';
 import useComments from '@/store/comments.pinia';
-import useProducts from '@/store/products.pinia';
-import useQueryParams from '@/composables/useQueryParams';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/mousewheel';
+import 'swiper/css/pagination';
+import { Mousewheel, Pagination } from 'swiper/modules';
+import { formatPrice } from '@/utils/format.js'
+import { useRouter } from 'vue-router';
 
 const buyyedProductStore = useBuyyedProduct()
 const registerStore = useRegister()
 const productsInfoStore = useProductInfo()
 const commentsStore = useComments()
-const productsStore = useProducts()
-const { setQueries } = useQueryParams()
-
-const modalOpen = ref(false)
+const router = useRouter()
 
 onMounted(() => {
     buyyedProductStore.getBuyyedProduct()
@@ -22,12 +24,12 @@ onMounted(() => {
 })
 
 function getProduct(id) {
-    setQueries({
-        productId: id
-    })
     productsInfoStore.getProductInfo(id)
     commentsStore.getComments(id)
-    productsStore.openInfoModal()
+    router.push({
+        name: "ProductInfo",
+        query: { productId: id }
+    })
 }
 </script>
 
@@ -46,8 +48,15 @@ function getProduct(id) {
                 !p-3 sm:!p-5 md:p-[20px]
                 rounded-[30px] md:rounded-[30px]
                 shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
-                            <a-image @click.stop :src="product.productId.image" alt="Product image"
-                                class="w-full !h-[200px] sm:!h-[240px] object-contain transition duration-300 rounded-2xl" />
+                            <swiper :mousewheel="{ forceToAxis: true }" :grab-cursor="true"
+                                :modules="[Mousewheel, Pagination]" :pagination="{ clickable: true }"
+                                class="w-full !h-[170px] sm:!h-[240px] rounded-2xl">
+                                <swiper-slide v-for="(image, index) in product.productId.images" :key="index"
+                                    class="flex justify-center items-center">
+                                    <a-image @click.stop :src="image" alt="Product image"
+                                        class="object-contain w-full h-full transition duration-300 rounded-2xl" />
+                                </swiper-slide>
+                            </swiper>
                             <div class="flex flex-col w-full gap-2 sm:gap-3">
                                 <div v-if="product.productId.discount"
                                     class="w-[60px] flex justify-center items-center !p-4 bg-[#FF8C00] absolute top-0 right-0 rounded-tr-[30px] rounded-bl-[30px]">
@@ -67,11 +76,11 @@ function getProduct(id) {
                                                     ? '!line-through !opacity-80 text-[#53718f]'
                                                     : 'text-[#34495E]'
                                             ]">
-                                                {{ product.productId.price }}$
+                                                {{ formatPrice(product.productId.price) }}$
                                             </p>
                                             <p v-if="product.productId.discountPrice !== product.productId.price"
                                                 class="text-[#34495E] text-[14px] sm:text-[16px] md:text-[18px] !font-semibold">
-                                                {{ product.productId.discountPrice }}$
+                                                {{ formatPrice(product.productId.discountPrice) }}$
                                             </p>
                                         </div>
                                     </div>
@@ -110,3 +119,18 @@ function getProduct(id) {
         </a-spin>
     </section>
 </template>
+
+<style scoped>
+:deep(.swiper-pagination-bullet) {
+    background: #ccc !important;
+    opacity: 1 !important;
+    width: 10px;
+    height: 10px;
+}
+
+:deep(.swiper-pagination-bullet-active) {
+    background: #ff8c00 !important;
+    width: 12px;
+    height: 12px;
+}
+</style>

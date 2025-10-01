@@ -26,19 +26,20 @@ const createProduct = computed({
 watch(
     () => productMeStore.oneProduct,
     (val) => {
-        if (val && val.image) {
-            fileList.value = [
-                {
-                    uid: '-1',
-                    name: 'image.png',
-                    status: 'done',
-                    url: val.image,
-                },
-            ];
+        if (val && val.images && val.images.length > 0) {
+            fileList.value = val.images.map((url, index) => ({
+                uid: index,
+                name: `image-${index + 1}.png`,
+                status: 'done',
+                url,
+            }));
+        } else {
+            fileList.value = [];
         }
     },
     { immediate: true }
 );
+
 
 const validateImage = () => {
     return fileList.value && fileList.value.length > 0
@@ -82,7 +83,9 @@ async function editProductDashboard() {
             model: createProduct.value.model,
             type: createProduct.value.type,
             discount: createProduct.value.discount || 0,
-            image: fileList.value.length ? fileList.value[0].originFileObj : null
+            images: fileList.value.length
+                ? fileList.value.map(f => f.originFileObj || f.url)
+                : null
         });
 
         emit('update:open', false);
@@ -150,7 +153,7 @@ function resetForm() {
                 <a-col :span="12">
                     <a-form-item name="price" label="Mahsulot qoldig'i va narxi"
                         :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
-                        <a-input size="large" v-model:value="createProduct.price" type="number" placeholder="Narxi" />
+                        <a-input size="large" v-model:value="createProduct.price" type="text" placeholder="Narxi" />
                     </a-form-item>
 
                     <a-form-item name="left" :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
@@ -162,8 +165,8 @@ function resetForm() {
 
             <a-form-item name="image" label="Rasm" :rules="[{ validator: validateImage }]">
                 <a-upload accept=".jpg,.png,.webp,.jfif" v-model:fileList="fileList" :before-upload="() => false"
-                    list-type="picture-card" :max-count="1">
-                    <template v-if="fileList.length === 0">
+                    list-type="picture-card" :max-count="3">
+                    <template v-if="fileList.length < 3">
                         <p>Rasm yuklash</p>
                     </template>
                 </a-upload>

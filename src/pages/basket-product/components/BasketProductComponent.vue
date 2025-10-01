@@ -10,7 +10,11 @@ import useRegister from '@/store/register.pinia.js';
 import IconBack from '@/components/icons/IconBack.vue';
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
-
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/mousewheel';
+import 'swiper/css/pagination';
+import { Mousewheel, Pagination } from 'swiper/modules';
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
@@ -227,11 +231,18 @@ watch(showMap, (val) => {
                                 ? 'border-2 border-[#FFD700]'
                                 : 'bg-[#F8EDEB] border-2 border-transparent'
                         ]">
-                        <img :src="basketProduct.image" alt="Mahsulot rasmi"
-                            class="w-full h-[240px] rounded-2xl transition duration-500 object-contain" />
+                        <swiper :mousewheel="{ forceToAxis: true }" :grab-cursor="true"
+                            :modules="[Mousewheel, Pagination]" :pagination="{ clickable: true }"
+                            class="w-full !h-[170px] sm:!h-[240px] rounded-2xl">
+                            <swiper-slide v-for="(image, index) in basketProduct.images" :key="index"
+                                class="flex justify-center items-center">
+                                <a-image @click.stop :src="image" alt="Product image"
+                                    class="object-contain !w-[700px] !h-[300px] transition duration-300 !rounded-[30px]" />
+                            </swiper-slide>
+                        </swiper>
 
                         <div v-if="basketProduct.discount"
-                            class="w-[60px] flex justify-center items-center !p-4 bg-red-700 absolute top-0 right-0 rounded-tr-[30px] rounded-bl-[30px]">
+                            class="w-[60px] flex justify-center items-center !p-4 bg-[#FF8C00] absolute top-0 right-0 rounded-tr-[30px] rounded-bl-[30px]">
                             <p class="text-white !font-semibold text-[16px]">-{{ basketProduct.discount }}%</p>
                         </div>
                         <div class="flex justify-center items-start flex-col gap-[20px] w-full sm:w-auto">
@@ -332,5 +343,18 @@ watch(showMap, (val) => {
     border: none;
     color: #fff !important;
     cursor: not-allowed !important;
+}
+
+:deep(.swiper-pagination-bullet) {
+    background: #ccc !important;
+    opacity: 1 !important;
+    width: 10px;
+    height: 10px;
+}
+
+:deep(.swiper-pagination-bullet-active) {
+    background: #ff8c00 !important;
+    width: 12px;
+    height: 12px;
 }
 </style>

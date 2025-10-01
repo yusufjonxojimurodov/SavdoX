@@ -18,7 +18,7 @@ const createProduct = reactive({
     name: "",
     description: "",
     price: "",
-    image: "",
+    images: "",
     left: "",
     model: null,
     type: null,
@@ -68,7 +68,7 @@ async function createProductDashboard() {
             ...createProduct,
             model: createProduct.model || null,
             type: createProduct.type || null,
-            image: fileList.value.length ? fileList.value[0].originFileObj : null
+            images: fileList.value.map(f => f.originFileObj)
         });
         emit('update:open', false);
         productMeStore.GetMeProduct()
@@ -148,7 +148,7 @@ const handleUpload = async ({ file, onSuccess, onError }) => {
                     <a-form-item name="description" label="Mahsulot Haqida"
                         :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
                         <a-textarea class="textArea" v-model:value="createProduct.description" :rows="4" show-count
-                            :maxlength="120" :minlength="80" placeholder="Mahsulot haqida batafsil yozing" />
+                            :maxlength="200" :minlength="80" placeholder="Mahsulot haqida batafsil yozing" />
                     </a-form-item>
                 </a-col>
                 <a-col :span="12">
@@ -164,10 +164,10 @@ const handleUpload = async ({ file, onSuccess, onError }) => {
                 </a-col>
             </a-row>
 
-            <a-form-item name="image" label="Rasm" :rules="[{ validator: validateImage }]">
+            <a-form-item name="images" label="Rasmlar" :rules="[{ validator: validateImage }]">
                 <a-upload accept=".jpg,.png,.webp,.jfif" v-model:fileList="fileList" :before-upload="() => false"
-                    list-type="picture-card" :max-count="1">
-                    <template v-if="fileList.length === 0">
+                    list-type="picture-card" :max-count="3" multiple>
+                    <template v-if="fileList.length < 3">
                         <p>Rasm yuklash</p>
                     </template>
                 </a-upload>

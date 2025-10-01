@@ -5,25 +5,25 @@ import useFilterProducts from '@/store/filter.products.pinia'
 import useProducts from '@/store/products.pinia'
 import useRegister from '@/store/register.pinia'
 import useProductInfo from '@/store/products.info.pinia'
-import useQueryParams from '@/composables/useQueryParams';
 import useComments from '@/store/comments.pinia'
+import { useRouter } from 'vue-router'
 
 const GoogleProductsStore = useFilterProducts()
 const productsStore = useProducts()
 const registerStore = useRegister()
-const { setQueries } = useQueryParams()
 const productsInfoStore = useProductInfo()
 const commentsStore = useComments()
+const router = useRouter()
 
 const buttonLoaders = reactive({})
 
 function getProduct(id) {
-  setQueries({
-    productId: id
-  })
   productsInfoStore.getProductInfo(id)
   commentsStore.getComments(id)
-  productsStore.openInfoModal()
+  router.push({
+    name: "ProductInfo",
+    query: { productId: id }
+  })
 }
 
 async function basket(id) {

@@ -1,8 +1,12 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
-import useRegister from '../../../../../store/register.pinia.js';
-import useDeliveryProduct from '../../../../../store/delivery.product.pinia.js';
-import IconCompelted from '../../../../../components/icons/IconCompelted.vue';
+import useRegister from '@/store/register.pinia.js';
+import useDeliveryProduct from '@/store/delivery.product.pinia.js';
+import IconCompelted from '@/components/icons/IconCompelted.vue';
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
 
 const buyyedProductStore = useDeliveryProduct()
 const registerStore = useRegister()
@@ -73,8 +77,14 @@ async function completedDelivery(id) {
                 !p-3 sm:!p-5 md:p-[20px]
                 rounded-[20px] md:rounded-[30px]
                 shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
-                            <a-image :src="product.productId.image" alt="Mahsulot rasmi"
-                                class="!w-full !h-[220px] rounded-2xl transition duration-500 object-contain" />
+                            <swiper :modules="[Pagination]" :pagination="{ clickable: true }"
+                                class="w-full !h-[170px] sm:!h-[240px] rounded-2xl">
+                                <swiper-slide v-for="(image, index) in product.productId.images" :key="index"
+                                    class="flex justify-center items-center">
+                                    <a-image @click.stop :src="image" alt="Product image"
+                                        class="object-contain w-full h-full transition duration-300 rounded-2xl" />
+                                </swiper-slide>
+                            </swiper>
 
                             <div v-if="product.productId.discount"
                                 class="w-[60px] flex justify-center rounded-tr-[30px] rounded-bl-[30px] items-center !p-[20px] bg-[#FF8C00] absolute top-0 right-0">
@@ -151,3 +161,18 @@ async function completedDelivery(id) {
         </a-spin>
     </section>
 </template>
+
+<style scoped>
+:deep(.swiper-pagination-bullet) {
+    background: #ccc !important;
+    opacity: 1 !important;
+    width: 10px;
+    height: 10px;
+}
+
+:deep(.swiper-pagination-bullet-active) {
+    background: #ff8c00 !important;
+    width: 12px;
+    height: 12px;
+}
+</style>

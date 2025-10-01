@@ -8,10 +8,16 @@ import IconEdit from '@/components/icons/IconEdit.vue';
 import IconDelete from '@/components/icons/IconDelete.vue';
 import useQueryParams from '@/composables/useQueryParams';
 import useProducts from '@/store/products.pinia';
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
+import { useRouter } from 'vue-router';
 
 const { setQueries } = useQueryParams()
 const meProductStore = useMeProduct();
 const productsStore = useProducts()
+const router = useRouter()
 const productsInfoStore = useProductInfo();
 const commentsStore = useComments();
 
@@ -44,12 +50,12 @@ function onPageChange(page) {
 }
 
 function getProduct(id) {
-    setQueries({
-        productId: id
+    productsInfoStore.getProductInfo(id)
+    commentsStore.getComments(id)
+    router.push({
+        name: "ProductInfo",
+        query: { productId: id }
     })
-    productsInfoStore.getProductInfo(id);
-    commentsStore.getComments(id);
-    productsStore.openInfoModal()
 }
 
 async function delProduct(id) {
@@ -76,10 +82,15 @@ async function openEditForm(id) {
                             class="product transition duration-500 bg-[#F8EDEB] cursor-pointer !p-3 sm:!p-5 md:p-[20px]
                         flex flex-col justify-between rounded-[30px] md:rounded-[30px] relative
                         shadow-[0_4px_12px_rgba(0,0,0,0.6)] flex-shrink-0 w-[300px]">
-
                             <div>
-                                <a-image @click.stop :src="product.image" alt="Mahsulot rasmi"
-                                    class="!w-full !h-[240px] rounded-2xl transition duration-500 object-contain" />
+                                <swiper :modules="[Pagination]" :pagination="{ clickable: true }"
+                                    class="w-full !h-[170px] sm:!h-[240px] rounded-2xl">
+                                    <swiper-slide v-for="(image, index) in product.images" :key="index"
+                                        class="flex justify-center items-center">
+                                        <a-image @click.stop :src="image" alt="Product image"
+                                            class="object-contain w-full h-full transition duration-300 rounded-2xl" />
+                                    </swiper-slide>
+                                </swiper>
                                 <div v-if="product.discount"
                                     class="w-[60px] flex justify-center rounded-tr-[30px] rounded-bl-[30px] items-center !p-[20px] bg-[#FF8C00] absolute top-0 right-0">
                                     <p class="text-white !font-semibold text-[18px]">{{ product.discount }}%</p>
@@ -109,7 +120,7 @@ async function openEditForm(id) {
                                     <div class="flex justify-between items-center w-full mt-2">
                                         <p class="text-[12px] sm:text-[14px] text-[#34495E] font-medium">{{
                                             product.model
-                                        }}</p>
+                                            }}</p>
                                         <p @click.stop="openEditForm(product._id)"
                                             class="text-[14px] text-[#34495E] font-semibold flex justify-center items-center gap-2">
                                             Mahsulotni yangilash <icon-edit />
@@ -146,3 +157,30 @@ async function openEditForm(id) {
         </div>
     </section>
 </template>
+
+<style scoped>
+.ant-image-preview-operations span {
+    background-color: #fff !important;
+    border-radius: 4px;
+    color: #000 !important;
+    padding: 2px;
+}
+
+:deep(.basketGo[disabled]) {
+    opacity: 0.7 !important;
+    cursor: not-allowed !important;
+}
+
+:deep(.swiper-pagination-bullet) {
+    background: #ccc !important;
+    opacity: 1 !important;
+    width: 10px;
+    height: 10px;
+}
+
+:deep(.swiper-pagination-bullet-active) {
+    background: #ff8c00 !important;
+    width: 12px;
+    height: 12px;
+}
+</style>

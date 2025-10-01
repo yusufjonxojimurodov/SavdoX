@@ -1,19 +1,19 @@
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive } from 'vue';
 import useProducts from '@/store/products.pinia.js';
 import ProductComponent from '@/components/ProductComponent.vue';
 import useRegister from '@/store/register.pinia.js';
 import useFilterProducts from '@/store/filter.products.pinia.js';
 import useProductInfo from '@/store/products.info.pinia.js';
 import useComments from '@/store/comments.pinia.js';
-import useQueryParams from '@/composables/useQueryParams';
+import { useRouter } from 'vue-router';
 
 const commentsStore = useComments()
 const productsInfoStore = useProductInfo()
 const samsungProductsStore = useFilterProducts()
 const registerStore = useRegister()
 const productsStore = useProducts()
-const { setQueries } = useQueryParams()
+const router = useRouter()
 
 const buttonLoaders = reactive({})
 
@@ -34,12 +34,12 @@ async function basket(id) {
 }
 
 function getProduct(id) {
-    setQueries({
-        productId: id
-    })
     productsInfoStore.getProductInfo(id)
     commentsStore.getComments(id)
-    productsStore.openInfoModal()
+    router.push({
+        name: "ProductInfo",
+        query: { productId: id }
+    })
 }
 </script>
 

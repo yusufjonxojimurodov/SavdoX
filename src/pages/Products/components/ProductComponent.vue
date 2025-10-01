@@ -10,14 +10,14 @@ import 'swiper/css/mousewheel';
 import { Mousewheel } from 'swiper/modules';
 import useProductInfo from '@/store/products.info.pinia';
 import useComments from '@/store/comments.pinia';
-import useQueryParams from '@/composables/useQueryParams';
+import { useRouter } from 'vue-router';
 
 const commentsStore = useComments()
 const productsInfoStore = useProductInfo()
 const registerStore = useRegister()
 const productsStore = useProducts()
-const { setQueries } = useQueryParams()
 const { products } = storeToRefs(productsStore)
+const router = useRouter()
 
 const buttonLoaders = reactive({})
 
@@ -39,13 +39,14 @@ async function basket(id) {
 }
 
 function getProduct(id) {
-    setQueries({
-        productId: id
-    })
     productsInfoStore.getProductInfo(id)
     commentsStore.getComments(id)
-    productsStore.openInfoModal()
+    router.push({
+        name: "ProductInfo",
+        query: { productId: id }
+    })
 }
+
 </script>
 
 <template>

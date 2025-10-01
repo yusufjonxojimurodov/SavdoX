@@ -1,8 +1,11 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import usePendingProduct from '../../../../../store/product.pending.pinia';
-import ProductModalComponent from '../../../../../components/ProductModalComponent.vue';
-import useDeliveryProduct from '../../../../../store/delivery.product.pinia';
+import usePendingProduct from '@/store/product.pending.pinia';
+import useDeliveryProduct from '@/store/delivery.product.pinia';
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
 
 const deliveryProductStore = useDeliveryProduct()
 const productStore = usePendingProduct();
@@ -10,7 +13,6 @@ const productStore = usePendingProduct();
 const currentPage = ref(1);
 const pageSize = ref(6);
 const buttonLoaders = ref({});
-const modalOpen = ref(false)
 
 const paginatedProducts = computed(() => {
     const start = (currentPage.value - 1) * pageSize.value;
@@ -51,8 +53,14 @@ async function deleteProduct(id) {
     shadow-[0_4px_12px_rgba(0,0,0,0.6)]
     flex-shrink-0 relative
     w-[300px] h-[430px] sm:h-[480px]">
-                            <a-image :src="product.product.image" alt="Mahsulot rasmi"
-                                class="!w-full !h-[220px] rounded-2xl transition duration-500 object-contain" />
+                            <swiper :modules="[Pagination]" :pagination="{ clickable: true }"
+                                class="w-full !h-[170px] sm:!h-[240px] rounded-2xl">
+                                <swiper-slide v-for="(image, index) in product.product.images" :key="index"
+                                    class="flex justify-center items-center">
+                                    <a-image @click.stop :src="image" alt="Product image"
+                                        class="object-contain w-full h-full transition duration-300 rounded-2xl" />
+                                </swiper-slide>
+                            </swiper>
 
                             <div v-if="product.product.discount"
                                 class="w-[60px] flex justify-center rounded-tr-[30px] rounded-bl-[30px] items-center !p-[20px] bg-[#FF8C00] absolute top-0 right-0">
@@ -121,8 +129,21 @@ async function deleteProduct(id) {
                     <a-empty description="Mahsulotlar topilmadi" style="color: white; margin-top: 150px" />
                 </template>
             </a-spin>
-
-            <product-modal-component :open="modalOpen" @update:open="val => modalOpen = val" />
         </div>
     </section>
 </template>
+
+<style scoped>
+:deep(.swiper-pagination-bullet) {
+    background: #ccc !important;
+    opacity: 1 !important;
+    width: 10px;
+    height: 10px;
+}
+
+:deep(.swiper-pagination-bullet-active) {
+    background: #ff8c00 !important;
+    width: 12px;
+    height: 12px;
+}
+</style>

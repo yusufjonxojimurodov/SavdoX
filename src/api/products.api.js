@@ -9,7 +9,11 @@ export function ApiCreateProduct(form) {
   formData.append("left", form.left);
   formData.append("type", form.type);
   formData.append("discount", form.discount);
-  if (form.image) formData.append("image", form.image);
+  if (form.images && form.images.length > 0) {
+    form.images.forEach((img) => {
+      formData.append("images", img);
+    });
+  }
 
   return api({
     url: "/api/products/create-product",

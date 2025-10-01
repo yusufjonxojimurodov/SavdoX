@@ -14,10 +14,10 @@ const useProductInfo = defineStore("product", {
   }),
 
   actions: {
-    getProductInfo(id) {
+    async getProductInfo(id) {
       this.modalLoader = true;
 
-      ApiGetProductInformation(id)
+      return ApiGetProductInformation(id)
         .then(({ data }) => {
           this.product = data;
           this.loader = true;

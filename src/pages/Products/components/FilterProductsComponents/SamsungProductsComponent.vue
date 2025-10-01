@@ -10,14 +10,14 @@ import { Mousewheel } from 'swiper/modules';
 import useProductInfo from '@/store/products.info.pinia.js';
 import useComments from '@/store/comments.pinia.js';
 import ProductComponent from '@/components/ProductComponent.vue';
-import useQueryParams from '@/composables/useQueryParams';
+import { useRouter } from 'vue-router';
 
 const productStore = useProductInfo()
 const commentsStore = useComments()
 const samsungProductsStore = useFilterProducts()
 const registerStore = useRegister()
 const productsStore = useProducts()
-const { setQueries } = useQueryParams()
+const router = useRouter()
 
 const buttonLoaders = reactive({})
 
@@ -42,12 +42,12 @@ onMounted(() => {
 })
 
 function getProduct(id) {
-    setQueries({
-        productId: id
-    })
     productStore.getProductInfo(id)
     commentsStore.getComments(id)
-    productsStore.openInfoModal()
+    router.push({
+        name: "ProductInfo",
+        query: { productId: id }
+    })
 }
 </script>
 

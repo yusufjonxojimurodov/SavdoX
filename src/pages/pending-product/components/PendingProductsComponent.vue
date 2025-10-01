@@ -3,6 +3,12 @@ import { onMounted, reactive } from 'vue';
 import useRegister from '@/store/register.pinia.js';
 import usePendingProduct from '@/store/product.pending.pinia.js';
 import IconTimeProduct from '@/components/icons/IconTimeProduct.vue';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/mousewheel';
+import 'swiper/css/pagination';
+import { Mousewheel, Pagination } from 'swiper/modules';
+import { formatPrice } from '@/utils/format.js'
 
 const pendingProductsStore = usePendingProduct()
 const registerStore = useRegister()
@@ -39,8 +45,15 @@ async function deletePendingProducts(id) {
                 !p-3 sm:!py-5 md:py-[20px]
                 rounded-[20px] md:rounded-[30px]
                 shadow-[0_4px_12px_rgba(0,0,0,0.6)] !relative">
-                            <a-image @click.stop :src="product.product.image" alt="Product image"
-                                class="w-full !h-[200px] sm:!h-[240px] object-contain transition duration-300 rounded-2xl" />
+                            <swiper :mousewheel="{ forceToAxis: true }" :grab-cursor="true"
+                                :modules="[Mousewheel, Pagination]" :pagination="{ clickable: true }"
+                                class="w-full !h-[170px] sm:!h-[240px] rounded-2xl">
+                                <swiper-slide v-for="(image, index) in product.product.images" :key="index"
+                                    class="flex justify-center items-center">
+                                    <a-image @click.stop :src="image" alt="Product image"
+                                        class="object-contain w-full h-full transition duration-300 rounded-2xl" />
+                                </swiper-slide>
+                            </swiper>
                             <div class="flex flex-col w-full gap-2 sm:gap-3">
                                 <div v-if="product.product.discount"
                                     class="w-[60px] flex justify-center items-center !p-4 bg-[#FF8C00] absolute top-0 right-0 rounded-tr-[30px] rounded-bl-[30px]">
@@ -60,11 +73,11 @@ async function deletePendingProducts(id) {
                                                     ? '!line-through !opacity-80 text-[#53718f]'
                                                     : 'text-[#34495E]'
                                             ]">
-                                                {{ product.product.price }}$
+                                                {{ formatPrice(product.product.price) }}$
                                             </p>
                                             <p v-if="product.product.discountPrice !== product.product.price"
                                                 class="text-[#34495E] text-[14px] sm:text-[16px] md:text-[18px] !font-semibold">
-                                                {{ product.product.discountPrice }}$
+                                                {{ formatPrice(product.product.discountPrice) }}$
                                             </p>
                                         </div>
                                     </div>
@@ -117,3 +130,19 @@ async function deletePendingProducts(id) {
         </a-spin>
     </section>
 </template>
+
+
+<style scoped>
+:deep(.swiper-pagination-bullet) {
+    background: #ccc !important;
+    opacity: 1 !important;
+    width: 10px;
+    height: 10px;
+}
+
+:deep(.swiper-pagination-bullet-active) {
+    background: #ff8c00 !important;
+    width: 12px;
+    height: 12px;
+}
+</style>

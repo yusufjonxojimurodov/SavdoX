@@ -36,9 +36,9 @@ const useComments = defineStore("comment", {
       this.createLoader = true;
 
       ApiCreateComment(form)
-        .then(() => {
+        .then(({ data }) => {
           message.success("Mahsulotimiz haqida fikringiz uchun raxmat !");
-          this.comments.push(form);
+          this.comments.unshift(data);
         })
         .catch((createErr) => {
           const errorMessage =
