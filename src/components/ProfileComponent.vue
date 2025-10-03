@@ -32,7 +32,9 @@ const handleLogout = () => {
         localStorage.removeItem("access_token")
         window.location.reload()
     }, 700)
-    router.push("/")
+    if (route.name === "Seller") {
+        router.push("/")
+    }
 }
 
 function openSettings() {
@@ -131,6 +133,7 @@ onMounted(() => {
 .avatar {
     width: 64px;
     height: 64px;
+    background-color: white;
 }
 
 @media (max-width: 768px) {

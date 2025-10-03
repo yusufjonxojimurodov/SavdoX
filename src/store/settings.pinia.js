@@ -19,6 +19,7 @@ const useSetting = defineStore("setting", {
       return ApiPostAvatar(image)
         .then(() => {
           message.success("Avatar Qoyildi");
+          this.getUserAvatar()
         })
         .catch((error) => {
           message.error("xato" + error);

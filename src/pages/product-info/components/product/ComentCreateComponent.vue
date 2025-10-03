@@ -4,9 +4,11 @@ import { message } from 'ant-design-vue'
 import IconSendComponent from '@/components/icons/reactions/IconSendComponent.vue'
 import useComments from '@/store/comments.pinia'
 import useQueryParams from '@/composables/useQueryParams'
+import useRegister from '@/store/register.pinia'
 
 const { getQueries } = useQueryParams()
 const commentStore = useComments()
+const userStore = useRegister()
 
 const text = ref('')
 const rating = ref(null)
@@ -26,6 +28,11 @@ function selectRating(value) {
 }
 
 async function handleSubmit() {
+    if (!userStore.user) {
+        userStore.openModal()
+        return
+    }
+
     if (!text.value.trim()) {
         return message.warning('Fikringizni yozing.')
     }
@@ -72,7 +79,7 @@ async function handleSubmit() {
 
                 <a-button @click="handleSubmit" class="!bg-[#FFD700] !shadow-[0_4px_12px_rgba(0,0,0,0.6)] 
              !w-[32px] !h-[32px] flex justify-center items-center rounded-full 
-             !absolute right-2 top-1/2 -translate-y-1/2" :loading="commentStore.createLoader">
+             !absolute right-2 top-1/2 cursor-pointer -translate-y-1/2" :loading="commentStore.createLoader">
                     <template #icon>
                         <icon-send-component />
                     </template>

@@ -54,7 +54,7 @@ const routes = [
   },
   {
     path: "/seller",
-    name: "Sotuvchi",
+    name: "Seller",
     component: () => import("@/pages/seller-page/SellerView.vue"),
     meta: { title: "Sotuvchi", requiresRole: ["seller", "admin"] },
     children: [
@@ -111,19 +111,19 @@ const routes = [
   },
   {
     path: "/basket",
-    name: "Savatcha",
+    name: "Basket",
     component: () => import("@/pages/basket-product/BasketProductView.vue"),
     meta: { title: "Savatcha" },
   },
   {
     path: "/pending/product",
-    name: "Kutilayotgan Mahsulotlar",
+    name: "Pending Products",
     component: () => import("@/pages/pending-product/PendingProductsView.vue"),
     meta: { title: "Kutilayotgan Mahsulotlar" },
   },
   {
     path: "/buyyed/product",
-    name: "Sotib Olingan Mahsulotlar",
+    name: "History",
     component: () => import("@/pages/history/BuyyedProductView.vue"),
     meta: { title: "Sotib Olingan Mahsulotlar" },
   },

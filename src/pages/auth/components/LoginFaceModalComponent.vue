@@ -153,7 +153,7 @@ function closeModal() {
 </script>
 
 <template>
-    <a-modal :footer="null" centered v-model:open="open" title="Kaft bilan tizimga kirish" destroyOnClose>
+    <a-modal :footer="null" centered v-model:open="open" title="Yuz bilan tizimga kirish" destroyOnClose>
         <a-form :model="modelPalmLogin" layout="vertical">
             <a-form-item name="phone" label="Telefon Raqamingiz"
                 :rules="[{ required: true, message: 'Majburiy maydon!' }]">
@@ -164,16 +164,16 @@ function closeModal() {
             </a-form-item>
 
             <div class="flex flex-col items-center gap-2">
-                <a-spin :spinning="loadingCamera">
+                <a-spin size="large" :spinning="loadingCamera">
                     <video v-if="!modelPalmLogin.face" ref="videoRef" autoplay playsinline
                         class="w-full h-full rounded-lg"></video>
+                    <p v-if="!modelPalmLogin.face" class="!text-red-500 text-center !font-semibold !p-2">Yorug' xonada va yuzingizni to'gri holatda
+                        tushiring</p>
                 </a-spin>
                 <canvas ref="canvasRef" width="250" height="200" class="hidden"></canvas>
                 <div v-if="modelPalmLogin.face" class="flex flex-col !w-full items-center gap-2">
                     <p>Yuz aniqlandi:</p>
                     <img :src="modelPalmLogin.face" alt="Face" class="w-full h-full rounded-lg" />
-                    <p class="!text-red-500 text-center !font-semibold !p-2">Yorug' xonada va yuzingizni to'gri holatda
-                        tushiring</p>
                     <a-button size="middle" type="primary" @click="retakeFace">Qayta olish</a-button>
                 </div>
             </div>

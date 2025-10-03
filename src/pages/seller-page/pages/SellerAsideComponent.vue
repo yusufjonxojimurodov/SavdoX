@@ -95,20 +95,20 @@ onBeforeUnmount(() => {
         </a-layout-sider>
 
         <div v-else class="bottom-nav">
-            <router-link to="/products" class="nav-item" :class="{ active: route.path === '/products' }">
+            <router-link to="/seller/products" class="nav-item" :class="{ active: route.path === '/products' }">
                 <icon-phone-product />
             </router-link>
-            <router-link to="/pending-products" class="nav-item"
+            <router-link to="/seller/pending" class="nav-item"
                 :class="{ active: route.path === '/pending-products' }">
                 <icon-rating />
             </router-link>
-            <router-link to="/statistic" class="nav-item" :class="{ active: route.path === '/statistic' }">
+            <router-link to="/seller/statistic" class="nav-item" :class="{ active: route.path === '/statistic' }">
                 <icon-statistic />
             </router-link>
-            <router-link to="/complaints" class="nav-item" :class="{ active: route.path === '/complaints' }">
+            <router-link to="/seller/complaints" class="nav-item" :class="{ active: route.path === '/complaints' }">
                 <icon-report />
             </router-link>
-            <router-link to="/deliveries" class="nav-item" :class="{ active: route.path === '/deliveries' }">
+            <router-link to="/seller/deliveries/history" class="nav-item" :class="{ active: route.path === '/deliveries' }">
                 <icon-delivery />
             </router-link>
         </div>

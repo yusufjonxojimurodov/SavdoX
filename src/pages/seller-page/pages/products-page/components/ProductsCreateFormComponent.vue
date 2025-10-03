@@ -166,8 +166,8 @@ const handleUpload = async ({ file, onSuccess, onError }) => {
 
             <a-form-item name="images" label="Rasmlar" :rules="[{ validator: validateImage }]">
                 <a-upload accept=".jpg,.png,.webp,.jfif" v-model:fileList="fileList" :before-upload="() => false"
-                    list-type="picture-card" :max-count="3" multiple>
-                    <template v-if="fileList.length < 3">
+                    list-type="picture-card" :max-count="4" multiple>
+                    <template v-if="fileList.length < 4">
                         <p>Rasm yuklash</p>
                     </template>
                 </a-upload>
