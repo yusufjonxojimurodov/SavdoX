@@ -37,8 +37,11 @@ p {
 }
 </style> -->
 
-<script setup></script>
+<script setup>
+import HelperBotComponent from './components/HelperBotComponent.vue';
+</script>
 
 <template>
   <router-view />
+  <helper-bot-component />
 </template>

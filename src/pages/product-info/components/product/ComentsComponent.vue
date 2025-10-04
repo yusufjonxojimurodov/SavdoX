@@ -76,23 +76,3 @@ function deleteComment(id) {
     <a-empty description="Komentariyalar topilmadi" style="color: white; margin-top: 100px;"
         v-if="commentsStore.comments.length === 0" />
 </template>
-
-<style>
-.comments-container::-webkit-scrollbar {
-    width: 8px;
-}
-
-.comments-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
-
-.comments-container::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #FF8C00, #FF8C00);
-    border-radius: 10px;
-}
-
-.comments-container::-webkit-scrollbar-thumb:hover {
-    background: #5c5c5c;
-}
-</style>

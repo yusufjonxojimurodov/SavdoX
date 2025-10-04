@@ -1,7 +1,7 @@
 {
   "name": "texnobazaar",
   "private": true,
-  "version": "2.2.4",
+  "version": "2.2.5",
   "type": "module",
   "main": "./src/electron.main.js",
   "scripts": {
@@ -21,6 +21,8 @@
     "chart.js": "^4.5.0",
     "dayjs": "^1.11.13",
     "face-api.js": "^0.22.2",
+    "fast-levenshtein": "^3.0.0",
+    "fuzzysort": "^3.1.0",
     "leaflet": "^1.9.4",
     "pinia": "^3.0.3",
     "swiper": "^11.2.10",
