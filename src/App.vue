@@ -38,6 +38,7 @@ p {
 </style> -->
 
 <script setup>
+import { onMounted } from 'vue';
 import { ApiVisits } from './api/user.api';
 import HelperBotComponent from './components/HelperBotComponent.vue';
 
