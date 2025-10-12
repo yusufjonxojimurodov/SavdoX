@@ -38,3 +38,10 @@ export function ApiGetComplaint() {
     method: "GET",
   });
 }
+
+export function ApiVisits() {
+  return api({
+    url: "/api/statistic/track",
+    method: "POST"
+  })
+}

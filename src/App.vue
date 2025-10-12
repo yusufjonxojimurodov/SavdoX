@@ -38,7 +38,12 @@ p {
 </style> -->
 
 <script setup>
+import { ApiVisits } from './api/user.api';
 import HelperBotComponent from './components/HelperBotComponent.vue';
+
+onMounted(() => {
+  ApiVisits()
+})
 </script>
 
 <template>
