@@ -48,8 +48,8 @@ const routes = [
         path: "product/info",
         name: "ProductInfo",
         component: () => import("@/pages/product-info/ProductInfoView.vue"),
-        meta: {title: "Mahsulot haqida"}
-      }
+        meta: { title: "Mahsulot haqida" },
+      },
     ],
   },
   {
@@ -139,7 +139,11 @@ const routes = [
     component: () => import("@/pages/error/ForbiddenPage.vue"),
     meta: { title: "Ruxsat berilmadi" },
   },
-
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: () => import("@/pages/error/PageNotFound.vue"),
+  },
 ];
 
 const router = createRouter({
