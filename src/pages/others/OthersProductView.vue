@@ -8,7 +8,7 @@ import { useRoute } from 'vue-router';
 import useFilterProducts from '@/store/filter.products.pinia';
 import FooterComponent from '@/components/FooterComponent.vue';
 import WarningModalComponent from '@/components/WarningModalComponent.vue';
-import AuthDrawerView from '@/auth/AuthDrawerView.vue';
+import AuthDrawerView from '../auth/AuthDrawerView.vue';
 
 const route = useRoute()
 const { getQueries } = useQueryParams()
