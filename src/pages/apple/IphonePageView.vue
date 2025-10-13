@@ -7,17 +7,14 @@ import FooterComponent from '../../components/FooterComponent.vue';
 import { useRoute } from 'vue-router';
 import useQueryParams from '../../composables/useQueryParams';
 import useFilterProducts from '../../store/filter.products.pinia';
-import useRegister from '../../store/register.pinia';
 import WarningModalComponent from '../../components/WarningModalComponent.vue';
 import AuthDrawerView from '../auth/AuthDrawerView.vue';
 
-const registerStore = useRegister()
 const route = useRoute()
 const { getQueries } = useQueryParams()
 const filterProductStore = useFilterProducts()
 
 watch(() => route.query, () => {
-    registerStore.userInfo()
     filterProductStore.getIphoneProducts({
         search: getQueries().search || null,
         price: getQueries().price || null,

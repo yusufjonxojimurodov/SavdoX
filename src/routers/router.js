@@ -67,10 +67,10 @@ const routes = [
       },
       {
         path: "pending",
-        name: "Pending Products",
+        name: "Pending",
         component: () =>
           import(
-            "@/pages/seller-page/pages/pending-products-seller-page/PendingProductSellerView.vue"
+            "../pages/seller-page/pages/pending-products-seller-page/PendingProductSellerView.vue"
           ),
         meta: {
           title: "Tasdiqlanishi kutilayotganlar",
@@ -139,16 +139,7 @@ const routes = [
     component: () => import("@/pages/error/ForbiddenPage.vue"),
     meta: { title: "Ruxsat berilmadi" },
   },
-  {
-    path: "/404",
-    name: "404",
-    component: () => import("@/pages/error/PageNotFound.vue"),
-    meta: { title: "Sahifa Topilmadi" },
-  },
-  {
-    path: "/:pathMatch(.*)*",
-    redirect: "/404",
-  },
+
 ];
 
 const router = createRouter({

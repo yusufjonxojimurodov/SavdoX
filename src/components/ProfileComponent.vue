@@ -13,7 +13,7 @@ import IconEnter from './icons/IconEnter.vue';
 import IconAdmin from './icons/IconAdmin.vue';
 import { message } from 'ant-design-vue';
 import { storeToRefs } from 'pinia';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import IconAdd from './icons/IconAdd.vue';
 
 const route = useRoute()
@@ -56,10 +56,6 @@ function routerBot() {
 function supportAdmin() {
     window.location.href = "https://t.me/savdo_x_bot"
 }
-
-onMounted(() => {
-    settingStore.getUserAvatar()
-})
 </script>
 
 <template>

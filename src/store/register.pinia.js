@@ -7,7 +7,6 @@ import {
   ApiPutUserInfo,
 } from "../api/user.api";
 import { message, notification } from "ant-design-vue";
-import { useRouter } from "vue-router";
 
 const useRegister = defineStore("register", {
   state: () => ({
@@ -20,6 +19,7 @@ const useRegister = defineStore("register", {
     loaderButton: false,
     faceLoginBtn: false,
     drawerMode: "register",
+    userLoader: false
   }),
 
   actions: {
@@ -109,7 +109,7 @@ const useRegister = defineStore("register", {
     },
 
     async userInfo() {
-      this.loader = true;
+      this.userLoader = true;
       try {
         const { data } = await ApiGetUserInfo();
         this.user = data;
@@ -118,7 +118,7 @@ const useRegister = defineStore("register", {
       } catch (errorGet) {
         return false;
       } finally {
-        this.loader = false;
+        this.userLoader = false;
       }
     },
 

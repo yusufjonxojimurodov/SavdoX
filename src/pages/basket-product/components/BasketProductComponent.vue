@@ -178,7 +178,6 @@ async function confirmLocationAndBuy() {
 }
 
 onMounted(async () => {
-    registerStore.userInfo()
     await productStore.basketProductGet()
     basketProducts.value.forEach(item => {
         quantities.value[item._id] = item.quantity

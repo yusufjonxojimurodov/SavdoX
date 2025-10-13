@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted, reactive } from 'vue';
-import useRegister from '@/store/register.pinia.js';
 import usePendingProduct from '@/store/product.pending.pinia.js';
 import IconTimeProduct from '@/components/icons/IconTimeProduct.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -11,12 +10,10 @@ import { Mousewheel, Pagination } from 'swiper/modules';
 import { formatPrice } from '@/utils/format.js'
 
 const pendingProductsStore = usePendingProduct()
-const registerStore = useRegister()
 const buttonLoaders = reactive({})
 
 onMounted(() => {
     pendingProductsStore.getPendingProductBuyer()
-    registerStore.userInfo()
 })
 
 async function deletePendingProducts(id) {

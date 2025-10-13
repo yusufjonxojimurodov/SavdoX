@@ -7,12 +7,9 @@ import { watch } from 'vue';
 import { useRoute } from 'vue-router';
 import useFilterProducts from '../../store/filter.products.pinia';
 import FooterComponent from '../../components/FooterComponent.vue';
-import useRegister from '../../store/register.pinia';
 import WarningModalComponent from '../../components/WarningModalComponent.vue';
 import AuthDrawerView from '../auth/AuthDrawerView.vue';
 
-const registerStore = useRegister()
-registerStore.userInfo()
 const route = useRoute()
 const { getQueries } = useQueryParams()
 const filterProductStore = useFilterProducts()

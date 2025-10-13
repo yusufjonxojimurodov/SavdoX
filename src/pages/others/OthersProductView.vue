@@ -1,23 +1,20 @@
 <script setup>
-import HeaderComponent from '../../components/HeaderComponent.vue';
+import HeaderComponent from '@/components/HeaderComponent.vue';
 import OtherProductComponent from './components/OtherProductComponent.vue';
 import OtherProductFilterComponent from './components/OtherProductFilterComponent.vue';
-import useQueryParams from '../../composables/useQueryParams';
+import useQueryParams from '@/composables/useQueryParams';
 import { watch } from 'vue';
 import { useRoute } from 'vue-router';
-import useFilterProducts from '../../store/filter.products.pinia';
-import FooterComponent from '../../components/FooterComponent.vue';
-import useRegister from '../../store/register.pinia';
-import WarningModalComponent from '../../components/WarningModalComponent.vue';
-import AuthDrawerView from '../auth/AuthDrawerView.vue';
+import useFilterProducts from '@/store/filter.products.pinia';
+import FooterComponent from '@/components/FooterComponent.vue';
+import WarningModalComponent from '@/components/WarningModalComponent.vue';
+import AuthDrawerView from '@/auth/AuthDrawerView.vue';
 
-const registerStore = useRegister()
 const route = useRoute()
 const { getQueries } = useQueryParams()
 const filterProductStore = useFilterProducts()
 
 watch(() => route.query, () => {
-    registerStore.userInfo()
     filterProductStore.getOtherProducts({
         search: getQueries().search || null,
         price: getQueries().price || null,

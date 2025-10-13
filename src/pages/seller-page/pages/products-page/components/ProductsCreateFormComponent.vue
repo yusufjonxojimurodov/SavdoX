@@ -119,12 +119,13 @@ const handleUpload = async ({ file, onSuccess, onError }) => {
                 <a-col :span="12">
                     <a-form-item name="name" label="Mahsulot Nomi"
                         :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
-                        <a-input size="large" v-model:value="createProduct.name" placeholder="Mahsulot nomi" />
+                        <a-input :maxlength="25" size="large" v-model:value="createProduct.name"
+                            placeholder="Mahsulot nomi" />
                     </a-form-item>
                     <a-form-item name="discount" label="Chegirma" :rules="[
                         { pattern: /^\d+(?:[.,]\d+)?%?$/, message: 'Faqat raqam kiriting' }
                     ]">
-                        <a-input size="large" v-model:value="createProduct.discount"
+                        <a-input :maxlength="2" size="large" v-model:value="createProduct.discount"
                             placeholder="Mahsulot chegirmasi" />
                     </a-form-item>
                 </a-col>
@@ -154,7 +155,7 @@ const handleUpload = async ({ file, onSuccess, onError }) => {
                 <a-col :span="12">
                     <a-form-item name="price" label="Mahsulot qoldig'i va narxi"
                         :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
-                        <a-input size="large" v-model:value="createProduct.price" type="number" placeholder="Narxi" />
+                        <a-input size="large" v-model:value="createProduct.price" type="number" placeholder="0$" />
                     </a-form-item>
 
                     <a-form-item name="left" :rules="[{ required: true, message: 'Majburiy Maydon!' }]">

@@ -1,15 +1,14 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
-import useRegister from '@/store/register.pinia.js';
 import useDeliveryProduct from '@/store/delivery.product.pinia.js';
 import IconCompelted from '@/components/icons/IconCompelted.vue';
-import { Swiper, SwiperSlide } from "swiper/vue";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/mousewheel';
+import 'swiper/css/pagination';
+import { Mousewheel, Pagination } from 'swiper/modules';
 
 const buyyedProductStore = useDeliveryProduct()
-const registerStore = useRegister()
 const buttonLoaders = reactive({})
 const currentPage = ref(1);
 const windowWidth = ref(window.innerWidth);
@@ -39,7 +38,6 @@ const completed = {
 
 onMounted(() => {
     buyyedProductStore.getDeliveryProducts()
-    registerStore.userInfo()
     window.addEventListener('resize', handleResize)
 })
 onBeforeUnmount(() => window.removeEventListener('resize', handleResize));
@@ -77,7 +75,8 @@ async function completedDelivery(id) {
                 !p-3 sm:!p-5 md:p-[20px]
                 rounded-[20px] md:rounded-[30px]
                 shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
-                            <swiper :modules="[Pagination]" :pagination="{ clickable: true }"
+                            <swiper :mousewheel="{ forceToAxis: true }" :grab-cursor="true"
+                                :modules="[Mousewheel, Pagination]" :pagination="{ clickable: true }"
                                 class="w-full !h-[170px] sm:!h-[240px] rounded-2xl">
                                 <swiper-slide v-for="(image, index) in product.productId.images" :key="index"
                                     class="flex justify-center items-center">

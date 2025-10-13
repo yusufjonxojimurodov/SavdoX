@@ -122,10 +122,11 @@ function resetForm() {
                 <a-col :span="12">
                     <a-form-item name="name" label="Mahsulot Nomi"
                         :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
-                        <a-input size="large" v-model:value="createProduct.name" placeholder="Mahsulot nomi" />
+                        <a-input :maxlength="25" size="large" v-model:value="createProduct.name"
+                            placeholder="Mahsulot nomi" />
                     </a-form-item>
                     <a-form-item name="discount" label="Mahsulot chegirmasi">
-                        <a-input size="large" v-model:value="createProduct.discount"
+                        <a-input :maxlength="2" size="large" v-model:value="createProduct.discount"
                             placeholder="Mahsulot Chegirmasi" />
                     </a-form-item>
                 </a-col>
@@ -153,7 +154,7 @@ function resetForm() {
                 <a-col :span="12">
                     <a-form-item name="price" label="Mahsulot qoldig'i va narxi"
                         :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
-                        <a-input size="large" v-model:value="createProduct.price" type="text" placeholder="Narxi" />
+                        <a-input size="large" v-model:value="createProduct.price" type="text" placeholder="0$" />
                     </a-form-item>
 
                     <a-form-item name="left" :rules="[{ required: true, message: 'Majburiy Maydon!' }]">

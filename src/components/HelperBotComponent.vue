@@ -2,13 +2,17 @@
 import IconSendComponent from './icons/reactions/IconSendComponent.vue';
 import { ref, reactive, onMounted, watch, nextTick } from 'vue';
 import dayjs from 'dayjs';
-import { generateMockReply } from '@/composables/helper.bot';
+import { generateSmartReply } from '@/composables/helper.bot';
+import IconHelp from './icons/IconHelp.vue';
+import IconEllipsis from './icons/IconEllipsis.vue';
+import IconContact from './icons/IconContact.vue';
+import IconReport from './icons/IconReport.vue';
 
 const open = ref(false);
 const inputText = ref('');
 const typing = ref(false);
 const messages = reactive([
-    { from: 'bot', text: 'Assalomu alaykum! TexnoBazaar yordamchi  botiga Xush Kelibsiz!. Savolingiz bolsa mendan sorashingiz mumkin.(BETA)', time: new Date() }
+    { from: 'bot', text: 'Assalomu alaykum! TexnoBazaar yordamchi  botiga Xush Kelibsiz!. Savolingiz bolsa mendan sorashingiz mumkin.', time: new Date() }
 ]);
 
 const messagesRef = ref(null);
@@ -28,7 +32,7 @@ async function handleSend() {
     typing.value = true;
     await new Promise((r) => setTimeout(r, 800));
 
-    const reply = generateMockReply(text);
+    const reply = generateSmartReply(text);
     typing.value = false;
     messages.push({ from: 'bot', text: reply, time: new Date() });
     nextTick(scrollToBottom);
@@ -49,6 +53,18 @@ function scrollToBottom() {
             behavior: 'smooth'
         });
     });
+}
+
+function help() {
+    window.open("https://t.me/savdo_x_bot", "_blank");
+}
+
+function contact() {
+    window.open("tel:+998910118353", "_self");
+}
+
+function report() {
+    window.open("tel:+998910118353", "_self");
 }
 </script>
 
@@ -77,22 +93,39 @@ function scrollToBottom() {
                         <img class="w-12 h-12 sm:w-16 sm:h-16" src="../assets/images/bot.png" alt="avatar">
                         <div>
                             <div class="text-[15px] sm:text-[18px] !font-semibold text-[#2a2a2a]">
-                                Savdo X yordamchi (BETA)
+                                TexnoBazaar Yordamchi
                             </div>
                             <div class="text-[11px] sm:text-xs text-gray-700">
                                 Odatiy savollar va yordam
                             </div>
                         </div>
                     </div>
-                    <a-button type="primary" @click="open = false"
-                        class="!p-1 sm:!p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 dark:text-gray-300" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </a-button>
+                    <a-dropdown class="!outline-none cursor-pointer" lacement="bottomRight" :trigger="['click']">
+                        <icon-ellipsis class="w-5 h-5" />
+
+                        <template #overlay>
+                            <a-menu>
+                                <a-menu-item @click="help">
+                                    <div class="flex justify-between items-center gap-2">
+                                        <span>Javob olmadim</span>
+                                        <icon-help class="w-5 h-5" />
+                                    </div>
+                                </a-menu-item>
+                                <a-menu-item @click="contact">
+                                    <div class="flex justify-between items-center gap-2">
+                                        <span>Bog'lanish</span>
+                                        <icon-contact class="w-5 h-5" />
+                                    </div>
+                                </a-menu-item>
+                                <a-menu-item @click="report">
+                                    <div class="flex justify-between items-center gap-2">
+                                        <span>Shikoyat</span>
+                                        <icon-report class="w-5 h-5" />
+                                    </div>
+                                </a-menu-item>
+                            </a-menu>
+                        </template>
+                    </a-dropdown>
                 </div>
 
                 <div ref="messagesRef" class="comments-container overflow-y-auto max-h-[400px] sm:max-h-[500px]">
@@ -135,9 +168,9 @@ function scrollToBottom() {
                         <a-input v-model:value="inputText" @keyup.enter="handleSend"
                             placeholder="Savolingizni yozing..." size="large" class="text-sm sm:text-base" />
                         <a-button type="primary" @click="handleSend" :disabled="!inputText.trim()"
-                            class="w-7 h-7 sm:w-8 sm:h-8 !disabled:opacity-60">
+                            class="!w-8 !h-8 sm:w-8 sm:h-8 !disabled:opacity-60">
                             <template #icon>
-                                <icon-send-component />
+                                <icon-send-component class="w-5 h-5" />
                             </template>
                         </a-button>
                     </div>

@@ -45,7 +45,7 @@ onBeforeUnmount(() => {
     <a-layout style="min-height: 100vh; background-color: #f8edeb !important;">
         <a-layout-sider v-if="!isMobile" :style="{ backgroundColor: '#f8edeb' }" collapsible :collapsed="collapsed"
             @collapse="val => collapsed = val" width="250" :trigger="collapsed ? h(IconArrowRight) : h(IconArrowLeft)">
-            <div class="logo">
+            <div @click="router.push({ name: 'Mahsulotlar' })" class="logo">
                 <template v-if="!collapsed">
                     <span class="text-white text-[24px] font-bold">TexnoBazaar</span>
                     <img class="!rounded-[50%]" width="42" height="42" src="/icon.png" alt="logo" />
@@ -98,8 +98,7 @@ onBeforeUnmount(() => {
             <router-link to="/seller/products" class="nav-item" :class="{ active: route.path === '/products' }">
                 <icon-phone-product />
             </router-link>
-            <router-link to="/seller/pending" class="nav-item"
-                :class="{ active: route.path === '/pending-products' }">
+            <router-link to="/seller/pending" class="nav-item" :class="{ active: route.path === '/seller/pending' }">
                 <icon-rating />
             </router-link>
             <router-link to="/seller/statistic" class="nav-item" :class="{ active: route.path === '/statistic' }">
@@ -108,7 +107,8 @@ onBeforeUnmount(() => {
             <router-link to="/seller/complaints" class="nav-item" :class="{ active: route.path === '/complaints' }">
                 <icon-report />
             </router-link>
-            <router-link to="/seller/deliveries/history" class="nav-item" :class="{ active: route.path === '/deliveries' }">
+            <router-link to="/seller/deliveries/history" class="nav-item"
+                :class="{ active: route.path === '/deliveries' }">
                 <icon-delivery />
             </router-link>
         </div>
@@ -144,6 +144,12 @@ onBeforeUnmount(() => {
     background: rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     gap: 10px;
+    transition: 450ms ease;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(1.1);
+    }
 }
 
 .ant-layout-sider-children {

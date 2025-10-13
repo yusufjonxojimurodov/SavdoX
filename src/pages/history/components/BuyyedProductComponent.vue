@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import useRegister from '@/store/register.pinia.js';
 import useBuyyedProduct from '@/store/buyyed.pinia.js';
 import useProductInfo from '@/store/products.info.pinia';
 import useComments from '@/store/comments.pinia';
@@ -13,14 +12,12 @@ import { formatPrice } from '@/utils/format.js'
 import { useRouter } from 'vue-router';
 
 const buyyedProductStore = useBuyyedProduct()
-const registerStore = useRegister()
 const productsInfoStore = useProductInfo()
 const commentsStore = useComments()
 const router = useRouter()
 
 onMounted(() => {
     buyyedProductStore.getBuyyedProduct()
-    registerStore.userInfo()
 })
 
 function getProduct(id) {

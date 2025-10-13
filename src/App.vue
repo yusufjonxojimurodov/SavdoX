@@ -38,11 +38,17 @@ p {
 </style> -->
 
 <script setup>
-import { onMounted } from 'vue';
+import { onBeforeMount } from 'vue';
 import { ApiVisits } from './api/user.api';
 import HelperBotComponent from './components/HelperBotComponent.vue';
+import useRegister from './store/register.pinia';
+import useSetting from './store/settings.pinia';
 
-onMounted(() => {
+const registerStore = useRegister()
+const settingStore = useSetting()
+
+onBeforeMount(() => {
+  settingStore.getUserAvatar()
   ApiVisits()
 })
 </script>
@@ -50,4 +56,11 @@ onMounted(() => {
 <template>
   <router-view />
   <helper-bot-component />
+  <div v-if="registerStore.userLoader" class="loadingspinner">
+    <div id="square1"></div>
+    <div id="square2"></div>
+    <div id="square3"></div>
+    <div id="square4"></div>
+    <div id="square5"></div>
+  </div>
 </template>

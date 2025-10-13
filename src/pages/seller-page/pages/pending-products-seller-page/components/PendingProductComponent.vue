@@ -2,10 +2,11 @@
 import { ref, computed, onMounted } from 'vue';
 import usePendingProduct from '@/store/product.pending.pinia';
 import useDeliveryProduct from '@/store/delivery.product.pinia';
-import { Swiper, SwiperSlide } from "swiper/vue";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/mousewheel';
+import 'swiper/css/pagination';
+import { Mousewheel, Pagination } from 'swiper/modules';
 
 const deliveryProductStore = useDeliveryProduct()
 const productStore = usePendingProduct();
@@ -53,7 +54,8 @@ async function deleteProduct(id) {
     shadow-[0_4px_12px_rgba(0,0,0,0.6)]
     flex-shrink-0 relative
     w-[300px] h-[430px] sm:h-[480px]">
-                            <swiper :modules="[Pagination]" :pagination="{ clickable: true }"
+                            <swiper :mousewheel="{ forceToAxis: true }" :grab-cursor="true"
+                                :modules="[Mousewheel, Pagination]" :pagination="{ clickable: true }"
                                 class="w-full !h-[170px] sm:!h-[240px] rounded-2xl">
                                 <swiper-slide v-for="(image, index) in product.product.images" :key="index"
                                     class="flex justify-center items-center">

@@ -8,10 +8,11 @@ import IconEdit from '@/components/icons/IconEdit.vue';
 import IconDelete from '@/components/icons/IconDelete.vue';
 import useQueryParams from '@/composables/useQueryParams';
 import useProducts from '@/store/products.pinia';
-import { Swiper, SwiperSlide } from "swiper/vue";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/mousewheel';
+import 'swiper/css/pagination';
+import { Mousewheel, Pagination } from 'swiper/modules';
 import { useRouter } from 'vue-router';
 
 const { setQueries } = useQueryParams()
@@ -83,7 +84,8 @@ async function openEditForm(id) {
                         flex flex-col justify-between rounded-[30px] md:rounded-[30px] relative
                         shadow-[0_4px_12px_rgba(0,0,0,0.6)] flex-shrink-0 w-[300px]">
                             <div>
-                                <swiper :modules="[Pagination]" :pagination="{ clickable: true }"
+                                <swiper :mousewheel="{ forceToAxis: true }" :grab-cursor="true"
+                                    :modules="[Mousewheel, Pagination]" :pagination="{ clickable: true }"
                                     class="w-full !h-[170px] sm:!h-[240px] rounded-2xl">
                                     <swiper-slide v-for="(image, index) in product.images" :key="index"
                                         class="flex justify-center items-center">

@@ -55,7 +55,7 @@ function getProduct(id) {
             <div class="container">
                 <template v-if="products.length > 0">
                     <swiper :modules="[Mousewheel]" slides-per-view="auto" :space-between="20" :breakpoints="{
-                        385: { spaceBetween: 4 },
+                        385: { spaceBetween: 8 },
                         768: { spaceBetween: 20 },
                         1024: { spaceBetween: 25 }
                     }" :mousewheel="{ forceToAxis: true }" :grab-cursor="true" :allow-touch-move="true" class="!mt-6">
