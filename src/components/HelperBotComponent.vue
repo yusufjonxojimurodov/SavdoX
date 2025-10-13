@@ -7,12 +7,22 @@ import IconHelp from './icons/IconHelp.vue';
 import IconEllipsis from './icons/IconEllipsis.vue';
 import IconContact from './icons/IconContact.vue';
 import IconReport from './icons/IconReport.vue';
+import useRegister from '../store/register.pinia';
 
+const registerStore = useRegister()
 const open = ref(false);
 const inputText = ref('');
 const typing = ref(false);
 const messages = reactive([
-    { from: 'bot', text: 'Assalomu alaykum! TexnoBazaar yordamchi  botiga Xush Kelibsiz!. Savolingiz bolsa mendan sorashingiz mumkin.', time: new Date() }
+    {
+        from: 'bot',
+        text: `Assalomu alaykum! TexnoBazaar yordamchi botiga Xush Kelibsiz!. Platformaning 2.2.6 versiyasi bilan sizni tanishtirishaman. <br>
+   <br> 1) Saytdagi xatoliklar to'g'irlandi. <br>
+    2) Sizga yordam berishim uchun mening so'z boyligimni oshirishdi. <br>
+    3) Qo'shimcha yangi mini funksiyalar sizni kutib turibdi. <br><br>
+    Agarda savolingiz bo'lsa menga yozishingiz mumkin :)`,
+        time: new Date()
+    }
 ]);
 
 const messagesRef = ref(null);
@@ -42,6 +52,10 @@ onMounted(() => {
     watch(open, (v) => {
         if (v) nextTick(scrollToBottom);
     });
+
+    if (!registerStore.userLoader) {
+        open.value = true
+    }
 });
 
 function scrollToBottom() {
