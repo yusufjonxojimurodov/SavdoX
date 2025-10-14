@@ -26,7 +26,10 @@ const usePendingProduct = defineStore("pendingProduct", {
           );
         })
         .catch((errPost) => {
-          message.error("Xato" + errPost);
+          const errorMessage =
+            errPost.response?.data?.message || "Tizimda xatolik";
+          message.warn(errorMessage);
+          console.error("Error details:", errPost);
         })
         .finally(() => {
           this.loader = false;
@@ -56,10 +59,14 @@ const usePendingProduct = defineStore("pendingProduct", {
           message.success("Mahsulot bekor qilindi");
           this.getPendingProductBuyer();
         })
-        .catch(() => {
+        .catch((error) => {
+          const messageError = error.response?.data?.message;
           message.error(
-            "Mahsulot Bekor qilishda xatolik.\nAdminga bog'lanib ko'ring"
+            messageError ||
+              "Mahsulot Bekor qilishda xatolik.\nAdminga bog'lanib ko'ring"
           );
+
+          console.log("Error details:", error);
         })
         .finally(() => {
           this.buttonLoader = false;

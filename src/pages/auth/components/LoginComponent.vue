@@ -89,10 +89,10 @@ function openWarningModal() {
                         </span>
                     </p>
                     <div class="flex justify-center items-center gap-4">
-                        <a-button @click="openLoginFaceModal = true"
+                        <!-- <a-button @click="openLoginFaceModal = true"
                             size="large" class="!border-none">
                             Yuz bilan kirish
-                        </a-button>
+                        </a-button> -->
                         <a-button :loading="userRegisterStore.loaderButton" type="primary" html-type="submit"
                             size="large" class="!border-none !text-black !font-semibold">
                             Tizimga kirish
