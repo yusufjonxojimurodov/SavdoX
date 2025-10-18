@@ -9,6 +9,7 @@ import useQueryParams from '../../composables/useQueryParams';
 import useFilterProducts from '../../store/filter.products.pinia';
 import WarningModalComponent from '../../components/WarningModalComponent.vue';
 import AuthDrawerView from '../auth/AuthDrawerView.vue';
+import ProductSkeletonComponent from '@/components/ProductSkeletonComponent.vue';
 
 const route = useRoute()
 const { getQueries } = useQueryParams()
@@ -23,15 +24,14 @@ watch(() => route.query, () => {
 }, { immediate: true });
 </script>
 <template>
-    <a-spin class="flex justify-center items-center min-h-screen" size="large" :spinning="filterProductStore.loader">
-        <header-component />
-        <main>
-            <iphone-filter-component />
-            <IphoneProductComponent />
-        </main>
+    <header-component />
+    <main>
+        <iphone-filter-component />
+        <iphone-product-component v-if="!filterProductStore.loader" />
+        <product-skeleton-component v-else />
+    </main>
 
-        <footer-component />
-        <auth-drawer-view />
-        <warning-modal-component />
-    </a-spin>
+    <footer-component />
+    <auth-drawer-view />
+    <warning-modal-component />
 </template>

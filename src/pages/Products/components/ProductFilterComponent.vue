@@ -37,24 +37,17 @@ function changeFilter(value) {
         <div class="container flex justify-between items-center !mt-[25px] flex-wrap">
             <h2 class="text-[32px] !font-semibold text-[#212529]">Barcha Mahsulotlar</h2>
             <a-space class="flex-wrap">
-                <a-input v-model:value="searchProductValue" @input="searchProduct" size="large" class="responsive-input"
-                    placeholder="Qidiring..." />
-                <a-select v-model:value="selectValue" @change="changeFilter" class="responsive-select" allow-clear
-                    size="large" :options="options" placeholder="Narxni tanlang" />
+                <a-input style="width: 220px;" v-model:value="searchProductValue" @input="searchProduct" size="large"
+                    class="responsive-input" placeholder="Qidiring..." />
+                <a-select style="width: 220px;" v-model:value="selectValue" @change="changeFilter"
+                    class="responsive-select" allow-clear size="large" :options="options"
+                    placeholder="Narxni tanlang" />
             </a-space>
         </div>
     </section>
 </template>
 
-<style>
-.responsive-input {
-    width: 300px;
-}
-
-.responsive-select {
-    width: 250px;
-}
-
+<style scoped>
 @media (max-width: 480px) {
     .responsive-input {
         width: 180px !important;

@@ -136,3 +136,13 @@ p {
     animation: none;
   }
 }
+
+.responsive-select {
+  width: 250px;
+}
+
+@media (max-width: 480px) {
+  .responsive-select {
+    width: 48% !important;
+  }
+}

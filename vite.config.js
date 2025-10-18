@@ -18,9 +18,6 @@ export default defineConfig({
   //     },
   //   },
   // },
-  server: {
-    port: 5173
-  },
   plugins: [vue(), tailwindcss()],
   optimizeDeps: {
     include: ["./package.json"],

@@ -11,6 +11,7 @@ import useProductInfo from '@/store/products.info.pinia';
 import { useRoute } from 'vue-router';
 import useComments from '@/store/comments.pinia';
 import SellerInfoComponent from './components/seller/SellerInfoComponent.vue';
+import InfoSkeleton from './components/skeleton-components/InfoSkeleton.vue';
 
 const productStore = useProductInfo()
 const commentsStore = useComments()
@@ -31,27 +32,26 @@ onMounted(async () => {
 </script>
 
 <template>
-    <a-spin size="large" :spinning="productStore.modalLoader">
-        <header-component />
-        <div class="container">
-            <section-name-component :open-back="true" title="Mahsulot haqida">
-                <div class="flex flex-col sm:!flex-row sm:!justify-between sm:!items-start !mt-[5%]">
-                    <product-image-component />
-                    <div class="!ml-3">
-                        <product-info-component />
-                    </div>
+    <header-component />
+    <div class="container">
+        <section-name-component :open-back="true" title="Mahsulot haqida">
+            <div class="flex flex-col sm:!flex-row sm:!justify-between sm:!items-start !mt-[5%]">
+                <product-image-component />
+                <div class="!ml-3">
+                    <product-info-component v-if="!productStore.modalLoader" />
+                    <info-skeleton v-else />
                 </div>
-            </section-name-component>
-            <div class="flex flex-col-reverse sm:flex-row sm:justify-between !mt-5 !w-full">
-                <section-name-component title="Komentariyalar">
-                    <coments-component />
-                    <coment-create-component />
-                </section-name-component>
-                <section-name-component title="Sotuvchi">
-                    <seller-info-component />
-                </section-name-component>
             </div>
+        </section-name-component>
+        <div class="flex flex-col-reverse sm:flex-row sm:justify-between !mt-5 !w-full">
+            <section-name-component title="Komentariyalar">
+                <coments-component />
+                <coment-create-component />
+            </section-name-component>
+            <section-name-component title="Sotuvchi">
+                <seller-info-component />
+            </section-name-component>
         </div>
-        <footer-component />
-    </a-spin>
+    </div>
+    <footer-component />
 </template>

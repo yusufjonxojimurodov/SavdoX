@@ -10,6 +10,7 @@ import useRegister from '@/store/register.pinia.js';
 import IconBack from '@/components/icons/IconBack.vue';
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import BasketSkeleton from './BasketSkeleton.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/mousewheel';
@@ -221,6 +222,7 @@ watch(showMap, (val) => {
         </router-link>
 
         <div class="container flex flex-col lg:flex-row gap-[30px] !mt-[40px]">
+            <basket-skeleton v-if="productStore.loader" />
             <div class="flex-1 flex flex-col gap-[40px]">
                 <template v-if="basketProducts.length > 0">
                     <div v-for="basketProduct in basketProducts" :key="basketProduct._id"
@@ -273,7 +275,7 @@ watch(showMap, (val) => {
                         </div>
                     </div>
                 </template>
-                <template v-else>
+                <template v-if="!productStore.loader && basketProducts.length === 0">
                     <a-empty style="color: white; margin-top: 150px;" description="Savatchingiz bo'sh" />
                 </template>
             </div>

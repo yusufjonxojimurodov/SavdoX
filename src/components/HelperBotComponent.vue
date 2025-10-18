@@ -16,11 +16,7 @@ const typing = ref(false);
 const messages = reactive([
     {
         from: 'bot',
-        text: `Assalomu alaykum! TexnoBazaar yordamchi botiga Xush Kelibsiz!. Platformaning 2.2.6 versiyasi bilan sizni tanishtirishaman. <br>
-   <br> 1) Saytdagi xatoliklar to'g'irlandi. <br>
-    2) Sizga yordam berishim uchun mening so'z boyligimni oshirishdi. <br>
-    3) Qo'shimcha yangi mini funksiyalar sizni kutib turibdi. <br><br>
-    Agarda savolingiz bo'lsa menga yozishingiz mumkin :)`,
+        text: `Assalomu alaykum! TexnoBazaar yordamchi botiga Xush Kelibsiz!.Agarda savolingiz bo'lsa menga yozishingiz mumkin :)`,
         time: new Date()
     }
 ]);
@@ -52,10 +48,6 @@ onMounted(() => {
     watch(open, (v) => {
         if (v) nextTick(scrollToBottom);
     });
-
-    if (!registerStore.userLoader) {
-        open.value = true
-    }
 });
 
 function scrollToBottom() {
@@ -100,7 +92,7 @@ function report() {
         </button>
 
         <transition name="slide-fade">
-            <div v-if="open" class="fixed right-4 bottom-20 sm:right-6 z-50 w-[90%] max-w-sm sm:w-100
+            <div v-if="open" class="fixed right-4 bottom-30 sm:right-6 z-50 w-[90%] max-w-sm sm:w-100
                        liquid-glass backdrop-blur-md rounded-2xl overflow-hidden flex flex-col">
                 <div class="!px-3 !py-2 sm:!px-4 sm:!py-3 flex items-center justify-between border-b border-gray-100">
                     <div class="flex items-center gap-2 sm:gap-3">

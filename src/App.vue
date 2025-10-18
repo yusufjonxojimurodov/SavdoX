@@ -38,7 +38,7 @@ p {
 </style> -->
 
 <script setup>
-import { onBeforeMount } from 'vue';
+import { onBeforeMount, onMounted, ref } from 'vue';
 import { ApiVisits } from './api/user.api';
 import HelperBotComponent from './components/HelperBotComponent.vue';
 import useRegister from './store/register.pinia';
@@ -56,11 +56,12 @@ onBeforeMount(() => {
 <template>
   <router-view />
   <helper-bot-component />
-  <div v-if="registerStore.userLoader" class="loadingspinner">
-    <div id="square1"></div>
-    <div id="square2"></div>
-    <div id="square3"></div>
-    <div id="square4"></div>
-    <div id="square5"></div>
+  <div v-if="registerStore.userLoader" class="wrapper">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="shadow"></div>
+    <div class="shadow"></div>
+    <div class="shadow"></div>
   </div>
 </template>

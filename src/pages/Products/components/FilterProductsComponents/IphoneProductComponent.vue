@@ -12,6 +12,7 @@ import useProductInfo from '@/store/products.info.pinia.js';
 import ProductComponent from '@/components/ProductComponent.vue';
 import useQueryParams from '@/composables/useQueryParams';
 import { useRouter } from 'vue-router';
+import ProductSkeletonComponent from '@/components/ProductSkeletonComponent.vue';
 
 const productInfoStore = useProductInfo()
 const commentsStore = useComments()
@@ -55,28 +56,26 @@ function getProduct(id) {
 
 <template>
     <section>
-        <a-spin size="large" :spinning="iphoneFilterproductsStore.loader">
-            <div class="container">
-                <template v-if="iphoneFilterproductsStore.iphoneProducts.length > 0">
-                    <swiper :breakpoints="{
-                        385: { spaceBetween: 4 },
-                        768: { spaceBetween: 20 },
-                        1024: { spaceBetween: 25 }
-                    }" :modules="[Mousewheel]" slides-per-view="auto" :space-between="20"
-                        :mousewheel="{ forceToAxis: true }" :grab-cursor="true" class="!mt-6">
-                        <swiper-slide v-for="product in iphoneFilterproductsStore.iphoneProducts" :key="product._id"
-                            class="sm:!w-[300px] !w-[180px]">
-                            <product-component :button-loading="buttonLoaders[product._id]" :product="product"
-                                @select="getProduct" @add-to-basket="basket" />
-                        </swiper-slide>
-                    </swiper>
-                </template>
+        <div v-if="!iphoneFilterproductsStore.loader" class="container">
+            <template v-if="iphoneFilterproductsStore.iphoneProducts.length > 0">
+                <swiper :breakpoints="{
+                    385: { spaceBetween: 4 },
+                    768: { spaceBetween: 20 },
+                    1024: { spaceBetween: 25 }
+                }" :modules="[Mousewheel]" slides-per-view="auto" :space-between="20"
+                    :mousewheel="{ forceToAxis: true }" :grab-cursor="true" class="!mt-6">
+                    <swiper-slide v-for="product in iphoneFilterproductsStore.iphoneProducts" :key="product._id"
+                        class="sm:!w-[300px] !w-[180px]">
+                        <product-component :button-loading="buttonLoaders[product._id]" :product="product"
+                            @select="getProduct" @add-to-basket="basket" />
+                    </swiper-slide>
+                </swiper>
+            </template>
 
-                <template v-else>
-                    <a-empty description="Mahsulotlar topilmadi" style="color: #212529; margin-top: 150px" />
-                </template>
-            </div>
-        </a-spin>
-
+            <template v-else>
+                <a-empty description="Mahsulotlar topilmadi" style="color: #212529; margin-top: 150px" />
+            </template>
+        </div>
+        <product-skeleton-component v-else />
     </section>
 </template>

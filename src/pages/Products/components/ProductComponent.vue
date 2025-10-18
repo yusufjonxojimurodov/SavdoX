@@ -11,6 +11,7 @@ import { Mousewheel } from 'swiper/modules';
 import useProductInfo from '@/store/products.info.pinia';
 import useComments from '@/store/comments.pinia';
 import { useRouter } from 'vue-router';
+import ProductSkeletonComponent from '../../../components/ProductSkeletonComponent.vue';
 
 const commentsStore = useComments()
 const productsInfoStore = useProductInfo()
@@ -46,30 +47,28 @@ function getProduct(id) {
         query: { productId: id }
     })
 }
-
 </script>
 
 <template>
     <section>
-        <a-spin size="large" :spinning="productsStore.loader">
-            <div class="container">
-                <template v-if="products.length > 0">
-                    <swiper :modules="[Mousewheel]" slides-per-view="auto" :space-between="20" :breakpoints="{
-                        385: { spaceBetween: 8 },
-                        768: { spaceBetween: 20 },
-                        1024: { spaceBetween: 25 }
-                    }" :mousewheel="{ forceToAxis: true }" :grab-cursor="true" :allow-touch-move="true" class="!mt-6">
-                        <swiper-slide v-for="product in products" :key="product._id" class="sm:!w-[300px] !w-[180px]">
-                            <product-component :product="product" :button-loading="buttonLoaders[product._id]"
-                                @select="getProduct" @add-to-basket="basket" />
-                        </swiper-slide>
-                    </swiper>
-                </template>
+        <div v-if="!productsStore.loader" class="container">
+            <template v-if="products.length > 0">
+                <swiper :modules="[Mousewheel]" slides-per-view="auto" :space-between="20" :breakpoints="{
+                    385: { spaceBetween: 8 },
+                    768: { spaceBetween: 20 },
+                    1024: { spaceBetween: 25 }
+                }" :mousewheel="{ forceToAxis: true }" :grab-cursor="true" :allow-touch-move="true" class="!mt-6">
+                    <swiper-slide v-for="product in products" :key="product._id" class="sm:!w-[300px] !w-[180px]">
+                        <product-component :product="product" :button-loading="buttonLoaders[product._id]"
+                            @select="getProduct" @add-to-basket="basket" />
+                    </swiper-slide>
+                </swiper>
+            </template>
 
-                <template v-else>
-                    <a-empty description="Mahsulotlar topilmadi" style="color: #212529; margin-top: 150px" />
-                </template>
-            </div>
-        </a-spin>
+            <template v-else>
+                <a-empty description="Mahsulotlar topilmadi" style="color: #212529; margin-top: 150px" />
+            </template>
+        </div>
+        <product-skeleton-component v-else />
     </section>
 </template>

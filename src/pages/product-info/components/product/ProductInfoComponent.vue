@@ -1,12 +1,15 @@
 <script setup>
 import useProductInfo from "@/store/products.info.pinia";
 import { storeToRefs } from "pinia";
-import { ShoppingCartOutlined, WarningOutlined } from "@ant-design/icons-vue";
+import { WarningOutlined } from "@ant-design/icons-vue";
 import useRegister from '@/store/register.pinia';
 import useProducts from '@/store/products.pinia';
 import { ref } from "vue";
 import useQueryParams from "@/composables/useQueryParams";
 import ComplaintModalComponent from "@/components/ComplaintModalComponent.vue";
+import IconBasket from "@/components/icons/IconBasket.vue";
+import IconWarn from "@/components/icons/IconWarn.vue";
+import InfoSkeleton from "../skeleton-components/InfoSkeleton.vue";
 
 const { setQueries } = useQueryParams()
 const productInfoStore = useProductInfo();
@@ -60,7 +63,7 @@ function deport(id) {
             <span :class="[
                 'text-xl font-semibold',
                 product.discountPrice !== product.price
-                    ? '!line-through text-gray-500 opacity-70'
+                    ? '!line-through text-white opacity-70'
                     : 'text-black'
             ]">
                 {{ product.price }}$
@@ -71,7 +74,7 @@ function deport(id) {
             </span>
         </div>
 
-        <div class="text-sm text-gray-600 space-y-1">
+        <div class="text-sm text-[#4A4A4A] space-y-1">
             <p><b>Model:</b> {{ product.model }}</p>
             <p><b>Turi:</b> {{ product.type }}</p>
             <p><b>Omborda qoldi:</b> {{ product.left }} dona</p>
@@ -82,18 +85,19 @@ function deport(id) {
                 class="!flex items-center gap-2">
                 Savatchaga
                 <template #icon>
-                    <ShoppingCartOutlined />
+                    <icon-basket class="basket-icon" />
                 </template>
             </a-button>
 
             <a-button @click="deport(product._id)" danger size="large" class="!flex items-center gap-2">
                 Shikoyat qilish
                 <template #icon>
-                    <WarningOutlined />
+                    <icon-warn />
                 </template>
             </a-button>
         </div>
     </div>
-
     <complaint-modal-component v-model:open="openComplaintModal" />
 </template>
+
+<style></style>

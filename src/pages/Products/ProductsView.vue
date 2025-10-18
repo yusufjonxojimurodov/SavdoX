@@ -12,6 +12,7 @@ import SectionNameComponent from '@/components/SectionNameComponent.vue';
 import IphoneProductComponent from './components/FilterProductsComponents/IphoneProductComponent.vue';
 import XiaomiProductComponent from './components/FilterProductsComponents/XiaomiProductComponent.vue';
 import GoogleProductsComponent from './components/FilterProductsComponents/GoogleProductsComponent.vue';
+import Banners from './components/Banners.vue';
 
 const { getQueries } = useQueryParams()
 const productStore = useProducts()
@@ -34,6 +35,7 @@ watch(
 <template>
     <header-component />
     <main>
+        <banners />
         <product-filter-component />
         <product-component />
         <section-name-component title="Samsung Mahsulotlari">

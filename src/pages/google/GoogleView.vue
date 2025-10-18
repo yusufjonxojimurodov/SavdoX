@@ -9,6 +9,7 @@ import useFilterProducts from '../../store/filter.products.pinia';
 import FooterComponent from '../../components/FooterComponent.vue';
 import WarningModalComponent from '../../components/WarningModalComponent.vue';
 import AuthDrawerView from '../auth/AuthDrawerView.vue';
+import ProductSkeletonComponent from '@/components/ProductSkeletonComponent.vue';
 
 const route = useRoute()
 const { getQueries } = useQueryParams()
@@ -24,15 +25,14 @@ watch(() => route.query, () => {
 
 </script>
 <template>
-    <a-spin class="flex justify-center items-center min-h-screen" size="large" :spinning="filterProductStore.loader">
-        <header-component />
-        <main>
-            <google-filter-component />
-            <google-product-component />
-        </main>
-        <footer-component />
+    <header-component />
+    <main>
+        <google-filter-component />
+        <google-product-component v-if="!filterProductStore.loader" />
+        <product-skeleton-component v-else />
+    </main>
+    <footer-component />
 
-        <auth-drawer-view />
-        <warning-modal-component />
-    </a-spin>
+    <auth-drawer-view />
+    <warning-modal-component />
 </template>

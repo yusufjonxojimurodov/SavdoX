@@ -27,6 +27,7 @@ const createProduct = reactive({
 
 const fileList = ref([])
 const formRef = ref(null)
+const productUrl = ref("")
 const submitLoading = ref(false)
 
 const validateImage = () => {
@@ -97,18 +98,36 @@ function resetForm() {
 }
 
 const bannerList = ref([]);
+const bannerLoading = ref(false);
 
-const handleUpload = async ({ file, onSuccess, onError }) => {
+const handleUpload = async () => {
+    if (!productUrl.value.trim()) {
+        return message.warning("Mahsulot URL manzilini kiriting!");
+    }
+    if (bannerList.value.length === 0) {
+        return message.warning("Rasm yuklang!");
+    }
+
     try {
+        bannerLoading.value = true;
+        const file = bannerList.value[0].originFileObj;
         const formData = new FormData();
         formData.append("image", file);
+        formData.append("productUrl", productUrl.value);
 
-        settingStore.createBanner(formData)
-        onSuccess(data);
+        await settingStore.createBanner(formData);
+
+        message.success("Banner muvaffaqiyatli yuklandi!");
+        bannerList.value = [];
+        productUrl.value = "";
     } catch (err) {
-        onError(err);
+        console.error(err);
+        message.error("Banner yuklashda xatolik!");
+    } finally {
+        bannerLoading.value = false;
     }
 };
+
 </script>
 
 <template>
@@ -172,14 +191,28 @@ const handleUpload = async ({ file, onSuccess, onError }) => {
                         <p>Rasm yuklash</p>
                     </template>
                 </a-upload>
+            </a-form-item>
 
-                <a-upload v-if="userStore.user.role === 'admin'" :customRequest="handleUpload"
-                    v-model:file-list="bannerList" list-type="picture-card">
-                    <div>
-                        <span>+ Upload</span>
-                    </div>
+            <a-form-item label="Mahsulot URL manzili" required>
+                <a-input v-model:value="productUrl" size="large" placeholder="https://example.com/product/123" />
+            </a-form-item>
+
+            <a-form-item label="Banner rasmi" required>
+                <a-upload accept=".jpg,.png,.webp" v-model:file-list="bannerList" :before-upload="() => false"
+                    list-type="picture-card" :max-count="1">
+                    <template v-if="bannerList.length < 1">
+                        <div>
+                            <span>+ Upload</span>
+                        </div>
+                    </template>
                 </a-upload>
             </a-form-item>
+
+            <div class="flex justify-end">
+                <a-button type="primary" :loading="bannerLoading" size="large" @click="handleUpload">
+                    Yuborish
+                </a-button>
+            </div>
 
             <div class="flex justify-end gap-4 mt-6">
                 <a-button size="large" @click="cancel">Bekor qilish</a-button>

@@ -59,37 +59,16 @@ function changeTypeFilter(value) {
                 <router-link to="/" class="bg-none border-none cursor-pointer">
                     <icon-back />
                 </router-link>
-                <h2 class="!text-[32px] !font-semibold text-[#212529] !mb-2">Mahsulotlar</h2>
+                <h2 class="!text-[28px] !font-semibold text-[#212529] !m-0 !p-0">Mahsulotlar</h2>
             </div>
-            <a-space class="flex-wrap !mt-5 sm:!mt-0">
-                <a-input v-model:value="searchProductValue" @input="searchProduct" size="large" class="responsive-input"
-                    placeholder="Qidiring..." />
+            <div class="!flex justify-between sm:justify-end gap-2 flex-wrap sm:!mt-0 !mt-3">
                 <a-select v-model:value="selectValue" @change="changeFilter" class="responsive-select" allow-clear
                     size="large" :options="options" placeholder="Narxni tanlang" />
-
-                <a-select v-model:value="selectType" size="large" @change="changeTypeFilter" class="!w-[180px]"
+                <a-select v-model:value="selectType" size="large" @change="changeTypeFilter" class="responsive-select"
                     placeholder="Turini tanlang" :options="types" allowClear />
-            </a-space>
+                <a-input v-model:value="searchProductValue" @input="searchProduct" size="large"
+                    class="!w-full sm:!w-[220px]" placeholder="Qidiring..." />
+            </div>
         </div>
     </section>
 </template>
-
-<style>
-.responsive-input {
-    width: 300px;
-}
-
-.responsive-select {
-    width: 250px;
-}
-
-@media (max-width: 480px) {
-    .responsive-input {
-        width: 180px !important;
-    }
-
-    .responsive-select {
-        width: 180px !important;
-    }
-}
-</style>

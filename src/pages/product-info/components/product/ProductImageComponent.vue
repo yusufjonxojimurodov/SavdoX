@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import useProductInfo from "@/store/products.info.pinia";
+import ImageSkeleton from "../skeleton-components/ImageSkeleton.vue";
 
 const productInfoStore = useProductInfo();
 
@@ -32,7 +33,7 @@ function selectImage(index) {
         </div>
     </div>
 
-    <div v-else class="text-gray-500">Rasmlar yuklanmoqda...</div>
+    <image-skeleton v-else />
 </template>
 
 <style scoped>
