@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-wrap gap-4 sm:gap-6 !mt-6 justify-start container">
-        <a-card v-for="index in 2" :key="index"
+        <a-card v-for="index in 4" :key="index"
             class="w-[174px] sm:w-[280px] !rounded-[30px] overflow-hidden shadow-md mx-auto" :bordered="false">
             <div
                 class="flex justify-center items-center h-[100px] sm:h-[150px] !w-full bg-gray-50 rounded-2xl overflow-hidden">
