@@ -193,21 +193,6 @@ const handleUpload = async () => {
                 </a-upload>
             </a-form-item>
 
-            <a-form-item label="Mahsulot URL manzili" required>
-                <a-input v-model:value="productUrl" size="large" placeholder="https://example.com/product/123" />
-            </a-form-item>
-
-            <a-form-item label="Banner rasmi" required>
-                <a-upload accept=".jpg,.png,.webp" v-model:file-list="bannerList" :before-upload="() => false"
-                    list-type="picture-card" :max-count="1">
-                    <template v-if="bannerList.length < 1">
-                        <div>
-                            <span>+ Upload</span>
-                        </div>
-                    </template>
-                </a-upload>
-            </a-form-item>
-
             <div class="flex justify-end">
                 <a-button type="primary" :loading="bannerLoading" size="large" @click="handleUpload">
                     Yuborish
