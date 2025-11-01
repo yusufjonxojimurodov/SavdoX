@@ -16,12 +16,12 @@ function closeModal() {
     <a-modal @cancel="closeModal" v-model:open="open" centered>
         <template #title>
             <div class="flex items-center gap-2">
-                <icon-register class="w-6 h-6 text-yellow-500" />
-                <p class="text-white text-[24px] font-semibold">Ro'yxatdan o'tish</p>
+                <icon-register class="w-6 h-6" />
+                <p class="text-[#212529] text-[24px] !font-semibold">Ro'yxatdan o'tish</p>
             </div>
         </template>
 
-        <p class="text-gray-400 text-[18px] font-medium !mt-[20px]">
+        <p class="text-gray-700 text-[18px] font-medium !mt-[20px]">
             SavdoX ga xush kelibsiz! Hisobingiz yo'q bo'lsa telegram botimiz orqali shaxsingizni tasdiqlab ro'yxatdan
             o'tishingiz mumkin. Botga kiring /start buyrug'ini yuboring
         </p>

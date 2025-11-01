@@ -15,7 +15,7 @@ defineEmits(['select', 'add-to-basket'])
 </script>
 
 <template>
-    <div class="product !w-[100%] relative !transition duration-500  bg-[#F8EDEB] !flex flex-col !justify-between !p-3 sm:!p-5 md:!p-6 !rounded-[30px] md:!rounded-[30px] !mt-4 cursor-pointer !h-[375px] sm:!h-[500px]"
+    <div class="product !w-[100%] relative !transition duration-500  bg-white shadow-md !mb-2 !flex flex-col !justify-between !p-3 sm:!p-5 md:!p-6 !rounded-[30px] md:!rounded-[30px] !mt-4 cursor-pointer !h-[375px] sm:!h-[500px]"
         @click="$emit('select', product._id)">
         <swiper :mousewheel="{ forceToAxis: true }" :grab-cursor="true" :modules="[Mousewheel, Pagination]"
             :pagination="{ clickable: true }" class="w-full !h-[170px] sm:!h-[240px] rounded-2xl">

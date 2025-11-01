@@ -55,8 +55,8 @@ function openWarningModal() {
 </script>
 
 <template>
-    <div class="w-full flex justify-center items-center">
-        <div class="bg-[#F8EDEB] !p-6 sm:!p-10 md:!p-[50px] rounded-3xl shadow-lg w-full max-w-full md:max-w-3xl">
+    <div class="w-full flex justify-center items-center h-full">
+        <a-card class="!bg-white !shadow-2xs !border-none !w-full">
             <div class="text-center text-2xl sm:text-3xl font-semibold text-[#212529] !mb-8">
                 Tizimga kirish
             </div>
@@ -68,7 +68,7 @@ function openWarningModal() {
                             :rules="[{ required: true, message: 'Majburiy maydon!' }]">
                             <a-input v-model:value="LoginForm.phone" :value="LoginForm.phone" @input="handlePhoneInput"
                                 autocomplete="off" allow-clear="false" placeholder="+998 XX-XXX-XX-XX"
-                                class="w-full h-12 text-base rounded-lg  !border-none text-white placeholder-gray-400 focus:border-gray-400" />
+                                class="w-full h-12 text-base rounded-lg  !border-none text-white placeholder-gray-400 !shadow-xs" />
                         </a-form-item>
                     </a-col>
 
@@ -77,7 +77,7 @@ function openWarningModal() {
                             :rules="[{ required: true, message: 'Majburiy maydon!' }]">
                             <a-input-password :name="`login-${Math.random().toString(36).substr(2, 9)}`"
                                 autocomplete="new-password" v-model:value="LoginForm.password" placeholder="Parolingiz"
-                                class="w-full h-12 text-base rounded-lg !border-none text-white placeholder-gray-400 focus:border-gray-400" />
+                                class="w-full h-12 text-base rounded-lg !border-none text-white placeholder-gray-400 !shadow-xs" />
                         </a-form-item>
                     </a-col>
                 </a-row>
@@ -102,17 +102,36 @@ function openWarningModal() {
             </a-form>
 
             <warning-modal-login v-model:open="openModal" />
-            <login-face-modal-component v-model:open="openLoginFaceModal"/>
-        </div>
+            <login-face-modal-component v-model:open="openLoginFaceModal" />
+        </a-card>
     </div>
 </template>
 
 <style scoped>
-:deep(.ant-drawer-title) {
-    color: #fff !important;
+:deep(.ant-input),
+:deep(.ant-input-password input) {
+    background-color: #f1f1f1 !important;
+    border-radius: 10px !important;
+    padding: 5px !important;
+    color: #212529 !important;
+    box-shadow: none !important;
 }
 
-:deep(.ant-form-item-label > label) {
-    color: #212529 !important;
+:deep(.ant-input:focus),
+:deep(.ant-input-password input:focus) {
+    background-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+:deep(.ant-input-password) {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+:deep(.ant-input-affix-wrapper) {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 </style>

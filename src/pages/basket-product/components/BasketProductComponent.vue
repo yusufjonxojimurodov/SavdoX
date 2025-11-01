@@ -230,7 +230,7 @@ watch(showMap, (val) => {
                             'flex flex-col sm:flex-row justify-start relative items-center transition duration-500 w-full lg:w-[900px] h-auto sm:h-[350px] cursor-pointer gap-[20px] sm:gap-[40px] !p-[20px] rounded-[30px] shadow-[0_4px_12px_rgba(0,0,0,0.6)]',
                             selectedCards.includes(basketProduct._id)
                                 ? 'border-2 border-[#FFD700]'
-                                : 'bg-[#F8EDEB] border-2 border-transparent'
+                                : 'bg-white border-2 border-transparent'
                         ]">
                         <swiper :mousewheel="{ forceToAxis: true }" :grab-cursor="true"
                             :modules="[Mousewheel, Pagination]" :pagination="{ clickable: true }"
@@ -276,11 +276,11 @@ watch(showMap, (val) => {
                     </div>
                 </template>
                 <template v-if="!productStore.loader && basketProducts.length === 0">
-                    <a-empty style="color: white; margin-top: 150px;" description="Savatchingiz bo'sh" />
+                    <a-empty style="color: #212529; margin-top: 150px;" description="Savatchingiz bo'sh" />
                 </template>
             </div>
 
-            <div v-show="!isFooterVisible" class="bg-[#1E1E1E] !p-[15px] rounded-t-[20px] lg:rounded-[20px] shadow-lg flex flex-col gap-3 
+            <div v-show="!isFooterVisible" class="bg-[#212529] !p-[15px] rounded-t-[20px] lg:rounded-[20px] shadow-lg flex flex-col gap-3 
              fixed bottom-0 left-0 w-full z-50 
              lg:w-[300px] lg:gap-4 lg:p-[20px] lg:h-fit lg:sticky lg:top-10 transition-all duration-300">
                 <div class="flex justify-between items-center">

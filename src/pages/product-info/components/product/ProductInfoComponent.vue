@@ -63,13 +63,13 @@ function deport(id) {
             <span :class="[
                 'text-xl font-semibold',
                 product.discountPrice !== product.price
-                    ? '!line-through text-white opacity-70'
+                    ? '!line-through text-[#212529] opacity-70'
                     : 'text-black'
             ]">
                 {{ product.price }}$
             </span>
 
-            <span v-if="product.discountPrice !== product.price" class="text-xl font-bold text-[#d32f2f]">
+            <span v-if="product.discountPrice !== product.price" class="text-xl font-bold text-[#FF8C00]">
                 {{ product.discountPrice }}$
             </span>
         </div>

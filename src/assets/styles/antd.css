@@ -27,11 +27,11 @@ ul {
 }
 
 .ant-modal-content {
-  background: #f8edeb !important;
+  background: #fff !important;
 }
 
 .ant-modal-header {
-  background: #f8edeb !important;
+  background: #fff !important;
   border-bottom: 1px solid #3a3a3a !important;
 }
 
@@ -49,7 +49,7 @@ ul {
 
 .ant-input,
 .ant-select-selector {
-  background-color: #f8edeb !important;
+
   color: #212529 !important;
   border: none !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;

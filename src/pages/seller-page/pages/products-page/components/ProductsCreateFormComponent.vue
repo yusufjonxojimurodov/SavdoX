@@ -193,12 +193,6 @@ const handleUpload = async () => {
                 </a-upload>
             </a-form-item>
 
-            <div class="flex justify-end">
-                <a-button type="primary" :loading="bannerLoading" size="large" @click="handleUpload">
-                    Yuborish
-                </a-button>
-            </div>
-
             <div class="flex justify-end gap-4 mt-6">
                 <a-button size="large" @click="cancel">Bekor qilish</a-button>
                 <a-button type="primary" html-type="submit" size="large" :loading="submitLoading"

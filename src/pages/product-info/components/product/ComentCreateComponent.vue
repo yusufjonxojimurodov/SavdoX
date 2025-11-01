@@ -71,20 +71,31 @@ async function handleSubmit() {
 
         <div class="relative">
             <div class="flex ">
-                <textarea v-model="text" @focus="isFocused = true" @blur="blurHandler"
-                    placeholder="Mahsulot haqida fikringiz..." rows="5" class="bg-white text-black placeholder:text-gray-400 placeholder:opacity-70 
-             !resize-none outline-none !rounded-lg border border-gray-300 
-             focus:ring-2 focus:ring-yellow-400 w-full !pr-10 !p-2 
+                <a-textarea v-model:value="text" @focus="isFocused = true" @blur="blurHandler"
+                    placeholder="Mahsulot haqida fikringiz..." :auto-size="{ minRows: 1, maxRows: 6 }" class="bg-white text-black placeholder:text-gray-400 placeholder:opacity-70 
+             !resize-none outline-none transition duration-300 !rounded-lg border border-gray-300 
+             focus:ring-2 focus:ring-[#FF8C00] w-full !pr-10 !p-2 
             " />
 
-                <a-button @click="handleSubmit" class="!bg-[#FFD700] !shadow-[0_4px_12px_rgba(0,0,0,0.6)] 
-             !w-[32px] !h-[32px] flex justify-center items-center rounded-full 
-             !absolute right-2 top-1/2 cursor-pointer -translate-y-1/2" :loading="commentStore.createLoader">
+                <a-button @click="handleSubmit" class="!bg-[#FF8C00] !shadow-md
+             !w-[32px] !h-[32px] flex justify-center items-center !rounded-full 
+             !absolute right-2 bottom-1 cursor-pointer " :loading="commentStore.createLoader">
                     <template #icon>
-                        <icon-send-component />
+                        <icon-send-component class="w-5 h-5" />
                     </template>
                 </a-button>
             </div>
         </div>
     </div>
 </template>
+
+<style>
+textarea::-webkit-scrollbar {
+    display: none;
+}
+
+textarea {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+</style>

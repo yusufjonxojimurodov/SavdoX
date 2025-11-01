@@ -99,7 +99,7 @@ function getProduct(id) {
                                         product.quantity }} ta</p>
                                 </div>
                                 <a-button class="!mt-2"
-                                    :class="product.status === 'pending' ? '!bg-amber-300' : product.status === 'completed' ? '!bg-green-600' : product.status === 'incompleted' ? '!bg-red-700' : '!bg-gray-600'"
+                                    :class="product.status === 'pending' ? '!bg-amber-300' : product.status === 'completed' ? '!bg-[#FF8C00]' : product.status === 'incompleted' ? '!bg-red-700' : '!bg-gray-600'"
                                     size="large" type="primary">
                                     {{ product.status === "pending" ? "Yetkazilyapti" : product.status === 'completed' ?
                                         'Yetkazilgan' : product.status === 'incompleted' ? 'Yetkazilmagan' : "Topilmadi" }}

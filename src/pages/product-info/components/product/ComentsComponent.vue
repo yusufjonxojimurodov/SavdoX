@@ -73,6 +73,6 @@ function deleteComment(id) {
         </div>
     </div>
 
-    <a-empty description="Komentariyalar topilmadi" style="color: white; margin-top: 100px;"
+    <a-empty description="Komentariyalar topilmadi" style="color: #212529; margin-top: 100px;"
         v-if="commentsStore.comments.length === 0" />
 </template>
