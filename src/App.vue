@@ -1,4 +1,4 @@
-<!-- <script setup>
+<script setup>
 import IconTechnicIssue from './components/icons/IconTechnicIssue.vue'
 </script>
 
@@ -21,7 +21,7 @@ import IconTechnicIssue from './components/icons/IconTechnicIssue.vue'
   justify-content: center;
   align-items: center;
   background: #FF8C00;
-  color: #f8fafc;
+  color: #fff;
   font-family: Arial, sans-serif;
   text-align: center;
 }
@@ -35,9 +35,9 @@ p {
   font-size: 1.2rem;
   opacity: 0.8;
 }
-</style> -->
+</style>
 
-<script setup>
+<!-- <script setup>
 import { onBeforeMount, onMounted, ref } from 'vue';
 import { ApiVisits } from './api/user.api';
 import HelperBotComponent from './components/HelperBotComponent.vue';
@@ -61,4 +61,4 @@ onBeforeMount(() => {
     <div class="circle"></div>
     <div class="circle"></div>
   </div>
-</template>
+</template> -->
