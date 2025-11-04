@@ -1,5 +1,10 @@
 import { defineStore } from "pinia";
 
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:5000";
+
+const WS_PROTOCOL = SERVER_URL.startsWith("https") ? "wss" : "ws";
+const WS_HOST = SERVER_URL.replace(/^https?:\/\//, "");
+
 export const useNotification = defineStore("notification", {
   state: () => ({
     notifications: [],
@@ -10,7 +15,10 @@ export const useNotification = defineStore("notification", {
     connectWebSocket(userId) {
       if (this.connected) return;
 
-      this.socket = new WebSocket(`ws://192.168.0.194:5000?userId=${userId}`);
+      const url = `${WS_PROTOCOL}://${WS_HOST}?userId=${userId}`;
+      console.log("Connecting to WebSocket:", url);
+
+      this.socket = new WebSocket(url);
 
       this.socket.onopen = () => {
         console.log("Websocket success");
@@ -21,7 +29,6 @@ export const useNotification = defineStore("notification", {
         const data = JSON.parse(event.data);
 
         if (data.type === "notification") {
-          // ID yaratish, agar backend bermasa
           const id = Date.now() + Math.random();
           this.notifications.unshift({
             id,
