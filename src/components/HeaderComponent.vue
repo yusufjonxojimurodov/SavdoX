@@ -15,7 +15,8 @@
     import IconTime from './icons/IconTime.vue';
     import IconPurchase from './icons/IconPurchase.vue';
     import IconOther from './icons/companies/IconOther.vue';
-    
+    import NotificationsComponent from './NotificationsComponent.vue';
+
     const route = useRoute()
     const settingStore = useSetting()
     const { avatar } = storeToRefs(settingStore)
@@ -40,9 +41,10 @@
         <header class="shadow-md">
             <div class="container mx-auto px-6">
                 <nav class="flex justify-between items-center !py-4">
-                    <router-link to="/" class="logoName !text-4xl  font-bold !m-0 !p-0">TexnoBazaar</router-link>
+                    <router-link to="/"
+                        class="logoName hidden lg:block !text-4xl font-bold !m-0 !p-0">TexnoBazaar</router-link>
 
-                    <ul class="hidden md:flex justify-center items-center gap-6">
+                    <ul class="hidden lg:flex justify-center items-center gap-6">
                         <li>
                             <router-link to="/samsung"
                                 class="nav-link text-[16px] !text-[#F8EDEB] font-medium transition duration-500">
@@ -62,22 +64,20 @@
                                 Xiaomi
                             </router-link>
                         </li>
-                        <li><router-link to="/google"
-                                class="nav-link text-[16px] !text-[#F8EDEB] font-medium">
+                        <li><router-link to="/google" class="nav-link text-[16px] !text-[#F8EDEB] font-medium">
                                 <icon-google />
                                 Google
                             </router-link>
                         </li>
-                        <li><router-link to="/others"
-                                class="nav-link text-[16px] !text-[#F8EDEB] font-medium">
+                        <li><router-link to="/others" class="nav-link text-[16px] !text-[#F8EDEB] font-medium">
                                 <icon-other />
                                 Boshqalar
                             </router-link>
                         </li>
                     </ul>
 
-                    <icon-burger class="md:hidden text-white w-8 h-8 cursor-pointer" @click="open = true" />
-                    <a-space size="large" class="hidden md:flex items-center">
+                    <icon-burger class="lg:hidden text-white w-8 h-8 cursor-pointer" @click="open = true" />
+                    <a-space size="middle" class="hidden lg:flex items-center">
                         <a-button
                             v-if="!route.path.includes('/basket') && !route.path.includes('/pending/product') && !route.path.includes('/buyyed/product')"
                             type="primary" size="large" :disabled="registerstore.user.length === 0"
@@ -104,6 +104,7 @@
                             <icon-purchase />
                         </a-button>
 
+                        <notifications-component />
                         <profile-component />
                     </a-space>
                 </nav>
@@ -203,12 +204,6 @@ header {
     z-index: 2000 !important;
 }
 
-
-@media (max-width: 800px) {
-    .logoName {
-        display: none !important;
-    }
-}
 
 @media (max-width: 450px) {
     .xs\:block {

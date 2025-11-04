@@ -9,7 +9,7 @@ export function ApiGetProductInformation(id) {
 
 export function ApiGetSellerInfo(id) {
   return api({
-    url: `/api/users/${id}`,
+    url: `/api/users/user/${id}`,
     method: "GET",
   });
 }

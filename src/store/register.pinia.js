@@ -7,10 +7,12 @@ import {
   ApiPutUserInfo,
 } from "../api/user.api";
 import { message, notification } from "ant-design-vue";
+import api from "../utils/api/api";
 
 const useRegister = defineStore("register", {
   state: () => ({
     user: "",
+    platformStatus: {},
     complaint: [],
     loader: false,
     drawerOpen: false,
@@ -19,7 +21,7 @@ const useRegister = defineStore("register", {
     loaderButton: false,
     faceLoginBtn: false,
     drawerMode: "register",
-    userLoader: false
+    userLoader: false,
   }),
 
   actions: {
@@ -147,6 +149,23 @@ const useRegister = defineStore("register", {
         .catch((getErr) => {
           message.warn("Server bilan xatolik yuzaga keldi");
           console.log(getErr);
+        })
+        .finally(() => {
+          this.loader = false;
+        });
+    },
+
+    getPlatformStatus() {
+      this.loader = true;
+      api({
+        url: "/api/website/get/platform/status",
+        method: "GET",
+      })
+        .then(({ data }) => {
+          this.platformStatus = data;
+        })
+        .catch((error) => {
+          console.log(error);
         })
         .finally(() => {
           this.loader = false;

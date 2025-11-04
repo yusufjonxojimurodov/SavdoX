@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, defineEmits, ref } from 'vue'
+import { defineProps, defineEmits } from 'vue'
 import IconSamsung from './icons/companies/IconSamsung.vue';
 import IconApple from './icons/companies/IconApple.vue';
 import IconXiaomi from './icons/companies/IconXiaomi.vue';
@@ -18,36 +18,38 @@ function closeDrawer() {
 <template>
     <a-drawer placement="left" :visible="props.open" :closable="false" @close="closeDrawer" width="250"
         :body-style="{ backgroundColor: '#FF8C00', padding: '20px' }">
-        <h2 class="logoName border-b border-gray-500 text-center !mt-6 !p-[10px] text-3xl !mb-8">TexnoBazaar</h2>
-        <ul class="flex justify-center items-center flex-col gap-4">
-            <li><router-link to="/samsung" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
-                    @click="closeDrawer">
-                    <icon-samsung />
-                    Samsung
-                </router-link></li>
-            <li><router-link to="/apple" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
-                    @click="closeDrawer">
-                    <icon-apple />
-                    Apple
-                </router-link></li>
-            <li><router-link to="/xiaomi" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
-                    @click="closeDrawer">
-                    <icon-xiaomi />
-                    Xiaomi
-                </router-link></li>
-            <li><router-link to="/google" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
-                    @click="closeDrawer">
-                    <icon-google />
-                    Google
-                </router-link></li>
-            <li><router-link to="/others" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
-                    @click="closeDrawer">
-                    <icon-other />
-                    Boshqalar
-                </router-link></li>
-        </ul>
+        <h2 class="logoName border-b border-white text-center !mt-6 !p-[10px] text-3xl !mb-8">TexnoBazaar</h2>
+        <div class="flex justify-center items-center">
+            <ul class="flex justify-center items-start flex-col gap-4">
+                <li><router-link to="/samsung"
+                        class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]" @click="closeDrawer">
+                        <icon-samsung />
+                        Samsung
+                    </router-link></li>
+                <li><router-link to="/apple" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
+                        @click="closeDrawer">
+                        <icon-apple />
+                        Apple
+                    </router-link></li>
+                <li><router-link to="/xiaomi" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
+                        @click="closeDrawer">
+                        <icon-xiaomi />
+                        Xiaomi
+                    </router-link></li>
+                <li><router-link to="/google" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
+                        @click="closeDrawer">
+                        <icon-google />
+                        Google
+                    </router-link></li>
+                <li><router-link to="/others" class="nav-link text-[18px] !text-white font-medium hover:!text-[#FFD700]"
+                        @click="closeDrawer">
+                        <icon-other />
+                        Boshqalar
+                    </router-link></li>
+            </ul>
+        </div>
 
-        <p class="fixed bottom-3 left-23 text-white !font-medium">{{ version }}</p>
+        <p class="fixed bottom-3 left-23 text-white !font-medium">Version: {{ version }}</p>
     </a-drawer>
 </template>
 

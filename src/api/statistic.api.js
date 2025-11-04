@@ -2,7 +2,7 @@ import { api } from "../utils/api/api";
 
 export function ApiGetUserInformation(id) {
     return api({
-        url: `/api/users/${id}`,
+        url: `/api/users/user/${id}`,
         method: "GET",
     })
 }
