@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "vue";
 import IconBell from "./icons/IconBell.vue";
-import useNotification from "./store/notifications.pinia";
+import useNotification from "../store/notifications.pinia";
 
 const notificationStore = useNotification();
 
