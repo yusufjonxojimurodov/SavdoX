@@ -1,18 +1,16 @@
 <script setup>
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import IconBell from "./icons/IconBell.vue";
+import useNotification from "./store/notifications.pinia";
 
-const notifications = ref([]);
+const notificationStore = useNotification();
 
 const unreadCount = computed(() =>
-    notifications.value.filter(n => !n.read).length
+    notificationStore.notifications.filter(n => !n.read).length
 );
 
 const markAsRead = (id) => {
-    const notif = notifications.value.find(n => n.id === id);
-    if (notif) {
-        notif.read = true;
-    }
+    notificationStore.markAsRead(id);
 };
 </script>
 
@@ -21,13 +19,14 @@ const markAsRead = (id) => {
         <template #overlay>
             <a-card title="Bildirishnomalar" style="width: 350px">
                 <a-list>
-                    <a-list-item v-if="notifications.length" v-for="notif in notifications" :key="notif.id"
+                    <a-list-item v-for="notif in notificationStore.notifications" :key="notif.id"
                         :style="{ backgroundColor: notif.read ? '#fff' : '#ffc885', cursor: 'pointer' }"
                         @click="markAsRead(notif.id)">
-                        <div style="font-weight: bold;">{{ notif.title }}</div>
+                        <div style="font-weight: bold;">{{ notif.message }}</div>
                         <div style="font-size: 12px; color: #999;">{{ notif.time }}</div>
                     </a-list-item>
-                    <a-list-item class="!flex !justify-center !items-center" v-else>
+                    <a-list-item class="!flex !justify-center !items-center"
+                        v-if="!notificationStore.notifications.length">
                         <a-empty>
                             <template #description>
                                 <span>Xabarlar yo'q</span>

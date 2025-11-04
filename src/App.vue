@@ -1,15 +1,17 @@
 <script setup>
 import IconTechnicIssue from './components/icons/IconTechnicIssue.vue'
-import { onBeforeMount } from 'vue';
+import { onBeforeMount, onMounted } from 'vue';
 import { ApiVisits } from './api/user.api';
 import HelperBotComponent from './components/HelperBotComponent.vue';
 import useRegister from './store/register.pinia';
 import useSetting from './store/settings.pinia';
 import { watch } from 'vue';
 import { useRoute } from 'vue-router';
+import useNotification from './store/notifications.pinia';
 
 const registerStore = useRegister()
 const settingStore = useSetting()
+const notificationStore = useNotification()
 const route = useRoute()
 
 onBeforeMount(() => {
@@ -20,6 +22,16 @@ onBeforeMount(() => {
 watch(() => route.fullPath, () => {
   registerStore.getPlatformStatus()
 }, { immediate: true })
+
+
+watch(() => registerStore.user, () => {
+  const userId = registerStore.user._id
+
+  if (userId) {
+    notificationStore.connectWebSocket(userId)
+    console.log(userId)
+  }
+})
 </script>
 
 <template>
