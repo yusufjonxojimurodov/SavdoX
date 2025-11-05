@@ -1,3 +1,4 @@
+import { notification } from "ant-design-vue";
 import { defineStore } from "pinia";
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:5000";
@@ -15,13 +16,12 @@ export const useNotification = defineStore("notification", {
     connectWebSocket(userId) {
       if (this.connected) return;
 
-      const url = `${WS_PROTOCOL}://${WS_HOST}?userId=${userId}`;
-      console.log("Connecting to WebSocket:", url);
+      const url = `${WS_PROTOCOL}://${WS_HOST}`;
 
       this.socket = new WebSocket(url);
 
       this.socket.onopen = () => {
-        console.log("Websocket success");
+        this.socket.send(JSON.stringify({ type: "auth", userId }));
         this.connected = true;
       };
 
@@ -36,11 +36,13 @@ export const useNotification = defineStore("notification", {
             time: data.time,
             read: false,
           });
+          notification.success({
+            message: "Sizga yangi xabar keldi !"
+          })
         }
       };
 
       this.socket.onclose = () => {
-        console.log("Websocket finished");
         this.connected = false;
       };
     },
