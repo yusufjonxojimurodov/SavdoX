@@ -32,7 +32,7 @@ const markAsRead = (id) => {
                     </a-list-item>
 
                     <a-list-item v-if="!notificationStore.notifications.length"
-                        class="flex justify-center items-center">
+                        class="!flex !justify-center !items-center">
                         <a-empty>
                             <template #description>
                                 <span>Xabarlar yo'q</span>

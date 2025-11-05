@@ -71,6 +71,11 @@ async function openEditForm(id) {
     })
     modalOpenEdit.value = true;
 }
+
+const statusMap = ref({
+    ONSALE: { color: "orange", text: "Sotuvda" },
+    NOTFORSALE: { color: "error", text: "Sotuvda emas" },
+})
 </script>
 
 <template>
@@ -113,6 +118,9 @@ async function openEditForm(id) {
                                             class="text-[14px] sm:text-[16px] md:text-[18px] text-[#34495E] !font-semibold">
                                             {{ product.discountPrice }}$
                                         </p>
+                                        <a-tag :color="statusMap[product.status].color">
+                                            {{ statusMap[product.status].text }}
+                                        </a-tag>
                                     </div>
 
                                     <p class="text-[12px] sm:text-[13px] md:text-[14px] text-[#343A40]">

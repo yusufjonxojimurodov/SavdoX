@@ -11,6 +11,7 @@ export const useNotification = defineStore("notification", {
     notifications: [],
     socket: null,
     connected: false,
+    notifSound: new Audio("/public/audios/cheerful-527.mp3"),
   }),
   actions: {
     connectWebSocket(userId) {
@@ -37,8 +38,9 @@ export const useNotification = defineStore("notification", {
             read: false,
           });
           notification.success({
-            message: "Sizga yangi xabar keldi !"
-          })
+            message: "Sizga yangi xabar keldi",
+          });
+          this.playSound();
         }
       };
 
@@ -49,6 +51,12 @@ export const useNotification = defineStore("notification", {
     markAsRead(id) {
       const notif = this.notifications.find((n) => n.id === id);
       if (notif) notif.read = true;
+    },
+    playSound() {
+      this.notifSound.currentTime = 0;
+      this.notifSound.play().catch((e) => {
+        console.log("Audio error", e);
+      });
     },
   },
 });

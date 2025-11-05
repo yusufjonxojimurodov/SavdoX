@@ -1,6 +1,6 @@
 <template>
         <div
-            class="flex flex-col sm:flex-row justify-start relative items-center transition duration-500 w-full  lg:w-[900px] h-auto sm:h-[350px] cursor-pointer gap-[20px] sm:gap-[40px] !p-[20px] rounded-[30px] shadow-[0_4px_12px_rgba(0,0,0,0.6)] bg-[#F8EDEB]">
+            class="flex flex-col sm:flex-row justify-start relative items-center transition duration-500 w-full  lg:w-[900px] h-auto sm:h-[350px] cursor-pointer gap-[20px] sm:gap-[40px] !p-[20px] rounded-[30px] shadow-md bg-white">
             <div :style="{ width: '700px' }" class="!flex !justify-center items-start !flex-col gap-[20px] sm:!w-auto">
                 <a-skeleton :title="false" :paragraph="{ rows: 1, width: '70%' }" active />
 
