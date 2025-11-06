@@ -70,7 +70,7 @@ import IconYoutube from './icons/IconYoutube.vue';
                 </nav>
 
                 <div class="mt-8 !p-6 border-t border-gray-800 text-center text-[#212529] text-sm">
-                    <p>&copy; 2025 SavdoX. Barcha huquqlar himoyalangan.</p>
+                    <p>&copy; 2025 TexnoBazaar. Barcha huquqlar himoyalangan.</p>
                 </div>
             </div>
         </div>

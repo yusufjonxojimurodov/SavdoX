@@ -35,7 +35,6 @@ watch(() => registerStore.user, () => {
 </script>
 
 <template>
-  <marquee behavior="scroll" direction="left" class="!text-[#ff8c00] !font-semibold !p-2">BETA VERSION 2.0.1</marquee>
   <router-view v-if="registerStore.platformStatus.status === 200" />
   <helper-bot-component />
   <div v-if="registerStore.userLoader" class="wrapper">

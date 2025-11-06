@@ -37,7 +37,7 @@ function getProduct(id) {
             <template v-if="buyyedProductStore.buyyedProduct.length > 0">
                 <div class="grid gap-4 sm:gap-6 !mt-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     <div @click="getProduct(product.productId._id)" v-for="product in buyyedProductStore.buyyedProduct"
-                        :key="product._id" class="product transition duration-500 bg-white
+                        :key="product._id"  class="product transition duration-500 bg-white
                 w-full !relative
                 h-[435px] sm:h-[500px] md:!w-[300px]
                 cursor-pointer flex flex-col

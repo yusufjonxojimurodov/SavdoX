@@ -49,7 +49,6 @@ ul {
 
 .ant-input,
 .ant-select-selector {
-
   color: #212529 !important;
   border: none !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
@@ -109,8 +108,8 @@ ul {
 }
 
 .ant-picker {
-  background-color: #f8edeb !important;
-  border-color: #f8edeb !important;
+  background-color: #ffff !important;
+  border-color: #ffff !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
   color: #212529 !important;
 }
@@ -129,7 +128,7 @@ ul {
 }
 
 .custom-menu-item {
-  background-color: #f8edeb !important;
+  background-color: #fff !important;
   color: #212529 !important;
   transition: background-color 0.3s ease, color 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);

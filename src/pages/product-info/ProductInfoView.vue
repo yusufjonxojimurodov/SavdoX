@@ -34,7 +34,7 @@ onMounted(async () => {
 <template>
     <header-component />
     <div class="container">
-        <section-name-component :open-back="true" title="Mahsulot haqida">
+        <section-name-component :back="'Mahsulotlar'" :open-back="true" title="Mahsulot haqida">
             <div class="flex flex-col sm:!flex-row sm:!justify-between sm:!items-start !mt-[5%]">
                 <product-image-component />
                 <div class="!ml-3">

@@ -91,7 +91,9 @@
 
                         <a-button @click="pendingPage" v-else-if="route.path.includes('/basket')"
                             class="!flex justify-center items-center !gap-3 !font-semibold" size="large" type="primary">
-                            Haridlar Tarixi
+                            <span class="!p-0 !m-0">
+                                Kutilayotganlar
+                            </span>
                             <template #icon>
                                 <icon-time />
                             </template>
@@ -100,8 +102,8 @@
                         <a-button @click="buyyedPage" v-else-if="route.path.includes('/pending/product')" size="large"
                             type="primary"
                             class="!flex justify-center items-center !gap-[10px] !font-semibold !text-[18px]">
-                            Sotib olinganlar
-                            <icon-purchase />
+                            Haridlar tarixi
+                            <icon-purchase class="w-5 h-5"/>
                         </a-button>
 
                         <notifications-component />

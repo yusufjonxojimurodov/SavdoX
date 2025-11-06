@@ -4,6 +4,7 @@ import IconPhone from '@/components/icons/IconPhone.vue';
 import IconPoints from '@/components/icons/IconPoints.vue';
 import IconRating from '@/components/icons/IconRating.vue';
 import SellerSkeleton from '../skeleton-components/SellerSkeleton.vue';
+import IconComent from '../../../../components/icons/IconComent.vue';
 
 const productInfo = useProductInfo()
 
@@ -59,6 +60,14 @@ function contactSeller() {
         </div>
 
         <div class="flex justify-end gap-4 border-t !pt-4">
+            <a-tooltip title="Tez orada...">
+                <a-button disabled size="large" class="!flex blur-[2px] justify-center items-center gap-2">
+                    <template #icon>
+                        <icon-coment />
+                    </template>
+                    Chatni ochish
+                </a-button>
+            </a-tooltip>
             <a-button type="primary" size="large" class="!px-6 !py-2" @click="contactSeller">
                 Bog'lanish
             </a-button>

@@ -42,8 +42,8 @@ function timeFromNow(date) {
 
 <template>
     <div class="!flex flex-wrap !gap-4 !w-full">
-        <div v-for="complaint in userStore.complaint" :key="complaint._id" class="!p-5 !w-[49%] !rounded-xl !shadow-md border"
-            style="background-color: #F8EDEB; border-color: #FF8C00; width: 300px;">
+        <div v-for="complaint in userStore.complaint" :key="complaint._id" class="!p-5 !w-[49%] !rounded-xl !shadow-xl"
+            style="background-color: #fff; width: 300px;">
             <div class="flex items-center gap-2">
                 <icon-phone-product class="!w-5 !h-5" />
                 <h2 class="text-lg font-semibold !p-0 !m-0 text-[#34495E]">

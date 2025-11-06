@@ -4,7 +4,7 @@ import useProducts from '@/store/products.pinia';
 import usePendingProduct from '@/store/product.pending.pinia';
 import { onMounted, ref, computed, onUnmounted, watch } from 'vue';
 import QuantitiyComponent from '@/components/QuantitiyComponent.vue';
-import { message } from 'ant-design-vue';
+import { message, notification } from 'ant-design-vue';
 import IconTrash from '@/components/icons/IconTrash.vue';
 import useRegister from '@/store/register.pinia.js';
 import IconBack from '@/components/icons/IconBack.vue';
@@ -207,27 +207,33 @@ onUnmounted(() => {
     if (observer) observer.disconnect();
 });
 
-watch(showMap, (val) => {
-    if (val) {
+watch([showMap, quantities], ([showVal, qtyVal], [oldShow, oldQty]) => {
+    if (showVal) {
         setTimeout(initMap, 200);
     }
-})
+
+    basketProducts.value.forEach((item) => {
+        const currentQty = qtyVal[item._id];
+        if (currentQty >= item.left) {
+            notification.warning({
+                message: "Mahsulot tugadi",
+                description: `${item.name} mahsulotining qoldig'i tugadi!`,
+                duration: 3
+            });
+        }
+    });
+}, { immediate: true, deep: true });
 </script>
 
 <template>
     <section>
-        <router-link to="/"
-            class="!text-[#212529] !ml-4 !text-[24px] !p-[10px] !font-semibold flex justify-start items-center gap-2">
-            <icon-back />Bosh Sahifaga
-        </router-link>
-
         <div class="container flex flex-col lg:flex-row gap-[30px] !mt-[40px]">
             <basket-skeleton v-if="productStore.loader" />
             <div class="flex-1 flex flex-col gap-[40px]">
-                <template v-if="basketProducts.length > 0">
+                <template v-if="basketProducts.length > 0 && !productStore.loader">
                     <div v-for="basketProduct in basketProducts" :key="basketProduct._id"
                         @click="toggleSelect(basketProduct._id)" :class="[
-                            'flex flex-col sm:flex-row justify-start relative items-center transition duration-500 w-full lg:w-[900px] h-auto sm:h-[350px] cursor-pointer gap-[20px] sm:gap-[40px] !p-[20px] rounded-[30px] shadow-[0_4px_12px_rgba(0,0,0,0.6)]',
+                            'flex flex-col sm:flex-row justify-start relative items-center transition duration-500 w-full lg:w-[900px] h-auto sm:h-[350px] cursor-pointer gap-[20px] sm:gap-[40px] !p-[20px] rounded-[30px] shadow-md',
                             selectedCards.includes(basketProduct._id)
                                 ? 'border-2 border-[#FFD700]'
                                 : 'bg-white border-2 border-transparent'
@@ -280,19 +286,19 @@ watch(showMap, (val) => {
                 </template>
             </div>
 
-            <div v-show="!isFooterVisible" class="bg-[#212529] !p-[15px] rounded-t-[20px] lg:rounded-[20px] shadow-lg flex flex-col gap-3 
+            <div v-show="!isFooterVisible" class="bg-white !p-[15px] rounded-t-[20px] lg:rounded-[20px] shadow-lg flex flex-col gap-3 
              fixed bottom-0 left-0 w-full z-50 
              lg:w-[300px] lg:gap-4 lg:p-[20px] lg:h-fit lg:sticky lg:top-10 transition-all duration-300">
                 <div class="flex justify-between items-center">
-                    <h3 class="text-white text-lg lg:text-xl font-semibold">Tanlanganlar</h3>
-                    <div class="trash-icon-wrapper cursor-pointer relative">
+                    <h3 class="text-[#212529] text-lg lg:text-xl font-semibold">Tanlanganlar</h3>
+                    <a-tooltip title="Savatchadan o'chirish">
                         <a-button @click="deleteSelectedProducts" :disabled="selectedCards.length === 0" size="middle"
                             type="primary" class="lg:size-large">
                             <IconTrash />
                         </a-button>
-                    </div>
+                    </a-tooltip>
                 </div>
-                <p class="text-gray-300 text-sm lg:text-base">
+                <p class="text-[#212529] text-sm lg:text-base">
                     Jami:
                     <span class="text-yellow-400 text-lg font-bold">{{ totalPrice }}$</span>
                 </p>
@@ -340,7 +346,7 @@ watch(showMap, (val) => {
 }
 
 :deep(.ant-btn[disabled]) {
-    opacity: 0.4 !important;
+    opacity: 0.5 !important;
     border: none;
     color: #fff !important;
     cursor: not-allowed !important;

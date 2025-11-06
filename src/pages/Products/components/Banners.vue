@@ -21,16 +21,10 @@ function openProductInfo(url) {
         message.warn('Mahsulot topilmadi !');
     }
 }
-
-const safeBanners = computed(() => {
-    const list = bannerStore.banners || [];
-    if (list.length >= 3) return list;
-    return Array(3).fill(list).flat();
-});
 </script>
 
 <template>
-    <div class="container !mt-5" v-if="safeBanners.length > 0">
+    <div class="container !mt-5" v-if="bannerStore.banners.length > 0">
         <swiper :modules="[Mousewheel, Pagination, EffectCoverflow, Autoplay]" :mousewheel="{ forceToAxis: true }"
             :grab-cursor="true" :pagination="{ clickable: true }" effect="coverflow" :centered-slides="true"
             :slides-per-view="'auto'" :loop="true" :autoplay="{ delay: 4000, disableOnInteraction: false }"
@@ -41,7 +35,7 @@ const safeBanners = computed(() => {
                 modifier: 1.2,
                 slideShadows: false,
             }" class="!w-full h-[40%]  sm:!h-[300px] rounded-2xl overflow-visible">
-            <swiper-slide v-for="(image, index) in safeBanners" :key="index"
+            <swiper-slide v-for="(image, index) in bannerStore.banners" :key="index"
                 class="w-[380px] sm:!w-[720px] rounded-2xl transition-transform duration-500">
                 <img @click="openProductInfo(image.productUrl)" :src="image.image" alt="Product image"
                     class="w-[100%] h-[100%] sm:w-[680px] sm:h-[300px] cursor-pointer object-cover object-center rounded-2xl" />

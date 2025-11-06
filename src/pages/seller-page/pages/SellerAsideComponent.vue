@@ -11,6 +11,7 @@ import IconArrowLeft from '@/components/icons/IconArrowLeft.vue';
 import IconArrowRight from '@/components/icons/IconArrowRight.vue';
 import IconDelivery from '@/components/icons/IconDelivery.vue';
 import IconConfirm from '@/components/icons/IconConfirm.vue';
+import NotificationsComponent from '@/components/NotificationsComponent.vue';
 
 const collapsed = ref(false);
 const route = useRoute();
@@ -42,7 +43,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <a-layout style="min-height: 100vh; background-color: #f8edeb !important;">
+    <a-layout style="min-height: 100vh; background-color: #fff !important;">
         <a-layout-sider v-if="!isMobile" :style="{ backgroundColor: '#f8edeb' }" collapsible :collapsed="collapsed"
             @collapse="val => collapsed = val" width="250" :trigger="collapsed ? h(IconArrowRight) : h(IconArrowLeft)">
             <div @click="router.push({ name: 'Mahsulotlar' })" class="logo">
@@ -55,7 +56,7 @@ onBeforeUnmount(() => {
                 </template>
             </div>
 
-            <a-menu class="!bg-[#f8edeb]" mode="inline" :selectedKeys="[route.path]"
+            <a-menu class="!bg-white !shadow-md" mode="inline" :selectedKeys="[route.path]"
                 style="height: 100%; border-right: 0;" :inlineCollapsed="collapsed">
                 <a-menu-item key="/seller/products" class="custom-menu-item">
                     <router-link to="/seller/products" class="flex items-center gap-2">
@@ -113,21 +114,25 @@ onBeforeUnmount(() => {
             </router-link>
         </div>
 
-        <a-layout style="background-color: #fcc98c;">
-            <a-layout-header style="background-color: #fcc98c; margin-top: 20px;">
+        <a-layout style="background-color: #FF8C00;">
+            <a-layout-header class="!bg-[#FF8C00]">
                 <div class="!flex justify-between items-start !w-full">
                     <span
                         class="!flex justify-center items-center gap-2 text-[24px] sm:text-[32px] font-bold text-white">
-                        <div class="flex justify-center items-center gap-2">
-                            <button @click="router.back()" class="cursor-pointer !text-[#212529]"><icon-back /></button>
-                            <h1 class="!m-0 !p-0 text-[#212529] !font-bold">{{ currentTitle }}</h1>
+                        <div class="flex justify-center items-center gap-2 !p-3">
+                            <button @click="router.push({ name: 'Mahsulotlar' })"
+                                class="cursor-pointer !text-[#212529]"><icon-back /></button>
+                            <h1 class="!m-0 !p-0 text-white !font-bold">{{ currentTitle }}</h1>
                         </div>
                     </span>
-                    <profile-component />
+                    <div class="flex justify-center items-center gap-2 !p-4">
+                        <notifications-component />
+                        <profile-component />
+                    </div>
                 </div>
             </a-layout-header>
 
-            <a-layout-content style="margin-top: 30px; padding: 24px; background: #fcc98c; min-height: 280px">
+            <a-layout-content style="margin-top: 30px; padding: 24px; background: #fff; min-height: 280px">
                 <router-view />
             </a-layout-content>
         </a-layout>

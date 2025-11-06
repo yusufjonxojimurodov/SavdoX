@@ -119,7 +119,7 @@ async function deletePendingProducts(id) {
             </template>
 
             <template v-else>
-                <a-empty description="Mahsulotlar topilmadi" style="color: white; margin-top: 150px" />
+                <a-empty description="Mahsulotlar topilmadi" style="color: black; margin-top: 150px" />
             </template>
         </div>
     </section>

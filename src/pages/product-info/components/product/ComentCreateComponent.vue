@@ -57,17 +57,16 @@ async function handleSubmit() {
     <div>
         <div class="flex gap-2 !mt-2 !mb-2">
             <button @click="selectRating('happy')" class="
-                   fill-slate-600 shadow-[0_4px_12px_rgba(0,0,0,0.6)] cursor-pointer col-span-1 flex justify-center items-center rounded-lg !p-2 duration-300 bg-slate-100 hover:border-slate-600 focus:fill-black focus:bg-[#FFD700]
+                   fill-slate-600 shadow-md cursor-pointer col-span-1 flex justify-center items-center rounded-lg !p-2 duration-300 bg-slate-100 hover:border-slate-600 focus:fill-black focus:bg-[#FFD700]
                 ">
                 <img width="30px" height="30px" src="/src/assets/images/happy-icon.svg" alt="happy-icon">
             </button>
 
-            <button @click="selectRating('unhappy')" class="fill-slate-600 shadow-[0_4px_12px_rgba(0,0,0,0.6)] cursor-pointer col-span-1 flex justify-center items-center rounded-lg !p-2 duration-300 bg-slate-100 hover:border-slate-600 focus:fill-white focus:bg-red-500
+            <button @click="selectRating('unhappy')" class="fill-slate-600 shadow-md cursor-pointer col-span-1 flex justify-center items-center rounded-lg !p-2 duration-300 bg-slate-100 hover:border-slate-600 focus:fill-white focus:bg-red-500
                 ">
                 <img width="30px" height="30px" src="/src/assets/images/sad-icon.svg" alt="sad-icon">
             </button>
         </div>
-
 
         <div class="relative">
             <div class="flex ">

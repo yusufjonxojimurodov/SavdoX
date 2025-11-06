@@ -85,21 +85,21 @@ const statusMap = ref({
                 <template v-if="meProductStore.meProduct.length > 0">
                     <div class="flex flex-wrap gap-4 sm:gap-6 !mt-6 justify-center">
                         <div @click="getProduct(product._id)" v-for="product in paginatedProducts" :key="product._id"
-                            class="product transition duration-500 bg-[#F8EDEB] cursor-pointer !p-3 sm:!p-5 md:p-[20px]
+                            class="product transition duration-500 bg-white shadow-md cursor-pointer !p-3 sm:!p-5 md:p-[20px]
                         flex flex-col justify-between rounded-[30px] md:rounded-[30px] relative
-                        shadow-[0_4px_12px_rgba(0,0,0,0.6)] flex-shrink-0 w-[300px]">
+                        flex-shrink-0 w-[300px]">
                             <div>
                                 <swiper :mousewheel="{ forceToAxis: true }" :grab-cursor="true"
                                     :modules="[Mousewheel, Pagination]" :pagination="{ clickable: true }"
-                                    class="w-full !h-[170px] sm:!h-[240px] rounded-2xl">
+                                    class="w-full !h-[170px] sm:!h-[44%] rounded-2xl">
                                     <swiper-slide v-for="(image, index) in product.images" :key="index"
                                         class="flex justify-center items-center">
                                         <a-image @click.stop :src="image" alt="Product image"
-                                            class="object-contain w-full h-full transition duration-300 rounded-2xl" />
+                                            class="object-contain !w-full !h-full transition duration-300 rounded-2xl" />
                                     </swiper-slide>
                                 </swiper>
                                 <div v-if="product.discount"
-                                    class="w-[60px] flex justify-center rounded-tr-[30px] rounded-bl-[30px] items-center !p-[20px] bg-[#FF8C00] absolute top-0 right-0">
+                                    class="w-[60px] flex justify-center rounded-tr-[30px] z-[3] rounded-bl-[30px] items-center !p-[20px] bg-[#FF8C00] absolute top-0 right-0">
                                     <p class="text-white !font-semibold text-[18px]">{{ product.discount }}%</p>
                                 </div>
 
@@ -143,7 +143,7 @@ const statusMap = ref({
                                 <a-popconfirm :title="`Mahsulot ${product.left} ta qolgan. O'chirishni hohlaysizmi?`"
                                     ok-text="Ha" cancel-text="Yo'q" @confirm="() => delProduct(product._id)">
                                     <a-button :loading="buttonLoaders[product._id]" @click.stop.prevent
-                                        class="w-full !font-semibold !flex justify-center items-center gap-2 !text-[12px] sm:!text-[14px] md:!text-[16px]"
+                                        class="w-full !border-red-500 !border-1 !text-red-500 !bg-[#fff] !font-semibold !flex justify-center items-center gap-2 !text-[12px] sm:!text-[14px] md:!text-[16px]"
                                         size="large">
                                         Mahsulotni o'chirish <icon-delete fill="black" />
                                     </a-button>
@@ -159,7 +159,7 @@ const statusMap = ref({
                 </template>
 
                 <template v-else>
-                    <a-empty description="Mahsulotlar topilmadi" style="color: white; margin-top: 150px" />
+                    <a-empty description="Mahsulotlar topilmadi" style="color: black; margin-top: 150px" />
                 </template>
             </a-spin>
 

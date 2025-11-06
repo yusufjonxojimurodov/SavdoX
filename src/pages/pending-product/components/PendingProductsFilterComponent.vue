@@ -7,7 +7,7 @@ const router = useRouter()
 
 <template>
     <div class="container flex justify-start items-center gap-[2px] sm:gap-[5px] !mt-[30px]">
-        <div @click="router.push('/basket')"
+        <div type="text" @click="router.push('/basket')"
             class="!text-white cursor-pointer text-[24px] !p-[10px] font-semibold flex justify-start items-center gap-2">
             <icon-back />
         </div>
