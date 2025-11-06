@@ -11,7 +11,7 @@ export const useNotification = defineStore("notification", {
     notifications: [],
     socket: null,
     connected: false,
-    notifSound: new Audio("/public/audios/cheerful-527.mp3"),
+    notifSound: new Audio("../../public/audios/cheerful-527.mp3"),
   }),
   actions: {
     connectWebSocket(userId) {
