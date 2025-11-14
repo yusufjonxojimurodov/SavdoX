@@ -4,6 +4,7 @@ import useSetting from '../store/settings.pinia';
 import useRegister from '../store/register.pinia';
 import IconHelp from './icons/IconHelp.vue';
 import dayjs from 'dayjs';
+import ImageUploadComponent from './BaseComponents/ImageUploadComponent.vue';
 
 const props = defineProps({
     open: Boolean,
@@ -20,7 +21,7 @@ const accaountInfo = reactive({
     name: userMe.user.name,
     surname: userMe.user.surname,
     email: userMe.user.email,
-    birthDate: userMe.user.birthDate,
+    birthDate: userMe.user.birth_date,
 });
 
 function handleClose() {
@@ -29,28 +30,25 @@ function handleClose() {
 }
 
 async function send() {
-    let file = null;
     try {
         putBtnLoader.value = true;
 
-        if (fileList.value.length > 0) {
-            file = fileList.value[0]?.originFileObj || null;
-        }
+        const payload = {
+            ...accaountInfo,
+            avatarContentType: settingStore.avatarHashId,
+        };
 
-        if (file) {
-            await settingStore.postUserAvatar(file);
-        }
-
-        await userMe.putUserInfo(accaountInfo);
+        await userMe.putUserInfo(payload);
 
         await settingStore.getUserAvatar();
         emits('update:open', false);
     } catch (error) {
-
+        console.log('settingModal:', error)
     } finally {
         putBtnLoader.value = false;
     }
 }
+
 
 function disabledFutureDates(current) {
     return current && current > dayjs().endOf('day');
@@ -59,10 +57,10 @@ function disabledFutureDates(current) {
 watch(
     () => userMe.user,
     (val) => {
-        Object.assign(accaountInfo, val);
-        if (val.birthDate) {
-            accaountInfo.birthDate = dayjs(userMe.user.birthDate);
-        }
+        accaountInfo.name = val.name;
+        accaountInfo.surname = val.surname;
+        accaountInfo.email = val.email;
+        accaountInfo.birthDate = val.birth_date ? dayjs(val.birth_date) : null;
     },
     { immediate: true }
 );
@@ -72,13 +70,7 @@ watch(
     <a-modal :open="props.open" title="Akkaunt Ma'lumotlarini o'zgartirish"
         @update:open="val => emits('update:open', val)" @close="handleClose" :mask-closable="true" class="custom-modal"
         :footer="null">
-        <a-upload class="upload-wrapper" accept=".jpg,.png,.webp,.jfif" v-model:fileList="fileList"
-            :before-upload="() => false" list-type="picture-card" :max-count="1">
-            <template v-if="fileList.length === 0">
-                <p class="upload-text">Profile yuklash</p>
-            </template>
-        </a-upload>
-
+        <image-upload-component />
         <a-form :model="accaountInfo" layout="vertical" class="custom-form">
             <a-form-item name="name" label="Ismingiz" :rules="[{ required: true, message: 'Majburiy Maydon!' }]">
                 <a-input v-model:value="accaountInfo.name" size="large" placeholder="Ismingizni kiriting" />
@@ -108,7 +100,8 @@ watch(
         </a-space>
 
         <div class="footer-buttons">
-            <a-button size="large" @click="handleClose">Bekor Qilish</a-button>
+            <a-button class="!bg-white !border-1 !border-red-500 !text-red-500" size="large" @click="handleClose">Bekor
+                Qilish</a-button>
             <a-button :loading="putBtnLoader" size="large" type="primary" @click="send">
                 Saqlash
             </a-button>

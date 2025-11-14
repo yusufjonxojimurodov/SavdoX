@@ -2,10 +2,13 @@
 import { ref, computed } from "vue";
 import useProductInfo from "@/store/products.info.pinia";
 import ImageSkeleton from "../skeleton-components/ImageSkeleton.vue";
+import ImageComponent from "@/components/BaseComponents/ImageComponent.vue";
+import useImage from "@/store/image.pinia";
 
 const productInfoStore = useProductInfo();
+const imageStore = useImage()
 
-const images = computed(() => productInfoStore.product?.images || []);
+const images = computed(() => imageStore.urls[productInfoStore.product.id] || [' ']);
 
 const selectedIndex = ref(0);
 
@@ -20,7 +23,8 @@ function selectImage(index) {
             <div v-for="(img, index) in images" :key="index"
                 class="w-22 h-22 cursor-pointer overflow-hidden rounded-lg border-2 transition-all duration-300"
                 :class="selectedIndex === index ? 'border-[#FF8C00]' : 'border-gray-300'" @click="selectImage(index)">
-                <img :src="img" alt="thumbnail"
+                <image-component :view="false" @click="selectImage(index)" :image="img" :product="productInfoStore.product"
+                    :class="selectedIndex === index ? 'border-[#FF8C00]' : 'border-gray-300'"
                     class="w-full h-full object-contain hover:scale-110 transition-transform duration-300" />
             </div>
         </div>

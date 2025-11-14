@@ -22,7 +22,7 @@ onMounted(async () => {
     const id = route.query.productId
     if (id) {
         await productStore.getProductInfo(id)
-        const userId = productStore.product.createdBy._id || 0
+        const userId = productStore.sellerId || 0
         if (userId) {
             productStore.getSellerInfo(userId)
         }
@@ -38,8 +38,10 @@ onMounted(async () => {
             <div class="flex flex-col sm:!flex-row sm:!justify-between sm:!items-start !mt-[5%]">
                 <product-image-component />
                 <div class="!ml-3">
-                    <product-info-component v-if="!productStore.modalLoader" />
-                    <info-skeleton v-else />
+                    <a-card class="!shadow-md !border-none !rounded-2xl">
+                        <product-info-component v-if="!productStore.modalLoader" />
+                        <info-skeleton v-else />
+                    </a-card>
                 </div>
             </div>
         </section-name-component>

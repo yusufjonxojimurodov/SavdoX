@@ -1,76 +1,74 @@
 <script setup>
+import { ref, computed } from "vue";
 import useProductInfo from "@/store/products.info.pinia";
 import { storeToRefs } from "pinia";
-import { WarningOutlined } from "@ant-design/icons-vue";
 import useRegister from '@/store/register.pinia';
-import useProducts from '@/store/products.pinia';
-import { ref } from "vue";
 import useQueryParams from "@/composables/useQueryParams";
 import ComplaintModalComponent from "@/components/ComplaintModalComponent.vue";
 import IconBasket from "@/components/icons/IconBasket.vue";
 import IconWarn from "@/components/icons/IconWarn.vue";
-import InfoSkeleton from "../skeleton-components/InfoSkeleton.vue";
+import { addBasket, buttonLoader } from "@/utils/helpers/add.basket";
 
-const { setQueries } = useQueryParams()
+const { setQueries } = useQueryParams();
 const productInfoStore = useProductInfo();
-const registerStore = useRegister()
-const productsStore = useProducts()
+const registerStore = useRegister();
 const { product } = storeToRefs(productInfoStore);
 
-const buttonLoaders = ref(false)
-const openComplaintModal = ref(false)
-
-async function basket(id) {
-    if (registerStore.user === "") {
-        registerStore.openModal()
-        return
-    } else {
-        buttonLoaders.value = true
-        try {
-            await productsStore.basketProduct({
-                productId: id,
-                quantity: 1
-            })
-        } finally {
-            buttonLoaders.value = false
-        }
-    }
-}
+const openComplaintModal = ref(false);
+const showFullDescription = ref(false);
 
 function deport(id) {
     if (registerStore.user) {
-        setQueries({
-            productId: id
-        })
-        openComplaintModal.value = true
+        setQueries({ productId: id });
+        openComplaintModal.value = true;
     } else {
-        registerStore.openModal()
+        registerStore.openModal();
     }
 }
+
+const shortDescriptionHTML = computed(() => {
+    if (!product.value.description) return "";
+    if (showFullDescription.value) return product.value.description;
+
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = product.value.description;
+    const textContent = tempDiv.textContent || tempDiv.innerText || "";
+    const slicedText = textContent.slice(0, 180);
+
+    return slicedText + (textContent.length > 180 ? "..." : "");
+});
 </script>
 
 <template>
     <div class="flex flex-col gap-6 max-w-[500px]">
         <div>
-            <h1 class="!font-bold text-2xl">{{ product.name }}</h1>
-
-            <p class="text-[#444] !w-[360px] sm:!w-[380px] !text-base !leading-relaxed">
-                {{ product.description }}
+            <div class="flex justify-between items-center !mb-4">
+                <h1 class="!font-bold text-2xl !p-0 !m-0">{{ product.name }}</h1>
+                <a-tag color="error" v-if="product.status === 'NOTFORSALE'">
+                    Sotuvda emas
+                </a-tag>
+            </div>
+            <p class="text-[#444] !w-[360px] sm:!w-[380px] !text-base !leading-relaxed" v-html="shortDescriptionHTML">
             </p>
+
+            <span v-if="!showFullDescription && (product.description || '').length > 180"
+                class="text-blue-500 cursor-pointer" @click="showFullDescription = true">
+                Ko'proq
+            </span>
         </div>
 
         <div class="flex items-center gap-3">
             <span :class="[
                 'text-xl font-semibold',
-                product.discountPrice !== product.price
+                product.discount_price !== product.price
                     ? '!line-through text-[#212529] opacity-70'
                     : 'text-black'
             ]">
                 {{ product.price }}$
             </span>
 
-            <span v-if="product.discountPrice !== product.price" class="text-xl font-bold text-[#FF8C00]">
-                {{ product.discountPrice }}$
+            <span v-if="product.discount_price !== product.price" class="text-xl font-bold text-[#FF8C00]">
+                {{ product.discount_price }}$
             </span>
         </div>
 
@@ -81,7 +79,7 @@ function deport(id) {
         </div>
 
         <div class="flex gap-3 !mt-4">
-            <a-button @click="basket(product._id)" :loading="buttonLoaders" type="primary" size="large"
+            <a-button :disabled="product.status === 'NOTFORSALE'" @click="addBasket(product)" :loading="buttonLoader[product.id]" type="primary" size="large"
                 class="!flex items-center gap-2">
                 Savatchaga
                 <template #icon>
@@ -89,7 +87,7 @@ function deport(id) {
                 </template>
             </a-button>
 
-            <a-button @click="deport(product._id)" danger size="large" class="!flex items-center gap-2">
+            <a-button @click="deport(product.id)" danger size="large" class="!flex items-center gap-2">
                 Shikoyat qilish
                 <template #icon>
                     <icon-warn />
@@ -97,7 +95,6 @@ function deport(id) {
             </a-button>
         </div>
     </div>
+
     <complaint-modal-component v-model:open="openComplaintModal" />
 </template>
-
-<style></style>

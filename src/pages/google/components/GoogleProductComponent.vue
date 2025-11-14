@@ -1,21 +1,16 @@
 <script setup>
-import { ref, reactive } from 'vue'
 import ProductComponent from '@/components/ProductComponent.vue'
 import useFilterProducts from '@/store/filter.products.pinia'
-import useProducts from '@/store/products.pinia'
-import useRegister from '@/store/register.pinia'
 import useProductInfo from '@/store/products.info.pinia'
 import useComments from '@/store/comments.pinia'
 import { useRouter } from 'vue-router'
+import { addBasket, buttonLoader } from '@/utils/helpers/add.basket';
 
 const GoogleProductsStore = useFilterProducts()
-const productsStore = useProducts()
-const registerStore = useRegister()
 const productsInfoStore = useProductInfo()
 const commentsStore = useComments()
 const router = useRouter()
 
-const buttonLoaders = reactive({})
 
 function getProduct(id) {
   productsInfoStore.getProductInfo(id)
@@ -25,19 +20,6 @@ function getProduct(id) {
     query: { productId: id }
   })
 }
-
-async function basket(id) {
-  if (!registerStore.user) {
-    registerStore.openModal()
-  } else {
-    buttonLoaders[id] = true
-    try {
-      await productsStore.basketProduct({ productId: id, quantity: 1 })
-    } finally {
-      buttonLoaders[id] = false
-    }
-  }
-}
 </script>
 
 <template>
@@ -45,8 +27,8 @@ async function basket(id) {
     <div class="container">
       <template v-if="GoogleProductsStore.googleProducts.length">
         <div class="grid gap-4 sm:gap-6 !mt-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          <product-component v-for="product in GoogleProductsStore.googleProducts" :key="product._id" :product="product"
-            :button-loading="buttonLoaders[product._id]" @select="getProduct" @add-to-basket="basket" />
+          <product-component v-for="product in GoogleProductsStore.googleProducts" :key="product.id" :product="product"
+            :button-loading="buttonLoader[product.id]" @select="getProduct" @add-to-basket="() => addBasket(product)" />
         </div>
       </template>
 

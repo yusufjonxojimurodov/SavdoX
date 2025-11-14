@@ -62,8 +62,9 @@ function supportAdmin() {
     <a-dropdown :getPopupContainer="getPopupContainer" placement="bottomRight" :trigger="['click']"">
         <a class="">
             <a-space>
-                <a-avatar class=" avatar" style="background-color: none;">
-        <template #icon> <img v-if="settingStore.avatar.length" :src="avatar" alt="avatar">
+                <a-avatar class="avatar" style="background-color: none;">
+        <template #icon>
+             <img v-if="avatar" :src="avatar" alt="avatar">
             <icon-profile v-else />
         </template>
         </a-avatar>
@@ -83,12 +84,6 @@ function supportAdmin() {
                         <div class="flex justify-between items-center">
                             Sozlamalar
                             <icon-setting />
-                        </div>
-                    </a-menu-item>
-                    <a-menu-item v-if="!route.path.includes('/seller')" key="telegramBot">
-                        <div @click="routerBot" class="flex justify-between items-center w-full">
-                            Mahsulot qo'shish
-                            <icon-add />
                         </div>
                     </a-menu-item>
                     <a-menu-item v-if="route.path.includes('/seller')" key="telegramBot">

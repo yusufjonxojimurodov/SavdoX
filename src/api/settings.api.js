@@ -1,4 +1,4 @@
-import { api } from "../utils/api/api";
+import { api } from "@/utils/api/api";
 
 export function ApiPostAvatar(image) {
   const formData = new FormData();
@@ -15,17 +15,9 @@ export function ApiPostAvatar(image) {
   });
 }
 
-export function ApiGetUserAvatar() {
+export function ApiGetUserAvatar(hashId) {
   return api({
-    url: "/api/avatar/users/get/avatar",
+    url: `/api/upload/avatar/${hashId}`,
     method: "GET",
-  });
-}
-
-export function ApiPostBanner(form) {
-  return api({
-    url: "/api/banner/post",
-    method: "POST",
-    data: form,
   });
 }

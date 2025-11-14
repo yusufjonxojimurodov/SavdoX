@@ -1,8 +1,6 @@
 <script setup>
-import { reactive, ref } from 'vue';
 import useProducts from '@/store/products.pinia';
 import { storeToRefs } from 'pinia';
-import useRegister from '@/store/register.pinia';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import ProductComponent from '@/components/ProductComponent.vue';
 import 'swiper/css';
@@ -11,33 +9,14 @@ import { Mousewheel } from 'swiper/modules';
 import useProductInfo from '@/store/products.info.pinia';
 import useComments from '@/store/comments.pinia';
 import { useRouter } from 'vue-router';
-import ProductSkeletonComponent from '../../../components/ProductSkeletonComponent.vue';
+import ProductSkeletonComponent from '@/components/ProductSkeletonComponent.vue';
+import { addBasket, buttonLoader } from '@/utils/helpers/add.basket';
 
 const commentsStore = useComments()
 const productsInfoStore = useProductInfo()
-const registerStore = useRegister()
 const productsStore = useProducts()
 const { products } = storeToRefs(productsStore)
 const router = useRouter()
-
-const buttonLoaders = reactive({})
-
-async function basket(id) {
-    if (registerStore.user === "") {
-        registerStore.openModal()
-        return
-    } else {
-        buttonLoaders[id] = true
-        try {
-            await productsStore.basketProduct({
-                productId: id,
-                quantity: 1
-            })
-        } finally {
-            buttonLoaders[id] = false
-        }
-    }
-}
 
 function getProduct(id) {
     productsInfoStore.getProductInfo(id)
@@ -58,9 +37,9 @@ function getProduct(id) {
                     768: { spaceBetween: 20 },
                     1024: { spaceBetween: 25 }
                 }" :mousewheel="{ forceToAxis: true }" :grab-cursor="true" :allow-touch-move="true" class="!mt-6">
-                    <swiper-slide v-for="product in products" :key="product._id" class="sm:!w-[300px] !w-[180px]">
-                        <product-component :product="product" :button-loading="buttonLoaders[product._id]"
-                            @select="getProduct" @add-to-basket="basket" />
+                    <swiper-slide v-for="product in products" :key="product.id" class="sm:!w-[300px] !w-[180px]">
+                        <product-component :product="product" :button-loading="buttonLoader[product.id]"
+                            @select="getProduct" @add-to-basket="() => addBasket(product)" />
                     </swiper-slide>
                 </swiper>
             </template>

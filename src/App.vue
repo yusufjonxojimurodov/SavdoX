@@ -14,28 +14,33 @@ const settingStore = useSetting()
 const notificationStore = useNotification()
 const route = useRoute()
 
-onBeforeMount(() => {
-  settingStore.getUserAvatar()
-  ApiVisits()
-})
+// onBeforeMount(() => {
+//   settingStore.getUserAvatar()
+//   ApiVisits()
+// })
 
-watch(() => route.fullPath, () => {
-  registerStore.getPlatformStatus()
-}, { immediate: true })
+// watch(() => route.fullPath, () => {
+//   registerStore.getPlatformStatus()
+// }, { immediate: true })
 
 
 watch(() => registerStore.user, () => {
-  const userId = registerStore.user._id
+  const userId = registerStore.user.id
 
   if (userId) {
     notificationStore.connectWebSocket(userId)
     console.log(userId)
   }
 })
+
+onMounted(async () => {
+  await registerStore.userInfo()
+  settingStore.getUserAvatar()
+})
 </script>
 
 <template>
-  <router-view v-if="registerStore.platformStatus.status === 200" />
+  <router-view />
   <helper-bot-component />
   <div v-if="registerStore.userLoader" class="wrapper">
     <div class="circle"></div>

@@ -8,6 +8,8 @@ import { message } from "ant-design-vue";
 const useProductInfo = defineStore("product", {
   state: () => ({
     product: [],
+    productId: null,
+    sellerId: null,
     sellerInfo: {},
     modalLoader: false,
     loader: false,
@@ -20,6 +22,8 @@ const useProductInfo = defineStore("product", {
       return ApiGetProductInformation(id)
         .then(({ data }) => {
           this.product = data;
+          this.productId = data.id
+          this.sellerId = data.created_by
           this.loader = true;
         })
         .catch((getErr) => {

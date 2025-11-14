@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import useRegister from "@/store/register.pinia";
+import ProductsView from "@/pages/Products/ProductsView.vue";
 
 const routes = [
   {
@@ -11,7 +11,7 @@ const routes = [
       {
         path: "",
         name: "Mahsulotlar",
-        component: () => import("@/pages/Products/ProductsView.vue"),
+        component: ProductsView,
         meta: { title: "Mahsulotlar" },
       },
       {
@@ -49,63 +49,6 @@ const routes = [
         name: "ProductInfo",
         component: () => import("@/pages/product-info/ProductInfoView.vue"),
         meta: { title: "Mahsulot haqida" },
-      },
-    ],
-  },
-  {
-    path: "/seller",
-    name: "Seller",
-    component: () => import("@/pages/seller-page/SellerView.vue"),
-    meta: { title: "Sotuvchi", requiresRole: ["seller", "admin"] },
-    children: [
-      {
-        path: "products",
-        name: "Products",
-        component: () =>
-          import("@/pages/seller-page/pages/products-page/ProductsView.vue"),
-        meta: { title: "Mahsulotlaringiz", requiresRole: ["seller", "admin"] },
-      },
-      {
-        path: "pending",
-        name: "Pending",
-        component: () =>
-          import(
-            "../pages/seller-page/pages/pending-products-seller-page/PendingProductSellerView.vue"
-          ),
-        meta: {
-          title: "Tasdiqlanishi kutilayotganlar",
-          requiresRole: ["seller", "admin"],
-        },
-      },
-      {
-        path: "statistic",
-        name: "Statistic",
-        component: () =>
-          import("@/pages/seller-page/pages/statistic-page/StatisticView.vue"),
-        meta: { title: "Statistikangiz", requiresRole: ["seller", "admin"] },
-      },
-
-      {
-        path: "complaints",
-        name: "Complaints",
-        component: () =>
-          import(
-            "../pages/seller-page/pages/complaint-seller/ComplaintView.vue"
-          ),
-        meta: { title: "Shikoyatlaringiz", requiresRole: ["seller", "admin"] },
-      },
-
-      {
-        path: "deliveries/history",
-        name: "Delivery History",
-        component: () =>
-          import(
-            "@/pages/seller-page/pages/buyyed-products/BuyyedProductsView.vue"
-          ),
-        meta: {
-          title: "Yetkazmalar tarixi",
-          requiresRole: ["seller", "admin"],
-        },
       },
     ],
   },
@@ -151,27 +94,27 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(async (to, from, next) => {
-  const registerStore = useRegister();
+// router.beforeEach(async (to, from, next) => {
+//   const registerStore = useRegister();
 
-  if (!registerStore.user) {
-    await registerStore.userInfo();
-  }
+//   if (!registerStore.user) {
+//     await registerStore.userInfo();
+//   }
 
-  if (to.meta.requiresRole) {
-    const allowedRoles = to.meta.requiresRole;
-    const userRole = registerStore.user?.role;
+//   if (to.meta.requiresRole) {
+//     const allowedRoles = to.meta.requiresRole;
+//     const userRole = registerStore.user?.role;
 
-    if (!allowedRoles.includes(userRole)) {
-      return next("/403");
-    }
-  }
+//     if (!allowedRoles.includes(userRole)) {
+//       return next("/403");
+//     }
+//   }
 
-  if (to.meta.title) {
-    document.title = to.meta.title;
-  }
+//   if (to.meta.title) {
+//     document.title = to.meta.title;
+//   }
 
-  next();
-});
+//   next();
+// });
 
 export default router;

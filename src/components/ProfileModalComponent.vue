@@ -25,7 +25,7 @@ function handleClose() {
             class="flex sm:flex-row flex-col sm:justify-start justify-center sm:items-center items-center !p-[10px] gap-[16px] border-b border-gray-600 text-center sm:text-left">
             <a-avatar :size="64" style="background-color: none;">
                 <template #icon>
-                    <img v-if="settingStore.avatar.length > 1" :src="settingStore.avatar" alt="avatar" />
+                    <img v-if="settingStore.avatar" :src="settingStore.avatar" alt="avatar" />
                     <icon-profile v-else />
                 </template>
             </a-avatar>
@@ -34,7 +34,7 @@ function handleClose() {
                     {{ registerStore.user.name }} {{ registerStore.user.surname }}
                 </p>
                 <p class="text-gray-500 !m-0 !p-0 font-medium text-[16px] sm:text-[18px]">
-                    Foydalanuvchi nomi: @{{ registerStore.user.userName }}
+                    Foydalanuvchi nomi: @{{ registerStore.user.username }}
                 </p>
             </div>
         </div>

@@ -15,13 +15,6 @@ export function ApiGetPendingProductsBuyer() {
   });
 }
 
-export function ApiGetPendingProductsSeller() {
-  return api({
-    url: "/api/pending/products/my-pending/seller",
-    method: "GET"
-  })
-}
-
 export function ApiDeletePendingProducts(id) {
   return api({
     url: `/api/pending/products/delete/${id}`,

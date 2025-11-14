@@ -7,7 +7,6 @@ import QuantitiyComponent from '@/components/QuantitiyComponent.vue';
 import { message, notification } from 'ant-design-vue';
 import IconTrash from '@/components/icons/IconTrash.vue';
 import useRegister from '@/store/register.pinia.js';
-import IconBack from '@/components/icons/IconBack.vue';
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import BasketSkeleton from './BasketSkeleton.vue';
@@ -18,11 +17,20 @@ import 'swiper/css/pagination';
 import { Mousewheel, Pagination } from 'swiper/modules';
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import ImageComponent from '@/components/BaseComponents/ImageComponent.vue';
+import useImage from '@/store/image.pinia';
+import { useRouter } from 'vue-router';
+import useProductInfo from '../../../store/products.info.pinia';
+import useComments from '../../../store/comments.pinia';
 
 const productStore = useProducts()
 const pendingProductStore = usePendingProduct()
+const imageStore = useImage()
+const productsInfoStore = useProductInfo()
 const { basketProducts } = storeToRefs(productStore)
 const registerStore = useRegister()
+const router = useRouter()
+const commentsStore = useComments()
 
 const quantities = ref({})
 const selectedCards = ref([])
@@ -36,10 +44,10 @@ let marker = null
 
 const totalPrice = computed(() => {
     return basketProducts.value
-        .filter(item => selectedCards.value.includes(item._id))
+        .filter(item => selectedCards.value.includes(item.id))
         .reduce((sum, item) => {
             const priceToUse = item.discountPrice ?? item.price
-            return sum + (priceToUse * quantities.value[item._id])
+            return sum + (priceToUse * quantities.value[item.id])
         }, 0)
 })
 
@@ -47,7 +55,7 @@ function selectAll() {
     if (selectedCards.value.length === basketProducts.value.length) {
         selectedCards.value = []
     } else {
-        selectedCards.value = basketProducts.value.map(item => item._id)
+        selectedCards.value = basketProducts.value.map(item => item.id)
     }
 }
 
@@ -66,6 +74,15 @@ async function deleteSelectedProducts() {
     } catch (error) {
         message.error(error)
     }
+}
+
+function getProduct(id) {
+    productsInfoStore.getProductInfo(id)
+    commentsStore.getComments(id)
+    router.push({
+        name: "ProductInfo",
+        query: { productId: id }
+    })
 }
 
 function openMap() {
@@ -153,10 +170,13 @@ function detectLocation() {
 }
 
 async function confirmLocationAndBuy() {
-    const orders = selectedCards.value.map(id => ({
-        productId: id,
-        quantity: quantities.value[id]
-    }))
+    const orders = selectedCards.value.map(basketId => {
+        const basketItem = basketProducts.value.find(item => item.id === basketId)
+        return {
+            productId: basketItem.productId,
+            quantity: quantities.value[basketId] || 1
+        }
+    })
 
     const information = {
         orders,
@@ -181,7 +201,7 @@ async function confirmLocationAndBuy() {
 onMounted(async () => {
     await productStore.basketProductGet()
     basketProducts.value.forEach(item => {
-        quantities.value[item._id] = item.quantity
+        quantities.value[item.id] = item.quantity
     })
 
     if (window.innerWidth <= 460) {
@@ -213,7 +233,7 @@ watch([showMap, quantities], ([showVal, qtyVal], [oldShow, oldQty]) => {
     }
 
     basketProducts.value.forEach((item) => {
-        const currentQty = qtyVal[item._id];
+        const currentQty = qtyVal[item.id];
         if (currentQty >= item.left) {
             notification.warning({
                 message: "Mahsulot tugadi",
@@ -231,25 +251,25 @@ watch([showMap, quantities], ([showVal, qtyVal], [oldShow, oldQty]) => {
             <basket-skeleton v-if="productStore.loader" />
             <div class="flex-1 flex flex-col gap-[40px]">
                 <template v-if="basketProducts.length > 0 && !productStore.loader">
-                    <div v-for="basketProduct in basketProducts" :key="basketProduct._id"
-                        @click="toggleSelect(basketProduct._id)" :class="[
+                    <div v-for="basketProduct in basketProducts" :key="basketProduct.id"
+                        @click="toggleSelect(basketProduct.id)" :class="[
                             'flex flex-col sm:flex-row justify-start relative items-center transition duration-500 w-full lg:w-[900px] h-auto sm:h-[350px] cursor-pointer gap-[20px] sm:gap-[40px] !p-[20px] rounded-[30px] shadow-md',
-                            selectedCards.includes(basketProduct._id)
-                                ? 'border-2 border-[#FFD700]'
+                            selectedCards.includes(basketProduct.id)
+                                ? 'border-2 border-[#FF8C00]'
                                 : 'bg-white border-2 border-transparent'
                         ]">
                         <swiper :mousewheel="{ forceToAxis: true }" :grab-cursor="true"
                             :modules="[Mousewheel, Pagination]" :pagination="{ clickable: true }"
                             class="w-full !h-[170px] sm:!h-[240px] rounded-2xl">
-                            <swiper-slide v-for="(image, index) in basketProduct.images" :key="index"
-                                class="flex justify-center items-center">
-                                <a-image @click.stop :src="image" alt="Product image"
+                            <swiper-slide v-for="(image, index) in imageStore.urls[basketProduct.id] || [' ']"
+                                :key="index" class="flex justify-center items-center">
+                                <image-component :image="image" :product="basketProduct"
                                     class="object-contain !w-[700px] !h-[300px] transition duration-300 !rounded-[30px]" />
                             </swiper-slide>
                         </swiper>
 
-                        <div v-if="basketProduct.discount"
-                            class="w-[60px] flex justify-center items-center !p-4 bg-[#FF8C00] absolute top-0 right-0 rounded-tr-[30px] rounded-bl-[30px]">
+                        <div v-if="basketProduct.discount != 0"
+                            class="w-[60px] flex justify-center items-center !p-4 bg-[#FF8C00] absolute top-0 right-0 rounded-tr-[28px] rounded-bl-[30px]">
                             <p class="text-white !font-semibold text-[16px]">-{{ basketProduct.discount }}%</p>
                         </div>
                         <div class="flex justify-center items-start flex-col gap-[20px] w-full sm:w-auto">
@@ -268,15 +288,17 @@ watch([showMap, quantities], ([showVal, qtyVal], [oldShow, oldQty]) => {
                                     {{ basketProduct.discountPrice }}$
                                 </p>
                             </div>
-                            <p class="text-[14px] sm:text-[14px] w-full sm:w-[300px] text-[#212529]">
-                                {{ basketProduct.description }}
+                            <p class="text-[14px] break-words sm:text-[14px] w-full sm:w-[300px] text-[#212529]">
+                                {{ basketProduct.description.slice(0, 200) }} <span
+                                    @click.stop="getProduct(basketProduct.productId)"
+                                    class="text-gray-400">Batafsil...</span>
                             </p>
                             <div class="flex justify-start gap-[10px] items-center">
                                 <p class="text-[14px] text-[#888] font-medium">
                                     {{ basketProduct.model }}
                                 </p>
                             </div>
-                            <quantitiy-component @click.stop v-model="quantities[basketProduct._id]"
+                            <quantitiy-component @click.stop v-model="quantities[basketProduct.id]"
                                 :model-value="basketProduct.quantity" :max="basketProduct.left" />
                         </div>
                     </div>

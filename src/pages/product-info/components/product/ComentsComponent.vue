@@ -44,27 +44,24 @@ function deleteComment(id) {
 
 <template>
     <div class="comments-container w-[99%] !mt-5 max-h-[400px] sm:w-[520px] overflow-y-auto">
-        <div v-for="comment in commentsStore.comments" :key="comment._id">
+        <div v-for="comment in commentsStore.comments" :key="comment.id">
             <div
                 class="flex flex-col gap-2 !mb-[30px] w-[98%] md:w-[500px] bg-white !p-5 rounded-md  shadow-[0_4px_12px_rgba(0,0,0,0.6) ">
                 <div class="flex flex-row justify-between w-full">
                     <div class="flex flex-row justify-between w-full">
                         <p class="text-xs">
-                            <span v-if="comment.userId">
-                                {{ comment.userId.name }} {{ comment.userId.surname }}
-                            </span>
-                            <span v-else>
-                                Noma'lum foydalanuvchi
+                            <span>
+                                {{ comment.name }} {{ comment.surname }}
                             </span>
                         </p>
-                        <p class="text-xs"> {{ formatTime(comment.createdAt) }}</p>
+                        <p class="text-xs"> {{ formatTime(comment.created_at) }}</p>
                     </div>
                 </div>
                 <div class="flex justify-between items-center">
                     <p class="text-sm"> {{ comment.text }}</p>
-                    <div v-if="userStore.user._id === comment.userId._id" class="!m-0 !p-0 cursor-pointer">
+                    <div v-if="userStore.user.id === comment.user_id" class="!m-0 !p-0 cursor-pointer">
                         <a-popconfirm title="Fikringizni o‘chirishni xohlaysizmi?" ok-text="Ha" class="!outline-none"
-                            cancel-text="Yo‘q" @confirm="deleteComment(comment._id)">
+                            cancel-text="Yo‘q" @confirm="deleteComment(comment.comment_id)">
                             <icon-delete />
                         </a-popconfirm>
                     </div>

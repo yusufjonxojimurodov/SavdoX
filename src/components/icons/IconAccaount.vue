@@ -14,5 +14,4 @@
         <g mask="url(#mask0_1_50)">
         </g>
     </svg>
-
 </template>

@@ -25,9 +25,9 @@ const markAsRead = (id) => {
                         'p-3 mb-2 rounded-lg cursor-pointer transition-colors',
                         notif.read ? 'bg-white border-none' : 'bg-yellow-50 border-l-4 border-yellow-500'
                     ]" @click="markAsRead(notif.id)">
-                        <div class="font-medium text-gray-800">{{ notif.message }}</div>
+                        <div v-html="notif.message" class="font-medium text-gray-800"></div>
                         <div class="text-xs text-gray-400 mt-1">
-                            {{ notif.time }}
+                            {{ dayjs(notif.time).format("HH:mm") }}
                         </div>
                     </a-list-item>
 

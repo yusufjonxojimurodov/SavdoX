@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import {
   ApiDeletePendingProducts,
   ApiGetPendingProductsBuyer,
-  ApiGetPendingProductsSeller,
   ApiPostConfirmationProduct,
 } from "../api/confirmation.product.api";
 import { message } from "ant-design-vue";
@@ -70,21 +69,6 @@ const usePendingProduct = defineStore("pendingProduct", {
         })
         .finally(() => {
           this.buttonLoader = false;
-        });
-    },
-
-    getPendingProductSeller() {
-      this.loader = true;
-
-      ApiGetPendingProductsSeller()
-        .then(({ data }) => {
-          this.pendingProductSeller = data;
-        })
-        .catch((getErr) => {
-          message.error(getErr);
-        })
-        .finally(() => {
-          this.loader = false;
         });
     },
   },

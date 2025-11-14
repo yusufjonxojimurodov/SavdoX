@@ -5,8 +5,12 @@ import 'swiper/css/mousewheel';
 import 'swiper/css/pagination';
 import { Mousewheel, Pagination } from 'swiper/modules';
 import { formatPrice } from '@/utils/format.js'
+import useImage from '../store/image.pinia';
+import ImageComponent from './BaseComponents/ImageComponent.vue';
 
-defineProps({
+const imageStore = useImage()
+
+const props = defineProps({
     product: Object,
     buttonLoading: Boolean
 })
@@ -16,13 +20,13 @@ defineEmits(['select', 'add-to-basket'])
 
 <template>
     <div class="product !w-[100%] relative !transition duration-500  bg-white shadow-md !mb-2 !flex flex-col !justify-between !p-3 sm:!p-5 md:!p-6 !rounded-[30px] md:!rounded-[30px] !mt-4 cursor-pointer !h-[375px] sm:!h-[500px]"
-        @click="$emit('select', product._id)">
+        @click="$emit('select', product.id)">
         <swiper :mousewheel="{ forceToAxis: true }" :grab-cursor="true" :modules="[Mousewheel, Pagination]"
             :pagination="{ clickable: true }" class="w-full !h-[170px] sm:!h-[240px] rounded-2xl">
-            <swiper-slide v-for="(image, index) in product.images" :key="index"
+            <swiper-slide v-for="(image, index) in imageStore.urls[product.id] || [' ']" :key="index"
                 class="flex justify-center items-center">
-                <a-image @click.stop :src="image" alt="Product image"
-                    class="object-contain w-full h-full transition duration-300 rounded-2xl" />
+                <image-component :image="image || ''" :product="product"
+                    class="object-contain !w-full !h-full transition duration-300 rounded-2xl" />
             </swiper-slide>
         </swiper>
 
@@ -39,21 +43,21 @@ defineEmits(['select', 'add-to-basket'])
                 <div class="flex items-center gap-2">
                     <p :class="[
                         'text-[14px] sm:text-[16px] md:text-[18px] !font-semibold',
-                        product.discountPrice !== product.price
+                        product.discount_price !== product.price
                             ? '!line-through !opacity-80 text-[#53718f]'
                             : 'text-[#34495E]'
                     ]">
                         {{ formatPrice(product.price) }}$
                     </p>
-                    <p v-if="product.discountPrice !== product.price"
+                    <p v-if="product.discount_price !== product.price"
                         class="text-[#34495E] text-[14px] sm:text-[16px] md:text-[18px] !font-semibold">
-                        {{ formatPrice(product.discountPrice) }}$
+                        {{ formatPrice(product.discount_price) }}$
                     </p>
                 </div>
             </div>
 
             <div>
-                <p class="text-[#343A40] text-[10px] sm:text-[13px] md:text-[14px]">
+                <p class="text-[#343A40] break-words text-[10px] sm:text-[13px] md:text-[14px]">
                     {{ product.description.slice(0, 80) }} <span
                         class="!text-[#6C757D] text-medium text-[12px] sm:text-[13px] md:text-[14px]">
                         Batafsil...</span>
@@ -65,12 +69,12 @@ defineEmits(['select', 'add-to-basket'])
                     <p
                         class="flex justify-center items-center gap-2 text-[#FF8C00] text-[12px] sm:text-[16px] !font-semibold">
                         <img width="30px" height="30px" src="../assets/images/happy-icon.svg" alt="happy-icon"> {{
-                            product.rating.happy }}%
+                            product.happy }}%
                     </p>
                     <p
                         class="flex justify-center items-center gap-2 text-red-500 text-[12px] sm:text-[16px] !font-semibold">
                         <img width="30px" height="30px" src="../assets/images/sad-icon.svg" alt="sad-icon"> {{
-                            product.rating.unhappy }}%
+                            product.unhappy }}%
                     </p>
                 </div>
                 <p class="text-[#888] text-[12px] sm:text-[14px] font-medium">{{ product.model ===
@@ -78,10 +82,9 @@ defineEmits(['select', 'add-to-basket'])
             </div>
         </div>
 
-        <a-button :disabled="product.left === 0" :loading="buttonLoading"
-            @click.stop="$emit('add-to-basket', product._id)"
+        <a-button :disabled="product.left === 0" :loading="buttonLoading" @click.stop="$emit('add-to-basket', product)"
             class="basketGo w-full !text-[12px] !mt-3 sm:!text-[14px] md:!text-[16px]" size="large" type="primary">
-            Savatga ({{ product.left || "0" }} ta qoldi)
+            Savatga ({{ product.left_count || "0" }} ta qoldi)
         </a-button>
     </div>
 </template>

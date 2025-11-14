@@ -1,37 +1,15 @@
 <script setup>
-import { reactive } from 'vue';
-import useProducts from '@/store/products.pinia.js';
 import ProductComponent from '@/components/ProductComponent.vue';
-import useRegister from '@/store/register.pinia.js';
 import useFilterProducts from '@/store/filter.products.pinia.js';
 import useProductInfo from '@/store/products.info.pinia.js';
 import useComments from '@/store/comments.pinia.js';
 import { useRouter } from 'vue-router';
+import { addBasket, buttonLoader } from '@/utils/helpers/add.basket';
 
 const commentsStore = useComments()
 const productsInfoStore = useProductInfo()
 const samsungProductsStore = useFilterProducts()
-const registerStore = useRegister()
-const productsStore = useProducts()
 const router = useRouter()
-
-const buttonLoaders = reactive({})
-
-async function basket(id) {
-    if (registerStore.user === "") {
-        registerStore.openModal()
-    } else {
-        buttonLoaders[id] = true
-        try {
-            await productsStore.basketProduct({
-                productId: id,
-                quantity: 1
-            })
-        } finally {
-            buttonLoaders[id] = false
-        }
-    }
-}
 
 function getProduct(id) {
     productsInfoStore.getProductInfo(id)
@@ -49,9 +27,9 @@ function getProduct(id) {
             <template class="!flex !justify-between items-center flex-wrap !w-full"
                 v-if="samsungProductsStore.samsungProducts.length > 0">
                 <div class="grid gap-4 sm:gap-6 !mt-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    <product-component v-for="product in samsungProductsStore.samsungProducts" :key="product._id"
-                        :product="product" :button-loading="buttonLoaders[product._id]" @select="getProduct"
-                        @add-to-basket="basket" />
+                    <product-component v-for="product in samsungProductsStore.samsungProducts" :key="product.id"
+                        :product="product" :button-loading="buttonLoader[product.id]" @select="getProduct"
+                        @add-to-basket="() => addBasket(product)" />
                 </div>
             </template>
             <template v-else>

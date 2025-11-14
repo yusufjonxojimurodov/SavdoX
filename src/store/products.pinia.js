@@ -12,6 +12,7 @@ import { message } from "ant-design-vue";
 const useProducts = defineStore("products", {
   state: () => ({
     products: [],
+    productId: null,
     basketProducts: [],
     modalOpen: false,
     loader: false,
@@ -28,22 +29,6 @@ const useProducts = defineStore("products", {
       this.modalOpen = false;
     },
 
-    async createProduct(form) {
-      this.loader = true;
-      try {
-        const { data } = await ApiCreateProduct(form);
-        this.products = data;
-        message.success("Mahsulot Yaratildi");
-      } catch (err) {
-        const errorMessage =
-          err.response?.data?.message ||
-          "Mahsulot yaratishda xatolik yuzaga keldi";
-        message.error(errorMessage);
-      } finally {
-        this.loader = false;
-      }
-    },
-
     async getProducts(params = {}) {
       const { search = null, price = null } = params;
       this.loader = true;
@@ -51,6 +36,7 @@ const useProducts = defineStore("products", {
       try {
         const { data } = await ApiGetProducts(search, price);
         this.products = data;
+        this.productId = data.id
       } catch (error) {
         console.error(error);
       } finally {
@@ -58,9 +44,9 @@ const useProducts = defineStore("products", {
       }
     },
 
-    async basketProduct(productId) {
+    async basketProduct(product) {
       try {
-        await ApiBasketProduct(productId);
+        await ApiBasketProduct(product);
         message.success("Mahsulot savatchaga qoshildi");
       } catch (errorBasket) {
         const errorMessage =
@@ -76,6 +62,7 @@ const useProducts = defineStore("products", {
       try {
         const { data } = await ApiGetBasketProduct();
         this.basketProducts = data;
+        this.productId = data.productId
       } catch (errorGet) {
         const errorMessage =
           errorGet.data?.response?.message || "Mahsulot topilmadi";
@@ -91,7 +78,7 @@ const useProducts = defineStore("products", {
       return ApiDeleteProduct(productIds)
         .then(() => {
           this.basketProducts = this.basketProducts.filter(
-            (item) => !productIds.includes(item._id)
+            (item) => !productIds.includes(item.id)
           );
         })
         .catch((errorDelete) => {

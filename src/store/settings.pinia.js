@@ -1,57 +1,67 @@
 import { defineStore } from "pinia";
-import {
-  ApiGetUserAvatar,
-  ApiPostAvatar,
-  ApiPostBanner,
-} from "../api/settings.api";
+import { ApiGetUserAvatar } from "@/api/settings.api";
+import useRegister from "./register.pinia";
+import api from "@/utils/api/api";
 import { message } from "ant-design-vue";
 
 const useSetting = defineStore("setting", {
   state: () => ({
-    avatar: [],
+    avatar: "",
+    fileList: [],
+    avatarHashId: "",
     avatarLoading: false,
   }),
 
   actions: {
-    async postUserAvatar(image) {
-      this.avatarLoading = true;
-
-      return ApiPostAvatar(image)
-        .then(() => {
-          message.success("Avatar Qoyildi");
-          this.getUserAvatar()
-        })
-        .catch((error) => {
-          message.error("xato" + error);
-        })
-        .finally(() => {
-          this.avatarLoading = false;
-        });
-    },
-
     async getUserAvatar() {
       this.avatarLoading = true;
+      try {
+        const user = useRegister().user;
+        const { data } = await ApiGetUserAvatar(user.avatar_content_type);
 
-      return ApiGetUserAvatar()
-        .then(({ data }) => {
-          this.avatar = data.avatarUrl;
-        })
-        .catch((error) => {
-          console.log("Profil olishda xato" + error);
-        })
-        .finally(() => {
-          this.avatarLoading = false;
-        });
+        this.avatar = `data:${user.avatar_content_type};base64,${data.avatar}`;
+      } catch (error) {
+        console.error("Profil olishda xato:", error);
+        this.avatar = null;
+      } finally {
+        console.log(this.avatar);
+        this.avatarLoading = false;
+      }
     },
 
-    createBanner(form) {
-      ApiPostBanner(form)
-        .then(() => {
-          message.success("Banner qoyld");
-        })
-        .catch((err) => {
-          message.error("Banner Qoyilmadi", err);
+    setFileList(files) {
+      this.fileList = files;
+    },
+
+    async uploadAvatar() {
+      if (this.fileList.length === 0) {
+        message.warning("Rasm tanlanmadi!");
+        return;
+      }
+
+      this.uploadLoading = true;
+
+      try {
+        const formData = new FormData();
+        formData.append("avatar", this.fileList[0].originFileObj);
+
+        const res = await api({
+          url: "/api/upload/avatar/upload",
+          method: "POST",
+          data: formData,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         });
+
+        this.avatarHashId = res.data.avatar;
+      } catch (err) {
+        console.error(err);
+        message.error(err.response?.data?.message || err);
+      } finally {
+        console.log(this.avatarHashId);
+        this.uploadLoading = false;
+      }
     },
   },
 });

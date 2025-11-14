@@ -11,7 +11,7 @@ const productInfo = useProductInfo()
 const open = defineModel("open", { type: Boolean, default: false })
 
 function contactSeller() {
-    window.open(`https://t.me/${productInfo.sellerInfo.userName}`, '_blank')
+    window.open(`https://t.me/${productInfo.sellerInfo.username}`, '_blank')
 }
 </script>
 
@@ -25,7 +25,7 @@ function contactSeller() {
                 <h2 class="text-[#212529] text-2xl font-bold">
                     {{ productInfo.sellerInfo.name }} {{ productInfo.sellerInfo.surname }}
                 </h2>
-                <p class="text-[#6C757D] text-sm">@{{ productInfo.sellerInfo.userName }}</p>
+                <p class="text-[#6C757D] text-sm">@{{ productInfo.sellerInfo.username }}</p>
             </div>
         </div>
 

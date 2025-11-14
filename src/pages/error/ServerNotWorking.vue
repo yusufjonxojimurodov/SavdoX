@@ -12,7 +12,7 @@ import router from '@/routers/router';
             <div class="w-full flex justify-center items-center flex-col gap-5">
                 <p class="!text-black !text-[24px] !m-0 !p-0 !w-[540px]">Server bilan muammo yuzaga keldi. Iltimos
                     keyinroq urinib ko'ring</p>
-                <a-button @click="router.push('/')" danger size="large">
+                <a-button @click="router.back()" danger size="large">
                     Orqaga
                 </a-button>
             </div>
