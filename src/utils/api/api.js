@@ -41,5 +41,4 @@ export const api = ({ url, open = false, ...props }) => {
 };
 
 export { instance as axiosInstance };
-
 export default api;

@@ -82,7 +82,7 @@ defineEmits(['select', 'add-to-basket'])
             </div>
         </div>
 
-        <a-button :disabled="product.left === 0" :loading="buttonLoading" @click.stop="$emit('add-to-basket', product)"
+        <a-button :disabled="product.left_count === 0" :loading="buttonLoading" @click.stop="$emit('add-to-basket', product)"
             class="basketGo w-full !text-[12px] !mt-3 sm:!text-[14px] md:!text-[16px]" size="large" type="primary">
             Savatga ({{ product.left_count || "0" }} ta qoldi)
         </a-button>

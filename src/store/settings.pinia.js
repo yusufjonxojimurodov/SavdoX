@@ -4,6 +4,7 @@ import useRegister from "./register.pinia";
 import api from "@/utils/api/api";
 import { message } from "ant-design-vue";
 
+
 const useSetting = defineStore("setting", {
   state: () => ({
     avatar: "",
