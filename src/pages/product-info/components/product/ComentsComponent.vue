@@ -43,7 +43,7 @@ function deleteComment(id) {
 </script>
 
 <template>
-    <div class="comments-container w-[99%] !mt-5 max-h-[400px] sm:w-[520px] overflow-y-auto">
+    <div class="comments-container w-[99%] !mt-5 max-h-[400px] md:w-[520px] overflow-y-auto">
         <div v-for="comment in commentsStore.comments" :key="comment.id">
             <div
                 class="flex flex-col gap-2 !mb-[30px] w-[98%] md:w-[500px] bg-white !p-5 rounded-md  shadow-[0_4px_12px_rgba(0,0,0,0.6) ">
@@ -62,7 +62,7 @@ function deleteComment(id) {
                     <div v-if="userStore.user.id === comment.user_id" class="!m-0 !p-0 cursor-pointer">
                         <a-popconfirm title="Fikringizni o‘chirishni xohlaysizmi?" ok-text="Ha" class="!outline-none"
                             cancel-text="Yo‘q" @confirm="deleteComment(comment.comment_id)">
-                            <icon-delete />
+                            <icon-delete class="w-4 h-4"/>
                         </a-popconfirm>
                     </div>
                 </div>

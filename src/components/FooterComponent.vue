@@ -5,7 +5,7 @@ import IconYoutube from './icons/IconYoutube.vue';
 </script>
 
 <template>
-    <footer class="bg-[#FF8C00] text-white !mt-[100px]">
+    <footer class="bg-[#FF8C00] text-white !mt-[100px] relative">
         <div class="container">
             <div class="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
                 <nav class="
@@ -14,7 +14,7 @@ import IconYoutube from './icons/IconYoutube.vue';
             !p-[30px] md:!p-[50px]
           ">
                     <div class="flex flex-col gap-[10px] items-center md:items-start text-center md:text-left">
-                        <h3 class="text-lg !font-semibold !text-[#212529] text-[18px] !m-0">Bo'limlar</h3>
+                        <h3 class="text-lg !font-semibold !text-white text-[18px] !m-0">Bo'limlar</h3>
                         <ul class="flex flex-col gap-[10px]">
                             <li><router-link to="/"
                                     class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors">Asosiy
@@ -29,7 +29,7 @@ import IconYoutube from './icons/IconYoutube.vue';
                     </div>
 
                     <div class="flex flex-col gap-[10px] items-center md:items-start text-center md:text-left">
-                        <h3 class="text-[18px] !font-semibold text-[#212529] !m-0">Bizning manzilimiz</h3>
+                        <h3 class="text-[18px] !font-semibold text-white !m-0">Bizning manzilimiz</h3>
                         <ul class="flex flex-col gap-[10px]">
                             <li>
                                 <a class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors"
@@ -44,7 +44,7 @@ import IconYoutube from './icons/IconYoutube.vue';
                     </div>
 
                     <div class="flex flex-col gap-[10px] items-center md:items-start text-center md:text-left">
-                        <h3 class="text-lg !font-semibold text-[#212529] !m-0">Yordam</h3>
+                        <h3 class="text-lg !font-semibold text-white !m-0">Yordam</h3>
                         <ul class="flex flex-col gap-[10px]">
                             <li><a href="https://t.me/savdo_x_bot" target="_blank"
                                     class="!text-white hover:!text-[#FFD700] text-[16px] transition-colors">Savol-javob</a>
@@ -59,7 +59,7 @@ import IconYoutube from './icons/IconYoutube.vue';
                     </div>
 
                     <div class="flex flex-col gap-[10px] items-center text-center">
-                        <h3 class="text-lg !font-semibold text-[#212529] !m-0">Ijtimoiy Tarmoqlar</h3>
+                        <h3 class="text-lg !font-semibold text-white !m-0">Ijtimoiy Tarmoqlar</h3>
                         <ul class="flex justify-center items-center gap-[15px]">
                             <li><a target="_blank" href="https://www.instagram.com/just_user.01/"><icon-instagram /></a>
                             </li>
@@ -69,7 +69,7 @@ import IconYoutube from './icons/IconYoutube.vue';
                     </div>
                 </nav>
 
-                <div class="mt-8 !p-6 border-t border-gray-800 text-center text-[#212529] text-sm">
+                <div class="mt-8 !p-6 border-t border-black text-center text-white text-sm">
                     <p>&copy; 2025 TexnoBazaar. Barcha huquqlar himoyalangan.</p>
                 </div>
             </div>

@@ -9,36 +9,11 @@ ul {
 }
 
 .ant-menu {
-  border-radius: 8px;
-}
-
-.custom-dropdown.ant-dropdown-menu {
-  background: #2a2a2a !important;
-}
-.custom-dropdown.ant-dropdown-menu .ant-dropdown-menu-item {
-  background: #2a2a2a !important;
-  color: #fff !important;
-}
-.custom-dropdown.ant-dropdown-menu .ant-dropdown-menu-item:hover {
-  background: #333 !important;
-}
-.custom-dropdown.ant-dropdown-menu .ant-dropdown-menu-item-selected {
-  background: #2f2f2f !important;
+  border-radius: 30px !important;
 }
 
 .ant-modal-content {
   background: #fff !important;
-}
-
-.ant-modal-header {
-  background: #fff !important;
-  border-bottom: 1px solid #3a3a3a !important;
-}
-
-.ant-modal-title {
-  font-size: 24px !important;
-  color: #212529 !important;
-  font-weight: 700 !important;
 }
 
 .ant-avatar {
@@ -49,6 +24,7 @@ ul {
 
 .ant-input,
 .ant-select-selector {
+  border-radius: 30px !important;
   color: #212529 !important;
   border: none !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
@@ -57,6 +33,7 @@ ul {
 .ant-btn {
   color: #e0e0e0 !important;
   box-shadow: none;
+  border-radius: 30px !important;
   background-color: #b22222 !important;
   border: none;
   gap: 5px;
@@ -67,12 +44,8 @@ ul {
   background-color: #a52a2a !important;
 }
 
-.ant-input::placeholder {
-  color: #b0afaf !important;
-}
-
-.ant-select-selection-placeholder {
-  color: #b0afaf !important;
+.ant-btn:active {
+  transform: scale(0.95);
 }
 
 .ant-select-item-option-active,
@@ -83,7 +56,7 @@ ul {
 
 .ant-btn-primary {
   background-color: #ff8c00 !important;
-  border-radius: 12px;
+  border-radius: 30px !important;
   font-weight: 600;
   color: white !important;
 }
@@ -112,14 +85,11 @@ ul {
   border-color: #ffff !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
   color: #212529 !important;
+  border-radius: 30px !important;
 }
 
 .ant-picker-input > input {
   color: #212529 !important;
-}
-
-.ant-picker-input > input::placeholder {
-  color: #bfbfbf !important;
 }
 
 .ant-picker-suffix,

@@ -7,8 +7,12 @@ import { Mousewheel, Pagination } from 'swiper/modules';
 import { formatPrice } from '@/utils/format.js'
 import useImage from '../store/image.pinia';
 import ImageComponent from './BaseComponents/ImageComponent.vue';
+import IconBasket from './icons/IconBasket.vue';
+import { ref } from 'vue';
 
 const imageStore = useImage()
+
+const windowWidth = ref(window.innerWidth)
 
 const props = defineProps({
     product: Object,
@@ -35,7 +39,7 @@ defineEmits(['select', 'add-to-basket'])
             <p class="text-white !font-semibold text-[16px]">-{{ product.discount }}%</p>
         </div>
 
-        <div class="!flex flex-col !gap-2 sm:!gap-3 !flex-1">
+        <div class="!flex flex-col !gap-2 sm:!gap-3 ">
             <p class="text-[15px] sm:text-[20px] md:text-[24px] text-[#212529] !font-semibold">{{ product.name }}
             </p>
 
@@ -67,14 +71,16 @@ defineEmits(['select', 'add-to-basket'])
             <div class="flex justify-between items-center w-full flex-wrap">
                 <div class="flex items-center gap-1 sm:gap-2">
                     <p
-                        class="flex justify-center items-center gap-2 text-[#FF8C00] text-[12px] sm:text-[16px] !font-semibold">
-                        <img width="30px" height="30px" src="../assets/images/happy-icon.svg" alt="happy-icon"> {{
-                            product.happy }}%
+                        class="flex justify-center items-center gap-1 md:gap-2 text-[#FF8C00] text-[11px] sm:text-[16px] !font-semibold">
+                        <img class="h-[22px] md:w-[30px] md:h-[30px]" src="../assets/images/happy-icon.svg"
+                            alt="happy-icon"> {{
+                                product.happy }}%
                     </p>
                     <p
-                        class="flex justify-center items-center gap-2 text-red-500 text-[12px] sm:text-[16px] !font-semibold">
-                        <img width="30px" height="30px" src="../assets/images/sad-icon.svg" alt="sad-icon"> {{
-                            product.unhappy }}%
+                        class="flex justify-center items-center gap-1 md:gap-2  text-red-500 text-[11px] sm:text-[16px] !font-semibold">
+                        <img class="h-[22px] md:w-[30px] md:h-[30px]" src="../assets/images/sad-icon.svg"
+                            alt="sad-icon"> {{
+                                product.unhappy }}%
                     </p>
                 </div>
                 <p class="text-[#888] text-[12px] sm:text-[14px] font-medium">{{ product.model ===
@@ -82,9 +88,14 @@ defineEmits(['select', 'add-to-basket'])
             </div>
         </div>
 
-        <a-button :disabled="product.left_count === 0" :loading="buttonLoading" @click.stop="$emit('add-to-basket', product)"
-            class="basketGo w-full !text-[12px] !mt-3 sm:!text-[14px] md:!text-[16px]" size="large" type="primary">
-            Savatga ({{ product.left_count || "0" }} ta qoldi)
+        <a-button :disabled="product.left_count === 0" :loading="buttonLoading"
+            @click.stop="$emit('add-to-basket', product)"
+            class="basketGo w-full! flex! justify-center! items-center! !text-[12px] !mt-0 sm:!text-[14px] md:!text-[16px]"
+            :size="windowWidth <= 450 ? 'middle' : 'large'" type="primary">
+            <template #icon>
+                <icon-basket class="w-5 h-5" />
+                {{ product.left_count || "0" }} ta mavjud
+            </template>
         </a-button>
     </div>
 </template>

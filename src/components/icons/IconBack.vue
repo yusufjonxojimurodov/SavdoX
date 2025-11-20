@@ -1,27 +1,7 @@
 <script setup></script>
 
 <template>
-    <div class="icon-back">
-        <svg width="32px" height="32px" viewBox="0 0 1024 1024" fill="#212529" class="icon" version="1.1"
-            xmlns="http://www.w3.org/2000/svg" stroke="#212529" stroke-width="30.72">
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-            <g id="SVGRepo_iconCarrier">
-                <path
-                    d="M669.6 849.6c8.8 8 22.4 7.2 30.4-1.6s7.2-22.4-1.6-30.4l-309.6-280c-8-7.2-8-17.6 0-24.8l309.6-270.4c8.8-8 9.6-21.6 2.4-30.4-8-8.8-21.6-9.6-30.4-2.4L360.8 480.8c-27.2 24-28 64-0.8 88.8l309.6 280z"
-                    fill=""></path>
-            </g>
-        </svg>
-    </div>
+    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
 </template>
-
-<style>
-.icon-back {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 2px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 14px;
-}
-</style>

@@ -1,17 +1,15 @@
 <script setup>
 import HeaderComponent from '@/components/HeaderComponent.vue';
-import BuyyedProductInfoComponent from './components/BuyyedProductInfoComponent.vue';
 import BuyyedProductComponent from './components/BuyyedProductComponent.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
-import SectionNameComponent from '../../components/SectionNameComponent.vue';
-import useProducts from '@/store/products.pinia';
+import SectionNameComponent from '@/components/SectionNameComponent.vue';
 </script>
 
 <template>
     <header-component />
     <main>
         <div class="container">
-            <section-name-component title="Haridlar tarixi" :openBack="true" :back="'Pending Products'">
+            <section-name-component title="Haridlar tarixi" :openBack="true" :back="'PendingProducts'">
                 <buyyed-product-component />
             </section-name-component>
         </div>

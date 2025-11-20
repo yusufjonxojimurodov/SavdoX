@@ -37,10 +37,9 @@ async function complaintProduct() {
 <template>
     <a-modal centered :footer="null" v-model:open="open">
         <a-form layout="vertical" :model="complaintModel">
-            <a-form-item row="4" :rules="[{ required: true, message: 'Majburiy maydon' }]" name="message"
-                label="Shikoyatingiz">
-                <a-textarea size="large" class="!resize-none" placeholder="Shikoyatingiz xabari"
-                    v-model:value="complaintModel.message" />
+            <a-form-item :rules="[{ required: true, message: 'Majburiy maydon' }]" name="message" label="Shikoyatingiz">
+                <a-textarea :auto-size="{ minRows: 1, maxRows: 6 }" size="large" class="!resize-none"
+                    placeholder="Shikoyatingiz xabari" v-model:value="complaintModel.message" />
             </a-form-item>
         </a-form>
 

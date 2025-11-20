@@ -2,7 +2,6 @@
 import HeaderComponent from '../../components/HeaderComponent.vue';
 import FooterComponent from '../../components/FooterComponent.vue';
 import PendingProductsComponent from './components/PendingProductsComponent.vue';
-import PendingProductsFilterComponent from './components/PendingProductsFilterComponent.vue';
 import SectionNameComponent from '../../components/SectionNameComponent.vue';
 import ProductSkeletonComponent from '../../components/ProductSkeletonComponent.vue';
 import usePendingProduct from '@/store/product.pending.pinia';

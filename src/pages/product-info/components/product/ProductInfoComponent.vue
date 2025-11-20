@@ -40,7 +40,7 @@ const shortDescriptionHTML = computed(() => {
 </script>
 
 <template>
-    <div class="flex flex-col gap-6 max-w-[500px]">
+    <div class="flex flex-col gap-6 !w-full">
         <div>
             <div class="flex justify-between items-center !mb-4">
                 <h1 class="!font-bold text-2xl !p-0 !m-0">{{ product.name }}</h1>
@@ -48,7 +48,7 @@ const shortDescriptionHTML = computed(() => {
                     Sotuvda emas
                 </a-tag>
             </div>
-            <p class="text-[#444] !w-[360px] sm:!w-[380px] !text-base !leading-relaxed" v-html="shortDescriptionHTML">
+            <p class="text-[#444] !w-full sm:!w-[380px] !text-base !leading-relaxed" v-html="shortDescriptionHTML">
             </p>
 
             <span v-if="!showFullDescription && (product.description || '').length > 180"
@@ -83,7 +83,7 @@ const shortDescriptionHTML = computed(() => {
                 class="!flex items-center gap-2">
                 Savatchaga
                 <template #icon>
-                    <icon-basket class="basket-icon" />
+                    <icon-basket class="basket-icon w-5 h-5" />
                 </template>
             </a-button>
 

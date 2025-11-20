@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import usePendingProduct from '@/store/product.pending.pinia.js';
 import IconTimeProduct from '@/components/icons/IconTimeProduct.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
@@ -23,6 +23,8 @@ const commentsStore = useComments()
 onMounted(() => {
     pendingProductsStore.getPendingProductBuyer()
 })
+
+const screenWidth = ref(window.innerWidth)
 
 const buttonLoaders = reactive({})
 
@@ -51,11 +53,11 @@ function getProduct(id) {
     <section>
         <div class="container">
             <template v-if="pendingProductsStore.pendingProductBuyer.length > 0">
-                <div class="grid gap-4 sm:gap-6 !mt-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <div class="grid sm:gap-6 !mt-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     <div @click="getProduct(product.product.id)"
                         v-for="product in pendingProductsStore.pendingProductBuyer" :key="product.product.id" class="product transition duration-500 bg-white shadow-md
-                w-full
-                h-[450px] sm:h-[500px] md:!w-[300px]
+                w-[95%]
+                h-[400px] sm:h-[500px] md:!w-[300px]
                 cursor-pointer flex flex-col
                 gap-4 sm:gap-6 justify-center
                 !p-3 sm:!py-5 md:py-[20px]
@@ -120,12 +122,12 @@ function getProduct(id) {
                                 <a-popconfirm title="Mahsulotni sotib olishni bekor qilmoqchimisiz ?"
                                     ok-text="Tasdiqlash" :okButtonProps="{ loading: buttonLoaders[product.id] }"
                                     cancel-text="Bekor qilish" @confirm="deletePendingProducts(product.id)">
-                                    <a-button @click.stop size="large"
-                                        class="!flex !bg-white !border-red-600 !text-red-600 !border-1 !w-full sm:!w-[120px] sm:!p-[18px] !text-[12px] sm:!text-[14px] md:!text-[16px] justify-center items-center">
+                                    <a-button @click.stop :size="screenWidth < 500 ? 'middle' : 'large'"
+                                        class="!flex !bg-white !border-red-600 !text-red-600 !border-1 !w-full  sm:!w-[120px] sm:!p-[18px] !text-[12px] sm:!text-[14px] md:!text-[16px] justify-center items-center">
                                         Bekor Qilish
                                     </a-button>
                                 </a-popconfirm>
-                                <a-button @click.stop size="large"
+                                <a-button @click.stop :size="screenWidth < 500 ? 'middle' : 'large'"
                                     class="!text-[12px] sm:!text-[14px] sm:!p-[18px] md:!text-[16px] !flex !w-full sm:w-[120px] justify-center items-center !font-semibold"
                                     type="primary">
                                     Kutilyapti

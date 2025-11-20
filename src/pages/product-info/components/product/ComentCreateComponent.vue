@@ -33,9 +33,7 @@ async function handleSubmit() {
         return
     }
 
-    if (!text.value.trim()) {
-        return message.warning('Fikringizni yozing.')
-    }
+    if (!text.value.trim()) return
 
     if (!rating.value) {
         return message.warning('Mahsulot Bahosini tanlang.')
@@ -57,33 +55,28 @@ async function handleSubmit() {
     <div>
         <div class="flex gap-2 !mt-2 !mb-2">
             <button @click="selectRating('happy')" class="
-                   fill-slate-600 shadow-md cursor-pointer col-span-1 flex justify-center items-center rounded-lg !p-2 duration-300 bg-slate-100 hover:border-slate-600 focus:fill-black focus:bg-[#FFD700]
+                   fill-slate-600 shadow-md cursor-pointer col-span-1 flex justify-center items-center rounded-[30px]! !p-2 duration-300 bg-slate-100 hover:border-slate-600 focus:fill-black focus:bg-[#FFD700]
                 ">
                 <img width="30px" height="30px" src="/src/assets/images/happy-icon.svg" alt="happy-icon">
             </button>
 
-            <button @click="selectRating('unhappy')" class="fill-slate-600 shadow-md cursor-pointer col-span-1 flex justify-center items-center rounded-lg !p-2 duration-300 bg-slate-100 hover:border-slate-600 focus:fill-white focus:bg-red-500
+            <button @click="selectRating('unhappy')" class="fill-slate-600 shadow-md cursor-pointer col-span-1 flex justify-center items-center rounded-[30px]! !p-2 duration-300 bg-slate-100 hover:border-slate-600 focus:fill-white focus:bg-red-500
                 ">
                 <img width="30px" height="30px" src="/src/assets/images/sad-icon.svg" alt="sad-icon">
             </button>
         </div>
 
-        <div class="relative">
-            <div class="flex ">
-                <a-textarea v-model:value="text" @focus="isFocused = true" @blur="blurHandler"
-                    placeholder="Mahsulot haqida fikringiz..." :auto-size="{ minRows: 1, maxRows: 6 }" class="bg-white text-black placeholder:text-gray-400 placeholder:opacity-70 
-             !resize-none outline-none transition duration-300 !rounded-lg border border-gray-300 
-             focus:ring-2 focus:ring-[#FF8C00] w-full !pr-10 !p-2 
-            " />
-
-                <a-button @click="handleSubmit" class="!bg-[#FF8C00] !shadow-md
-             !w-[32px] !h-[32px] flex justify-center items-center !rounded-full 
-             !absolute right-2 bottom-1 cursor-pointer " :loading="commentStore.createLoader">
-                    <template #icon>
-                        <icon-send-component class="w-5 h-5" />
-                    </template>
-                </a-button>
-            </div>
+        <div
+            class="flex !p-2 justify-between items-end bg-white! shadow-md w-full! sm:!w-[90%] lg:!w-full rounded-[30px]!">
+            <a-textarea v-model:value="text" @keydown.enter.prevent="handleSubmit"
+                class="!bg-transparent shadow-none! !w-[92%]" :auto-size="{ minRows: 1, maxRows: 6 }"
+                placeholder="Fikringizni kiriting..." />
+            <a-button :loading="commentStore.createLoader" type="primary" @click="handleSubmit"
+                class="!w-8 flex! justify-center! rounded-full! items-center! !h-8 sm:w-8 sm:h-8 !disabled:opacity-60">
+                <template #icon>
+                    <icon-send-component class="w-5 h-5" />
+                </template>
+            </a-button>
         </div>
     </div>
 </template>

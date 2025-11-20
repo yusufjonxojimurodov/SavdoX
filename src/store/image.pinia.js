@@ -6,21 +6,16 @@ const useImage = defineStore("image", {
   state: () => ({
     urls: {},
     uploadLoading: false,
-    loading: {}, 
+    loading: {},
     loadingProducts: new Set(),
   }),
 
   actions: {
     async getImagesByProduct(hashIds, productId) {
-      if (this.urls[productId] || this.loadingProducts.has(productId)) {
-        console.log(
-          `Images already loaded or loading for productId: ${productId}`
-        );
-        return;
-      }
+      if (this.urls[productId] || this.loadingProducts.has(productId)) return;
 
       this.loadingProducts.add(productId);
-      this.loading[productId] = true; 
+      this.loading[productId] = true;
 
       try {
         const { data } = await api({

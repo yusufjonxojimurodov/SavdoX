@@ -2,136 +2,124 @@
 import { reactive, ref } from 'vue';
 import useRegister from '@/store/register.pinia';
 import WarningModalLogin from '@/components/WarningModalLogin.vue';
-import LoginFaceModalComponent from './LoginFaceModalComponent.vue';
+import { phoneCodeValidator } from '@/utils/helpers/phoneValidator';
+import { formatPhoneNumber } from '@/utils/helpers/formatPhoneNumber';
 
 const userRegisterStore = useRegister()
 
 const openModal = ref(false)
-const openLoginFaceModal = ref(false)
 
 const LoginForm = reactive({
-    phone: "+998",
+    phone: "",
     password: ""
 })
 
-function handlePhoneInput(e) {
-    let value = e.target.value
-    if (!value.startsWith('+998')) {
-        value = '+998' + value.replace(/[^0-9]/g, '')
-    }
-
-    let digits = value.replace(/\D/g, '').slice(3)
-
-    let formatted = '+998'
-    if (digits.length > 0) formatted += ' ' + digits.substring(0, 2)
-    if (digits.length > 2) formatted += '-' + digits.substring(2, 5)
-    if (digits.length > 5) formatted += '-' + digits.substring(5, 7)
-    if (digits.length > 7) formatted += '-' + digits.substring(7, 9)
-
-    LoginForm.phone = formatted
-}
-
-
 async function loginAccaount() {
-    const cleanPhone = LoginForm.phone.replace(/-/g, '').replace(/\s/g, '')
-
     const payload = {
         ...LoginForm,
-        phone: cleanPhone
-    }
+        phone: "+998" + LoginForm.phone.replace(/[-\s]/g, "")
+    };
 
     const success = await userRegisterStore.loginUser(payload)
     if (success) {
         setTimeout(() => {
             userRegisterStore.closeDrawer()
             window.location.reload()
-        }, 1000)
+        }, 600)
     }
 }
 
-function openWarningModal() {
-    openModal.value = true
+const phoneRules = [
+    {
+        required: true,
+        message: "Majburiy maydon",
+    },
+    {
+        validator: (_rule, value) => {
+            if (!value) return Promise.resolve();
+            const val = value || '';
+            const cleanVal = val.replace(/[-\s]/g, '');
+
+            if (!phoneCodeValidator(cleanVal)) {
+                return Promise.reject(new Error("Raqamni tog'ri formatda kiriting"));
+            } else if (cleanVal.length < 9) {
+                return Promise.reject(new Error("Minimal 9 ta raqamdan iborat bo'lishi kerak"));
+            }
+            return Promise.resolve();
+        },
+        trigger: "blur"
+    }
+];
+
+function handleInput(value) {
+    LoginForm.phone = formatPhoneNumber(value) ?? "";
 }
 </script>
 
 <template>
     <div class="w-full flex justify-center items-center h-full">
         <a-card class="!bg-white !shadow-2xs !border-none !w-full">
-            <div class="text-center text-2xl sm:text-3xl font-semibold text-[#212529] !mb-8">
-                Tizimga kirish
-            </div>
-
-            <a-form @finish="loginAccaount" :model="LoginForm" layout="vertical" class="w-full">
-                <a-row :gutter="[16, 16]" class="!mt-6 flex flex-col md:flex-row">
-                    <a-col :span="24" class="md:w-1/2">
-                        <a-form-item name="phone" label="Telefon Raqamingiz"
-                            :rules="[{ required: true, message: 'Majburiy maydon!' }]">
-                            <a-input v-model:value="LoginForm.phone" :value="LoginForm.phone" @input="handlePhoneInput"
-                                autocomplete="off" allow-clear="false" placeholder="+998 XX-XXX-XX-XX"
-                                class="w-full h-12 text-base rounded-lg  !border-none text-white placeholder-gray-400 !shadow-xs" />
-                        </a-form-item>
-                    </a-col>
-
-                    <a-col :span="24" class="md:w-1/2">
-                        <a-form-item name="password" label="Parolingiz"
-                            :rules="[{ required: true, message: 'Majburiy maydon!' }]">
-                            <a-input-password :name="`login-${Math.random().toString(36).substr(2, 9)}`"
-                                autocomplete="new-password" v-model:value="LoginForm.password" placeholder="Parolingiz"
-                                class="w-full h-12 text-base rounded-lg !border-none text-white placeholder-gray-400 !shadow-xs" />
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-
-                <div class="flex flex-col sm:flex-row justify-between items-center mt-10 w-full gap-4">
-                    <p class="text-white">
-                        <span @click="openWarningModal" class="text-[#212529] cursor-pointer">
-                            Hisobingiz yo'qmi ?
-                        </span>
-                    </p>
-                    <div class="flex justify-center items-center gap-4">
-                        <!-- <a-button @click="openLoginFaceModal = true"
-                            size="large" class="!border-none">
-                            Yuz bilan kirish
-                        </a-button> -->
-                        <a-button :loading="userRegisterStore.loaderButton" type="primary" html-type="submit"
-                            size="large" class="!border-none !text-black !font-semibold">
-                            Tizimga kirish
-                        </a-button>
+           <div class="flex justify-center items-center gap-2 flex-col !mb-8">
+                <p class="!p-0 !m-0 text-center text-2xl sm:text-3xl !font-semibold text-[#212529]">
+                    Tizimga kirish
+                </p>
+                <p class="!p-0 !m-0">Smart texnika, smart tanlov – login qiling va boshlang !</p>
+           </div>
+            <a-form 
+                @finish="loginAccaount" 
+                :model="LoginForm" 
+                layout="vertical"
+            >
+                <a-form-item 
+                    name="phone" 
+                    label="Telefon raqam"
+                    :rules="phoneRules"
+                >
+                    <div class="flex justify-center items-center shadow-[0_4px_12px_rgba(0,0,0,0.1)]! !px-3 rounded-[30px]!">
+                        <span class="!p-0 !m-0 text-[15px]!">+998</span>
+                        <a-input
+                            autocomplete="off" 
+                            :maxlength="12"
+                            placeholder="00 000-00-00" 
+                            class="bg-transparent! shadow-none! py-3! text-[15px]!"
+                            v-model:value="LoginForm.phone"
+                            @input="handleInput"
+                        />
                     </div>
+                </a-form-item>
+                <a-form-item 
+                    name="password" 
+                    label="Parol"
+                    :rules="[{ required: true, message: 'Majburiy maydon !' }]"
+                >
+                    <a-input
+                        size="large" 
+                        autocomplete="new-password" 
+                        placeholder="Parolingizni kiriting" 
+                        class="py-3! px-3! password-placeholder"
+                        v-model:value="LoginForm.password"
+                    />
+                </a-form-item>
+
+                <p @click="openModal = true" class="m-0! p-0! mb-4! cursor-pointer !font-semibold text-gray-800 text-end!">Parol unutdingizmi ?</p>
+
+                <div>
+                    <a-button
+                        type="primary" 
+                        html-type="submit"
+                        :loading="userRegisterStore.loaderButton"
+                        size="large"
+                        class="w-full!"
+                    >
+                        <template #icon>
+                            Tizimga kirish
+                        </template>
+                    </a-button>
+                    <p class="p-0! m-0! mt-4! text-center !font-semibold">Akkauntingiz yoqmi ? <a href="https://t.me/savdo_x_bot" target="_blank" class="text-orange-600! cursor-pointer !font-semibold">Ro'yxatdan o'tish</a></p>
                 </div>
             </a-form>
 
             <warning-modal-login v-model:open="openModal" />
-            <login-face-modal-component v-model:open="openLoginFaceModal" />
         </a-card>
     </div>
 </template>
-
-<style scoped>
-:deep(.ant-input),
-:deep(.ant-input-password input) {
-    background-color: #f1f1f1 !important;
-    border-radius: 10px !important;
-    padding: 5px !important;
-    color: #212529 !important;
-    box-shadow: none !important;
-}
-
-:deep(.ant-input:focus),
-:deep(.ant-input-password input:focus) {
-    background-color: transparent !important;
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-:deep(.ant-input-password) {
-    background-color: transparent !important;
-    border: none !important;
-}
-
-:deep(.ant-input-affix-wrapper) {
-    background-color: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-</style>

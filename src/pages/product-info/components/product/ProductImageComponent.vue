@@ -18,10 +18,10 @@ function selectImage(index) {
 </script>
 
 <template>
-    <div v-if="images.length" class="flex flex-col-reverse sm:!flex-row gap-6 items-start">
-        <div class="flex items-center justify-center !mb-5 w-full sm:flex-col sm:w-[20%] gap-3">
+    <div v-if="images.length" class="flex flex-col-reverse xs:!flex-row gap-6 items-start">
+        <div class="flex items-center justify-center !mb-5 w-full xs:flex-col xs:w-[20%] gap-3">
             <div v-for="(img, index) in images" :key="index"
-                class="w-22 h-22 cursor-pointer overflow-hidden rounded-lg border-2 transition-all duration-300"
+                class="w-22 h-22 cursor-pointer overflow-hidden rounded-2xl border-2 transition-all duration-300"
                 :class="selectedIndex === index ? 'border-[#FF8C00]' : 'border-gray-300'" @click="selectImage(index)">
                 <image-component :view="false" @click="selectImage(index)" :image="img" :product="productInfoStore.product"
                     :class="selectedIndex === index ? 'border-[#FF8C00]' : 'border-gray-300'"
@@ -29,7 +29,7 @@ function selectImage(index) {
             </div>
         </div>
 
-        <div class="relative w-[99%] h-[400px] sm:!w-[500px] overflow-hidden rounded-2xl shadow-lg">
+        <div class="relative w-[99%] h-[435px] md:!w-[450px] lg:!w-[500px] overflow-hidden rounded-[30px] shadow-lg">
             <transition name="fade" mode="out-in">
                 <img v-if="images[selectedIndex]" :key="images[selectedIndex]" :src="images[selectedIndex]"
                     alt="selected" class="w-full h-full object-contain" />

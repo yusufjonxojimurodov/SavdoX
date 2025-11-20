@@ -20,8 +20,14 @@ import 'leaflet/dist/leaflet.css'
 import ImageComponent from '@/components/BaseComponents/ImageComponent.vue';
 import useImage from '@/store/image.pinia';
 import { useRouter } from 'vue-router';
-import useProductInfo from '../../../store/products.info.pinia';
-import useComments from '../../../store/comments.pinia';
+import useProductInfo from '@/store/products.info.pinia';
+import useComments from '@/store/comments.pinia';
+import IconBack from '@/components/icons/IconBack.vue';
+
+const open = defineModel("open", {
+    type: Boolean,
+    default: false
+})
 
 const productStore = useProducts()
 const pendingProductStore = usePendingProduct()
@@ -36,6 +42,7 @@ const quantities = ref({})
 const selectedCards = ref([])
 const isFooterVisible = ref(false);
 let observer = null;
+const screenWidth = ref(window.innerWidth)
 const showMap = ref(false)
 const tempLocation = ref({ lat: 41.2995, lng: 69.2401 })
 const mapEl = ref(null)
@@ -71,6 +78,7 @@ async function deleteSelectedProducts() {
     try {
         await productStore.deleteBasketProduct(selectedCards.value);
         message.success("Savatchadan mahsulot o'chirildi")
+        selectedCards.value = []
     } catch (error) {
         message.error(error)
     }
@@ -264,12 +272,12 @@ watch([showMap, quantities], ([showVal, qtyVal], [oldShow, oldQty]) => {
                             <swiper-slide v-for="(image, index) in imageStore.urls[basketProduct.id] || [' ']"
                                 :key="index" class="flex justify-center items-center">
                                 <image-component :image="image" :product="basketProduct"
-                                    class="object-contain !w-[700px] !h-[300px] transition duration-300 !rounded-[30px]" />
+                                    class="object-contain !w-[700px] !h-[100%] transition duration-300 !rounded-[30px]" />
                             </swiper-slide>
                         </swiper>
 
                         <div v-if="basketProduct.discount != 0"
-                            class="w-[60px] flex justify-center items-center !p-4 bg-[#FF8C00] absolute top-0 right-0 rounded-tr-[28px] rounded-bl-[30px]">
+                            class="w-[60px] flex justify-center items-center z-99 !p-4 bg-[#FF8C00] absolute top-0 right-0 rounded-tr-[28px] rounded-bl-[30px]">
                             <p class="text-white !font-semibold text-[16px]">-{{ basketProduct.discount }}%</p>
                         </div>
                         <div class="flex justify-center items-start flex-col gap-[20px] w-full sm:w-auto">
@@ -308,21 +316,31 @@ watch([showMap, quantities], ([showVal, qtyVal], [oldShow, oldQty]) => {
                 </template>
             </div>
 
-            <div v-show="!isFooterVisible" class="bg-white !p-[15px] rounded-t-[20px] lg:rounded-[20px] shadow-lg flex flex-col gap-3 
-             fixed bottom-0 left-0 w-full z-50 
-             lg:w-[300px] lg:gap-4 lg:p-[20px] lg:h-fit lg:sticky lg:top-10 transition-all duration-300">
+            <div v-show="!isFooterVisible || screenWidth >= 1200" :class="[
+                screenWidth < 1200
+                    ? (open ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0')
+                    : 'translate-x-0 opacity-100 sticky gap-4 p-[20px] h-fit !top-45'
+            ]" class="bg-white flex !p-[15px] !rounded-tr-[30px] w-[300px] !rounded-br-[30px] lg:rounded-[30px] shadow-lg flex-col gap-3 
+         fixed top-65 left-0 z-50 
+         transition-all duration-300 transform">
+                <a-button v-if="screenWidth < 1200" type="primary" @click="open = false"
+                    class="!rounded-none !flex !justify-center !items-center !w-[40px] !rounded-tr-[30px] shadow-md! !rounded-br-[30px] !fixed !left-75 !top-1/4">
+                    <template #icon>
+                        <icon-back class="!w-7 !h-7 !text-white" />
+                    </template>
+                </a-button>
                 <div class="flex justify-between items-center">
                     <h3 class="text-[#212529] text-lg lg:text-xl font-semibold">Tanlanganlar</h3>
                     <a-tooltip title="Savatchadan o'chirish">
                         <a-button @click="deleteSelectedProducts" :disabled="selectedCards.length === 0" size="middle"
                             type="primary" class="lg:size-large">
-                            <IconTrash />
+                            <icon-trash class="w-5 h-5" />
                         </a-button>
                     </a-tooltip>
                 </div>
                 <p class="text-[#212529] text-sm lg:text-base">
                     Jami:
-                    <span class="text-yellow-400 text-lg font-bold">{{ totalPrice }}$</span>
+                    <span class="text-gray-600 text-lg font-bold">{{ totalPrice }}$</span>
                 </p>
                 <a-button :disabled="basketProducts.length === 0" @click="selectAll" type="primary" block size="middle"
                     class="lg:size-large">

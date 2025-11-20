@@ -76,7 +76,7 @@ function report() {
 
 <template>
     <div>
-        <button @click="open = !open" :aria-expanded="open" class="fixed cursor-pointer right-6 bottom-6 sm:right-10 sm:bottom-10 z-50 flex items-center justify-center
+        <button @click="open = !open" :aria-expanded="open" class="liquid-glass-button fixed cursor-pointer right-6 bottom-6 sm:right-10 sm:bottom-10 z-50 flex items-center justify-center
                    w-12 h-12 sm:w-16 sm:h-16 rounded-full shadow-2xl bg-gradient-to-br bg-[#FF8C00] text-white
                    transform transition-transform duration-200 hover:scale-105 focus:outline-none"
             aria-label="Open chat">
@@ -93,7 +93,7 @@ function report() {
 
         <transition name="slide-fade">
             <div v-if="open" class="fixed right-4 bottom-30 sm:right-6 z-50 w-[90%] max-w-sm sm:w-100
-                       liquid-glass backdrop-blur-md rounded-2xl overflow-hidden flex flex-col">
+                       liquid-glass backdrop-blur-md rounded-[30px] overflow-hidden flex flex-col">
                 <div class="!px-3 !py-2 sm:!px-4 sm:!py-3 flex items-center justify-between border-b border-gray-100">
                     <div class="flex items-center gap-2 sm:gap-3">
                         <img class="w-12 h-12 sm:w-16 sm:h-16" src="../assets/images/bot.png" alt="avatar">
@@ -140,9 +140,9 @@ function report() {
                             :class="m.from === 'bot' ? 'justify-start' : 'justify-end'">
 
                             <div :class="[
-                                'max-w-[80%] !px-2 !py-1.5 sm:!px-3 sm:!py-2 rounded-xl text-sm',
+                                'max-w-[80%] shadow-md !px-2 !py-1.5 sm:!px-3 sm:!py-2 rounded-xl text-sm',
                                 m.from === 'bot'
-                                    ? 'bg-gray-100 text-gray-900'
+                                    ? 'bg-white text-gray-900'
                                     : 'bg-[#FF8C00] text-white'
                             ]">
                                 <div v-if="m.from === 'bot'" v-html="m.text"></div>
@@ -157,12 +157,15 @@ function report() {
                             <div
                                 class="inline-block !px-2 !py-1 sm:!px-3 sm:!py-2 rounded-xl bg-transparent text-gray-700">
                                 <div class="flex items-center gap-1">
-                                    <span
-                                        class="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#FF8C00] rounded-full animate-pulse"></span>
-                                    <span
-                                        class="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#FF8C00] rounded-full animate-pulse delay-150"></span>
-                                    <span
-                                        class="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#FF8C00] rounded-full animate-pulse delay-300"></span>
+                                    <div
+                                        class="tailwindAnimation w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#FF8C00] rounded-full animate-pulse">
+                                    </div>
+                                    <div
+                                        class="tailwindAnimation w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#FF8C00] rounded-full animate-pulse delay-150">
+                                    </div>
+                                    <div
+                                        class="tailwindAnimation w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[#FF8C00] rounded-full animate-pulse delay-300">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -170,11 +173,12 @@ function report() {
                 </div>
 
                 <div class="!px-2 !py-2 sm:!px-3 border-t border-gray-100">
-                    <div class="flex items-center gap-2">
-                        <a-input v-model:value="inputText" @keyup.enter="handleSend"
-                            placeholder="Savolingizni yozing..." size="large" class="text-sm sm:text-base" />
+                    <div class="flex !p-2 justify-between items-end bg-white! shadow-md w-full! rounded-[30px]!">
+                        <a-textarea v-model:value="inputText" @keydown.enter.prevent="handleSend"
+                            class="!bg-transparent shadow-none! !w-[92%]" :auto-size="{ minRows: 1, maxRows: 6 }"
+                            placeholder="Savolingizni kiriting" />
                         <a-button type="primary" @click="handleSend" :disabled="!inputText.trim()"
-                            class="!w-8 !h-8 sm:w-8 sm:h-8 !disabled:opacity-60">
+                            class="!w-8 flex! justify-center! rounded-full! items-center! !h-8 sm:w-8 sm:h-8 !disabled:opacity-60">
                             <template #icon>
                                 <icon-send-component class="w-5 h-5" />
                             </template>
@@ -214,5 +218,21 @@ function report() {
 .slide-fade-leave-to {
     transform: translateY(10px);
     opacity: 0;
+}
+
+.liquid-glass-button {
+  background: linear-gradient(135deg, #FF8C00, #FFA500, #FFB733);
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(255, 140, 0, 0.4), 0 4px 6px rgba(0,0,0,0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.liquid-glass-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(255, 140, 0, 0.5), 0 6px 10px rgba(0,0,0,0.15);
 }
 </style>

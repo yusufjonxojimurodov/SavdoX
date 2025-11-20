@@ -34,18 +34,18 @@ onMounted(async () => {
 <template>
     <header-component />
     <div class="container">
-        <section-name-component :back="'Mahsulotlar'" :open-back="true" title="Mahsulot haqida">
-            <div class="flex flex-col sm:!flex-row sm:!justify-between sm:!items-start !mt-[5%]">
+        <section-name-component :back="'Products'" :open-back="true" title="Mahsulot haqida">
+            <div class="flex flex-col md:!flex-row md:!justify-between md:!items-start !mt-[5%]">
                 <product-image-component />
-                <div class="!ml-3">
-                    <a-card class="!shadow-md !border-none !rounded-2xl">
-                        <product-info-component v-if="!productStore.modalLoader" />
-                        <info-skeleton v-else />
-                    </a-card>
+                <div class="m-0 p-0 md:!ml-2">
+                    <a-card class="!shadow-md !border-none !rounded-[30px]">
+                    <product-info-component v-if="!productStore.modalLoader" />
+                    <info-skeleton v-else />
+                </a-card>
                 </div>
             </div>
         </section-name-component>
-        <div class="flex flex-col-reverse sm:flex-row sm:justify-between !mt-5 !w-full">
+        <div class="flex flex-col-reverse md:flex-row md:justify-between !mt-5 !w-full">
             <section-name-component title="Komentariyalar">
                 <coments-component />
                 <coment-create-component />

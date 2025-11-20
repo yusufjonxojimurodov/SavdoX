@@ -6,30 +6,23 @@ import HelperBotComponent from './components/HelperBotComponent.vue';
 import useRegister from './store/register.pinia';
 import useSetting from './store/settings.pinia';
 import { watch } from 'vue';
-import { useRoute } from 'vue-router';
 import useNotification from './store/notifications.pinia';
+import { useRoute } from 'vue-router';
 
 const registerStore = useRegister()
 const settingStore = useSetting()
-const notificationStore = useNotification()
 const route = useRoute()
+const notificationStore = useNotification()
 
-// onBeforeMount(() => {
-//   settingStore.getUserAvatar()
-//   ApiVisits()
-// })
-
-// watch(() => route.fullPath, () => {
-//   registerStore.getPlatformStatus()
-// }, { immediate: true })
-
+onBeforeMount(() => {
+  ApiVisits()
+})
 
 watch(() => registerStore.user, () => {
   const userId = registerStore.user.id
 
   if (userId) {
     notificationStore.connectWebSocket(userId)
-    console.log(userId)
   }
 })
 
@@ -41,7 +34,7 @@ onMounted(async () => {
 
 <template>
   <router-view />
-  <helper-bot-component />
+  <helper-bot-component v-if="route.name !== 'Chats'" />
   <div v-if="registerStore.userLoader" class="wrapper">
     <div class="circle"></div>
     <div class="circle"></div>

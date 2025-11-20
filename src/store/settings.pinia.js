@@ -4,7 +4,6 @@ import useRegister from "./register.pinia";
 import api from "@/utils/api/api";
 import { message } from "ant-design-vue";
 
-
 const useSetting = defineStore("setting", {
   state: () => ({
     avatar: "",
@@ -18,14 +17,13 @@ const useSetting = defineStore("setting", {
       this.avatarLoading = true;
       try {
         const user = useRegister().user;
-        const { data } = await ApiGetUserAvatar(user.avatar_content_type);
-
-        this.avatar = `data:${user.avatar_content_type};base64,${data.avatar}`;
+        if (user.avatar_content_type) {
+          const { data } = await ApiGetUserAvatar(user.avatar_content_type);
+          this.avatar = `data:${user.avatar_content_type};base64,${data.avatar}`;
+        }
       } catch (error) {
-        console.error("Profil olishda xato:", error);
         this.avatar = null;
       } finally {
-        console.log(this.avatar);
         this.avatarLoading = false;
       }
     },
@@ -57,10 +55,8 @@ const useSetting = defineStore("setting", {
 
         this.avatarHashId = res.data.avatar;
       } catch (err) {
-        console.error(err);
         message.error(err.response?.data?.message || err);
       } finally {
-        console.log(this.avatarHashId);
         this.uploadLoading = false;
       }
     },

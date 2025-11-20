@@ -36,7 +36,7 @@ const useProducts = defineStore("products", {
       try {
         const { data } = await ApiGetProducts(search, price);
         this.products = data;
-        this.productId = data.id
+        this.productId = data.id;
       } catch (error) {
         console.error(error);
       } finally {
@@ -62,11 +62,9 @@ const useProducts = defineStore("products", {
       try {
         const { data } = await ApiGetBasketProduct();
         this.basketProducts = data;
-        this.productId = data.productId
+        this.productId = data.productId;
       } catch (errorGet) {
-        const errorMessage =
-          errorGet.data?.response?.message || "Mahsulot topilmadi";
-        message.error(errorMessage);
+        console.error(errorGet);
       } finally {
         this.loader = false;
       }

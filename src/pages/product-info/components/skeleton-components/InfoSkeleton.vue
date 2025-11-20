@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-6 max-w-[500px]">
+    <div class="flex flex-col gap-6 !max-w-[500px]">
         <a-skeleton :active="true" :paragraph="false">
             <a-skeleton-input active style="width: 200px; height: 24px;" />
         </a-skeleton>

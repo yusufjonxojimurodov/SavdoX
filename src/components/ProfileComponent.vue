@@ -14,7 +14,7 @@ import IconAdmin from './icons/IconAdmin.vue';
 import { message } from 'ant-design-vue';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
-import IconAdd from './icons/IconAdd.vue';
+import IconComent from './icons/IconComent.vue';
 
 const route = useRoute()
 const settingStore = useSetting()
@@ -45,26 +45,18 @@ function openProfileModal() {
     openProfile.value = true
 }
 
-function routerBot() {
-    if (registerstore.user.role === "seller" || registerstore.user.role === "admin") {
-        router.push("/seller/products")
-    } else {
-        window.open("https://t.me/savdo_x_bot", "_blank")
-    }
-}
-
 function supportAdmin() {
     window.location.href = "https://t.me/savdo_x_bot"
 }
 </script>
 
 <template>
-    <a-dropdown :getPopupContainer="getPopupContainer" placement="bottomRight" :trigger="['click']"">
+    <a-dropdown :getPopupContainer="getPopupContainer" placement="bottomRight"">
         <a class="">
             <a-space>
-                <a-avatar class="avatar" style="background-color: none;">
+                <a-avatar class=" avatar" style="background-color: none;">
         <template #icon>
-             <img v-if="avatar" :src="avatar" alt="avatar">
+            <img v-if="avatar" :src="avatar" alt="avatar">
             <icon-profile v-else />
         </template>
         </a-avatar>
@@ -77,28 +69,29 @@ function supportAdmin() {
                     <a-menu-item @click="openProfileModal" class="logout-item" key="profil">
                         <div class="flex justify-between items-center w-full">
                             Profil
-                            <icon-user />
+                            <icon-user class="w-4 h-4" />
                         </div>
                     </a-menu-item>
+                    <!-- <a-menu-item>
+                        <div @click="router.push({ name: 'Chats' })" class="flex justify-between items-center"
+                            key="chats">
+                            Chatlarim
+                            <icon-coment class="w-4 h-4" />
+                        </div>
+                    </a-menu-item> -->
                     <a-menu-item @click="openSettings" class="logout-item" key="settings">
                         <div class="flex justify-between items-center">
-                            Sozlamalar
-                            <icon-setting />
-                        </div>
-                    </a-menu-item>
-                    <a-menu-item v-if="route.path.includes('/seller')" key="telegramBot">
-                        <div @click="supportAdmin" class="flex justify-between items-center w-full">
-                            Adminga Bog'lanish
-                            <icon-admin />
+                            Profil sozlamasi
+                            <icon-setting class="w-4 h-4" />
                         </div>
                     </a-menu-item>
                     <a-menu-divider />
                     <a-menu-item key="logout" class="logout-item">
                         <a-popconfirm title="Akkauntdan chiqmoqchimisiz?" ok-text="Chiqish" cancel-text="Bekor qilish"
                             :overlay-style="{ zIndex: 2000 }" @confirm="handleLogout" @click.stop>
-                            <div class="flex justify-between items-center w-full">
+                            <div class="text-red-500 flex justify-between items-center w-full">
                                 <span>Chiqish</span>
-                                <icon-log-out />
+                                <icon-log-out class="w-4 h-4" />
                             </div>
                         </a-popconfirm>
                     </a-menu-item>
@@ -107,7 +100,7 @@ function supportAdmin() {
                     <a-menu-item @click="registerstore.openDrawer" class="logout-item" key="profil">
                         <div class="flex justify-between items-center w-full">
                             Tizimga kirish
-                            <icon-enter />
+                            <icon-enter class="w-4 h-4" />
                         </div>
                     </a-menu-item>
                 </template>

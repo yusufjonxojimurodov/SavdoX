@@ -1,36 +1,29 @@
 <script setup>
-import IconRegister from './icons/IconRegister.vue'
+const open = defineModel("open", {
+    type: Boolean,
+    default: false
+})
 
-const open = defineModel("open", { type: Boolean, default: false })
-
-function openBot() {
+const openBot = () => {
     window.open("https://t.me/savdo_x_bot", "_blank")
-}
-
-function closeModal() {
-    open.value = false
 }
 </script>
 
 <template>
-    <a-modal @cancel="closeModal" v-model:open="open" centered>
-        <template #title>
-            <div class="flex items-center gap-2">
-                <icon-register class="w-6 h-6" />
-                <p class="text-[#212529] text-[24px] !font-semibold">Ro'yxatdan o'tish</p>
-            </div>
-        </template>
-
-        <p class="text-gray-700 text-[18px] font-medium !mt-[20px]">
-            SavdoX ga xush kelibsiz! Hisobingiz yo'q bo'lsa telegram botimiz orqali shaxsingizni tasdiqlab ro'yxatdan
-            o'tishingiz mumkin. Botga kiring /start buyrug'ini yuboring
-        </p>
+    <a-modal @cancel="open = false" :open="open" title="Qo'llanma" centered>
+        <p class="text-[16px]! font-medium!">Xurmatli sotuvchi platformamizda qaysi telefon raqamingiz orqali ro‘yxatdan
+            o‘tgan
+            bo‘lsangiz, o‘sha raqamga ulangan Telegram
+            akkauntingizga kirib, bizning bot orqali parolingizni tiklashingiz mumkin.</p>
 
         <template #footer>
-            <div class="flex items-center justify-end gap-2 !mt-[40px]">
-                <a-button size="large" ghost danger @click="closeModal">Keyinroq</a-button>
+            <div class="flex justify-end items-center mt-4">
+                <a-button size="large" @click="open = false">
+                    Yopish
+                </a-button>
+
                 <a-button size="large" type="primary" @click="openBot">
-                    Ro'yxatdan o'tish
+                    Parol almashtirish
                 </a-button>
             </div>
         </template>

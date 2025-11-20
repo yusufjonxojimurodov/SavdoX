@@ -65,6 +65,7 @@ const useRegister = defineStore("register", {
 
         return true;
       } catch (errorGet) {
+        if(errorGet.response?.status === 401) localStorage.removeItem("access_token")
         return false;
       } finally {
         this.userLoader = false;

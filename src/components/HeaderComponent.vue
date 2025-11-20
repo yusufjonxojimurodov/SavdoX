@@ -16,6 +16,7 @@
     import IconPurchase from './icons/IconPurchase.vue';
     import IconOther from './icons/companies/IconOther.vue';
     import NotificationsComponent from './NotificationsComponent.vue';
+    import IconChat from './icons/IconChat.vue';
 
     const route = useRoute()
     const settingStore = useSetting()
@@ -78,16 +79,11 @@
 
                     <icon-burger class="lg:hidden text-white w-8 h-8 cursor-pointer" @click="open = true" />
                     <a-space size="middle" class="hidden lg:flex items-center">
-                        <a-button
-                            v-if="!route.path.includes('/basket') && !route.path.includes('/pending/product') && !route.path.includes('/buyyed/product')"
-                            type="primary" size="large" :disabled="registerstore.user.length === 0"
-                            @click="basketProduct"
-                            class="basket !bg-[#F8EDEB] !font-medium !text-[18px] !text-[#343A40] hidden w-[150px] sm:flex rounded-2xl transition duration-500">
-                            <div class="flex items-center gap-2 justify-center w-full">
-                                <icon-basket />
-                                Savatcha
-                            </div>
-                        </a-button>
+                        <a-badge :count="0"
+                            v-if="!route.path.includes('/basket') && !route.path.includes('/pending/product') && !route.path.includes('/buyyed/product')">
+                            <icon-basket @click="router.push({ name: 'Basket' })"
+                                class="text-white w-7 h-7 cursor-pointer" />
+                        </a-badge>
 
                         <a-button @click="pendingPage" v-else-if="route.path.includes('/basket')"
                             class="!flex justify-center items-center !gap-3 !font-semibold" size="large" type="primary">
@@ -103,8 +99,12 @@
                             type="primary"
                             class="!flex justify-center items-center !gap-[10px] !font-semibold !text-[18px]">
                             Haridlar tarixi
-                            <icon-purchase class="w-5 h-5"/>
+                            <icon-purchase class="w-5 h-5" />
                         </a-button>
+
+                        <!-- <a-badge v-if="route.name !== 'Chats'" @click="router.push({ name: 'Chats' })">
+                            <icon-chat class="w-7 h-7 cursor-pointer text-white" />
+                        </a-badge> -->
 
                         <notifications-component />
                         <profile-component />
@@ -135,7 +135,7 @@
     bottom: 0;
     width: 0%;
     height: 1.5px;
-    background: #212529;
+    background: #F8EDEB;
     transition: width 0.4s ease;
     border-radius: 1000px;
 }

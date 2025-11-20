@@ -20,11 +20,9 @@ const useBuyyedProduct = defineStore("buyyedProduct", {
 
         this.buyyedProduct = data.deliveries;
 
-        // Har bir product uchun rasmlarni faqat bir martalab yuborish
         this.buyyedProduct.forEach((product) => {
           const productId = product.product_id;
 
-          // Agar rasmlar ilgari yuborilgan bo'lsa, yana yubormaymiz
           if (
             !imageStore.urls[productId] ||
             imageStore.urls[productId].length === 0

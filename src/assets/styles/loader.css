@@ -20,6 +20,10 @@
   animation: circle7124 0.5s alternate infinite ease;
 }
 
+.tailwindAnimation {
+  animation: circle7124 0.5s alternate infinite ease;
+}
+
 @keyframes circle7124 {
   0% {
     top: 60px;

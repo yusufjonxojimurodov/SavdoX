@@ -4,23 +4,30 @@ import IconPhone from '@/components/icons/IconPhone.vue';
 import IconPoints from '@/components/icons/IconPoints.vue';
 import IconRating from '@/components/icons/IconRating.vue';
 import SellerSkeleton from '../skeleton-components/SellerSkeleton.vue';
-import IconComent from '../../../../components/icons/IconComent.vue';
+import IconComent from '@/components/icons/IconComent.vue';
+import { useRouter } from 'vue-router';
+import IconCall from '@/components/icons/IconCall.vue';
 
 const productInfo = useProductInfo()
+const router = useRouter()
 
 const open = defineModel("open", { type: Boolean, default: false })
 
-function contactSeller() {
-    window.open(`https://t.me/${productInfo.sellerInfo.username}`, '_blank')
+function contactSeller(status) {
+    if (status === 'TG') {
+        window.open(`https://t.me/${productInfo.sellerInfo.username}`, '_blank')
+    } else {
+        window.open(`tel:${productInfo.sellerInfo.phone}`, '_blank')
+    }
 }
 </script>
 
 <template>
     <div v-if="!productInfo.loader || productInfo.sellerInfo"
-        class="flex flex-col gap-6 !mt-6 bg-white rounded-2xl shadow-lg !p-6 w-full max-w-xl mx-auto">
+        class="flex flex-col gap-6 !mt-6 bg-white rounded-[30px]! shadow-lg !p-6 w-[100%] lg:w-[430px] mx-auto">
         <div class="flex items-center gap-5 border-b !pb-4">
-            <a-avatar :size="90" :src="productInfo.sellerInfo.avatar"
-                class="!rounded-full border-2 !border-[#FFD700]" />
+            <!-- <a-avatar :size="90" :src="productInfo.sellerInfo.avatar"
+                class="!rounded-full border-2 !border-[#FF8C00]" /> -->
             <div class="flex flex-col">
                 <h2 class="text-[#212529] text-2xl font-bold">
                     {{ productInfo.sellerInfo.name }} {{ productInfo.sellerInfo.surname }}
@@ -32,7 +39,7 @@ function contactSeller() {
         <div class="flex flex-col gap-5">
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-3 text-[#212529]">
-                    <icon-phone class="w-6 h-6 text-[#FFD700]" />
+                    <icon-call class="w-6 h-6 text-[#212529]" />
                     <p class="text-lg !font-semibold">Telefon:</p>
                 </div>
                 <a class="text-base text-[#212529] !border-b !border-[#212529] hover:!text-[#FF8C00]"
@@ -43,7 +50,7 @@ function contactSeller() {
 
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-3 text-[#212529]">
-                    <icon-points class="!w-6 !h-6 text-[#FFD700]" />
+                    <icon-points class="!w-6 !h-6 text-[#212529]" />
                     <p class="text-lg !font-semibold">To'plangan ball:</p>
                 </div>
                 <p class="text-lg !font-bold text-[#212529]">{{ productInfo.sellerInfo.points || 0 }}</p>
@@ -51,7 +58,7 @@ function contactSeller() {
 
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-3 text-[#212529]">
-                    <icon-rating class="w-6 h-6 text-[#FFD700]" />
+                    <icon-rating class="w-6 h-6 text-[#212529]" />
                     <p class="text-lg font-semibold">Rating:</p>
                 </div>
                 <a-rate :value="productInfo.sellerInfo.rating || 0" disabled :count="5" :character="() => '★'"
@@ -60,17 +67,23 @@ function contactSeller() {
         </div>
 
         <div class="flex justify-end gap-4 border-t !pt-4">
-            <a-tooltip title="Tez orada...">
-                <a-button disabled size="large" class="!flex blur-[2px] justify-center items-center gap-2">
+            <a-popconfirm @confirm="contactSeller('CALL')" @cancel="contactSeller('TG')"
+                title="Qanday bog'lanmoqchisiz ?" ok-text="Qo'ng'iroq qilish" cancel-text="Telegram">
+                <a-button type="primary" size="large" class="flex! justify-center! items-center! !px-6 !py-2">
                     <template #icon>
-                        <icon-coment />
+                        <icon-call class="w-5 h-5" />
+                    </template>
+                    Bog'lanish
+                </a-button>
+            </a-popconfirm>
+            <a-tooltip title="Tez orada...">
+                <a-button disabled size="large" class="!flex justify-center items-center gap-2 blur-[2px]">
+                    <template #icon>
+                        <icon-coment class="w-5 h-5" />
                     </template>
                     Chatni ochish
                 </a-button>
             </a-tooltip>
-            <a-button type="primary" size="large" class="!px-6 !py-2" @click="contactSeller">
-                Bog'lanish
-            </a-button>
         </div>
     </div>
 

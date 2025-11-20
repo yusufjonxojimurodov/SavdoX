@@ -3,8 +3,10 @@ import { ref } from 'vue';
 import useQueryParams from '@/composables/useQueryParams';
 import { debounce } from '@/utils/helpers/debounce';
 import IconBack from '@/components/icons/IconBack.vue';
+import { useRouter } from 'vue-router';
 
 const { setQueries, getQueries } = useQueryParams()
+const router = useRouter()
 
 const searchProductValue = ref(getQueries().search)
 const selectValue = ref(getQueries().price)
@@ -55,9 +57,12 @@ function changeTypeFilter(value) {
     <section>
         <div class="container flex justify-between items-center !mt-[25px] flex-wrap">
             <div class="flex justify-center items-center gap-[8px]">
-                <router-link to="/" class="bg-none border-none cursor-pointer">
-                    <icon-back />
-                </router-link>
+                <a-button @click="router.push({ name: 'Mahsulotlar' })" type="primary"
+                    class="bg-white! w-[40px]! h-[40px]! !flex justify-center! items-center! rounded-full! shadow-lg!">
+                    <template #icon>
+                        <icon-back class="w-7 h-7 text-black" />
+                    </template>
+                </a-button>
                 <h2 class="!text-[28px] !font-semibold text-[#212529] !m-0 !p-0">Google Mahsulotlari</h2>
             </div>
             <div class="!flex justify-between sm:justify-end gap-2 flex-wrap sm:!mt-0 !mt-3">

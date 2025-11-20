@@ -7,7 +7,7 @@ export let buttonLoader = reactive({});
 export async function addBasket(product) {
   const token = localStorage.getItem("access_token");
   if (!token) {
-    useRegister().openModal();
+    useRegister().openDrawer();
     return;
   } else {
     buttonLoader[product.id] = true

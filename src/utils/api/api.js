@@ -3,7 +3,6 @@ import router from "@/routers/router";
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
-  timeout: 20000,
 });
 
 instance.interceptors.response.use(
