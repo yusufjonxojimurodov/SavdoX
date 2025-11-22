@@ -18,8 +18,8 @@ function selectImage(index) {
 </script>
 
 <template>
-    <div v-if="images.length" class="flex flex-col-reverse xs:!flex-row gap-6 items-start">
-        <div class="flex items-center justify-center !mb-5 w-full xs:flex-col xs:w-[20%] gap-3">
+    <div v-if="images.length" class="flex flex-col-reverse md:!flex-row gap-6 items-start">
+        <div class="flex items-center justify-center !mb-5 w-full md:flex-col md:w-[20%] gap-3">
             <div v-for="(img, index) in images" :key="index"
                 class="w-22 h-22 cursor-pointer overflow-hidden rounded-2xl border-2 transition-all duration-300"
                 :class="selectedIndex === index ? 'border-[#FF8C00]' : 'border-gray-300'" @click="selectImage(index)">

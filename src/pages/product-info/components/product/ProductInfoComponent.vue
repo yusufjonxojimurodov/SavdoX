@@ -48,8 +48,8 @@ const shortDescriptionHTML = computed(() => {
                     Sotuvda emas
                 </a-tag>
             </div>
-            <p class="text-[#444] !w-full sm:!w-[380px] !text-base !leading-relaxed" v-html="shortDescriptionHTML">
-            </p>
+            <a-textarea auto-size class="!w-full !shadow-none !p-0 !m-0 !rounded-none !resize-none" size="large"
+                v-model:value="shortDescriptionHTML" />
 
             <span v-if="!showFullDescription && (product.description || '').length > 180"
                 class="text-blue-500 cursor-pointer" @click="showFullDescription = true">
@@ -79,8 +79,8 @@ const shortDescriptionHTML = computed(() => {
         </div>
 
         <div class="flex gap-3 !mt-4">
-            <a-button :disabled="product.status === 'NOTFORSALE'" @click="addBasket(product)" :loading="buttonLoader[product.id]" type="primary" size="large"
-                class="!flex items-center gap-2">
+            <a-button :disabled="product.status === 'NOTFORSALE'" @click="addBasket(product)"
+                :loading="buttonLoader[product.id]" type="primary" size="large" class="!flex items-center gap-2">
                 Savatchaga
                 <template #icon>
                     <icon-basket class="basket-icon w-5 h-5" />

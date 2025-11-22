@@ -37,7 +37,7 @@ onMounted(async () => {
         <section-name-component :back="'Products'" :open-back="true" title="Mahsulot haqida">
             <div class="flex flex-col md:!flex-row md:!justify-between md:!items-start !mt-[5%]">
                 <product-image-component />
-                <div class="m-0 p-0 md:!ml-2">
+                <div class="m-0 p-0 w-[430px] md:!ml-2">
                     <a-card class="!shadow-md !border-none !rounded-[30px]">
                     <product-info-component v-if="!productStore.modalLoader" />
                     <info-skeleton v-else />

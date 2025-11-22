@@ -29,7 +29,7 @@ function selectRating(value) {
 
 async function handleSubmit() {
     if (!userStore.user) {
-        userStore.openModal()
+        userStore.openDrawer()
         return
     }
 

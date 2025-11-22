@@ -10,6 +10,7 @@ import useComments from '@/store/comments.pinia.js';
 import ProductComponent from '@/components/ProductComponent.vue';
 import { useRouter } from 'vue-router';
 import ProductSkeletonComponent from '@/components/ProductSkeletonComponent.vue';
+import { addBasket, buttonLoader } from '@/utils/helpers/add.basket';
 
 const productsInfoStore = useProductInfo()
 const commentsStore = useComments()
