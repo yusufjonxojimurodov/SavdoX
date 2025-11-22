@@ -4,7 +4,7 @@
             class="w-[174px] sm:w-[280px] !rounded-[30px] overflow-hidden shadow-md mx-auto" :bordered="false">
             <div
                 class="flex justify-center items-center h-[100px] sm:h-[150px] !w-full bg-gray-50 rounded-2xl overflow-hidden">
-                <a-skeleton-image :active="true" />
+                <div class="loader shadow-md opacity-65"></div>
             </div>
 
             <div class="p-3 !mt-5">

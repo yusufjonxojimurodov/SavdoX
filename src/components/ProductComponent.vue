@@ -39,7 +39,7 @@ defineEmits(['select', 'add-to-basket'])
             <p class="text-white !font-semibold text-[16px]">-{{ product.discount }}%</p>
         </div>
 
-        <div class="!flex flex-col !gap-2 sm:!gap-3 ">
+        <div class="!flex flex-col !gap-2 sm:!gap-3 mb-2!">
             <p class="text-[15px] sm:text-[20px] md:text-[24px] text-[#212529] !font-semibold">{{ product.name }}
             </p>
 
@@ -61,9 +61,9 @@ defineEmits(['select', 'add-to-basket'])
             </div>
 
             <div>
-                <p class="text-[#343A40] break-words text-[10px] sm:text-[13px] md:text-[14px]">
+                <p class="text-[#343A40] break-words text-[10px] sm:text-[14px] md:text-[14px]">
                     {{ product.description.slice(0, 80) }} <span
-                        class="!text-[#6C757D] text-medium text-[12px] sm:text-[13px] md:text-[14px]">
+                        class="!text-[#6C757D] text-medium text-[10px] sm:text-[14px] md:text-[14px]">
                         Batafsil...</span>
                 </p>
             </div>
@@ -90,7 +90,7 @@ defineEmits(['select', 'add-to-basket'])
 
         <a-button :disabled="product.left_count === 0" :loading="buttonLoading"
             @click.stop="$emit('add-to-basket', product)"
-            class="basketGo w-full! flex! justify-center! items-center! !text-[12px] !mt-0 sm:!text-[14px] md:!text-[16px]"
+            class="basketGo w-full! flex! justify-center! items-center! !text-[12px] sm:!text-[14px] md:!text-[16px]"
             :size="windowWidth <= 450 ? 'middle' : 'large'" type="primary">
             <template #icon>
                 <icon-basket class="w-5 h-5" />

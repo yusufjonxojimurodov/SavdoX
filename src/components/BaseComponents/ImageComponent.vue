@@ -26,7 +26,7 @@ watch(
 <template>
     <div v-if="imageStore.loading[product.id]"
         class="flex justify-center items-center h-[100px] sm:h-[150px] !w-full bg-gray-50 rounded-2xl overflow-hidden">
-        <a-skeleton-image :active="true" />
+        <div class="loader shadow-md opacity-65"></div>
     </div>
     <a-image v-else-if="view" @click.stop :src="image" alt="product-image" />
     <img v-else :src="image" alt="product-image">
