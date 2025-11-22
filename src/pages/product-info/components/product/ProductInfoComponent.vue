@@ -48,7 +48,7 @@ const shortDescriptionHTML = computed(() => {
                     Sotuvda emas
                 </a-tag>
             </div>
-            <a-textarea auto-size class="!w-full !shadow-none !p-0 !m-0 !rounded-none !resize-none" size="large"
+            <a-textarea disabled auto-size class="!w-full !bg-transparent !cursor-default !shadow-none !p-0 !m-0 !rounded-none !resize-none" size="large"
                 v-model:value="shortDescriptionHTML" />
 
             <span v-if="!showFullDescription && (product.description || '').length > 180"
