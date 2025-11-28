@@ -8,9 +8,11 @@ import useSetting from './store/settings.pinia';
 import { watch } from 'vue';
 import useNotification from './store/notifications.pinia';
 import { useRoute } from 'vue-router';
+import useChat from './store/chats-store/chats.pinia';
 
 const registerStore = useRegister()
 const settingStore = useSetting()
+const chatsStore = useChat()
 const route = useRoute()
 const notificationStore = useNotification()
 
@@ -22,6 +24,7 @@ watch(() => registerStore.user, () => {
   const userId = registerStore.user.id
 
   if (userId) {
+    chatsStore.connectSocket(userId)
     notificationStore.connectWebSocket(userId)
   }
 })

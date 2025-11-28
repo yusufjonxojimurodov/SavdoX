@@ -17,12 +17,14 @@
     import IconOther from './icons/companies/IconOther.vue';
     import NotificationsComponent from './NotificationsComponent.vue';
     import IconChat from './icons/IconChat.vue';
+    import useChat from '@/store/chats-store/chats.pinia';
 
     const route = useRoute()
     const settingStore = useSetting()
     const { avatar } = storeToRefs(settingStore)
     const registerstore = useRegister()
     const router = useRouter()
+    const chatsStore = useChat()
     const open = ref(false)
 
     function basketProduct() {
@@ -102,9 +104,10 @@
                             <icon-purchase class="w-5 h-5" />
                         </a-button>
 
-                        <!-- <a-badge v-if="route.name !== 'Chats'" @click="router.push({ name: 'Chats' })">
+                        <a-badge :count="chatsStore.messageCount" v-if="route.name !== 'Chats'"
+                            @click="router.push({ name: 'Chats' })">
                             <icon-chat class="w-7 h-7 cursor-pointer text-white" />
-                        </a-badge> -->
+                        </a-badge>
 
                         <notifications-component />
                         <profile-component />

@@ -101,6 +101,24 @@ p {
   pointer-events: none;
 }
 
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff8c00;
+  border-radius: 30px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffbf71;
+}
+
 @media (prefers-color-scheme: dark) {
   .liquid-glass {
     background: linear-gradient(

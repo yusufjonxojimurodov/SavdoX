@@ -2,13 +2,16 @@
 import IconSendComponent from '@/components/icons/reactions/IconSendComponent.vue';
 import IconRecording from '@/components/icons/IconRecording.vue';
 import IconPaperclip from '@/components/icons/IconPaperclip.vue';
-import { ref, nextTick } from 'vue';
+import { ref } from 'vue';
+import useChat from '@/store/chats-store/chats.pinia';
+
+const chatsStore = useChat()
 
 const fileList = ref([])
-
 const isRecording = ref(false)
 const isRecorded = ref(false)
 const recordedAudioUrl = ref(null)
+const message = ref("")
 
 const mediaRecorder = ref(null)
 const audioChunks = ref([])
@@ -98,31 +101,49 @@ const drawWave = () => {
     ctx.stroke()
 }
 
+function sendMessage() {
+    chatsStore.sendMessageSocket(chatsStore.userInfo.receiverId, message.value, reset)
+}
+
+function reset() {
+    message.value = ""
+}
 </script>
 
 <template>
     <div
-        class="bg-white! rounded-[30px]! shadow-md p-2! flex justify-center gap-4 items-center w-[600px] fixed bottom-6 left-1/2">
+        class="hidden md:flex blur-bg rounded-[30px]! shadow-md p-2! justify-center gap-4 items-center w-[400px] fixed bottom-6 left-[55%]">
         <div>
-            <a-textarea v-if="!isRecording && !isRecorded" placeholder="Xabaringizni kiriting"
-                class="w-[430px]! bg-white! shadow-none!" :auto-size="{ minRows: 1, maxRows: 8 }" />
+            <a-textarea :disabled="!chatsStore.userInfo.openChat" v-model:value="message"
+                v-if="!isRecording && !isRecorded" placeholder="Xabaringizni kiriting"
+                class="w-[330px]! !bg-transparent shadow-none!" :auto-size="{ minRows: 1, maxRows: 8 }" />
             <canvas v-else ref="canvasRef" width="400" height="40" class="rounded bg-blue-50"></canvas>
         </div>
-        <a-button @mousedown="startRecording" @mouseup="stopRecording" type="primary"
+        <!-- <a-button @mousedown="startRecording" @mouseup="stopRecording" type="primary"
             class="flex! justify-center! items-center! w-[35px]! h-[35px]! rounded-full!">
             <template #icon>
                 <icon-recording class="w-6 h-6" />
             </template>
-        </a-button>
-        <a-upload v-model:file-list="fileList">
-            <a-button type="primary" class="flex! justify-center! items-center! w-[35px]! h-[35px]! !p-0 rounded-full!">
-                <icon-paperclip class="w-6 h-6" />
-            </a-button>
-        </a-upload>
-        <a-button type="primary" class="flex! justify-center! items-center! w-[35px]! h-[35px]! rounded-full!">
+</a-button>
+<a-upload v-model:file-list="fileList">
+    <a-button type="primary" class="flex! justify-center! items-center! w-[35px]! h-[35px]! !p-0 rounded-full!">
+        <icon-paperclip class="w-6 h-6" />
+    </a-button>
+</a-upload> -->
+        <a-button :loading="chatsStore.messageLoading" :disabled="!chatsStore.userInfo.openChat || message.length <= 0"
+            @click="sendMessage" type="primary"
+            class="flex! justify-center! items-center! w-[35px]! h-[35px]! rounded-full!">
             <template #icon>
                 <icon-send-component class="w-6 h-6" />
             </template>
         </a-button>
     </div>
 </template>
+
+<style>
+.blur-bg {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.2);
+}
+</style>

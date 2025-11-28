@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 import IconSamsung from './icons/companies/IconSamsung.vue';
 import IconApple from './icons/companies/IconApple.vue';
 import IconXiaomi from './icons/companies/IconXiaomi.vue';
