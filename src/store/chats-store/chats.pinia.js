@@ -21,6 +21,7 @@ const useChat = defineStore("chat", {
     users: [],
     searchLoading: false,
     chatLoading: false,
+    deleteLoading: false,
     messageLoading: false,
     messageCount: 0,
   }),
@@ -45,22 +46,32 @@ const useChat = defineStore("chat", {
           if (!this.messages[chat.chat_id]) {
             this.messages[chat.chat_id] = chat.text ? [chat] : [];
           }
+          this.messageCount = list.reduce(
+            (count, chat) => count + Number(chat.unread_count),
+            0
+          );
         });
 
         this.chatLoading = false;
       });
 
       this.socket.on("new_message", (msg) => {
-        if (!this.messages[msg.chat_id]) {
-          this.messages[msg.chat_id] = [];
-        }
-        useMessage().messages.push(msg);
+        useMessage().addMessage(msg.chat_id, msg);
+
         if (this.userId !== msg.sender_id) {
           notification.info({
-            message: "Sizga yangi xabar keldi",
+            message: `Sizga yangi xabar keldi: ${msg.text}`,
           });
           this.messageCount++;
         }
+      });
+
+      this.socket.on("messages_deleted", (deletedIds) => {
+        const messageStore = useMessage();
+
+        messageStore.messages = messageStore.messages.filter(
+          (msg) => !deletedIds.includes(msg.id)
+        );
       });
 
       this.socket.on("disconnect", () => {
@@ -92,6 +103,20 @@ const useChat = defineStore("chat", {
       );
     },
 
+    readMessage() {
+      this.socket.emit("read_messages", {
+        userId: this.userId,
+        chatId: this.chatId,
+      });
+    },
+
+    openChat() {
+      this.socket.emit("open_chat", {
+        userId: this.userId,
+        chatId: this.chatId,
+      });
+    },
+
     searchUsers(username = "") {
       this.searchLoading = true;
       api({
@@ -110,6 +135,29 @@ const useChat = defineStore("chat", {
         .finally(() => {
           this.searchLoading = false;
         });
+    },
+
+    deleteMessages(messageIds) {
+      if (!this.socket) return;
+
+      this.deleteLoading = true;
+
+      this.socket.emit(
+        "delete_messages",
+        { userId: this.userId, messageIds },
+        (response) => {
+          this.deleteLoading = false;
+
+          if (response?.error) {
+            notification.error({ message: response.error });
+          } else {
+            // optional: frontendda instant o'chirish
+            this.messages = this.messages.filter(
+              (msg) => !response.deletedMessages.includes(msg.id)
+            );
+          }
+        }
+      );
     },
   },
 });

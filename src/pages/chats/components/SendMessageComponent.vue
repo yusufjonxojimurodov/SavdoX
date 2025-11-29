@@ -111,12 +111,12 @@ function reset() {
 </script>
 
 <template>
-    <div
-        class="hidden md:flex blur-bg rounded-[30px]! shadow-md p-2! justify-center gap-4 items-center w-[400px] fixed bottom-6 left-[55%]">
+    <div v-if="chatsStore.userInfo.openChat"
+        class="flex blur-bg rounded-[30px]! shadow-md p-2! justify-center gap-4 items-center w-[300px] lg:w-[400px] fixed bottom-6 left-1/2 -translate-x-1/2 lg:left-[70%]">
         <div>
             <a-textarea :disabled="!chatsStore.userInfo.openChat" v-model:value="message"
                 v-if="!isRecording && !isRecorded" placeholder="Xabaringizni kiriting"
-                class="w-[330px]! !bg-transparent shadow-none!" :auto-size="{ minRows: 1, maxRows: 8 }" />
+                class="!w-[220px] lg:w-[330px]! !bg-transparent shadow-none!" :auto-size="{ minRows: 1, maxRows: 8 }" />
             <canvas v-else ref="canvasRef" width="400" height="40" class="rounded bg-blue-50"></canvas>
         </div>
         <!-- <a-button @mousedown="startRecording" @mouseup="stopRecording" type="primary"
