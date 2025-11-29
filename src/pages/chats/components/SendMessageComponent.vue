@@ -4,8 +4,10 @@ import IconRecording from '@/components/icons/IconRecording.vue';
 import IconPaperclip from '@/components/icons/IconPaperclip.vue';
 import { ref } from 'vue';
 import useChat from '@/store/chats-store/chats.pinia';
+import useRegister from '@/store/register.pinia';
 
 const chatsStore = useChat()
+const registerStore = useRegister()
 
 const fileList = ref([])
 const isRecording = ref(false)
@@ -102,7 +104,11 @@ const drawWave = () => {
 }
 
 function sendMessage() {
-    chatsStore.sendMessageSocket(chatsStore.userInfo.receiverId, message.value, reset)
+    if (registerStore.user) {
+        chatsStore.sendMessageSocket(chatsStore.userInfo.receiverId, message.value, reset)
+    } else {
+        registerStore.openDrawer()
+    }
 }
 
 function reset() {

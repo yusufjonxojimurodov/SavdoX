@@ -7,10 +7,12 @@ import ChatListSkeleton from './skeletons/ChatListSkeleton.vue';
 import { ref } from 'vue';
 import useChat from '@/store/chats-store/chats.pinia';
 import useMessage from '@/store/chats-store/messages.pinia';
+import useRegister from '@/store/register.pinia';
 
 const router = useRouter()
 const chatsStore = useChat()
 const messageStore = useMessage()
+const registerStore = useRegister()
 
 const openNewChat = ref(false)
 
@@ -38,7 +40,7 @@ const openChat = (chat) => {
                 </a-button>
                 <h2 class="font-bold! text-2xl! !p-0 !m-0">Chatlaringiz</h2>
             </div>
-            <a-button @click="openNewChat = true"
+            <a-button @click="registerStore.user ? openNewChat = true : registerStore.openDrawer()"
                 class="flex! rounded-[30px]! w-full! justify-center! items-center! gap-2!" type="primary" size="large">
                 <template #icon>
                     <icon-plus />
