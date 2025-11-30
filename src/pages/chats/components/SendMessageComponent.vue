@@ -14,6 +14,7 @@ const isRecording = ref(false)
 const isRecorded = ref(false)
 const recordedAudioUrl = ref(null)
 const message = ref("")
+const innerWidth = ref(window.innerWidth)
 
 const mediaRecorder = ref(null)
 const audioChunks = ref([])
@@ -104,12 +105,16 @@ const drawWave = () => {
 }
 
 function handleKeydown(e) {
-    if (e.key === "Enter" && e.shiftKey) {
-        return
-    }
+    if (innerWidth.value > 768) {
+        if (e.key === "Enter" && e.shiftKey) {
+            return
+        }
 
-    if (e.key === "Enter") {
-        e.preventDefault()
+        if (e.key === "Enter") {
+            e.preventDefault()
+            sendMessage()
+        }
+    } else {
         sendMessage()
     }
 }

@@ -59,6 +59,13 @@ function copyText(text) {
             message.success(error || "Xabar nusxalanmadi")
         })
 }
+
+function back() {
+    chatsStore.chatId = null
+    chatsStore.userInfo.username = ""
+    chatsStore.userInfo.receiverId = null
+    chatsStore.userInfo.openChat = false
+}
 </script>
 
 <template>
@@ -67,7 +74,7 @@ function copyText(text) {
             chatlardan
             birini tanlang</div>
         <div class="flex justify-start items-center gap-4 !ml-4 !mt-4 !mb-2">
-            <a-button @click="chatsStore.userInfo.openChat = false" type="primary"
+            <a-button @click="back" type="primary"
                 class="bg-white! w-[45px]! h-[45px]! !flex justify-center! items-center! rounded-full! shadow-lg!">
                 <template #icon>
                     <icon-back class="w-7 h-7 text-black" />
@@ -78,7 +85,7 @@ function copyText(text) {
                 <h2 class="text-xl font-semibold !p-0 m-0!">{{ chatsStore.userInfo.username }}</h2>
                 <a-tag :bordered="false" :color="chatsStore.userInfo.status === 'online' ? 'success' : 'error'">{{
                     chatsStore.userInfo.status
-                }}</a-tag>
+                    }}</a-tag>
             </div>
         </div>
 
@@ -109,7 +116,7 @@ function copyText(text) {
 
         <div ref="messageContainer" class="flex-1 overflow-y-auto !px-4">
             <div class="fixed top-1/2 -translate-x-1/2 left-1/2"
-                v-if="!messageStore.loading && messageStore.messages.length <= 0 && chatsStore.userInfo.openChat">
+                v-if="!messageStore.loading && messageStore.messages[chatsStore.chatId]?.length <= 0 && chatsStore.userInfo.openChat">
                 <a-empty :image="simpleImage" description="Xabarlar yo'q" />
             </div>
 
@@ -118,7 +125,8 @@ function copyText(text) {
                     :key="msg.id" :class="msg.sender_id === chatsStore.userId ? '!self-end !text-left' : '!self-start'">
 
                     <a-dropdown placement="bottomRight" trigger="contextmenu">
-                        <div @click="msg.sender_id === chatsStore.userId && toggleSelect(msg)"
+                        <div @contextmenu.prevent @mousedown.prevent
+                            @click="msg.sender_id === chatsStore.userId && toggleSelect(msg)"
                             class="!px-4 cursor-pointer !py-2 rounded-2xl transition duration-500 max-w-[400px] break-words whitespace-pre-wrap"
                             :class="[msg.sender_id === chatsStore.userId
                                 ? 'bg-[#ff8c00] text-white'
