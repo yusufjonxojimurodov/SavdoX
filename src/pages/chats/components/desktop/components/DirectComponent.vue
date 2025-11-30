@@ -39,7 +39,7 @@ watch(
             }
         })
     },
-    { immediate: true }
+    { immediate: true, deep: true }
 )
 
 const deleteSelected = async () => {
@@ -58,7 +58,7 @@ const deleteSelected = async () => {
             <h2 class="text-xl font-semibold !p-0 m-0!">{{ chatsStore.userInfo.username }}</h2>
             <a-tag :bordered="false" :color="chatsStore.userInfo.status === 'online' ? 'success' : 'error'">{{
                 chatsStore.userInfo.status
-            }}</a-tag>
+                }}</a-tag>
         </div>
         <transition name="slide-fade">
             <div v-if="selectedMessages.length > 0"
@@ -84,16 +84,16 @@ const deleteSelected = async () => {
 
             <div v-else-if="chatsStore.userInfo.openChat" class="flex flex-col gap-3 !py-4 mb-20!">
                 <div v-for="msg in chatsStore.chatId ? messageStore.messages[chatsStore.chatId] || [] : []"
-                    :key="msg.id"
-                    :class="msg.sender_id === chatsStore.userId ? '!self-end !text-right' : '!self-start'">
+                    :key="msg.id" :class="msg.sender_id === chatsStore.userId ? '!self-end !text-left' : '!self-start'">
 
                     <div @click="msg.sender_id === chatsStore.userId && toggleSelect(msg)"
-                        class="!px-4 cursor-pointer !py-2 rounded-2xl w-full break-words" :class="[msg.sender_id === chatsStore.userId
+                        class="!px-4 cursor-pointer !py-2 rounded-2xl max-w-[400px] break-words whitespace-pre-wrap"
+                        :class="[msg.sender_id === chatsStore.userId
                             ? 'bg-[#ff8c00] text-white'
                             : 'bg-gray-200 text-black',
                         selectedMessages.includes(msg.id) ? 'border-1 border-[#000000]' : ''
                         ]">
-                        {{ msg.text }}
+                        {{ msg.text.trimEnd() }}
                     </div>
 
                     <span class="text-xs !opacity-60 !mt-1">

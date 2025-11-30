@@ -64,7 +64,7 @@ const openChat = (chat) => {
                                 chat.status
                                 }}</a-tag>
                         </div>
-                        <span class="text-[12px] text-gray-500 !p-0 !m-0">Oxirgi xabar: {{ chat.text }}</span>
+                        <span class="text-[12px] text-gray-500 !p-0 !m-0 truncate w-60">Oxirgi xabar: {{ chat.text }}</span>
                     </div>
                 </div>
             </div>

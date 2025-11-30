@@ -72,7 +72,7 @@ const openChat = (chat) => {
                             {{ chat.unread_count }}
                         </div>
                     </div>
-                    <span class="text-[12px] !p-0 !m-0">
+                    <span class="text-[12px] !p-0 !m-0 truncate w-60">
                         Oxirgi xabar: {{ chat.text }}
                     </span>
                 </div>
