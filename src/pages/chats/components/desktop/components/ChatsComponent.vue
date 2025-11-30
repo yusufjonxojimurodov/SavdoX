@@ -73,7 +73,7 @@ const openChat = (chat) => {
                         </div>
                     </div>
                     <span class="text-[12px] !p-0 !m-0 truncate w-60">
-                        Oxirgi xabar: {{ chat.text }}
+                        {{ chat.text ? `Oxirgi xabar: ${chat.text}` : "Xabarlar yo'q" }}
                     </span>
                 </div>
             </div>

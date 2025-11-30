@@ -68,10 +68,15 @@ const useChat = defineStore("chat", {
 
       this.socket.on("messages_deleted", (deletedIds) => {
         const messageStore = useMessage();
+        console.log("men ishlavoman")
 
-        messageStore.messages = messageStore.messages.filter(
-          (msg) => !deletedIds.includes(msg.id)
-        );
+        Object.keys(messageStore.messages).forEach((chatId) => {
+          if (!Array.isArray(messageStore.messages[chatId])) return;
+
+          messageStore.messages[chatId] = messageStore.messages[chatId].filter(
+            (msg) => !deletedIds.includes(msg.id)
+          );
+        });
       });
 
       this.socket.on("disconnect", () => {

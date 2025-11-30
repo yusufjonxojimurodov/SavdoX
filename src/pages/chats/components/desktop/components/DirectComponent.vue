@@ -4,7 +4,10 @@ import useChat from '@/store/chats-store/chats.pinia';
 import useMessage from '@/store/chats-store/messages.pinia';
 import MessageSkeleton from './skeletons/MessageSkeleton.vue';
 import IconTrash from '@/components/icons/IconTrash.vue';
+import IconCopy from '@/components/icons/IconCopy.vue';
 import dayjs from 'dayjs';
+import { message } from 'ant-design-vue';
+import IconCansel from '@/components/icons/IconCansel.vue';
 
 const chatsStore = useChat()
 const messageStore = useMessage()
@@ -46,6 +49,16 @@ const deleteSelected = async () => {
     await chatsStore.deleteMessages(selectedMessages.value)
     selectedMessages.value = []
 }
+
+function copyText(text) {
+    navigator.clipboard.writeText(text)
+        .then(() => {
+            message.success("Xabar nusxalandi")
+        })
+        .catch((error) => {
+            message.success(error || "Xabar nusxalanmadi")
+        })
+}
 </script>
 
 <template>
@@ -62,23 +75,31 @@ const deleteSelected = async () => {
         </div>
         <transition name="slide-fade">
             <div v-if="selectedMessages.length > 0"
-                class="!mx-4 !mt-2 !p-3 bg-white shadow rounded-[30px] flex justify-between items-center">
+                class="absolute top-3 !px-4 !py-2 bg-white shadow rounded-[30px] w-[300px] flex justify-between items-center">
 
                 <span class="font-medium text-lg">
                     {{ selectedMessages.length }} ta xabar o'chiriladi
                 </span>
 
-                <a-button :loading="chatsStore.deleteLoading" class="!flex !justify-center !items-center" danger
-                    type="primary" @click="deleteSelected">
-                    <template #icon>
-                        <icon-trash class="w-5 h-5" />
-                    </template>
-                </a-button>
+                <div class="flex justify-center items-center gap-2">
+                    <a-button :loading="chatsStore.deleteLoading"
+                        class="!flex !justify-center !items-center bg-transparent! !border-1 !border-red-500 !text-red-500"
+                        @click="deleteSelected">
+                        <template #icon>
+                            <icon-trash class="w-5 h-5" />
+                        </template>
+                    </a-button>
+                    <a-button @click="selectedMessages = []" class="!flex !justify-center !items-center" type="primary">
+                        <template #icon>
+                            <icon-cansel class="w-3 h-3" />
+                        </template>
+                    </a-button>
+                </div>
             </div>
         </transition>
         <div ref="messageContainer" class="flex-1 overflow-y-auto !px-4">
             <div class="fixed top-1/2 left-[63%]"
-                v-if="!messageStore.loading && messageStore.messages.length <= 0 && chatsStore.userInfo.openChat">
+                v-if="!messageStore.loading && messageStore.messages[chatsStore.chatId]?.length <= 0 && chatsStore.userInfo.openChat">
                 <a-empty description="Xabarlar yo'q" />
             </div>
 
@@ -86,15 +107,34 @@ const deleteSelected = async () => {
                 <div v-for="msg in chatsStore.chatId ? messageStore.messages[chatsStore.chatId] || [] : []"
                     :key="msg.id" :class="msg.sender_id === chatsStore.userId ? '!self-end !text-left' : '!self-start'">
 
-                    <div @click="msg.sender_id === chatsStore.userId && toggleSelect(msg)"
-                        class="!px-4 cursor-pointer !py-2 rounded-2xl max-w-[400px] break-words whitespace-pre-wrap"
-                        :class="[msg.sender_id === chatsStore.userId
-                            ? 'bg-[#ff8c00] text-white'
-                            : 'bg-gray-200 text-black',
-                        selectedMessages.includes(msg.id) ? 'border-1 border-[#000000]' : ''
-                        ]">
-                        {{ msg.text.trimEnd() }}
-                    </div>
+                    <a-dropdown placement="bottomRight" trigger="contextmenu">
+                        <div @click="msg.sender_id === chatsStore.userId && toggleSelect(msg)"
+                            class="!px-4 cursor-pointer !py-2 rounded-2xl transition duration-500 max-w-[400px] break-words whitespace-pre-wrap"
+                            :class="[msg.sender_id === chatsStore.userId
+                                ? 'bg-[#ff8c00] text-white'
+                                : 'bg-gray-200 text-black',
+                            selectedMessages.includes(msg.id) ? 'shadow-lg scale-107' : ''
+                            ]">
+                            {{ msg.text.trimEnd() }}
+                        </div>
+
+                        <template #overlay>
+                            <a-menu class="!max-w-[140px]">
+                                <a-menu-item @click="copyText(msg.text)">
+                                    <div class="flex justify-start items-center gap-2">
+                                        Nusxa olish
+                                        <icon-copy class="w-4 h-4" />
+                                    </div>
+                                </a-menu-item>
+                                <a-menu-item v-if="msg.sender_id === chatsStore.userId" @click="toggleSelect(msg)">
+                                    <div class="flex justify-start items-center gap-2">
+                                        O'chirish
+                                        <icon-trash class="w-4 h-4 text-red-500" />
+                                    </div>
+                                </a-menu-item>
+                            </a-menu>
+                        </template>
+                    </a-dropdown>
 
                     <span class="text-xs !opacity-60 !mt-1">
                         {{ dayjs(msg.created_at).format('HH:mm') }}

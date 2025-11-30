@@ -50,22 +50,30 @@ const openChat = (chat) => {
         </div>
         <div class="flex justify-start flex-col gap-4 items-center h-full! w-[93%]! mt-5!">
             <div v-if="chatsStore.chatList.length > 0" v-for="chat in chatsStore.chatList" :key="chat.id"
-                class="flex justify-center items-center flex-col gap-4 w-full!"
+                @click="openChat(chat)"
+                class="flex justify-start items-start shadow-md w-full !rounded-[30px] hover:bg-[#ff8c00] hover:text-white cursor-pointer transition duration-300 gap-2 p-4!"
                 :class="chatsStore.chatId === chat.chat_id ? 'bg-[#ff8c00] text-white' : 'bg-white text-black'">
-                <div class="flex justify-start items-start shadow-md p-4! bg-white! w-full! rounded-[30px]! hover:scale-[1.02] cursor-pointer transition duration-300 gap-2"
-                    @click="openChat(chat)">
-                    <a-avatar :src="chat.avatar || ''" :size="40">
-                        <span class="text-[24px]! font-semibold!">{{ chat.username?.charAt(0).toUpperCase() }}</span>
-                    </a-avatar>
-                    <div class="flex justify-start flex-col gap-1">
-                        <div class="flex justify-start items-center gap-2">
-                            <p class="!p-0 !m-0 text-[18px]! font-semibold! text-gray-800!">{{ chat.username }}</p>
-                            <a-tag :bordered="false" :color="chat.status === 'online' ? 'success' : 'error'">{{
-                                chat.status
-                                }}</a-tag>
+
+                <a-avatar :src="chat.avatar || ''" :size="40">
+                    <span class="text-[24px]! font-semibold!">{{ chat.username?.charAt(0).toUpperCase() }}</span>
+                </a-avatar>
+
+                <div class="flex justify-start flex-col gap-1">
+                    <div class="flex justify-between items-center">
+                        <div class="flex justify-center items-center gap-2">
+                            <p class="!p-0 !m-0 text-[18px]! font-semibold!">{{ chat.username }}</p>
+                            <a-tag :bordered="false" :color="chat.status === 'online' ? 'success' : 'error'">
+                                {{ chat.status }}
+                            </a-tag>
                         </div>
-                        <span class="text-[12px] text-gray-500 !p-0 !m-0 truncate w-60">Oxirgi xabar: {{ chat.text }}</span>
+                        <div v-if="chat.unread_count > 0"
+                            class="absolute right-6 w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center">
+                            {{ chat.unread_count }}
+                        </div>
                     </div>
+                    <span class="text-[12px] !p-0 !m-0 truncate w-60">
+                        {{ chat.text ? `Oxirgi xabar: ${chat.text}` : "Xabarlar yo'q" }}
+                    </span>
                 </div>
             </div>
             <a-empty v-else-if="!chatsStore.chatLoading"
