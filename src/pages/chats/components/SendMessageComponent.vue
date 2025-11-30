@@ -115,7 +115,9 @@ function handleKeydown(e) {
             sendMessage()
         }
     } else {
-        sendMessage()
+       if (e.key === "Enter" && e.shiftKey) {
+            sendMessage()
+        }
     }
 }
 
