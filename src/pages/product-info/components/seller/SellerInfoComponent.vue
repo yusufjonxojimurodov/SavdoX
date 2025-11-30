@@ -1,15 +1,18 @@
 <script setup>
 import useProductInfo from '@/store/products.info.pinia';
-import IconPhone from '@/components/icons/IconPhone.vue';
 import IconPoints from '@/components/icons/IconPoints.vue';
 import IconRating from '@/components/icons/IconRating.vue';
 import SellerSkeleton from '../skeleton-components/SellerSkeleton.vue';
 import IconComent from '@/components/icons/IconComent.vue';
 import { useRouter } from 'vue-router';
 import IconCall from '@/components/icons/IconCall.vue';
+import useChat from '@/store/chats-store/chats.pinia';
+import useMessage from '@/store/chats-store/messages.pinia';
 
 const productInfo = useProductInfo()
 const router = useRouter()
+const chatsStore = useChat()
+const messageStore = useMessage()
 
 const open = defineModel("open", { type: Boolean, default: false })
 
@@ -20,14 +23,20 @@ function contactSeller(status) {
         window.open(`tel:${productInfo.sellerInfo.phone}`, '_blank')
     }
 }
+
+const openChat = (seller) => {
+    messageStore.$reset()
+    chatsStore.userInfo.username = seller.username
+    chatsStore.userInfo.receiverId = seller.id
+    router.push({ name: "Chats" })
+    chatsStore.userInfo.openChat = true
+}
 </script>
 
 <template>
     <div v-if="!productInfo.loader || productInfo.sellerInfo"
         class="flex flex-col gap-6 !mt-6 bg-white rounded-[30px]! shadow-lg !p-6 w-[100%] lg:w-[430px] mx-auto">
         <div class="flex items-center gap-5 border-b !pb-4">
-            <!-- <a-avatar :size="90" :src="productInfo.sellerInfo.avatar"
-                class="!rounded-full border-2 !border-[#FF8C00]" /> -->
             <div class="flex flex-col">
                 <h2 class="text-[#212529] text-2xl font-bold">
                     {{ productInfo.sellerInfo.name }} {{ productInfo.sellerInfo.surname }}
@@ -76,14 +85,13 @@ function contactSeller(status) {
                     Bog'lanish
                 </a-button>
             </a-popconfirm>
-            <a-tooltip title="Tez orada...">
-                <a-button disabled size="large" class="!flex justify-center items-center gap-2 blur-[2px]">
-                    <template #icon>
-                        <icon-coment class="w-5 h-5" />
-                    </template>
-                    Chatni ochish
-                </a-button>
-            </a-tooltip>
+            <a-button @click="openChat(productInfo.sellerInfo)" size="large"
+                class="!flex justify-center items-center gap-2">
+                <template #icon>
+                    <icon-coment class="w-5 h-5" />
+                </template>
+                Chatni ochish
+            </a-button>
         </div>
     </div>
 

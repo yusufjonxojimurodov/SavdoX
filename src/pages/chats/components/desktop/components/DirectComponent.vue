@@ -1,5 +1,5 @@
 <script setup>
-import { nextTick, ref, watch } from 'vue';
+import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import useChat from '@/store/chats-store/chats.pinia';
 import useMessage from '@/store/chats-store/messages.pinia';
 import MessageSkeleton from './skeletons/MessageSkeleton.vue';
@@ -7,6 +7,7 @@ import IconTrash from '@/components/icons/IconTrash.vue';
 import IconCopy from '@/components/icons/IconCopy.vue';
 import dayjs from 'dayjs';
 import { message } from 'ant-design-vue';
+import IconBack from '@/components/icons/IconBack.vue';
 import IconCansel from '@/components/icons/IconCansel.vue';
 
 const chatsStore = useChat()
@@ -59,6 +60,27 @@ function copyText(text) {
             message.success(error || "Xabar nusxalanmadi")
         })
 }
+
+function back() {
+    chatsStore.chatId = null
+    chatsStore.userInfo.username = ""
+    chatsStore.userInfo.receiverId = null
+    chatsStore.userInfo.openChat = false
+}
+
+function handleEsc(e) {
+    if (e.key === 'Escape') {
+        back()
+    }
+}
+
+onMounted(() => {
+    window.addEventListener("keydown", handleEsc)
+})
+
+onBeforeUnmount(() => {
+    window.removeEventListener("keydown", handleEsc)
+})
 </script>
 
 <template>
@@ -66,12 +88,20 @@ function copyText(text) {
         <div v-if="!chatsStore.userInfo.openChat" class="seriy-bg fixed top-1/2 left-[56%]">Xabarni boshlash uchun
             chatlardan
             birini tanlang</div>
-        <div v-if="chatsStore.userInfo.openChat"
-            class="px-4! py-3! bg-white w-[30%] flex justify-start items-center gap-2 !ml-4 !mt-4 shadow rounded-[30px] !mb-2 !sticky !top-0 !z-10">
-            <h2 class="text-xl font-semibold !p-0 m-0!">{{ chatsStore.userInfo.username }}</h2>
-            <a-tag :bordered="false" :color="chatsStore.userInfo.status === 'online' ? 'success' : 'error'">{{
-                chatsStore.userInfo.status
+        <div v-if="chatsStore.userInfo.openChat" class="flex justify-start items-center gap-4 !ml-4 !mt-4 !mb-2">
+            <a-button @keyup.esc="back" @click="back" type="primary"
+                class="bg-white! w-[45px]! h-[45px]! !flex justify-center! items-center! rounded-full! shadow-lg!">
+                <template #icon>
+                    <icon-back class="w-7 h-7 text-black" />
+                </template>
+            </a-button>
+            <div
+                class="px-4! py-3! bg-white w-[70%] md:w-[30%] flex justify-start items-center gap-2 shadow rounded-[30px] !sticky !top-0 !z-10">
+                <h2 class="text-xl font-semibold !p-0 m-0!">{{ chatsStore.userInfo.username }}</h2>
+                <a-tag :bordered="false" :color="chatsStore.userInfo.status === 'online' ? 'success' : 'error'">{{
+                    chatsStore.userInfo.status
                 }}</a-tag>
+            </div>
         </div>
         <transition name="slide-fade">
             <div v-if="selectedMessages.length > 0"

@@ -91,7 +91,7 @@ function back() {
 
         <transition name="slide-fade">
             <div v-if="selectedMessages.length > 0"
-                class="absolute -translate-x-1/2 left-1/2 top-3 !px-4 !py-2 bg-white shadow rounded-[30px] w-[300px] flex justify-between items-center">
+                class="fixed -translate-x-1/2 left-1/2 top-3 !px-4 !py-2 bg-white shadow rounded-[30px] w-[300px] flex justify-between items-center">
 
                 <span class="font-medium text-lg">
                     {{ selectedMessages.length }} ta xabar o'chiriladi
