@@ -37,7 +37,7 @@ function openProductInfo(url) {
             }" class="!w-full h-[40%]  sm:!h-[300px] rounded-2xl overflow-visible">
             <swiper-slide v-for="(image, index) in bannerStore.banners" :key="index"
                 class="w-[380px] sm:!w-[720px] rounded-2xl transition-transform duration-500">
-                <img @click="openProductInfo(image.productUrl)" :src="image.image" alt="Product image"
+                <img @click="openProductInfo(image.product_url)" :src="image.image" alt="Product image"
                     class="w-[100%] h-[100%] sm:w-[680px] sm:h-[300px] cursor-pointer object-cover object-center rounded-2xl" />
             </swiper-slide>
         </swiper>
