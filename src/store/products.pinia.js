@@ -8,10 +8,13 @@ import {
   ApiGetProducts,
 } from "../api/products.api";
 import { message } from "ant-design-vue";
+import api from "../utils/api/api";
 
 const useProducts = defineStore("products", {
   state: () => ({
     products: [],
+    models: [],
+    types: [],
     productId: null,
     basketProducts: [],
     modalOpen: false,
@@ -27,6 +30,32 @@ const useProducts = defineStore("products", {
 
     closeInfoModal() {
       this.modalOpen = false;
+    },
+
+    getModels() {
+      api({
+        url: "/api/products/models",
+        method: "GET",
+      })
+        .then(({ data }) => {
+          this.models = data.models;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
+    getTypes() {
+      api({
+        url: "/api/products/types",
+        method: "GET",
+      })
+        .then(({ data }) => {
+          this.types = data.types;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
 
     async getProducts(params = {}) {

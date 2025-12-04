@@ -9,12 +9,14 @@ import { watch } from 'vue';
 import useNotification from './store/notifications.pinia';
 import { useRoute } from 'vue-router';
 import useChat from './store/chats-store/chats.pinia';
+import useProducts from './store/products.pinia';
 
 const registerStore = useRegister()
 const settingStore = useSetting()
 const chatsStore = useChat()
 const route = useRoute()
 const notificationStore = useNotification()
+const productsStore = useProducts()
 
 onBeforeMount(() => {
   ApiVisits()
@@ -32,6 +34,7 @@ watch(() => registerStore.user, () => {
 onMounted(async () => {
   await registerStore.userInfo()
   settingStore.getUserAvatar()
+  productsStore.getTypes()
 })
 </script>
 

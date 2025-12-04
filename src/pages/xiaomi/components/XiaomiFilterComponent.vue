@@ -4,7 +4,9 @@ import useQueryParams from '@/composables/useQueryParams';
 import { debounce } from '@/utils/helpers/debounce';
 import IconBack from '@/components/icons/IconBack.vue';
 import { useRouter } from 'vue-router';
+import useProducts from '@/store/products.pinia';
 
+const productsStore = useProducts()
 const { setQueries, getQueries } = useQueryParams()
 const router = useRouter()
 
@@ -28,18 +30,6 @@ const options = ref([
         label: "Arzon Mahsulotlar"
     }
 ])
-
-const types = [
-    { label: 'Aqlli Soat', value: 'smartwatch' },
-    { label: 'Smartfon', value: 'smartfon' },
-    { label: 'Noutbook', value: 'laptop' },
-    { label: 'Monitor', value: 'display' },
-    { label: 'Kompyuter', value: 'computer' },
-    { label: 'Quloqchin', value: 'headphones' },
-    { label: 'Zaryadlovchi qurilmalar', value: 'chargers' },
-    { label: 'Klaviatura', value: 'keyboard' },
-    { label: 'Sichqoncha', value: 'mouse' },
-]
 
 function changeFilter(value) {
     setQueries({
@@ -70,7 +60,7 @@ function changeTypeFilter(value) {
                 <a-select v-model:value="selectValue" @change="changeFilter" class="responsive-select" allow-clear
                     size="large" :options="options" placeholder="Narxni tanlang" />
                 <a-select v-model:value="selectType" size="large" @change="changeTypeFilter" class="responsive-select"
-                    placeholder="Turini tanlang" :options="types" allowClear />
+                    placeholder="Turini tanlang" :options="productsStore.types" allowClear />
                 <a-input v-model:value="searchProductValue" @input="searchProduct" size="large"
                     class="sm:!w-[220px] !w-full" placeholder="Qidiring..." />
             </div>
