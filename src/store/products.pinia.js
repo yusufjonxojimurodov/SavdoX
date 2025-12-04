@@ -34,7 +34,7 @@ const useProducts = defineStore("products", {
 
     getModels() {
       api({
-        url: "/api/products/models",
+        url: "/api/product/models",
         method: "GET",
       })
         .then(({ data }) => {
@@ -47,7 +47,7 @@ const useProducts = defineStore("products", {
 
     getTypes() {
       api({
-        url: "/api/products/types",
+        url: "/api/product/types",
         method: "GET",
       })
         .then(({ data }) => {
