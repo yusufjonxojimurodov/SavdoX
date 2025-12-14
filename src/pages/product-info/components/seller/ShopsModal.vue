@@ -51,7 +51,7 @@ function getStatusShop(shop) {
     <a-modal :width="700" :body-style="{ maxHeight: '520px', overflowY: 'auto' }" centered v-model:open="open"
         title="Sotuvchi do'konlari">
         <div v-for="shop in shopsList" :key="shop.id" class="!px-4">
-            <div class="border border-gray-500 !p-4 rounded-[20px] w-full !mt-4
+            <div class="shadow-md !mb-3 !p-4 rounded-[20px] w-full !mt-4
            flex flex-col gap-3
            md:flex-row md:justify-between md:items-end">
 
@@ -59,7 +59,7 @@ function getStatusShop(shop) {
                     <div class="flex flex-col gap-2
                sm:flex-row sm:justify-between sm:items-center">
 
-                        <span class="font-semibold text-[20px] sm:text-[24px]">
+                        <span class="font-semibold line-clamp-1 text-[20px] sm:text-[24px]">
                             {{ shop.name }}
                         </span>
 
@@ -85,6 +85,7 @@ function getStatusShop(shop) {
                         </a>
                     </div>
                 </div>
+                <a-qrcode :color="'orange'" :size="80" :value="`https://www.google.com/maps?q=${shop.lat},${shop.lng}`" />
             </div>
         </div>
 
