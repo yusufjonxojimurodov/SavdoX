@@ -10,6 +10,7 @@ import useNotification from './store/notifications.pinia';
 import { useRoute } from 'vue-router';
 import useChat from './store/chats-store/chats.pinia';
 import useProducts from './store/products.pinia';
+import FooterComponent from './components/FooterComponent.vue';
 
 const registerStore = useRegister()
 const settingStore = useSetting()
@@ -39,20 +40,22 @@ onMounted(async () => {
 </script>
 
 <template>
-  <router-view />
-  <helper-bot-component v-if="route.name !== 'Chats'" />
-  <div v-if="registerStore.userLoader" class="wrapper">
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-  </div>
-  <div v-if="registerStore.platformStatus.status === 400 || registerStore.platformStatus.status === 500"
-    class="down-wrapper">
-    <div class="flex justify-center items-center gap-4">
-      <IconTechnicIssue />
-      <h1 class="!p-0 !m-0">{{ registerStore.platformStatus?.text || "Texnik ishlar olib borilmoqda" }}</h1>
+  <div class="min-h-screen">
+    <router-view />
+    <helper-bot-component v-if="route.name !== 'Chats'" />
+    <div v-if="registerStore.userLoader" class="wrapper">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
     </div>
-    <p>Iltimos, keyinroq yana urinib ko‘ring.</p>
+    <div v-if="registerStore.platformStatus.status === 400 || registerStore.platformStatus.status === 500"
+      class="down-wrapper">
+      <div class="flex justify-center items-center gap-4">
+        <IconTechnicIssue />
+        <h1 class="!p-0 !m-0">{{ registerStore.platformStatus?.text || "Texnik ishlar olib borilmoqda" }}</h1>
+      </div>
+      <p>Iltimos, keyinroq yana urinib ko‘ring.</p>
+    </div>
   </div>
 </template>
 

@@ -1,18 +1,18 @@
-<template>
-    <a-card class="w-[280px] h-[380px] !rounded-[20px] overflow-hidden shadow-md flex items-center justify-center"
-        :bordered="false">
-        <a-skeleton-image :active="true" style="width: 100%; height: 100%; border-radius: 16px;" />
-    </a-card>
-</template>
-
 <script setup>
-import { SkeletonImage, Card as ACard } from 'ant-design-vue'
+import useProductInfo from '@/store/products.info.pinia';
+
+const productInfoStore = useProductInfo()
 </script>
 
-<style scoped>
-.ant-skeleton-element .ant-skeleton-image {
-    width: 100%;
-    height: 100%;
-    border-radius: 16px;
-}
-</style>
+<template>
+    <a-card class="!w-[100%] lg:!w-[430px] !rounded-[30px]" :loading="productInfoStore.loader">
+        <template #default>
+            <p>Skeleton</p>
+            <p>Skeleton</p>
+            <p>Skeleton</p>
+            <p>Skeleton</p>
+            <p>Skeleton</p>
+            <p>Skeleton</p>
+        </template>
+    </a-card>
+</template>

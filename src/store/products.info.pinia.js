@@ -24,7 +24,6 @@ const useProductInfo = defineStore("product", {
           this.product = data;
           this.productId = data.id
           this.sellerId = data.created_by
-          this.loader = true;
         })
         .catch((getErr) => {
           const errorMessage =

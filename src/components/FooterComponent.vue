@@ -7,7 +7,7 @@ import IconYoutube from './icons/IconYoutube.vue';
 <template>
     <footer class="bg-[#FF8C00] text-white !mt-[100px] relative">
         <div class="container">
-            <div class="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
+            <div class="w-full mx-auto px-4 py-10 sm:px-6 lg:px-8">
                 <nav class="
             flex flex-col gap-10
             md:flex-row md:justify-between md:items-start
