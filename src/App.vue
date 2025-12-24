@@ -36,6 +36,16 @@ onMounted(async () => {
   await registerStore.userInfo()
   settingStore.getUserAvatar()
   productsStore.getTypes()
+
+    for (let i = 0; i < 50; i++) {
+    const snow = document.createElement('div')
+    snow.className = 'snowflake'
+    snow.textContent = '❄'
+    snow.style.left = Math.random() * 100 + 'vw'
+    snow.style.animationDuration = (5 + Math.random() * 5) + 's'
+    snow.style.fontSize = (10 + Math.random() * 20) + 'px'
+    document.body.appendChild(snow)
+  }
 })
 </script>
 
@@ -52,14 +62,14 @@ onMounted(async () => {
       class="down-wrapper">
       <div class="flex justify-center items-center gap-4">
         <IconTechnicIssue />
-        <h1 class="!p-0 !m-0">{{ registerStore.platformStatus?.text || "Texnik ishlar olib borilmoqda" }}</h1>
+        <h1 class="!p-0 !m-0 h1">{{ registerStore.platformStatus?.text || "Texnik ishlar olib borilmoqda" }}</h1>
       </div>
-      <p>Iltimos, keyinroq yana urinib ko‘ring.</p>
+      <p class="p">Iltimos, keyinroq yana urinib ko‘ring.</p>
     </div>
   </div>
 </template>
 
-<style scoped>
+<style>
 .down-wrapper {
   height: 100vh;
   display: flex;
@@ -73,12 +83,29 @@ onMounted(async () => {
   text-align: center;
 }
 
-h1 {
+@keyframes fall {
+  0% { transform: translateY(-10px); }
+  100% { transform: translateY(100vh); }
+}
+
+.snowflake {
+  position: fixed;
+  top: -10px;
+  color: rgb(255, 255, 255);
+  user-select: none;
+  pointer-events: none;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  z-index: 99999999999;
+}
+
+.h1 {
   font-size: 2.5rem;
   margin-bottom: 10px;
 }
 
-p {
+.p {
   font-size: 1.2rem;
   opacity: 0.8;
 }
